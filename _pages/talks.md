@@ -2,7 +2,7 @@
 layout: archive
 title: "Notes"
 permalink: /notes/
-author_profile: false
+author_profile: true
 ---
 
 hello
