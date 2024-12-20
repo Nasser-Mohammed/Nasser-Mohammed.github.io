@@ -11,54 +11,30 @@ redirect_from:
 
 Education
 ======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+* M.S. in Mathematics, Louisiana State University, May 2026
+* B.S. in Computer Science and Mathematics, Louisiana State University, 2024
 
 Work experience
 ======
-* Spring 2024: Academic Pages Collaborator
-  * Github University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
+* Spring 2025 - present: Graduate Research Assistant
+  * Louisiana State University's Department of Civil Engineering
+  * Duties include: conducting research in the submerged 3D printing of concrete 
+  * Supervisor: Dr. Yen-Fang Su
 
-* Fall 2015: Research Assistant
-  * Github University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+* Spring 2022 - Spring 2024: Undergraduate Research Assistant
+  * Louisiana State University
+  * Duties included: conducting research and experiments in Federated Learning, computer vision, and machine learning
+  * Supervisor: Dr. Hao Wang
 
-* Summer 2015: Research Assistant
-  * Github University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
+* Fall 2022 - Spring 2023: Data Science Intern
+  * Harvard GAMI
+  * Duties included: creating predictive models for neurodegenerative disease detection
   
 Skills
 ======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+* Python
+* Machine Learning
+  * Computer Vision
+  * Physics-Informed Neural Nets
+* Applied Mathematics
 
-Publications
-======
-  <ul>{% for post in site.publications reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks reversed %}
-    {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
