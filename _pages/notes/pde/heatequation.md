@@ -21,4 +21,4 @@ As mentioned, the initial condition is the function or behavior of the function,
 How do we Begin to Solve it?
 ==
 We begin by making an assumption, this assumption is not random and does come from strong intuition. We assume that the solution takes the form,
-\\[u(x,t) = T(t)\underline{\overline{X}}(x)\\] In other words, we assume that the multivariable function \\(u(x,t)\\), is the product of a function of \\(t\\) and a function of \\(x\\), which we write as \\(T(t)\\) and \\(\underline{\overline{X}}(x)\\) respectively. 
+\\[u(x,t) = T(t)X(x)\\] In other words, we assume that the multivariable function \\(u(x,t)\\), is the product of a function of \\(t\\) and a function of \\(x\\), which we write as \\(T(t)\\) and \\(X(x)\\) respectively. 
