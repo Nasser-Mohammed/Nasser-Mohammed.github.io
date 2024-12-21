@@ -1,9 +1,6 @@
 ---
-layout: archive
-title: "Navigation"
-permalink: /nav.md/
-author_profile: false
+title: Analysis Topics
+type: book
 ---
 
-The list of analysis topics are listed below
-===
+Below is a list of topics
