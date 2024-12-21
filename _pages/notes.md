@@ -4,6 +4,10 @@ title: "Notes"
 permalink: /notes/
 author_profile: false
 ---
+
+
+
+
 Below is a list of different topics
 ===
 
