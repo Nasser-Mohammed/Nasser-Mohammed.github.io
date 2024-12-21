@@ -55,7 +55,7 @@ Solving for \\(\lambda\\) we get that \\(\lambda = \sqrt k\\). There are three p
 
 2. Two real roots: \\(X(x) = Ae^{\lambda_1x} + B e^{\lambda_2x}\\) where \\(A\\) and \\(B\\) are constants, and \\(\lambda_1\\) and \\(\lambda_2\\) are the roots of the characteristic equation.
 
-3. Complex root (root of the form \\(\alpha + \beta i\\): \\(X(x) = e^{\alpha x}(Asin(\beta x) + Bcos(\beta x)\\)
+3. Complex root (root of the form \\(\alpha + \beta i\\)): \\(X(x) = e^{\alpha x}(Asin(\beta x) + Bcos(\beta x)\\)
 
 
 In our scenario the solution of the characeristic equation is complex since k is negative, so \\(\alpha = 0\\), \\(\beta = -k\\). This is due to the fact that \\(k\\) is negative, so \\(\sqrt k = \sqrt {-k}i\\), so our solution will be of the form \\[X(x) = Asin(-kx) + Bcos(-kx)\\]
