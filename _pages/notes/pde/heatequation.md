@@ -60,7 +60,9 @@ Solving for \\(\lambda\\) we get that \\(\lambda = \sqrt k\\). There are three p
 In our scenario the solution of the characeristic equation is complex since \\(k\\) is negative, meaning \\(\sqrt k\\) produces an imaginary unit \\(i\\). So, more specifically, the solution to our characteristic equation is of the form \\(\alpha + \beta i\\) where \\(\alpha = 0\\), \\(\beta = -k\\). This is due to the fact that \\(k\\) is negative, so \\(\sqrt k = \sqrt {-k}i\\), then our solution will be of the form \\[X(x) = Acos(-kx) + Bsin(-kx)\\]
 Now that we have found \\(T(t)\\) and \\(X(x)\\), we can say that the *general* solution to the heat equation is \\[u(x,t) = Ae^{-k\alpha^2t}(Bcos(-kx) + Csin(-kx))\\] Where A, B, and C are arbitrary constants. This implies that any choice of A, B, and C will result in a solution to the heat equation. However, we can simplify this some, by distributing the \\(A\\) we get \\[u(x,t) = e^{-k\alpha^2t}(A\times Bcos(-kx) + A\times Csin(-kx))\\] Since \\(A\times B\\) and \\(A\times C\\) are both just products of constants (which produces another constant), we can simly write them as \\(A\\) and \\(B\\), hence our *general* solution to the heat equation is \\[u(x,t) = e^{-k\alpha^2 t}(Asin(-kx) + Bcos(-kx))\\] 
 
-
+Extending the Solution to Solve with Boundary Conditions
+=====
+To solve the heat equation with boundary conditions, you typically begin with the most simple case, homogenous Dirichlet boundary conditions. In the case of the one dimensional metal rod of length 1, our homogenous Dirichlet boundary conditions would be \\[u(0,t) = 0\\] and \\[u(1,t) = 0\\] Now since we know \\[u(x,t) = T(t)X(x)\\] then \\[u(0,t) = X(0)T(t) = 0\\] and \\[u(1,t) = X(1)T(t) = 0\\] This implies that \\(X(0) = 0\\) and \\(X(1) = 0\\) So, to extend our solution to account for this, we consider: \\[X(x) = Acos(-kx) + Bsin(-kx)\\] Now it is not enough for this function to satisfy the ODE that we previously solved. Now, it must also satisfy our boundary conditions, i.e. \\(X(0) = 0\\) and \\(X(1) = 0\\), so let's write that out. 
  
 
 
