@@ -6,4 +6,4 @@ author_profile: false
 --- 
 
 <hr style="border: 2px solid black;">
-\\[\nabla u = 0\\]
+\\[\nabla^2 u = 0\\]
