@@ -5,4 +5,5 @@ permalink: /notes/
 author_profile: false
 ---
 
-hello
+The Heat Equation
+==
