@@ -49,8 +49,11 @@ which results in \\[ln|T| = -k\alpha^2t + C\\] where \\(C\\) is just the constan
 Now here we can make a very important observation, if \\(k < 0\\) then \\(T(t)\\) will be \\(e\\) raised to a positive power, since time (\\(t\\)) is always greater than 0, and so is \\(\alpha^2\\). However, this also implies that as time increases (\\(t \rightarrow \infty\\)), then \\(T \rightarrow \infty\\), from a physical point of view, this is contradictory, since we cannot have infinite heat. So we conclude that \\(k > 0\\). \
 Now to tackle the second order ODE \\[X^{\''}(x) - kX(x) = 0\\]
 The characteristic equation for this ODE is \\[\lambda^2 - k = 0\\]
-Solving for \\(\lambda\\) we get that \\(\lambda = \sqrt k\\). The solution to second order ODEs have three possible solution forms depending on the roots of the characteristic equation. 
-\\[(1) Real repeated roots: T(t) = Ae^{\lambda_1t} + B e^{\lambda_2t}, where A and B are constants, and \lambda_1, \lambda_2 are roots of the characteristic equation
+Solving for \\(\lambda\\) we get that \\(\lambda = \sqrt k\\). There are three possible solution forms for second order ODEs, depending on the roots of the characteristic equation. 
+\\[(1) Two real roots: X(x) = Ae^{\lambda_1x} + B e^{\lambda_2x}, where A and B are constants, and \lambda_1, \lambda_2 are roots of the characteristic equation\\]
+\\[(2) One real root (sometimes called repeated roots): X(x) = (A+Bx)e^{\lambda x)\\]
+\\[(3) Complex root (when the solution to the characteristic equation is of the form \alpha + \beta i = 0): X(x) = e^{\alpha x}(Asin(\beta x) + Bcos(\beta x)\\]
+\\[In our scenario the solution of the characeristic equation is complex since k is negative, so \alpha = 0, \beta = -k. This is due to the fact that k is negative, so \sqrt k = \sqrt {-k}i, so our solution will be of the form X(x) = Asin(-kx) + Bcos(-kx)\\]
 
 
 
