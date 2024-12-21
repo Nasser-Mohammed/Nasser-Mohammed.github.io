@@ -46,7 +46,12 @@ Once we rewrite the ODE in \\(t\\) as \\[T'(t) = k\alpha^2T(t)\\] it is pretty a
 If you do not see why, I have in depth ODE notes as well. But to explain it briefly, if we do our cheat of treating \\(T'(t)\\) as a fraction by using Leibniz notation, we get \\[\frac{dT}{dt} = -k\alpha^2T\\] Multiplying both sides by \\(dt\\) and dividing both sides by \\(T\\) we have the equation \\[\frac{1}{T}dT = -k\alpha^2dt\\] We then integrate both sides, \\[\int \frac{1}{T}dT = \int -k\alpha^2dt\\]
 which results in \\[ln|T| = -k\alpha^2t + C\\] where \\(C\\) is just the constant of integration. Finally, we exponentiate both sides to get rid of the \\(ln|T|\\), this leaves us with \\[T = e^{-k\alpha^2t + C}\\] And by law of exponents, this is equivalent to \\[T = e^Ce^{-k\alpha^2t}\\] But \\(e^C\\) is just itself a constant, which we shall call \\(A\\). So in its final form, \\[T(t) = Ae^{-k\alpha^2t}\\]
 
-Now here we can make a very important observation, if \\(k < 0\\) then \\(T(t)\\) will be \\(e\\) raised to a positive power, since time (\\(t\\)) is always greater than 0, and so is \\(\alpha^2\\). However, this also implies that as time increases (\\(t \rightarrow \infty\\)), then \\(T \rightarrow \infty\\), from a physical point of view, this is contradictory, since we cannot have infinite heat. So we conclude that \\(k > 0\\) 
+Now here we can make a very important observation, if \\(k < 0\\) then \\(T(t)\\) will be \\(e\\) raised to a positive power, since time (\\(t\\)) is always greater than 0, and so is \\(\alpha^2\\). However, this also implies that as time increases (\\(t \rightarrow \infty\\)), then \\(T \rightarrow \infty\\), from a physical point of view, this is contradictory, since we cannot have infinite heat. So we conclude that \\(k > 0\\). \
+Now to tackle the second order ODE \\[X^{\''}(x) - kX(x) = 0\\]
+The characteristic equation for this ODE is \\[\lambda^2 - k = 0\\]
+Solving for \\(\lambda\\) we get that \\(\lambda = \sqrt k). The solution to second order ODEs have three possible solution forms depending on the roots of the characteristic equation. 
+\\[(1) Real repeated roots: T(t) = Ae^{\lambda_1t} + B e^{\lambda_2t}, where A and B are constants, and \lambda_1, \lambda_2 are roots of the characteristic equation
+
 
 
  
