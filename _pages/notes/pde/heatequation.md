@@ -51,7 +51,7 @@ Now to tackle the second order ODE \\[X^{\''}(x) - kX(x) = 0\\]
 The characteristic equation for this ODE is \\[\lambda^2 - k = 0\\]
 Solving for \\(\lambda\\) we get that \\(\lambda = \sqrt k\\). There are three possible solution forms for second order ODEs, depending on the roots of the characteristic equation.
 
-1. One real root (sometimes call repeated roots): \\(X(x) = \(A+Bx)e^{\lambda x)\\) where \\(A\\) and \\(B\\) are constants and \\(lambda\\) is the solution to the characteristic equation.
+1. One real root (sometimes call repeated roots): \\(X(x) = \(A+Bx)e^{\lambda x}\\) where \\(A\\) and \\(B\\) are constants and \\(\lambda\\) is the solution to the characteristic equation.
 
 2. Two real roots: \\(X(x) = Ae^{\lambda_1x} + B e^{\lambda_2x}\\) where \\(A\\) and \\(B\\) are constants, and \\(\lambda_1\\) and \\(\lambda_2\\) are the roots of the characteristic equation.
 
