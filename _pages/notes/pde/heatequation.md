@@ -17,3 +17,8 @@ The most basic boundary conditions are called Dirichlet boundary conditions. The
 Initial Condition on the Heat Equation
 ==
 As mentioned, the initial condition is the function or behavior of the function, defined at time 0 (when \\(t = 0\\)). For now we will simply consider that our initial condition is: \\(u(x, 0) = 0\\). In other words, there is initially no heat on the metal rod. 
+
+How do we Begin to Solve it?
+==
+We begin by making an assumption, this assumption is not random and does come from strong intuition. We assume that the solution takes the form,
+\\[u(x,t) = T(t)\underline{\overline{X}}(x)\\] In other words, we assume that the multivariable function \\(u(x,t)\\), is the product of a function of \\(t\\) and a function of \\(x\\), which we write as \\(T(t)\\) and \\(\underline{\overline{X}}(x)\\) respectively. 
