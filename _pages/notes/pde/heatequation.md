@@ -23,13 +23,6 @@ How do we Begin to Solve it?
 We begin by making an assumption, this assumption is not random and does come from strong intuition. We assume that the solution takes the form,
 \\[u(x,t) = T(t)X(x)\\] In other words, we assume that the multivariable function \\(u(x,t)\\), is the product of a function of \\(t\\) and a function of \\(x\\), which we write as \\(T(t)\\) and \\(X(x)\\) respectively. 
 
-Why Make this Assumption?
-=====
-As mentioned, this assumption is not random. We could skip trying to assume that the solution has the form \\(u(x,t) = T(t) + X(x)\\) since a solution of this form will have \\(u_t = T'(t)\\) and \\(u_{xx} = X''(x)\\), and plugging that into the PDE will give: \\[T'(t) =\alpha^2X''(x)\\]. But since \\(x\\) doesn't vary with \\(t\\) and vice versa, then the only way for this equation to be true, is for T(t) and X(x) to be constants, which is typically a sort of trivial answer to our solution. We want something that changes over time and evolves like heat does. The next step up from this assumption would be the assumption we made. More complicated assumptions can usually be broken down into either a product or sum, or some combination of those. Therefore it would be intuitive to expolore the \\(u(x,t) = T(t)X(x)\\) assumption. 
-
-Back to Solving the PDE
-=====
-Now with our assumption in hand, we can rewrite our PDE. If \\(u(x,t) = T(t)X(x)\\), then \\(u_t = T'(t)X(x)\\) and \\(u_{xx} = X''(x)T(t)\\), you can verify this by basic differentiation. We now rewrite our PDE by replacing \\(u\\) with our assumed form, in doing this we get that the PDE is \\[T'(t)X(x) = \alpha^2X''(x)T(t)\\] By dividing both sides by \\(T(t)\\) and \\(X(x)\\), we arrive at \\[\frac{{T'(t)}{T(t)}} = \alpha^2\frac{{X''(x)}{X(x)}}\\]
  
 
 
