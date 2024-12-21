@@ -58,7 +58,7 @@ Solving for \\(\lambda\\) we get that \\(\lambda = \sqrt k\\). There are three p
 3. Complex root (root of the form \\(\alpha + \beta i\\)): \\(X(x) = e^{\alpha x}(Asin(\beta x) + Bcos(\beta x))\\)
 
 
-In our scenario the solution of the characeristic equation is complex since k is negative, so \\(\alpha = 0\\), \\(\beta = -k\\). This is due to the fact that \\(k\\) is negative, so \\(\sqrt k = \sqrt {-k}i\\), then our solution will be of the form \\[X(x) = Asin(-kx) + Bcos(-kx)\\]
+In our scenario the solution of the characeristic equation is complex since \\(k\\)k is negative, so \\(\alpha = 0\\), \\(\beta = -k\\). This is due to the fact that \\(k\\) is negative, so \\(\sqrt k = \sqrt {-k}i\\), then our solution will be of the form \\[X(x) = Asin(-kx) + Bcos(-kx)\\]
 
 
 
