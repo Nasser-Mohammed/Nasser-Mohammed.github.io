@@ -55,9 +55,9 @@ Solving for \\(\lambda\\) we get that \\(\lambda = \sqrt k\\). There are three p
 
 2. Two real roots: \\(X(x) = Ae^{\lambda_1x} + B e^{\lambda_2x}\\) where \\(A\\) and \\(B\\) are constants, and \\(\lambda_1\\) and \\(\lambda_2\\) are the roots of the characteristic equation.
 
-3. Complex root (root of the form \\(\alpha + \beta i\\)): \\(X(x) = e^{\alpha x}(Asin(\beta x) + Bcos(\beta x))\\)
+3. Complex root (root of the form \\(\alpha + \beta i\\)): \\(X(x) = e^{\alpha x}(Acos(\beta x) + Bsin(\beta x))\\)
 
-In our scenario the solution of the characeristic equation is complex since \\(k\\) is negative, meaning \\(\sqrt k\\) produces an imaginary unit \\(i\\). So, more specifically, the solution to our characteristic equation is of the form \\(\alpha + \beta i\\) where \\(\alpha = 0\\), \\(\beta = -k\\). This is due to the fact that \\(k\\) is negative, so \\(\sqrt k = \sqrt {-k}i\\), then our solution will be of the form \\[X(x) = Asin(-kx) + Bcos(-kx)\\]
+In our scenario the solution of the characeristic equation is complex since \\(k\\) is negative, meaning \\(\sqrt k\\) produces an imaginary unit \\(i\\). So, more specifically, the solution to our characteristic equation is of the form \\(\alpha + \beta i\\) where \\(\alpha = 0\\), \\(\beta = -k\\). This is due to the fact that \\(k\\) is negative, so \\(\sqrt k = \sqrt {-k}i\\), then our solution will be of the form \\[X(x) = Acos(-kx) + Bsin(-kx)\\]
 Now that we have found \\(T(t)\\) and \\(X(x)\\), we can say that the *general* solution to the heat equation is \\[u(x,t) = Ae^{-k\alpha^2t}(Bcos(-kx) + Csin(-kx))\\] Where A, B, and C are arbitrary constants. This implies that any choice of A, B, and C will result in a solution to the heat equation. However, we can simplify this some, by distributing the \\(A\\) we get \\[u(x,t) = e^{-k\alpha^2t|(A\times Bcos(-kx) + A\times Csin(-kx))\\] Since \\(A\times B)\\) and \\(A\times C)\\) are both just products of constants (which produces another constant), we can simly write them as \\(A\\) and \\(B\\), hence our *general* solution to the heat equation is \\[u(x,t) = e^{-k\alpha^2 x}(Asin(-kx) + Bcos(-kx))\\] 
 
 
