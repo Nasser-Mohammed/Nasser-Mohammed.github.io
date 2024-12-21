@@ -4,12 +4,11 @@ title: "Notes"
 permalink: /notes/
 author_profile: false
 ---
+Below is a list of different topics
+===
 
-The Heat Equation
-[(https://google.com)]
-==
-
-<hr style="border: 2px solid black;">
+- [Partial Differential Equations](https://Nasser-Mohammed/_pages/_notes/pdes/)
+- [Real Analysis](https://Nasser-Mohammed/_pages/_notes/real_analysis/))
 
 
 
