@@ -1,6 +1,6 @@
 ---
 layout: archive
-title: "PDE Navigation"
+title: "PDE Topics"
 permalink: /notes/pde-nav/
 author_profile: false
 ---
