@@ -1,9 +1,7 @@
 ---
 layout: archive
-title: "Heat Equation"
+title: "The Heat Equation"
 permalink: /notes/heatequation/
 author_profile: false
 ---
 
-The Heat Equation
-===
