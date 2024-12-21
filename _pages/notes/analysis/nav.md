@@ -1,6 +1,6 @@
 ---
 layout: archive
-title: "Notes"
+title: "Analysis Navigation"
 permalink: /notes/analysis-nav/
 author_profile: false
 ---
