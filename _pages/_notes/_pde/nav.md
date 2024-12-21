@@ -1,9 +1,6 @@
 ---
-layout: archive
-title: "Navigation"
-permalink: /navigation/
-author_profile: false
+title: Navigation
+type: book
 ---
 
 Below is a list of topics
-===
