@@ -34,7 +34,7 @@ Now with our assumption in hand, we can rewrite our PDE. If \\(u(x,t) = T(t)X(x)
 
 For simplicity in future computation, I will also move the \\(\alpha^2\\) term to the left hand side of the equation by dividing both sides by \\(\alpha^2\\). At last, we have the equation \\[\frac{T'(t)}{\alpha^2T(t)} = \frac{X^{\''}(x)}{X(x)}\\]
 
-Here, we come to a very important conclusion. Since the left hand side of the equation is strictly in terms of \\(t\\) and the right hand side is strictly in terms of \\(x\\), then for example, if we allow \\(t\\) to vary, the right hand side of of the equation: (\\(\frac{X^{\''}(x)}{X(x)}\\)) will not change, since it is only dependent on \\(x\\)
+Here, we come to a very important conclusion. Since the left hand side of the equation is strictly in terms of \\(t\\) and the right hand side is strictly in terms of \\(x\\), then for example, if we allow \\(t\\) to vary, the right hand side of of the equation: \\[\frac{X^{\''}(x)}{X(x)}\\] will not change, since it is only dependent on \\(x\\). What this tells us, is that the ratio: \\[\frac{T'(t)}{\alpha^2T(t)}\\] is **constant**. i.e. \\(\alpha^2T(t)\\) is always inversely proportional to \\(T'(t)\\), and therefore is constant.
 
  
 
