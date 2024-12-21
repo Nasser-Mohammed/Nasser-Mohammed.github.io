@@ -1,8 +1,6 @@
-
 ---
-title: Navigation
+title: Analysis Topics
 type: book
 ---
 
-List of topics below
-===
+Below is a list of topics
