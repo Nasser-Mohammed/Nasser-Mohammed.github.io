@@ -1,6 +1,6 @@
 ---
 title: Analysis Topics
-permalink: /notes/analysis-nav/
+permalink: /notes/analysis-nav/ 
 type: book
 ---
 
