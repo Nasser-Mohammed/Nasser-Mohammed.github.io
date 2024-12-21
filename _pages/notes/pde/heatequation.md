@@ -35,7 +35,7 @@ Now with our assumption in hand, we can rewrite our PDE. If \\(u(x,t) = T(t)X(x)
 For simplicity in future computation, I will also move the \\(\alpha^2\\) term to the left hand side of the equation by dividing both sides by \\(\alpha^2\\). At last, we have the equation \\[\frac{T'(t)}{\alpha^2T(t)} = \frac{X^{\''}(x)}{X(x)}\\]
 
 Here, we come to a very important conclusion. Since the left hand side of the equation is strictly in terms of \\(t\\) and the right hand side is strictly in terms of \\(x\\), then for example, if we allow \\(t\\) to vary, the right hand side of of the equation: \\[\frac{X^{\''}(x)}{X(x)}\\] will not change, since it is only dependent on \\(x\\). What this tells us, is that the ratio: \\[\frac{T'(t)}{\alpha^2T(t)}\\] is **constant**. i.e. \\(\alpha^2T(t)\\) is always inversely proportional to \\(T'(t)\\), and therefore is constant and does not change. The same logic can be used in the opposite direction, if we allow \\(x\\) to vary, we can say the same thing about the ratio of \\(\frac{X^{\''}(x)}{X(x)}\\) being **constant** (we could have also come to this conclusion since the left hand side is equal to the right hand side, so they are both equal to the same constant). We call this constant **k**, and we know that \\[\frac{T'(t)}{\alpha^2T(t)} = \frac{X^{\''}(x)}{X(x)} = k\\]
-
+We are now in a position to start finding functions that satisfy this equation. Now we will treat our previous equation, as two separate equations, that is \\[\frac{T'(t)}{\alpha^2T(t)} = k\\] and \\[\frac{X^{\''}(x)}{X(x)} = k\\]
  
 
 
