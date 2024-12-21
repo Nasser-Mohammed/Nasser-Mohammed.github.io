@@ -30,7 +30,7 @@ As mentioned, this assumption is not random. We could skip trying to assume that
 
 Back to Solving the PDE
 =====
-Now with our assumption in hand, we can rewrite our PDE. If \\(u(x,t) = T(t)X(x)\\), then \\(u_t = T'(t)X(x)\\) and \\(u_{xx} = X''(x)T(t)\\), you can verify this by basic differentiation. We now rewrite our PDE by replacing \\(u\\) with our assumed form, in doing this we get that the PDE is \\[T'(t)X(x) = \alpha^2X''(x)T(t)\\] By dividing both sides by \\(T(t)\\) and \\(X(x)\\), we arrive at 
+Now with our assumption in hand, we can rewrite our PDE. If \\(u(x,t) = T(t)X(x)\\), then \\(u_t = T'(t)X(x)\\) and \\(u_{xx} = X^{''}(x)T(t)\\), you can verify this by basic differentiation. We now rewrite our PDE by replacing \\(u\\) with our assumed form, in doing this we get that the PDE is \\[T'(t)X(x) = \alpha^2X^{''}(x)T(t)\\] By dividing both sides by \\(T(t)\\) and \\(X(x)\\), we arrive at 
  
 
 
