@@ -18,10 +18,15 @@ Initial Condition on the Heat Equation
 ==
 As mentioned, the initial condition is the function or behavior of the function, defined at time 0 (when \\(t = 0\\)). For now we will simply consider that our initial condition is: \\(u(x, 0) = 0\\). In other words, there is initially no heat on the metal rod. 
 
-How do we Begin to Solve it?
-==
+Separation of Variables
+=
+<hr style="border: 2px solid black;">
+This is a very powerful and straight forward method to solving PDEs, and requires us to make an assumption on the form of the solution and separating the \\(x\\) and \\(t\\) variables. Once we separate the variables, we arrive at ODEs in those variables, whose solutions are well known (through ODE theory). 
+
+So, How do we Begin to Solve it?
+=====
 We begin by making an assumption, this assumption is not random and does come from strong intuition. We assume that the solution takes the form,
-\\[u(x,t) = T(t)X(x)\\] In other words, we assume that the multivariable function \\(u(x,t)\\), is the product of a function of \\(t\\) and a function of \\(x\\), which we write as \\(T(t)\\) and \\(X(x)\\) respectively.
+\\[u(x,t) = T(t)X(x)\\] In other words, we assume that the multivariable function \\(u(x,t)\\), is the product of a function of \\(t\\) and a function of \\(x\\), which we write as \\(T(t)\\) and \\(X(x)\\) respectively. This will allow us to "separate" the variables later.
 
 
 Why Make this Assumption?
@@ -34,8 +39,9 @@ Now with our assumption in hand, we can rewrite our PDE. If \\(u(x,t) = T(t)X(x)
 
 For simplicity in future computation, I will also move the \\(\alpha^2\\) term to the left hand side of the equation by dividing both sides by \\(\alpha^2\\). At last, we have the equation \\[\frac{T'(t)}{\alpha^2T(t)} = \frac{X^{\''}(x)}{X(x)}\\]
 
-Here, we come to a very important conclusion. Since the left hand side of the equation is strictly in terms of \\(t\\) and the right hand side is strictly in terms of \\(x\\), then for example, if we allow \\(t\\) to vary, the right hand side of of the equation: \\[\frac{X^{\''}(x)}{X(x)}\\] will not change, since it is only dependent on \\(x\\). What this tells us, is that the ratio: \\[\frac{T'(t)}{\alpha^2T(t)}\\] is **constant**. i.e. \\(\alpha^2T(t)\\) is always inversely proportional to \\(T'(t)\\), and therefore is constant and does not change. The same logic can be used in the opposite direction, if we allow \\(x\\) to vary, we can say the same thing about the ratio of \\(\frac{X^{\''}(x)}{X(x)}\\) being **constant** (we could have also come to this conclusion since the left hand side is equal to the right hand side, so they are both equal to the same constant). We call this constant **k**, and we know that \\[\frac{T'(t)}{\alpha^2T(t)} = \frac{X^{\''}(x)}{X(x)} = k\\]
+Here, we come to a very important conclusion. Since the left hand side of the equation is strictly in terms of \\(t\\) and the right hand side is strictly in terms of \\(x\\), then for example, if we allow \\(t\\) to vary, the right hand side of of the equation: \\[\frac{X^{\''}(x)}{X(x)}\\] will not change, since it is only dependent on \\(x\\). What this tells us, is that the ratio: \\[\frac{T'(t)}{\alpha^2T(t)}\\] is **constant**. i.e. \\(\alpha^2T(t)\\) is always inversely proportional to \\(T'(t)\\), and therefore is constant and does not change. The same logic can be used in the opposite direction, if we allow \\(x\\) to vary, we can say the same thing about the ratio of \\(\frac{X^{\''}(x)}{X(x)}\\) being **constant**. We call this constant **k**, and we know that \\[\frac{T'(t)}{\alpha^2T(t)} = \frac{X^{\''}(x)}{X(x)} = k\\]
 We are now in a position to start finding functions that satisfy this equation. Now we will treat our previous equation, as two separate equations, that is \\[\frac{T'(t)}{\alpha^2T(t)} = k\\] and \\[\frac{X^{\''}(x)}{X(x)} = k\\]
+By rearranging the equations as below, we see we have two ODEs \\[T'(t)} - k\alpha^2T(t) = 0\\] and \\[X^{\''}(x) - kX(x) = 0\\]
  
 
 
