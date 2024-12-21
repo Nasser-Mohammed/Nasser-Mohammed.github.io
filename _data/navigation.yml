@@ -9,14 +9,11 @@ main:
   - title: "Notes"
     url: /notes/    
 
-  - title: "Teaching"
-    url: /teaching/    
+  - title: "Expositions"
+    url: /expositions/    
     
-  - title: "Portfolio"
-    url: /portfolio/
-        
-  - title: "Blog Posts"
-    url: /year-archive/
+  - title: "Tips"
+    url: /tips/
     
   - title: "CV"
     url: /cv/
