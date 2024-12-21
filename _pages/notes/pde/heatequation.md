@@ -5,3 +5,4 @@ permalink: /notes/heatequation/
 author_profile: false
 --- 
 
+\\[a^2+b^2=c^2\\]
