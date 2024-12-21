@@ -1,6 +1,6 @@
 ---
 title: PDE Topics
-permalink: /notes/pdes-nav/
+permalink: /notes/pde-nav/
 type: book
 ---
 
