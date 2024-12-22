@@ -78,8 +78,8 @@ The goal is to then find the values of \\(a_n\\) that make up this sum. For simp
 \\[\begin{align}
 \int_0^1{\text{sin}(n\pi x) \text{sin}(m\pi x) \ dx} = 
 \begin{cases}
-\frac{1}{2} & : \text{if } n = m \\
-0 & : \text{if } n \neq m
+\frac{1}{2}, & : \text{if } n = m \\
+0, & : \text{if } n \neq m
 \end{cases} 
 \end{align}\\]
 
