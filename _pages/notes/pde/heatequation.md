@@ -94,7 +94,7 @@ We then multiply both sides by \\(\text{sin}(n\pi x)\\) and integrate both sides
 $$
 \begin{equation}
 \int_0^1 \phi(x)\text{sin}(n\pi x)dx = \int_0^1\sum_{m = 1}^{\infty}B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx
-\end{equation
+\end{equation}
 $$
 Distributing the integral across the sum we arrive at
 \\[\int_0^1\sum_{m = 1}^{\infty}B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx = \sum_{m = 1}^{\infty}\int_0^1B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\]
