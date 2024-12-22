@@ -89,16 +89,16 @@ $$
 </div>
 Now with this in hand, we know (from earlier) that \\(\sum_{n = 1}^{\infty}u_n(x,t)\\) is itself a solution to our boundary value problem so far (by the Law of Superposition). However, now we must also have this sum satisfy the initial condition. This means
 \\[\sum_{n = 1}^{\infty}u_n(x,0) = \phi(x)\\]
-We then use the fact that we can break \\(\phi(x)\\) into a sin-series as described previously. Doing this we write, \\[\phi(x) = \sum_{m = 1}^{\infty}B_n\text{sin}(m\pi x)\\]
+We then use the fact that we can break \\(\phi(x)\\) into a sin-series as described previously. Doing this we write, \\[\phi(x) = \sum_{m = 1}^{\infty}B_m\text{sin}(m\pi x)\\]
 But we know that \\[\sum_{n = 1}^{\infty}u_n(x, 0) = \phi(x)\\]
-So replacing \\(\phi(x)\\) with its sin-series, we write \\[\sum_{n = 1}^{\infty}u_n(x,0) = \sum_{m = 1}^{\infty}a_m\text{sin}(m\pi x)\\]
+So replacing \\(\phi(x)\\) with its sin-series, we write \\[\sum_{n = 1}^{\infty}u_n(x,0) = \sum_{m = 1}^{\infty}B_m\text{sin}(m\pi x)\\]
 We know
 \\[u_n(x,0) = T_n(0)X_n(x) = A_ne^{-(n\pi\alpha)^2\times 0}\text{sin}(n\pi x)\\]
 \\(e^0\\) is simply just \\(1\\), so our equation simplifies to \\[u_n(x,0) = A_n\text{sin}(n\pi x)\\]
 So by replacing \\(u_n(x,0)\\) as above, we get
-\\[\sum_{n = 1}^{\infty}A_n\text{sin}(n\pi x) = \sum_{m = 1}^{\infty}a_m\text{sin}(m\pi x)\\]
-If we multiply both sides by a \\(sin(m\pi x)\\) term, then we have 
-\\[\sum_{m = 1}^{\infty}\text{sin}(m\pi x)\text{sin}(m\pi x) = \sum_{n = 1}^{\infty}B_n\text{sin}(m\pi x)\text{sin}(n\pi x)\\]
+\\[\sum_{n = 1}^{\infty}A_n\text{sin}(n\pi x) = \sum_{m = 1}^{\infty}B_m\text{sin}(m\pi x)\\]
+If we multiply both sides by a \\(\text{sin}(m\pi x)\\) term, then we have 
+\\[\sum_{n = 1}^{\infty}B_n\text{sin}(m\pi x)\text{sin}(n\pi x) = \sum_{m = 1}^{\infty}B_m\text{sin}(m\pi x)\text{sin}(m\pi x)\\]
 **Note:** both \\(m,n \in \mathbb{Z}^+\\)
 
 
