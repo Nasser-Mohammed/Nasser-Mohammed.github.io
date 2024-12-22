@@ -96,16 +96,15 @@ As
 Which is
 \\[\sum_{n = 1}^{\infty}A_ne^0\text{sin}(n\pi x)\\]
 Further simplifying to
-\\[\sum{n = 1}^{\infty}A_n\text{sin}(n\pi x)\\]
+\\[\sum_{n = 1}^{\infty}A_n\text{sin}(n\pi x)\\]
 Which is just a sin-series, and this series must be equal to \\(\phi(x)\\), so
-\\[\phi(x) = \sum{n = 1}^{\infty}A_n\text{sin}(n\pi x)\\]
+\\[\phi(x) = \sum_{n = 1}^{\infty}A_n\text{sin}(n\pi x)\\]
 
-We then use the fact that we can break \\(\phi(x)\\) into a sin-series as described previously. Doing this we write, \\[\phi(x) = \sum_{m = 1}^{\infty}B_m\text{sin}(m\pi x)\\]
-We then multiply both sides by \\(\text{sin}(n\pi x)\\) and integrate both sides from \\(0\\) to \\(1\\)
-\\[(1):     \int_0^1 \phi(x)\text{sin}(n\pi x)dx = \int_0^1\sum_{m = 1}^{\infty}B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\]
+We then multiply both sides by \\(\text{sin}(m\pi x)\\) and integrate both sides from \\(0\\) to \\(1\\)
+\\[(1):     \int_0^1 \phi(x)\text{sin}(m\pi x)dx = \int_0^1\sum_{n = 1}^{\infty}A_n\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\]
 
 Distributing the integral across the sum we arrive at
-\\[\int_0^1\sum_{m = 1}^{\infty}B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx = \sum_{m = 1}^{\infty}\int_0^1B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\]
+\\[\int_0^1\sum_{n = 1}^{\infty}A_n\text{sin}(n\pi x)\text{sin}(m\pi x)dx = \sum_{n = 1}^{\infty}\int_0^1A_n\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\]
 From the orthogonality of sin\\((n\pi x)\\), we know that
 <div style="text-align: center;">
 $$
@@ -119,9 +118,9 @@ $$
 $$
 </div>
 
-We can conclude that every term of the sum becomes 0, except for when \\(n = m\\), since we get \\(\frac{1}{2}B_m\\). Therefore, we can just write
+We can conclude that every term of the sum becomes 0, except for when \\(n = m\\), since we get \\(\frac{1}{2}A_n\\). Therefore, we can just write
 \
-\\[\sum_{m = 1}^{\infty}\int_0^1B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\] as \\[\frac{1}{2}B_m\\]
+\\[\sum_{n = 1}^{\infty}\int_0^1A_n\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\] as \\[\frac{1}{2}A_n\\]
 Then substituting that into (1) we arrive at \\[\int_0^1 \phi(x)\text{sin}(n\pi x)dx = \frac{1}{2}B_m\\]
 And since we know that \\(n = m\\) we can just write them both as \\(n\\)
 \\[\int_0^1 \phi(x)\text{sin}(n\pi x)dx = \frac{1}{2}B_n\\]
