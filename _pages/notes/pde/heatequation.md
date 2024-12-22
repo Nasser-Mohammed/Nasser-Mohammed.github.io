@@ -87,5 +87,6 @@ $$
 \end{align}
 $$
 </div>
+Now with this in hand, we know (from earlier) that \\(\sum_{n = 1}^{infty}u_n(x,t)\\) is itself a solution to our boundary value problem so far. However, now we must also have this sum satisfy the initial condition. This means \\(\sum_{n = 1}^{infty}u_n(x,0) = \phi(x)\\)
 
 
