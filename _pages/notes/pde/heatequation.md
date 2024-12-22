@@ -63,7 +63,9 @@ Now that we have found \\(T(t)\\) and \\(X(x)\\), we can say that the *general* 
 Extending the Solution to Solve with Boundary Conditions
 =====
 To solve the heat equation with boundary conditions, you typically begin with the most simple case, homogenous Dirichlet boundary conditions. In the case of the one dimensional metal rod of length 1, our homogenous Dirichlet boundary conditions would be \\[u(0,t) = 0\\] and \\[u(1,t) = 0\\] Now since we know \\[u(x,t) = T(t)X(x)\\] then \\[u(0,t) = X(0)T(t) = 0\\] and \\[u(1,t) = X(1)T(t) = 0\\] This implies that \\(X(0) = 0\\) and \\(X(1) = 0\\) So, to extend our solution to account for this, we consider: \\[X(x) = Acos(-kx) + Bsin(-kx)\\] Now it is not enough for this function to satisfy the ODE that we previously solved. Now, it must also satisfy our boundary conditions, i.e. \\(X(0) = 0\\) and \\(X(1) = 0\\), so let's write that out. 
-\\[X(0) = 0 = Acos(-k\times 0) + Bsin(-k\times 0)\\] this simplifies to \\[Acos(0) + Bsin(0) = 0\\] We know that \\(sin(0) = 0\\) and that \\(cos(0) = 1\\). So our equation simplifies to: \\[A = 0\\], this tells us that \\(A\\) is \\(0\\), so now we can write \\[X(x) = Bsin(-k\times x)\\] Since \\(A\\) being \\(0\\) cancels out the \\(cos\\) term. 
+\\[X(0) = 0 = Acos(-k\times 0) + Bsin(-k\times 0)\\] this simplifies to \\[Acos(0) + Bsin(0) = 0\\] We know that \\(sin(0) = 0\\) and that \\(cos(0) = 1\\). So our equation simplifies to: \\[A = 0\\] This tells us that \\(A\\) is \\(0\\), so now we can write \\[X(x) = Bsin(-kx)\\] Since \\(A\\) being \\(0\\) cancels out the \\(cos\\) term. \
+However, we also need to satisfy \\(X(1) = 0\\). So plugging in \\(x = 1\\) we get, \\[X(1) = Bsin(-k) = 0\\]
+Now, we cannot let \\(B = 0\\), since our solution will be trivial (i.e. \\(X(x) = 0 \forall x\\)
  
 
 
