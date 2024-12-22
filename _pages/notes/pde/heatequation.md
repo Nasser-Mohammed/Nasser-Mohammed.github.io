@@ -75,7 +75,7 @@ Final Step: Extending the Solution to Solve with an Initial Condition
 So, our initial condition is, \\[u(x,0) = \phi(x)\\]
 By **The Law of Superposition**, the linear combination of any solutions to a PDE, is itself a solution to the PDE. Essentially, if solutions to a PDE exist, then they form a vector space. With this in mind, we would like to sum up all possible solutions we had (basically sum up each \\(u_n(x,t)\\)) in such a way that satisfies the initial condition. This problem led Joseph Fourier to the conclusion that any *nice* function can be written as an infinite sum of **sin** and **cos** waves. What this means, is that for some random function \\(f(x)\\) defined on the interval \\([0, L]\\) we can write, \\[f(x) = \sum_{n = 1}^{\infty}a_n\text{sin}(\frac{n\pi x}{L})\\]
 The goal is to then find the values of \\(a_n\\) that make up this sum. For simplicity we will assume \\(L = 1\\). A necessary fact that we will need to use, is the orthogonality of \\(\text{sin}(n\pi x)\\). What this essentially means, is that
-\
+
 <div style="text-align: center;">
 $$
 \begin{align}
