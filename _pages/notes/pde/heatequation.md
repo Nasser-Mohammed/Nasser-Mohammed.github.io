@@ -91,7 +91,11 @@ Now with this in hand, we know (from earlier) that \\(\sum_{n = 1}^{\infty}u_n(x
 \\[\sum_{n = 1}^{\infty}u_n(x,0) = \phi(x)\\]
 We then use the fact that we can break \\(\phi(x)\\) into a sin-series as described previously. Doing this we write, \\[\phi(x) = \sum_{m = 1}^{\infty}B_m\text{sin}(m\pi x)\\]
 We then multiply both sides by \\(\text{sin}(n\pi x)\\) and integrate both sides from \\(0\\) to \\(1\\)
-\\[\begin{equation} \int_0^1 \phi(x)\text{sin}(n\pi x)dx = \int_0^1\sum_{m = 1}^{\infty}B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx\end{equation\\]
+$$
+\begin{equation}
+\int_0^1 \phi(x)\text{sin}(n\pi x)dx = \int_0^1\sum_{m = 1}^{\infty}B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx
+\end{equation
+$$
 Distributing the integral across the sum we arrive at
 \\[\int_0^1\sum_{m = 1}^{\infty}B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx = \sum_{m = 1}^{\infty}\int_0^1B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\]
 From the orthogonality of sin\\((n\pi x)\\), we know that
