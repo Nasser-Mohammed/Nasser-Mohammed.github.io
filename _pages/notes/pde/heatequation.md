@@ -73,8 +73,8 @@ This was one of the last major steps, we now know the solution to the (homogenou
 Final Step: Extending the Solution to Solve with an Initial Condition
 =====
 So, our initial condition is, \\[u(x,0) = \phi(x)\\]
-By **The Law of Superposition**, the linear combination of any solutions to a PDE, is itself a solution to the PDE. Essentially, if solutions to a PDE exist, then they form a vector space. With this in mind, we would like to sum up all possible solutions we had (basically sum up each \\(u_n(x,t)\\)) in such a way that satisfies the initial condition. This problem led Joseph Fourier to the conclusion that any *nice* function can be written as an infinite sum of **sin** and **cos** waves. What this means, is that for some random function \\(f(x)\\) defined on the interval \\([0, L]\\) we can write, \\[f(x) = \sum_{n = 1}^{\infty}a_n\text{sin}(\frac{n\pi x}{L})\\]
-The goal is to then find the values of \\(a_n\\) that make up this sum. For simplicity we will assume \\(L = 1\\). A necessary fact that we will need to use, is the orthogonality of \\(\text{sin}(n\pi x)\\). What this essentially means, is that
+By **The Law of Superposition**, the linear combination of any solutions to a PDE, is itself a solution to the PDE. Essentially, if solutions to a PDE exist, then they form a vector space. With this in mind, we would like to sum up all possible solutions we had (basically sum up each \\(u_n(x,t)\\)) in such a way that satisfies the initial condition. This problem led Joseph Fourier to the conclusion that any *nice* function can be written as an infinite sum of **sin** and **cos** waves. What this means, is that for some random function \\(f(x)\\) defined on the interval \\([0, L]\\) we can write, \\[f(x) = \sum_{n = 1}^{\infty}B_n\text{sin}(\frac{n\pi x}{L})\\]
+The goal is to then find the values of \\(B_n\\) that make up this sum. **Note:** each \\(B_n\\) is just a constant. For simplicity we will assume \\(L = 1\\). Another necessary fact that we will need to use, is the orthogonality of \\(\text{sin}(n\pi x)\\). What this essentially means, is that
 
 <div style="text-align: center;">
 $$
@@ -89,7 +89,7 @@ $$
 </div>
 Now with this in hand, we know (from earlier) that \\(\sum_{n = 1}^{\infty}u_n(x,t)\\) is itself a solution to our boundary value problem so far (by the Law of Superposition). However, now we must also have this sum satisfy the initial condition. This means
 \\[\sum_{n = 1}^{\infty}u_n(x,0) = \phi(x)\\]
-We then use the fact that we can break \\(\phi(x)\\) into a sin-series as described previously. Doing this we write, \\[\phi(x) = \sum_{m = 1}^{\infty}a_m\text{sin}(m\pi x)\\]
+We then use the fact that we can break \\(\phi(x)\\) into a sin-series as described previously. Doing this we write, \\[\phi(x) = \sum_{m = 1}^{\infty}B_n\text{sin}(m\pi x)\\]
 But we know that \\[\sum_{n = 1}^{\infty}u_n(x, 0) = \phi(x)\\]
 So replacing \\(\phi(x)\\) with its sin-series, we write \\[\sum_{n = 1}^{\infty}u_n(x,0) = \sum_{m = 1}^{\infty}a_m\text{sin}(m\pi x)\\]
 We know
@@ -97,6 +97,8 @@ We know
 \\(e^0\\) is simply just \\(1\\), so our equation simplifies to \\[u_n(x,0) = A_n\text{sin}(n\pi x)\\]
 So by replacing \\(u_n(x,0)\\) as above, we get
 \\[\sum_{n = 1}^{\infty}A_n\text{sin}(n\pi x) = \sum_{m = 1}^{\infty}a_m\text{sin}(m\pi x)\\]
+If we multiply both sides by a \\(sin(m\pi x)\\) term, then we have 
+\\[\sum_{m = 1}^{\infty}\text{sin}(m\pi x)\text{sin}(m\pi x) = \sum_{n = 1}^{\infty}B_n\text{sin}(m\pi x)\text{sin}(n\pi x)\\]
 **Note:** both \\(m,n \in \mathbb{Z}^+\\)
 
 
