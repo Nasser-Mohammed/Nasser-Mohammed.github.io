@@ -8,7 +8,7 @@ author_profile: false
 \\[u_t=\alpha^2u_{xx}\\]
 
 Solved by Joseph Fourier in 1822, the heat equation is typically the first PDE students are introduced to, due to its nice and intuitive nature.
-In one dimension, we seek a function, that essentially has its first time derivative equal to its second space derivative (for preliminary intuition, we can ignore the \\(\alpha^2\\) term). The question now, is how do we go about solving for the function or functions that satisfy this equation. Intuitively this should feel like a more daunting task than solving for a variable in a traditional algebraic equation. This intuition is correct, without additional information, this equation has an infinite number of solutions. For example, any constant value satisfies this equation, any linear polynomial in \\(x\\) with arbitrary coefficients will satisfy this equation, as well as many other functions. This leads us to our typical boundary conditions.
+In one dimension, we seek a function, that essentially has its first time derivative equal to its second spatial derivative (for preliminary intuition, we can ignore the \\(\alpha^2\\) term). The question now, is how do we go about solving for the function or functions that satisfy this equation. Intuitively this should feel like a more daunting task than solving for a variable in a traditional algebraic equation. This intuition is correct, without additional information, this equation has an infinite number of solutions. For example, any constant value satisfies this equation, any linear polynomial in \\(x\\) with arbitrary coefficients will satisfy this equation, as well as many other functions. This leads us to our typical boundary conditions.
 
 Boundary Conditions on the Heat Equation
 ==
@@ -89,8 +89,9 @@ $$
 </div>
 Now with this in hand, we know (from earlier) that \\(\sum_{n = 1}^{\infty}u_n(x,t)\\) is itself a solution to our boundary value problem so far (by the Law of Superposition). However, now we must also have this sum satisfy the initial condition. This means
 \\[\sum_{n = 1}^{\infty}u_n(x,0) = \phi(x)\\]
-We then use the fact that we can break \\(\phi(x)\\) into a sin-series as described previously. Doing this we write, \\[\phi(x) = \sum_{n = 1}^{\infty}a_n\text{sin}(n\pi x)\\]
+We then use the fact that we can break \\(\phi(x)\\) into a sin-series as described previously. Doing this we write, \\[\phi(x) = \sum_{m = 1}^{\infty}a_m\text{sin}(m\pi x)\\]
 But we know that \\[\sum_{n = 1}^{\infty}u_n(x, 0) = \phi(x)\\]
-So replacing \\(\phi(x)\\) with its sine-series, we write \\[\sum_{n = 1}^{\infty}u_n(x,0) = \sum_{m = 1}^{\infty}a_m\text{sin}(m\pi x)\\]
+So replacing \\(\phi(x)\\) with its sin-series, we write \\[\sum_{n = 1}^{\infty}u_n(x,0) = \sum_{m = 1}^{\infty}a_m\text{sin}(m\pi x)\\]
+**Note:** both \\(m,n \in \mathbb{Z}^+\\)
 
 
