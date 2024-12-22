@@ -89,6 +89,15 @@ $$
 </div>
 Now with this in hand, we know (from earlier) that \\(\sum_{n = 1}^{\infty}u_n(x,t)\\) is itself a solution to our boundary value problem so far (by the Law of Superposition). However, now we must also have this sum satisfy the initial condition. This means
 \\[\sum_{n = 1}^{\infty}u_n(x,0) = \phi(x)\\]
+Which we can rewrite as
+\\[\sum{n = 1}^{\infty}A_nT_n(0)X_n(x)\\]
+Which simplifies to
+\\[\sum{n = 1}^{\infty}A_ne^0\text{sin}(n\pi x)\\]
+Further simplifying to
+\\[\sum{n = 1}^{\infty}A_n\text{sin}(n\pi x)\\]
+Which is just a sin-series, and this series is equal to \\(\phi(x)\\), so
+\\[\phi(x) = \sum{n = 1}^{\infty}A_n\text{sin}(n\pi x)\\]
+
 We then use the fact that we can break \\(\phi(x)\\) into a sin-series as described previously. Doing this we write, \\[\phi(x) = \sum_{m = 1}^{\infty}B_m\text{sin}(m\pi x)\\]
 We then multiply both sides by \\(\text{sin}(n\pi x)\\) and integrate both sides from \\(0\\) to \\(1\\)
 \\[(1):     \int_0^1 \phi(x)\text{sin}(n\pi x)dx = \int_0^1\sum_{m = 1}^{\infty}B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\]
@@ -114,8 +123,9 @@ We can conclude that every term of the sum becomes 0, except for when \\(n = m\\
 Then substituting that into (1) we arrive at \\[\int_0^1 \phi(x)\text{sin}(n\pi x)dx = \frac{1}{2}B_m\\]
 And since we know that \\(n = m\\) we can just write them both as \\(n\\)
 \\[\int_0^1 \phi(x)\text{sin}(n\pi x)dx = \frac{1}{2}B_n\\]
-Multiply both sides by \\(2\\) and we now have a formula for B_n
+Multiply both sides by \\(2\\) and we now have a formula for \\(B_n\\)
 \\[B_n = 2\int_0^1\phi(x)\text{sin}(n\pi x)\\]
+**Note:** You could interpret this process, 
 **Note:** both \\(m,n \in \mathbb{Z}^+\\)
 
 
