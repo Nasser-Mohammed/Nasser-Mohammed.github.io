@@ -49,7 +49,7 @@ which results in \\[ln|T| = k\alpha^2t + C\\] where \\(C\\) is just the constant
 Now here we can make a very important observation, if \\(k > 0\\) then \\(T(t)\\) will be \\(e\\) raised to a positive power, since time (\\(t\\)) is always greater than 0, and so is \\(\alpha^2\\). However, this also implies that as time increases (\\(t \rightarrow \infty\\)), then \\(T \rightarrow \infty\\), from a physical point of view, this is contradictory, since we cannot have unbounded heat with no source of heat. So we conclude that \\(k < 0\\). \
 Now to tackle the second order ODE \\[X^{\''}(x) - kX(x) = 0\\]
 The characteristic equation for this ODE is \\[\lambda^2 - k = 0\\]
-Solving for \\(\lambda\\) we get that \\(\lambda = \sqrt k\\). There are three possible solution forms for second order ODEs, depending on the roots of the characteristic equation.
+Solving for \\(\lambda\\) we get that \\(\lambda = \sqrt k\\). There are three possible solution forms for linear homogenous second order ODEs, depending on the roots of the characteristic equation.
 
 1. One real root (sometimes call repeated roots): \\(X(x) = \(A+Bx)e^{\lambda x}\\) where \\(A\\) and \\(B\\) are constants and \\(\lambda\\) is the root of the characteristic equation.
 
@@ -93,7 +93,7 @@ We then use the fact that we can break \\(\phi(x)\\) into a sin-series as descri
 We then multiply both sides by \\(\text{sin}(n\pi x)\\) and integrate both sides from \\(0\\) to \\(1\\)
 \\[\int_0^1 \phi(x)\text{sin}(n\pi x)dx = \int_0^1\sum_{m = 1}^{\infty}B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\]
 Distributing the integral across the sum we arrive at
-\\[\sum_{m = 1}^{\infty}\int_0^1B_m\text{sin}(m\pi x)\text{sin}(n\pi x)dx\\]
+\\[\int_0^1\sum_{m = 1}^{\infty}B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx = \sum_{m = 1}^{\infty}\int_0^1B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\]
 From the orthogonality of sin\\((n\pi x)\\), we know that
 <div style="text-align: center;">
 $$
