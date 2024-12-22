@@ -107,9 +107,12 @@ $$
 $$
 </div>
 
-We can conclude that every term of the sum becomes 0, except for when \\(n = m\\), since we get \\(\frac{1}{2}B_m\\). Therefore, we can just write 
-\\[\sum_{m = 1}^{\infty}\int_0^1B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx \text{ as } \frac{1}{2}B_m\\]
+We can conclude that every term of the sum becomes 0, except for when \\(n = m\\), since we get \\(\frac{1}{2}B_m\\). Therefore, we can just write
+\
+\\(\sum_{m = 1}^{\infty}\int_0^1B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\) as \\(\frac{1}{2}B_m\\)
 Then substituting that into (1) we arrive at \\[\int_0^1 \phi(x)\text{sin}(n\pi x)dx = \frac{1}{2}B_m\\]
+And since we know that \\(n = m\\) we can just write them both as \\(n\\)
+\\[\int_0^1 \phi(x)\text{sin}(n\pi x)dx = \frac{1}{2}B_n\\]
 **Note:** both \\(m,n \in \mathbb{Z}^+\\)
 
 
