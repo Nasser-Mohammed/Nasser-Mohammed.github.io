@@ -108,7 +108,7 @@ $$
 </div>
 
 We can conclude that every term of the sum becomes 0, except for when \\(n = m\\), since we get \\(B_m\frac{1}{2}\\). Therefore, we can just write 
-\\[sum_{m = 1}^{\infty}\int_0^1B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx = B_m\frac{1}{2}\\]
+\\[\sum_{m = 1}^{\infty}\int_0^1B_m\text{sin}(n\pi x)\text{sin}(m\pi x)dx = B_m\frac{1}{2}\\]
 **Note:** both \\(m,n \in \mathbb{Z}^+\\)
 
 
