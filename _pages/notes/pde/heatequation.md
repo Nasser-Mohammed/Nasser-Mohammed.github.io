@@ -89,7 +89,9 @@ $$
 </div>
 Now with this in hand, we know (from earlier) that \\(\sum_{n = 1}^{\infty}u_n(x,t)\\) is itself a solution to our boundary value problem so far (by the Law of Superposition). However, now we must also have this sum satisfy the initial condition. This means
 \\[\sum_{n = 1}^{\infty}u_n(x,0) = \phi(x)\\]
-We can rewrite as
+We can rewrite 
+\\[\sum_{n = 1}^{\infty}u_n(x,0)\\]
+As
 \\[\sum_{n = 1}^{\infty}A_nT_n(0)X_n(x)\\]
 Which is
 \\[\sum_{n = 1}^{\infty}A_ne^0\text{sin}(n\pi x)\\]
