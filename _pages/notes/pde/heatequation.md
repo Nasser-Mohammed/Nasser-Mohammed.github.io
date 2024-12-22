@@ -103,7 +103,7 @@ Which is just a sin-series, and this series must be equal to \\(\phi(x)\\), so
 We then multiply both sides by \\(\text{sin}(m\pi x)\\) and integrate both sides from \\(0\\) to \\(1\\)
 \\[(1):     \int_0^1 \phi(x)\text{sin}(m\pi x)dx = \int_0^1\sum_{n = 1}^{\infty}A_n\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\]
 
-Distributing the integral across the sum we arrive at
+Distributing the integral across the summation we arrive at
 \\[\int_0^1\sum_{n = 1}^{\infty}A_n\text{sin}(n\pi x)\text{sin}(m\pi x)dx = \sum_{n = 1}^{\infty}\int_0^1A_n\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\]
 From the orthogonality of sin\\((n\pi x)\\), we know that
 <div style="text-align: center;">
@@ -121,11 +121,11 @@ $$
 We can conclude that every term of the sum becomes 0, except for when \\(n = m\\), since we get \\(\frac{1}{2}A_n\\). Therefore, we can just write
 \
 \\[\sum_{n = 1}^{\infty}\int_0^1A_n\text{sin}(n\pi x)\text{sin}(m\pi x)dx\\] as \\[\frac{1}{2}A_n\\]
-Then substituting that into (1) we arrive at \\[\int_0^1 \phi(x)\text{sin}(n\pi x)dx = \frac{1}{2}B_m\\]
+Then substituting that into (1) we arrive at \\[\int_0^1 \phi(x)\text{sin}(m\pi x)dx = \frac{1}{2}A_n\\]
 And since we know that \\(n = m\\) we can just write them both as \\(n\\)
-\\[\int_0^1 \phi(x)\text{sin}(n\pi x)dx = \frac{1}{2}B_n\\]
-Multiply both sides by \\(2\\) and we now have a formula for \\(B_n\\)
-\\[B_n = 2\int_0^1\phi(x)\text{sin}(n\pi x)\\]
+\\[\int_0^1 \phi(x)\text{sin}(n\pi x)dx = \frac{1}{2}A_n\\]
+Multiply both sides by \\(2\\) and we now have a formula for \\(A_n\\)
+\\[A_n = 2\int_0^1\phi(x)\text{sin}(n\pi x)\\]
 **Note:** You could interpret this process, 
 **Note:** both \\(m,n \in \mathbb{Z}^+\\)
 
