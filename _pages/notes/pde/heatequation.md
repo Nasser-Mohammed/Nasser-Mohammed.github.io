@@ -98,7 +98,7 @@ We know
 So by replacing \\(u_n(x,0)\\) as above, we get
 \\[\sum_{n = 1}^{\infty}A_n\text{sin}(n\pi x) = \sum_{m = 1}^{\infty}B_m\text{sin}(m\pi x)\\]
 If we multiply both sides by a \\(\text{sin}(m\pi x)\\) term, then we have 
-\\[\sum_{n = 1}^{\infty}B_n\text{sin}(m\pi x)\text{sin}(n\pi x) = \sum_{m = 1}^{\infty}B_m\text{sin}(m\pi x)\text{sin}(m\pi x)\\]
+\\[\sum_{n = 1}^{\infty}A_n\text{sin}(m\pi x)\text{sin}(n\pi x) = \sum_{m = 1}^{\infty}B_m\text{sin}(m\pi x)\text{sin}(m\pi x)\\]
 **Note:** both \\(m,n \in \mathbb{Z}^+\\)
 
 
