@@ -87,7 +87,10 @@ $$
 \end{align}
 $$
 </div>
-Now with this in hand, we know (from earlier) that \\(\sum_{n = 1}^{\infty}u_n(x,t)\\) is itself a solution to our boundary value problem so far. However, now we must also have this sum satisfy the initial condition. This means 
+Now with this in hand, we know (from earlier) that \\(\sum_{n = 1}^{\infty}u_n(x,t)\\) is itself a solution to our boundary value problem so far (by the Law of Superposition). However, now we must also have this sum satisfy the initial condition. This means
 \\[\sum_{n = 1}^{\infty}u_n(x,0) = \phi(x)\\]
+We then use the fact that we can break \\(\phi(x)\\) into a sin-series as described previously. Doing this we write, \\[\phi(x) = \sum_{n = 1}^{\infty}a_n\text{sin}(n\pi x)\\]
+But we know that \\[\sum_{n = 1}^{\infty}u_n(x, 0)\\]
+So replacing \\(\phi(x)\\) with its sine-series, we write \\[\sum_{n = 1}^{\infty}u_n(x,0) = \sum_{n = 1}^{/infty}a_n\text{sin}(n\pi x)\\]
 
 
