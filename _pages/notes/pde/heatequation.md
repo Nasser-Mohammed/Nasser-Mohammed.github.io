@@ -94,7 +94,7 @@ But we know that \\[\sum_{n = 1}^{\infty}u_n(x, 0) = \phi(x)\\]
 So replacing \\(\phi(x)\\) with its sin-series, we write \\[\sum_{n = 1}^{\infty}u_n(x,0) = \sum_{m = 1}^{\infty}a_m\text{sin}(m\pi x)\\]
 We know
 \\[u_n(x,0) = T_n(0)X_n(x) = A_ne^{-(n\pi\alpha)^2\times 0}\text{sin}(n\pi x)\\]
-\\(e^0)\\) is simply just \\(1\\), so our equation simplifies to \\[u_n(x,0) = A_n\text{sin}(n\pi x)
+\\(e^0)\\) is simply just \\(1\\), so our equation simplifies to \\[u_n(x,0) = A_n\text{sin}(n\pi x)\\]
 So by replacing \\(u_n(x,0)\\) as above, we get
 \\[\sum_{n = 1}^{\infty}A_n\text{sin}(n\pi x) = \sum_{m = 1}^{\infty}a_m\text{sin}(m\pi x)\\]
 **Note:** both \\(m,n \in \mathbb{Z}^+\\)
