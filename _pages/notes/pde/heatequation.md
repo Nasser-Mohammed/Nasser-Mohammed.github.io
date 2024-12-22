@@ -16,7 +16,7 @@ The most basic boundary conditions are called Dirichlet boundary conditions. The
 
 Initial Condition on the Heat Equation
 ==
-As mentioned, the initial condition is the function or behavior of the function, defined at time 0 (when \\(t = 0\\)). For now we will simply consider that our initial condition is: \\(u(x, 0) = 0\\). In other words, there is initially no heat on the metal rod. 
+As mentioned, the initial condition is the function or behavior of the function, defined at time 0 (when \\(t = 0\\)). For example, if we consider that our initial condition is: \\(u(x, 0) = 0\\), this implies that there is initially no heat on the metal rod. 
 
 Separation of Variables
 =
@@ -66,8 +66,10 @@ To solve the heat equation with boundary conditions, you typically begin with th
 \\[X(0) = 0 = Acos(\sqrt{-k}\times 0) + Bsin(\sqrt{-k}\times 0)\\] this simplifies to \\[Acos(0) + Bsin(0) = 0\\] We know that \\(sin(0) = 0\\) and that \\(cos(0) = 1\\). So our equation simplifies to: \\[A = 0\\] This tells us that \\(A\\) is \\(0\\), so now we can write \\[X(x) = Bsin(\sqrt{-k}x)\\] Since \\(A\\) being \\(0\\) cancels out the \\(cos\\) term. \
 However, we also need to satisfy \\(X(1) = 0\\). So plugging in \\(x = 1\\) we get, \\[X(1) = Bsin(\sqrt{-k}) = 0\\]
 Now, we cannot let \\(B = 0\\), since our solution will be trivial (i.e. \\(X(x) = 0, \forall x \\) and that would mean \\(u(x,t) = 0\times T(t) \implies \ u(x,t) = 0\\), a trivial solution). \
-Therefore, we need \\(\sqrt{-k}\\) to **force** \\(sin(\sqrt{-k})\\) to be \\(0\\), \\(\forall k\\), in order to satisfy our boundary condition. We know that \\(sin(x) = 0\\) when \\(x\\) is an integer multiple of \\(\pi\\). This tells us that if \\(\sqrt{-k} = n\pi\\), \\(\forall n \in \mathbb{Z}^+\\), then \\(sin(\sqrt{-k}) = 0\\). So we let \\(\sqrt{-k} = n\pi\\), and solve for \\(k\\), we get that \\[k = -(n\pi)^2\\] Now we substitute \\(-(n\pi)^2\\) in, for \\(k\\). Doing that, we get \\[Bsin(\sqrt{(n\pi)^2})\\] which reduces to \\[Bsin(n\pi)\\] and \\[Bsin(n\pi) = 0\\] Which satisfies our boundary condition. \
-**Note**: We also substitute \\(-(n\pi)^2\\) in for \\(k\\) in our function of \\(t\\) \\[T(t) = Ae^{k\alpha^2t}\\] Becomes \\[T(t) = Ae^{-(n\pi\alpha)^2t}\\]
- 
-
-
+Therefore, we need \\(\sqrt{-k}\\) to **force** \\(sin(\sqrt{-k})\\) to be \\(0\\), \\(\forall k\\), in order to satisfy our boundary condition. We know that \\(sin(x) = 0\\) when \\(x\\) is an integer multiple of \\(\pi\\). This tells us that if \\(\sqrt{-k} = n\pi\\), \\(\forall n \in \mathbb{Z}^+\\), then \\(sin(\sqrt{-k}) = 0\\). So we let \\(\sqrt{-k} = n\pi\\), and solve for \\(k\\), we get that \\[k = -(n\pi)^2\\] Now we substitute \\(-(n\pi)^2\\) in, for \\(k\\). Doing that, we get \\[Bsin(\sqrt{(n\pi)^2})\\] which reduces to \\[Bsin(n\pi)\\] and \\[Bsin(n\pi) = 0\\] Which satisfies our boundary condition, so \\(X_n(x) = Bsin(n\pi x)\\). We subscript \\(X(x)\\) (and later \\(T(t)\\)) because we have a different function for each \\(n\\).\
+**Note**: We also substitute \\(-(n\pi)^2\\) in for \\(k\\) in our function of \\(t\\) \\[T(t) = Ae^{k\alpha^2t}\\] Becomes \\[T_n(t) = Ae^{-(n\pi\alpha)^2t}\\]
+This was one of the last major steps, we now know the solution to the (homogenous 1 dimensional) heat equation with Dirichlet boundary conditions is: \\[u_n(x,t) = A_ne^{-(n\pi\alpha)^2t}sin(n\pi x)\\] However, this is a sequence of solutions. Each positive integer \\(n\\) can produce a solution to the heat equation with our boundary conditions. So to consolidate this into one solution, we also consider the *initial condition*. For generality, we will consider an arbitrary function \\(\phi(x)\\).
+Final Step: Extending the Solution to Solve with an Initial Condition
+=====
+So, our initial condition is, \\[u(x,0) = \phi(x)\\]
+By **The Law of Superposition**, the linear combination of any solutions to a PDE, is itself a solution to the PDE. Essentially, if solutions to a PDE exist, then they form a vector space. With this in mind, we would like to sum up all possible solutions we had (basically sum up each \\(u_n(x,t)\\)) in such a way that satisfies the initial condition. This problem led Joseph Fourier to the conclusion that any *nice* function can be written as an infinite sum of \\(sin\\) and \\(cos\\) waves. What this means, is that for some random function \\(f(x)\\) defined on the interval \\([0, L]\\) we can write, \\[f(x) = \sum_{i = 0}^{\infty}a_nsin((n\pi)/L x)\\]
