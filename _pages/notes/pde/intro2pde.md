@@ -1,7 +1,7 @@
 ---
 layout: archive
 title: "What are Partial Differential Equations?"
-permalink: /notes/pdeintro/
+permalink: /notes/pde/pdeintro/
 author_profile: false
 --- 
 <hr style="border: 2px solid black;">
