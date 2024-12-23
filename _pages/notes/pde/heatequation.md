@@ -126,7 +126,7 @@ And since we know that \\(n = m\\) we can just write them both as \\(n\\)
 \\[\int_0^1 \phi(x)\text{sin}(n\pi x)dx = \frac{1}{2}A_n\\]
 Multiply both sides by \\(2\\) and we now have a formula for \\(A_n\\)
 \\[A_n = 2\int_0^1\phi(x)\text{sin}(n\pi x)\\]
-And that's it, we have solved the **initial-boundary value problem** also known as an **IBVP** which is a problem where you solve a PDE for certain boundary value and initial conditions. **Note:** In different problems, we may have different numbers of initial conditions and boundary conditions.
+And that's it, we have solved the **initial-boundary value problem** also known as an **IBVP** which is a problem where you solve a PDE for certain boundary conditions and initial conditions. **Note:** In different problems, we may have different numbers of initial conditions and boundary conditions.
 
 Final Solution to the IBVP
 ====
