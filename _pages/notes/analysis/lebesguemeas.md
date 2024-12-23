@@ -54,7 +54,7 @@ However, \\[m_{\ast}(E) \neq \sum_{j = 1}^{\infty}3 - \frac{1}{j} - 0\\]
 If we consider the sum, it simplifies to \\[\sum_{j = 1}^{\infty}3 - \frac{1}{j}\\]
 And since \\(\frac{1}{j} \rightarrow 0\\), it is obvious that \
 \\[\sum_{j = 1}^{\infty}3 - \frac{1}{j}\ \rightarrow \infty\\]
-However, we know the size of the interval \\(0,3) = 3 - 0 = 3\\)
+However, we know the size of the interval \\((0,3) = 3 - 0 = 3\\)
 And it's apparent to see \\[3 \neq \infty\\]
 So we can conclude that
 \\[E = \bigcup_{j = 1}^{\infty}(0, 3-\frac{1}{j})\\]
