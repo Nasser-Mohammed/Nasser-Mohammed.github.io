@@ -1,7 +1,7 @@
 ---
 layout: archive
 title: "PDE Topics"
-permalink: /notes/pde-nav/
+permalink: /notes/pde/
 author_profile: false
 ---
 
