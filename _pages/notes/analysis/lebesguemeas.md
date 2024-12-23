@@ -51,8 +51,16 @@ The second obvservation, countable sub-additivity, initially did not make sense 
 We can see that as \\(j \rightarrow \infty\\), our intervals will \\(\rightarrow (0, 3)\\). However, if we try to consider a finite number of unions, we will not get the full interval \\((0, 3)\\). So then we must have
 \\[E = \bigcup_{j = 1}^{\infty}(0, 3-\frac{1}{j})\\]
 However, \\[m_{\ast}(E) \neq \sum_{j = 1}^{\infty}3 - \frac{1}{j} - 0\\]
-The sum simplifies to \\[\sum_{j = 1}^{\infty}3 - \frac{1}{j}\\]
-
-
+If we consider the sum, it simplifies to \\[\sum_{j = 1}^{\infty}3 - \frac{1}{j}\\]
+And since \\(\frac{1}{j} \rightarrow 0\\), it is obvious that \
+\\[\sum_{j = 1}^{\infty}3 - \frac{1}{j}\ \rightarrow \infty\\]
+However, we know the size of the interval \\(0,3) = 3 - 0 = 3\\)
+And it's apparent to see \\[3 \neq \infty\\]
+So we can conclude that
+\\[E = \bigcup_{j = 1}^{\infty}(0, 3-\frac{1}{j})\\]
+Does **NOT** imply
+\\[m_{\ast}(E) \eq \sum_{j = 1}^{\infty}3 - \frac{1}{j} - 0\\]
+The strongest thing we can say is that
+[m_{\ast}(E) \leq \sum_{j = 1}^{\infty}m_{\ast}(E_j)\\]
  
 
