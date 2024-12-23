@@ -6,9 +6,9 @@ author_profile: false
 --- 
 <hr style="border: 2px solid black;">
 The Lebesgue Measure was introduced to generalize our intuition of *sizes*, to subsets of \\(\mathbb{R}^n\\) (Euclidean Space). Our intuition of sizes naturally comes from the known sizes of the basic geometric shapes, such as, circles, rectangles, cubes, etc. With this in mind, we try to "cover" these subsets of \\(\mathbb{R}^n\\) with these shapes, and calculate the *size* of the sets with the shapes that cover it. Here we note two important theorems: \
-**Theorem 1:** Every open subset \\(\mathbb{O}\\) of \\(\mathbb{R}\\) can be written **uniquely** as a countable union of disjoint intervals
-Extending this to \\(\mathbb{R}^n\\), we have the next theorem.
-**Theorem 2:** Every open subset \\(\mathbb{O}\\) of \\(\mathbb{R}^d\\) with \\(d \ge 1\\) can be written (not necessarily uniquely) as a countable union of almost disjoint closed cubes. 
+**Theorem 1:** Every open subset \\(\mathbb{O}\\) of \\(\mathbb{R}\\) can be written **uniquely** as a countable union of disjoint intervals.\
+Extending this to \\(\mathbb{R}^n\\), we have the next theorem. \
+**Theorem 2:** Every open subset \\(\mathbb{O}\\) of \\(\mathbb{R}^d\\) with \\(d \ge 1\\) can be written (not necessarily uniquely) as a countable union of almost disjoint closed cubes.\
 **Note:** Almost disjoint means that these cubes are disjoint, except possibly, at the boundaries. 
 
 Size of Intervals and Basic Shapes
