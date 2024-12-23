@@ -27,17 +27,17 @@ Here we note an important lemma: \
 
 The Exterior Measure
 =
-As the name suggests, the exterior measure involves assigning a measure (size) to **any** subset \\(E\\) of \\(\mathbb{R}^d\\), by covering \\(E\\) with shapes from the outside. That is, we consider the smallest possible shape that \\(E\\) is contained in. To put this more formally, the exterior measure, denoted \\(m_* \\), assigns **any** subset \\(E\\) of \\(\mathbb{R}^d\\) a measure by the below equation
-\\[m_*(E) = inf\sum_{j = 1}^{\infty}\left| Q_j \right|\\]
+As the name suggests, the exterior measure involves assigning a measure (size) to **any** subset \\(E\\) of \\(\mathbb{R}^d\\), by covering \\(E\\) with shapes from the outside. That is, we consider the smallest possible shape that \\(E\\) is contained in. To put this more formally, the exterior measure, denoted \\(m_{\ast}\\), assigns **any** subset \\(E\\) of \\(\mathbb{R}^d\\) a measure by the below equation
+\\[m_{\ast}(E) = inf\sum_{j = 1}^{\infty}\left| Q_j \right|\\]
 \\(inf\\) is simply the infimum, taken over all countable coverings of E, where \\[E \subset \bigcup_{j = 1}^{\infty}Q_j\\]
 **Note:** \\(Q_j)\\) are simply closed cubes \
 \
-The exterior measure can be any value from 0 to \\(\infty\\) including both 0 and \\(\infty\\), i.e. \\(0 \leq m_*(E) \leq \infty\\)
+The exterior measure can be any value from 0 to \\(\infty\\) including both 0 and \\(\infty\\), i.e. \\(0 \leq m_{\ast}(E) \leq \infty\\)
 Once we realize that single points and the empty set \\(\emptyset\\), both have an exterior measure of 0, we can start to make some important obversations. I will not go into detail for each one, but the main two are: \
 \ 
-**Monotonicity:** If \\(E_1 \subset E_2 \text{ then } m_*(E_1) \leq m_*(E_2)\\) \
+**Monotonicity:** If \\(E_1 \subset E_2 \text{ then } m_{\ast}(E_1) \leq m_{\ast}(E_2)\\) \
 \
-**Countable Sub-Additivity:** If \\[E = \bigcup_{j = 1}^{\infty}E_j\\] Then \\[m_*(E) \leq \sum_{j = 1}^{\infty}m_*(E_j)\\]
+**Countable Sub-Additivity:** If \\[E = \bigcup_{j = 1}^{\infty}E_j\\] Then \\[m_{\ast}(E) \leq \sum_{j = 1}^{\infty}m_{\ast}(E_j)\\]
 
 
  
