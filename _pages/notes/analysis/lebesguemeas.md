@@ -39,10 +39,10 @@ Once we realize that single points and the empty set \\(\emptyset\\), both have 
 \
 **Countable Sub-Additivity:** If \\[E = \bigcup_{j = 1}^{\infty}E_j\\] Then \\[m_{\ast}(E) \leq \sum_{j = 1}^{\infty}m_{\ast}(E_j)\\]
 
-The second obvservation, countable sub-additivity, initially did not make sense to me. However, we have to consider that we are approximating our sets from the outside, therefore, it is possible for our set to be written as a countable union of shrinking/growing subsets, that don't add any "size" to our set. To put it more clearly, assume we have a set \\(E = [0,3]\\), a simple interval. However, we could also say that \\[E = \bigcup_{j = 1}^{\infty}(0, 3-\frac{1}{j})\\] To further analyze this, let's consider each \\(j\\) and the interval it produces:
-\\[j = 1&: (0, 2)\\]
-\\[j = 2&: (0, 2\frac{1}{2})\\]
-\\[j = 3&: (0, 2\frac{2}{3})\\]
+The second obvservation, countable sub-additivity, initially did not make sense to me. However, we have to consider that we are approximating our sets from the outside, therefore, it is possible for our set to be written as a countable union of shrinking/growing subsets, that don't add any "size" to our set. To put it more clearly, assume we have a set \\(E = [0,3]\\), a simple interval. However, we could also say that \\[E = \bigcup_{j = 1}^{\infty}(0, 3-\frac{1}{j})\\] To further analyze this, let's consider each \\(j\\) and the interval it produces: \
+\\[j = 1: (0, 2)\\]
+\\[j = 2: (0, 2\frac{1}{2})\\]
+\\[j = 3: (0, 2\frac{2}{3})\\]
 \\[.\\]
 \\[.\\]
 \\[.\\]
