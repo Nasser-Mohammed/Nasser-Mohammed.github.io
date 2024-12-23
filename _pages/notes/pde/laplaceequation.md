@@ -1,7 +1,7 @@
 ---
 layout: archive
 title: "Laplace's Equation"
-permalink: /notes/laplaceeq/
+permalink: /notes/pde/laplaceeq/
 author_profile: false
 --- 
 
