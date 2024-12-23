@@ -23,6 +23,6 @@ To ensure no confusion, I will cover the basic sizes of our shapes. First, a (cl
 Here we note two important lemmas: \
 \
 **Lemma 1:** If \\(R_1, R_2, R_3, ...... , R_N\\) are rectangles **and** \\(R \subset \cup_{j = 1}^NR_j\\), then we can conclude
-\\[\left| R \right| \leq \sum_{j =  1}^N\left| R_j\right|\\]
+\\[\left| R \right| \leq \sum\limits_{j =  1}^N\left| R_j\right|\\]
  
 
