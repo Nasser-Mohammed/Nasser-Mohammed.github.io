@@ -17,8 +17,8 @@ Extending this to \\(\mathbb{R}^n\\), we have the next theorem. \
 
 Size of Intervals and Basic Shapes
 =====
-To ensure no confusion, I will cover the basic sizes of our shapes. First, a (closed) rectangle **R** in \\(\mathbb{R}^d\\) is given by the product of intervals: R = \\([a_1, b_1]\times[a_2, b_2]\times.....\times[a_d, b_d]\\), where the size of each interval \\([a_j, b_j] \text{  is 
- } b_j - a_j\\). We can now say that the *size* of **R**, denoted \\(\left| R \right|=\\) \\[\sum_{j = 1}^{d}b_j - a_j\\]
+To ensure no confusion, I will cover the basic sizes of our shapes. First, a (closed) rectangle R in \\(\mathbb{R}^d\\) is given by the product of intervals: R = \\([a_1, b_1]\times[a_2, b_2]\times.....\times[a_d, b_d]\\), where the size of each interval \\([a_j, b_j] \text{  is 
+ } b_j - a_j\\). We can now say that the *size* of R, denoted \\(\left| R \right|=\\) \\[\sum_{j = 1}^{d}b_j - a_j\\]
 
 Here we note two important lemmas: \
 \
