@@ -68,5 +68,6 @@ However, there are restrictions that we can apply to sets that allows us to have
 \\[m_{\ast}(E) = \sum_{j = 1}^{\infty}\left|Q_j\right|\\] \
 \
 **Observation 4:** If \\[E = E_1 \cup E_2\\] Where \\(d(E_1, E_2) > 0 then \\[m_{\ast}(E) = m_{\ast}(E_1) + m_{\ast}(E_2)\\]
+
  
 
