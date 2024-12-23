@@ -33,10 +33,10 @@ As the name suggests, the exterior measure involves assigning a measure (size) t
 **Note:** \\(Q_j\\) is simply a closed cube \
 \
 The exterior measure can be any value from 0 to \\(\infty\\) including both 0 and \\(\infty\\), i.e. \\(0 \leq m_{\ast}(E) \leq \infty\\)
-Once we realize that single points and the empty set \\(\emptyset\\), both have an exterior measure of 0, we can start to make some important obversations. I will not go into detail for each one, but the main two are: \\
-\\ 
+Once we realize that single points and the empty set \\(\emptyset\\), both have an exterior measure of 0, we can start to make some important obversations. I will not go into detail for each one, but the main two are: \
+\
 **Monotonicity:** If \\(E_1 \subset E_2 \text{ then } m_{\ast}(E_1) \leq m_{\ast}(E_2)\\) \
-\\
+\\\
 **Countable Sub-Additivity:** If \\[E = \bigcup_{j = 1}^{\infty}E_j\\] Then \\[m_{\ast}(E) \leq \sum_{j = 1}^{\infty}m_{\ast}(E_j)\\]
 
 
