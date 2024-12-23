@@ -12,7 +12,7 @@ Below is a list of different topics
 ===
 
 - [Partial Differential Equations](/notes/pde/nav.md)
-- [Real Analysis](/notes/analysis/nav.md) 
+- [Analysis](/notes/analysis/nav.md) 
 
 
 
