@@ -1,7 +1,7 @@
 ---
 layout: archive
 title: "Analysis Topics"
-permalink: /notes/analysis-nav/
+permalink: /notes/analysis/
 author_profile: false
 ---
 
