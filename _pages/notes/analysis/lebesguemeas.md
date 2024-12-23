@@ -62,5 +62,9 @@ Does **NOT** imply
 \\[m_{\ast}(E) = \sum_{j = 1}^{\infty}3 - \frac{1}{j} - 0\\]
 The strongest thing we can say is that
 \\[m_{\ast}(E) \leq \sum_{j = 1}^{\infty}m_{\ast}(E_j)\\]
+However, there are restrictions that we can apply to sets that allows us to have countable additivity \
+\
+**Observation 3:** If \\[E = \bigcup{j = 1}^{\infty}Q_j\\] Where each \\(Q_j\\) is an almost disjoint cube, then 
+\\[m_{\ast}(E) = \sum{j = 1}^{\infty}\left|Q_j\right|\\]
  
 
