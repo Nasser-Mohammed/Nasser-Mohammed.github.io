@@ -1,7 +1,7 @@
 ---
 layout: archive
 title: "The Wave Equation"
-permalink: /notes/wave-eq/
+permalink: /notes/pde/wave-eq/
 author_profile: false
 ---
 <hr style="border: 2px solid black;">
