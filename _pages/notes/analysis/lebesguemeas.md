@@ -69,5 +69,5 @@ However, there are restrictions that we can apply to sets that allows us to have
 \
 **Observation 4:** If \\[E = E_1 \cup E_2\\] Where \\(d(E_1, E_2) > 0\\) then \\[m_{\ast}(E) = m_{\ast}(E_1) + m_{\ast}(E_2)\\]
 
- 
+ With these observations in mind, we will introduce the definition of *measurability*. This definition is used to limit the exterior measure, (currently defined on all subsets of a set \\(X\\)) to a certain collection of subsets of \\(X\\), which form a (\sigma\\)-algebra.  Additionally, the exterior measure \\(m_{\ast}\\) will be countably additive on this \\(\sigma\\)-algebra, which we call the collection of measurable sets of \\(X\\).
 
