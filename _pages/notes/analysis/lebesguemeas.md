@@ -93,7 +93,9 @@ Finally, we have countable additivity as defined below:
 \\[\text{If }E_1, E_2, ..... ,E_n \text{ are disjoint measurable sets, and } E = \bigcup_{n = 1}^{\infty}E_n \text{  then,  } m(E) = \sum_{n = 1}^{\infty}m(E_n)\\]
 The last thing to consider with measurable sets is how limits interact with sequences of sets and their measure.
 $$
+\\
 \text{If } E_1, E_2, ..... , E_n \text{ are measurable sets, and }  \{E_n\} \rightarrow E \text{ then } \lim_{n \rightarrow \infty}m(E_n) = m(E)
+\\
 $$
 **Note:** If the sets are shrinking to \\(E\\), then eventually one of the sets \\(E_j\\) must have \\(m(E_j) < \infty\\), otherwise we obviously can't have the statement above.
 
@@ -102,5 +104,5 @@ Measurability of Functions
 After defining what a measurable set is, it is natural to consider what a measurable function might look like. In fact, we need to consider these measurable functions to further develop integration theory. 
 $$
 \text{A function } f \text{ defined on a a measurable subset } E \subset \mathbb{R}^d \text{ is measurable, if } \\
-\forall a \in \mathbb{R} \text{, the set } f^{-1}([-\infty, a])) = \{x \in E: f(x) < a\}}
+\forall a \in \mathbb{R} \text{, the set } f^{-1}(\[-\infty, a\]) = \{x \in E: f(x) < a\}
 $$
