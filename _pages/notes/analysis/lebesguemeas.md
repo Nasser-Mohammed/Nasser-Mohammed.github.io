@@ -102,7 +102,7 @@ $$
 Measurability of Functions
 ====
 After defining what a measurable set is, it is natural to consider what a measurable function might look like. In fact, we need to consider these measurable functions to further develop integration theory. 
-\\
+\\[\\]
 $$
 \begin{align*}
 &\text{A function } f \text{ defined on a measurable subset } E \subset \mathbb{R}^d \text{ is measurable, if } \newline
