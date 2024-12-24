@@ -88,7 +88,7 @@ Since we know the sets listed above are elements of the **Lebesgue Measurable Se
 \\[\text{A } G_{\delta} \text{ is a countable intersection of open sets}\\]
 \\[\text{An } F_{\sigma} \text{ is a countable union of closed sets}\\]
 These sets are important, because every set in the **Lebesgue Measurable Sets** is sandwhiched between an \\(F_{\sigma} \text{ and a } G_{\delta}\\). Meaning every measurable set will have the same measure as some \\(F_{\sigma} \text{ and some } G_{\delta}\\)
-We also write \\(m_(\ast}(E) = m(E)\\) when \\(E\\) is a **Lebesgue Measurable Set**, since the exterior measure on this \\(\sigma\\)-algebra, is a proper measure. 
+We also write \\(m_{\ast}(E) = m(E)\\) when \\(E\\) is a **Lebesgue Measurable Set**, since the exterior measure on this \\(\sigma\\)-algebra, is a proper measure. 
 Finally, we have countable additivity as defined below:
 \\[\text{If }E_1, E_2, ..... ,E_n \text{ are disjoint measurable sets, and } E = \bigcup_{n = 1}^{\infty}E_n \text{  then,  } m(E) = \sum_{n = 1}^{\infty}m(E_n)\\]
 
