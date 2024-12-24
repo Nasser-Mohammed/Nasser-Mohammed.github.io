@@ -71,10 +71,21 @@ However, there are restrictions that we can apply to sets that allows us to have
 
 Measurability of Sets
 =====
-With these observations in mind, we will introduce the definition of *measurability*. This definition is used to limit the exterior measure, (currently defined on all subsets of a set \\(\mathbb{R}^d\\)) to a certain collection of subsets of \\(\mathbb{R}^d\\), which form a \\(\sigma\\)-algebra.  Additionally, the exterior measure \\(m_{\ast}\\) will be countably additive on this \\(\sigma\\)-algebra, which we call the **Lebesgue measurable sets** of \\(\mathbb{R}^d\\). The definition is as follows:
+With these observations in mind, we will introduce the definition of *measurability*. This definition is used to limit the exterior measure, (currently defined on all subsets of a set \\(\mathbb{R}^d\\)) to a certain collection of subsets of \\(\mathbb{R}^d\\), which form a \\(\sigma\\)-algebra.  Additionally, the exterior measure \\(m_{\ast}\\) will be countably additive on this \\(\sigma\\)-algebra, which we call the **Lebesgue Measurable Sets** of \\(\mathbb{R}^d\\). The definition is as follows:
 \\[\text{A set } \mathbb{E} \text{, is measurable if } \forall \epsilon > 0, \exists \text{ an open set } \mathbb{O} \text{ with } \mathbb{E} \subset \mathbb{O} \text{ such that } m_{\ast}(\mathbb{O} - \mathbb{E}) \leq \epsilon\\] 
 \\[\text{Where } \mathbb{O}-\mathbb{E} \text{ is defined as the set difference operation: } \mathbb{O}-\mathbb{E} = \mathbb{O}\cap\mathbb{E}^c\\]
-
+Without much justification, I will list some basic measurable sets.
+- Closed sets
+- Open sets
+- Null sets (sets with an exterior measure of 0)
+- Subsets of Null sets
+**Note:** To avoid any confusion, an open set is defined below:
+\\[\text{A set } O \text{ is open, if } \forall x \in O, \exists B_r(x) \text{ such that } B_r(x) \subseteq O\\]
+In English, this means for any point in \\(0\\) there exists a ball of radius \\(r\\), centered at \\(x\\), such that the ball is entirely contained within \\(O\\). With this defined, a closed set is simply a set whose complement is an open set. \
+Since we know the sets listed above are elements of the **Lebesgue Measurable Sets** (a \\(\sigma\\)-algebra), then we can also conclude that a countable union or intersection of these sets are also measurable. Now to recall some set theory, we know a countable union of open sets is an open set, and a countable intersection of closed sets is a closed set. However, we cannot say for certain whether or not a countable intersection of open sets is open, or if a countable union of closed sets is closed. This leads to the definition of two types of measurable sets below:
+\\[\text{A } G_{\delta} \{is a countable intersection of open sets\\]
+\\[\text{An } F_{\sigma} \{is a countable union of closed sets\\]
+These sets are important, because every set in the **Lebesgue Measurable Sets** is sandwhiched between an \\(F_{\sigma} \text{ and a } \G_{\delta}\\). Meaning every measurable set will have the same measure as some \\(F_{\sigma} \text{ and some } \G_{\delta}\\)
 Measurability of Functions
 ====
 After defining what a measurable set is, it is natural to consider what a measurable function might look like. 
