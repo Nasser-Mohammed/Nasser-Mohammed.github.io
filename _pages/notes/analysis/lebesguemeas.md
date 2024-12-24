@@ -103,7 +103,6 @@ Measurability of Functions
 ====
 After defining what a measurable set is, it is natural to consider what a measurable function might look like. In fact, we need to consider these measurable functions to further develop integration theory. 
 \\
-\\
 <div style="text-align: center;">
 $$
 \begin{align*}
