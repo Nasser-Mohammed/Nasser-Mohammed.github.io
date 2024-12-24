@@ -98,4 +98,5 @@ The last thing to consider with measurable sets is how limits interact with sequ
 Measurability of Functions
 ====
 After defining what a measurable set is, it is natural to consider what a measurable function might look like. In fact, we need to consider these measurable functions to further develop integration theory. 
-\\[\text{A function } f \text{ defined on a a measurable subset } E \subset \mathbb{R}^d \text{ is measurable, if } \forall a \in \mathbb{R} \text{ the set } f^{-1}([-\infty, a])) = {x \in E: f(x) < a}\\]
+\\[\text{A function } f \text{ defined on a a measurable subset } E \subset \mathbb{R}^d \text{ is measurable, if }\\]
+\\[\forall a \in \mathbb{R} \text{ the set } f^{-1}([-\infty, a])) = {x \in E: f(x) < a}\\]
