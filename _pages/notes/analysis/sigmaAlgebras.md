@@ -37,3 +37,5 @@ By "an appropriate \\(\sigma\\)-algebra", I mean one that gives us countable add
 Therefore, if we consider all subsets of a set \\(X\\) that satisfy the above condition, we produce a \\(\sigma\\)-algebra. In particular, this \\(\sigma\\)-algebra gives us countable additivity. 
 
 More generally though, \\(\sigma\\)-algebras provide us with structure to make conclusions about the behavior of certain set operations and how certain sets might interact with each other. 
+\
+For additionally information, another \\(\sigma\\)-algebra that is important in analysis is the **Borel** \\(\sigma\\)**-Algebra**, which is defined, as the smallest possible \\(\sigma\\)-algebra that contains all of the open sets of \\(\mathbb{R}^d\\). The smallest meaning, that any other \\(\sigma\\)-algebra that also contains all of the open sets of \\(\mathbb{R}^d\\), must also contain the **Borel** \\(\sigma\\)**-Algebra**. Denoted \\(B_{\mathbb{R}^d}\\)
