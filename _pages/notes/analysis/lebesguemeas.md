@@ -62,7 +62,7 @@ Does **NOT** imply
 \\[m_{\ast}(E) = \sum_{j = 1}^{\infty}3 - \frac{1}{j} - 0\\]
 The strongest thing we can say is that
 \\[m_{\ast}(E) \leq \sum_{j = 1}^{\infty}m_{\ast}(E_j)\\]
-However, there are restrictions that we can apply to sets that allows us to have countable additivity \
+However, there are restrictions that we can apply to sets that allows us to have countable additivity. One more thing to note, is that even in contrast to the example I gave above, if I used a countable union of disjoint sets, we still cannot ensure countable additivity on all subsets of \\(\mathbb{R}^d\\) because of some highly pathalogical sets. Below are two examples where we have better additivity.\
 \
 **Observation 3:** If \\[E = \bigcup_{j = 1}^{\infty}Q_j\\] Where each \\(Q_j\\) is an almost disjoint cube, then 
 \\[m_{\ast}(E) = \sum_{j = 1}^{\infty}\left|Q_j\right|\\] \
@@ -71,7 +71,7 @@ However, there are restrictions that we can apply to sets that allows us to have
 
 Measurability of Sets
 =====
-With these observations in mind, we will introduce the definition of *measurability*. This definition is used to limit the exterior measure, (currently defined on all subsets of a set \\(\mathbb{R}^d\\)) to a certain collection of subsets of \\(\mathbb{R}^d\\), which form a \\(\sigma\\)-algebra.  Additionally, the exterior measure \\(m_{\ast}\\) will be countably additive on this \\(\sigma\\)-algebra, which we call the **Lebesgue Measurable Sets** of \\(\mathbb{R}^d\\). The definition is as follows:
+With these observations in mind, we will introduce the definition of *measurability*. This definition is used to limit the exterior measure, (currently defined on all subsets of a set \\(\mathbb{R}^d\\)) to a certain collection of subsets of \\(\mathbb{R}^d\\), which form a \\(\sigma\\)-algebra. Additionally, the exterior measure \\(m_{\ast}\\) will be countably additive on this \\(\sigma\\)-algebra, which we call the **Lebesgue Measurable Sets** of \\(\mathbb{R}^d\\). The definition is as follows:
 \\[\text{A set } \mathbb{E} \text{, is measurable if } \forall \epsilon > 0, \exists \text{ an open set } \mathbb{O} \text{ with } \mathbb{E} \subset \mathbb{O} \text{ such that } m_{\ast}(\mathbb{O} - \mathbb{E}) \leq \epsilon\\] 
 \\[\text{Where } \mathbb{O}-\mathbb{E} \text{ is defined as the set difference operation: } \mathbb{O}-\mathbb{E} = \mathbb{O}\cap\mathbb{E}^c\\]
 Without much justification, I will list some basic measurable sets.
@@ -79,6 +79,7 @@ Without much justification, I will list some basic measurable sets.
 - Open sets
 - Null sets (sets with an exterior measure of 0)
 - Subsets of Null sets
+\
 **Note:** To avoid any confusion, an open set is defined below:
 \\[\text{A set } O \text{ is open, if } \forall x \in O, \exists B_r(x) \text{ such that } B_r(x) \subseteq O\\]
 In English, this means for any point in \\(0\\) there exists a ball of radius \\(r\\), centered at \\(x\\), such that the ball is entirely contained within \\(O\\). With this defined, a closed set is simply a set whose complement is an open set. \
@@ -86,6 +87,10 @@ Since we know the sets listed above are elements of the **Lebesgue Measurable Se
 \\[\text{A } G_{\delta} \{is a countable intersection of open sets\\]
 \\[\text{An } F_{\sigma} \{is a countable union of closed sets\\]
 These sets are important, because every set in the **Lebesgue Measurable Sets** is sandwhiched between an \\(F_{\sigma} \text{ and a } \G_{\delta}\\). Meaning every measurable set will have the same measure as some \\(F_{\sigma} \text{ and some } \G_{\delta}\\)
+We also write \\(m_(\ast}(E) = m(E)\\) when \\(E\\) is a **Lebesgue Measurable Set**, since the exterior measure on this \\(\sigma\\)-algebra, is a proper measure. 
+Finally, we have countable additivity as defined below:
+\\[\text{If }E_1, E_2, ..... ,E_n \{ are disjoint measurable sets, and } E = \bigcup_{n = 1}^{\infty}E_n \text{  then,  } m(E) = \sum_{n = 1}^{\infty}m(E_n)\\]
+
 Measurability of Functions
 ====
 After defining what a measurable set is, it is natural to consider what a measurable function might look like. 
