@@ -79,17 +79,18 @@ Without much justification, I will list some basic measurable sets.
 - Open sets
 - Null sets (sets with an exterior measure of 0)
 - Subsets of Null sets
+
 \
 **Note:** To avoid any confusion, an open set is defined below:
 \\[\text{A set } O \text{ is open, if } \forall x \in O, \exists B_r(x) \text{ such that } B_r(x) \subseteq O\\]
 In English, this means for any point in \\(0\\) there exists a ball of radius \\(r\\), centered at \\(x\\), such that the ball is entirely contained within \\(O\\). With this defined, a closed set is simply a set whose complement is an open set. \
 Since we know the sets listed above are elements of the **Lebesgue Measurable Sets** (a \\(\sigma\\)-algebra), then we can also conclude that a countable union or intersection of these sets are also measurable. Now to recall some set theory, we know a countable union of open sets is an open set, and a countable intersection of closed sets is a closed set. However, we cannot say for certain whether or not a countable intersection of open sets is open, or if a countable union of closed sets is closed. This leads to the definition of two types of measurable sets below:
-\\[\text{A } G_{\delta} \{is a countable intersection of open sets\\]
-\\[\text{An } F_{\sigma} \{is a countable union of closed sets\\]
-These sets are important, because every set in the **Lebesgue Measurable Sets** is sandwhiched between an \\(F_{\sigma} \text{ and a } \G_{\delta}\\). Meaning every measurable set will have the same measure as some \\(F_{\sigma} \text{ and some } \G_{\delta}\\)
+\\[\text{A } G_{\delta} \text{is a countable intersection of open sets}\\]
+\\[\text{An } F_{\sigma} \text{is a countable union of closed sets}\\]
+These sets are important, because every set in the **Lebesgue Measurable Sets** is sandwhiched between an \\(F_{\sigma} \text{ and a } G_{\delta}\\). Meaning every measurable set will have the same measure as some \\(F_{\sigma} \text{ and some } G_{\delta}\\)
 We also write \\(m_(\ast}(E) = m(E)\\) when \\(E\\) is a **Lebesgue Measurable Set**, since the exterior measure on this \\(\sigma\\)-algebra, is a proper measure. 
 Finally, we have countable additivity as defined below:
-\\[\text{If }E_1, E_2, ..... ,E_n \{ are disjoint measurable sets, and } E = \bigcup_{n = 1}^{\infty}E_n \text{  then,  } m(E) = \sum_{n = 1}^{\infty}m(E_n)\\]
+\\[\text{If }E_1, E_2, ..... ,E_n \text{ are disjoint measurable sets, and } E = \bigcup_{n = 1}^{\infty}E_n \text{  then,  } m(E) = \sum_{n = 1}^{\infty}m(E_n)\\]
 
 Measurability of Functions
 ====
