@@ -91,6 +91,9 @@ These sets are important, because every set in the **Lebesgue Measurable Sets** 
 We also write \\(m_{\ast}(E) = m(E)\\) when \\(E\\) is a **Lebesgue Measurable Set**, since the exterior measure on this \\(\sigma\\)-algebra, is a proper measure. 
 Finally, we have countable additivity as defined below:
 \\[\text{If }E_1, E_2, ..... ,E_n \text{ are disjoint measurable sets, and } E = \bigcup_{n = 1}^{\infty}E_n \text{  then,  } m(E) = \sum_{n = 1}^{\infty}m(E_n)\\]
+The last thing to consider in measurable sets is how limits interact with sequences of sets and their measure.
+\\[\text{If } E_1, E_2, ..... , E_n \text{ are measurable sets, and }  {E_n} \rightarrow E \text{ then } \lim_{n \rightarrow \infty}m(E_n) = m(E)\\]
+**Note:** If the sets are shrinking to \\(E\\), then eventually one of the sets \\(E_j\\) must have \\(m(E_j) < \infty\\), otherwise we obviously can't have the statement above.
 
 Measurability of Functions
 ====
