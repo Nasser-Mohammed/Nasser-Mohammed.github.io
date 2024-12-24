@@ -5,7 +5,7 @@ permalink: /notes/analysis/sigmaAlgebras/
 author_profile: false
 --- 
 <hr style="border: 2px solid black;">
-A \\(\sigma\\)-Algebra *M*, of **subsets** of a set \\(mathbb{X}\\), is a collection of subsets of \\(mathbb{X}\\) that satisfy the following properties. \
+A \\(\sigma\\)-Algebra *M*, of **subsets** of a set \\(X\\), is a collection of subsets of \\X\\) that satisfy the following properties. \
 \
 \\[(1) \text{*M* contains the empty set: } \emptyset \in \text{*M}\\]
 \\[(2) \text{Closure under complementation: If } B \in \text{*M*} then B^c \in \text{*M*}\\]
