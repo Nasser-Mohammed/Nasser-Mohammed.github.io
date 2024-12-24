@@ -14,7 +14,7 @@ $$
 (2)&\text{Closure under complementation: If } B \in \text{M, then } B^c \in \text{M}
 \\
 (3)&\smash{\text{Closure under countable union: If } B_1, B_2, ..... , B_n \in \text{M, then } \bigcup_{n = 1}^{\infty}B_n \in \text{M}}
-\end{equation}
+\end{align}
 $$
 
 There are two things to consider with this definition. The first is that since \\(\emptyset \in\\) M, and M is closed under complementation \\(\implies \emptyset^c \in \\) M and \\(\emptyset^c = X \implies X \in M\\). \
