@@ -12,7 +12,7 @@ $
 \\
 (2)&\text{Closure under complementation: If } B \in \text{M, then } B^c \in \text{M} \\
 \\
-(3)&\smash{\text{Closure under countable union: If } B_1, B_2, ..... , B_n \in \text{M, then } \bigcup_{n = 1}^{\infty}B_n \in \text{M}}
+(3)&\smash{\text{Closure under countable union: If } B_1, B_2, ..... , B_n \in \text{M, then } \bigcup_{n = 1}^{\infty}B_n \in \text{M}
 \\
 \end{align}
 $
