@@ -105,5 +105,6 @@ After defining what a measurable set is, it is natural to consider what a measur
 \\
 \\
 $$\text{A function } f \text{ defined on a a measurable subset } E \subset \mathbb{R}^d \text{ is measurable, if }$$
+\\
 $$\forall a \in \mathbb{R} \text{, the set } f^{-1}([-\infty, a]) = \{x \in E: f(x) < a\}$$
 
