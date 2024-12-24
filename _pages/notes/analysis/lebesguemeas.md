@@ -69,7 +69,8 @@ However, there are restrictions that we can apply to sets that allows us to have
 \
 **Observation 4:** If \\[E = E_1 \cup E_2\\] Where \\(d(E_1, E_2) > 0\\) then \\[m_{\ast}(E) = m_{\ast}(E_1) + m_{\ast}(E_2)\\]
 
- With these observations in mind, we will introduce the definition of *measurability*. This definition is used to limit the exterior measure, (currently defined on all subsets of a set \\(\mathbb{R}^d\\)) to a certain collection of subsets of \\(\mathbb{R}^d\\), which form a \\(sigma\\)-algebra.  Additionally, the exterior measure \\(m_{\ast}\\) will be countably additive on this \\(\sigma\\)-algebra, which we call the **Lebesgue measurable sets** of \\(\mathbb{R}^d\\). The definition is as follow:
+ With these observations in mind, we will introduce the definition of *measurability*. This definition is used to limit the exterior measure, (currently defined on all subsets of a set \\(\mathbb{R}^d\\)) to a certain collection of subsets of \\(\mathbb{R}^d\\), which form a 
+\\(sigma\\)-algebra.  Additionally, the exterior measure \\(m_{\ast}\\) will be countably additive on this \\(\sigma\\)-algebra, which we call the **Lebesgue measurable sets** of \\(\mathbb{R}^d\\). The definition is as follow:
 \\[\text{A set } \mathbb{E} \text{, is measurable if } \forall \epsilon > 0, \exists \text{ an open set } \mathbb{O} \text{ with } \mathbb{E} \subset \mathbb{O} \text{ such that } m_{\ast}(\mathbb{O} - \mathbb{E}) \leq \epsilon\\] 
 \\[\text{Where } \mathbb{O}-\mathbb{E} \text{ is defined as the set difference operation: } \mathbb{O}-\mathbb{E} = \mathbb{O}\cap\mathbb{E}^c\\]
 
