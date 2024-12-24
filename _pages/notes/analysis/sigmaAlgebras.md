@@ -21,7 +21,7 @@ There are two things to consider with this definition. The first is that since \
 The second concerns the choice of countable union. For some set \\(E \in M\\), where 
 \\[E = \bigcup_{n = 1}^{\infty}E_n\\]  and where each \\(E_n\\) is some element of \\(M\\). Then we know \\(E \in M \implies E^c \in M\\), so if we replace \\(E\\) by the union of sets that it's comprised of, we get
 \\[E = \bigcup_{n = 1}^{\infty}E_n \text{ then } E^c = (\bigcup_{n = 1}^{\infty}E_n)^c\\]
-By De Morgan's Law \\[(\bigcup_{n = 1}{^\infty}E_n)^c = \bigcap_{n = 1}^{\infty}E_n^c\\]
+By De Morgan's Law \\[(\bigcup_{n = 1}^{\infty}E_n)^c = \bigcap_{n = 1}^{\infty}E_n^c\\]
 Now, we know each \\(E_n \in M \implies E_n^c \in M\\). So in our above expression, we have the countable intersection of elements in \\(M\\). Finally, know that we simply rewrote our original set \\(E^c\\), so \\[E^c = (\bigcup_{n = 1}^{\infty}E_n)^c = \bigcap_{n = 1}^{\infty}E_n^c\\] 
 Implies, \\[E^c =\bigcap_{n = 1}^{\infty}E_n^c\\] And we know \\(E^c \in M\\) since \\(E \in M\\), finally this implies \\[\bigcap_{n = 1}^{\infty}E_n^c \in M\\] Where each \\(E_n^c \in M\\). Essentially, combining the closure under complementation and De Morgan's Law with the closure under countable union, we can conclude that \\(M\\) is **also** closed under countable intersection. Therefore, we can actually choose whether to use countable union or countable intersection in our definition, since they both end up implying the other (when coupled with complementation). 
 
