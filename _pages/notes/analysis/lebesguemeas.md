@@ -142,10 +142,12 @@ $$
 $$
 \begin{align*}
 &\text{The notation } a.e \text{ } x, \text{means almost everywhere x. Which is defined as, }\\
-&f(x) = g(x) a.e x \text{ if the set } \{x: f(x) \neq g(x)\} \text{has measure 0} \\
+&f(x) = g(x) a.e \text{ } x \text{ if the set } \{x: f(x) \neq g(x)\} \text{has measure 0} \\
 &\\
 &\text{What this means in English, is that the set of x-values, where } f(x) \neq g(x) \text{ has measure 0.}
 \end{align*}
 $$
 </div>
-This definition of "almost everywhere equal", is really a hallmark of Lebesgue Measure Theory. We essentially replace the pointwise convergence found in Riemann Integration, with almost everywhere convergence/equality. This allows for more general and stronger statements to be made. In Lebsgue Measure Theory, these sets of measure 0 are called null sets, and things like integration pass through null sets essentially. 
+This definition of "almost everywhere equal", is really a hallmark of Lebesgue Measure Theory. We essentially replace the pointwise convergence/equality found in Riemann Integration, with almost everywhere convergence/equality. This allows for more general and stronger statements to be made. In Lebesgue Measure Theory, these sets of measure 0 are called null sets, and things like integration pass through null sets essentially. \\
+\\
+Now we can state a result which is really the bread and butter for integration and \\(L^p\\) theory. As stated earlier, we can essentially approximate measurable functions, to an arbitrary degree, with sequences of simple function. Then, in limit, we get almost everywhere convergence/equality. The statement is as follows:
