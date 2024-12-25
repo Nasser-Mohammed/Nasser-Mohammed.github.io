@@ -130,8 +130,11 @@ $$
 \begin{align*}
 &\text{(1): If } \{f_n\}_{n=1}^{\infty} \text{ is a sequence of measurable functions and } \lim_{n\rightarrow\infty}f_n(x) = f(x), \\
 &\text{then f is measurable} \\
+\\
 &\text{(2): If } f \text{ and } g \text{ are measurable and finite valued, then } f+g \text{ and } fg \text{ are measurable} \\
+ \\
 &\text{(3): If } f \text{ is measurable, and } f(x) = g(x) \text{ for } a.e x, \text{ then } g \text{ is measurable}
+\\
 \end{align*}
 $$
 </div>
