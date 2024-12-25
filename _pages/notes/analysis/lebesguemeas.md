@@ -148,4 +148,4 @@ $$
 \end{align*}
 $$
 </div>
-
+This definition of "almost everywhere equal", is really a hallmark of Lebesgue Measure Theory. We essentially replace the pointwise convergence found in Riemann Integration, with almost everywhere convergence/equality. This allows for more general and stronger statements to be made. In Lebsgue Measure Theory, these sets of measure 0 are called null sets, and things like integration pass through null sets essentially. 
