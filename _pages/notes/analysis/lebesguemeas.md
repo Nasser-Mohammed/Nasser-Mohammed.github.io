@@ -112,6 +112,6 @@ $$
 $$
 </div>
 
-Now that we have a notion of measurable functions, we will begin to outline some notable measurable functions. First, the building block of integration theory, the characteristic function: 
-\\[\mathbb{1}_E(x)\\]
+Now that we have a notion of measurable functions, we will begin to outline some notable measurable functions. First, the building block of integration theory, the characteristic function defined on a set \\(E\\): 
+\\[\chi_E(x) = \\]
 
