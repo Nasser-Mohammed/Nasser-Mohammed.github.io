@@ -141,7 +141,7 @@ $$
 <div style="text-align: center;">
 $$
 \begin{align*}
-&\text{The notation } a.e \text{ } x, \text{means "almost everywhere x". Which is defined as, }\\
+&\text{The notation } a.e \text{ } x, \text{means almost everywhere x. Which is defined as, }\\
 &f(x) = g(x) a.e x \text{ if the set } \{x: f(x) \neq g(x)\} \text{has measure 0} \\
 &\\
 &\text{What this means in English, is that the set of x-values, where } f(x) \neq g(x) \text{ has measure 0.}
