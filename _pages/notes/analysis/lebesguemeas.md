@@ -122,12 +122,22 @@ $$
 \end{cases} 
 $$
 </div>
-In other words, this function acts as a sort of switch, that tells us if some number is in the set \\(E\\). We can now build the simple function, which in the future essentially let us approximate any *measurable* function by considering the limit of simple functions. I will go into more detail about that later. The simple function is essentially a generalization of the step function used in Riemann Integration, and allows us to consider a wider range of functions. A simple function \\(f\\) is defined below: 
+In other words, this function acts as a sort of switch, that tells us if some number is in the set \\(E\\). We can now build the simple function, which in the future essentially let us approximate any *measurable* function by considering the limit of simple functions. I will go into more detail about that later. The simple function is essentially a generalization of the step function used in Riemann Integration, and allows us to consider a wider range of functions. A simple function \\(\text{ }f \text{ }\\) is defined as the finite sum below: 
 \\[f = \sum_{k = 1}^{M}a_k\chi_{E_k}\\]
-Where each \\(E_k\\) is measurable and has finite measure, and each \\(a_k)\\) is simply a constant. The most important properties of simple functions are listed below:
+Where each \\(E_k\\) is measurable and has finite measure, and each \\(a_k)\\) is simply a constant. The most important properties of **measurable** functions are listed below:
 <div style="text-align: center;">
 $$
-\text{If } \{f_n\}_{n=1}^{\infty} is a sequence of measurable functions and \lim_{n\rightarrow\infty}f_n(x) = f(x), then f is measurable
+\text{(1): If } \{f_n\}_{n=1}^{\infty} is a sequence of measurable functions and \lim_{n\rightarrow\infty}f_n(x) = f(x), then f is measurable
+\text{(2): If } f \text{ and } g \text{ are measurable and finite valued, then } f+g \text{ and } fg \text{ are measurable}
+\text{(3): If } f \text{ is measurable, and } f(x) = g(x) \text{ for } a.e x, \text{ then } g \text{ is measurable}
 $$
 </div>
+
+<div style="text-align: center;">
+ $$
+\text{The notation } a.e x, \text{means "almost everywhere x". Which is defined as, }\\
+f(x) = g(x) a.e x \text{ if the set } \{x: f(x) \neq g(x)\} has measure 0
+$$
+</div>
+What this means in English, is that the set of x-values, where \\(f(x) \neq g(x)\\) has measure 0.
 
