@@ -122,6 +122,12 @@ $$
 \end{cases} 
 $$
 </div>
-
-
+In other words, this function acts as a sort of switch, that tells us if some number is in the set \\(E\\). We can now build the simple function, which in the future essentially let us approximate any *measurable* function by considering the limit of simple functions. I will go into more detail about that later. The simple function is essentially a generalization of the step function used in Riemann Integration, and allows us to consider a wider range of functions. A simple function \\(f\\) is defined below: 
+\\[f = \sum_{k = 1}^{M}a_k\chi_{E_k}\\]
+Where each \\(E_k\\) is measurable and has finite measure, and each \\(a_k)\\) is simply a constant. The most important properties of simple functions are listed below:
+<div style="text-align: center;">
+$$
+\text{If } \{f_n\}_{n=1}^{\infty} is a sequence of measurable functions and \lim_{n\rightarrow\infty}f_n(x) = f(x), then f is measurable
+$$
+</div>
 
