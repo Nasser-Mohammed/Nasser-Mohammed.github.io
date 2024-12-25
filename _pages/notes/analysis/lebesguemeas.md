@@ -128,16 +128,18 @@ Where each \\(E_k\\) is measurable and has finite measure, and each \\(a_k)\\) i
 <div style="text-align: center;">
 $$
 \text{(1): If } \{f_n\}_{n=1}^{\infty} \text{ is a sequence of measurable functions and } \lim_{n\rightarrow\infty}f_n(x) = f(x), \\
-then f is measurable \\
+\text{then f is measurable} \\
 \text{(2): If } f \text{ and } g \text{ are measurable and finite valued, then } f+g \text{ and } fg \text{ are measurable} \\
 \text{(3): If } f \text{ is measurable, and } f(x) = g(x) \text{ for } a.e x, \text{ then } g \text{ is measurable}
 $$
 </div>
 
 <div style="text-align: center;">
- $$
+$$
+\begin{align*}
 \text{The notation } a.e x, \text{means "almost everywhere x". Which is defined as, }\\
 f(x) = g(x) a.e x \text{ if the set } \{x: f(x) \neq g(x)\} \text{has measure 0}
+\end{align*}
 $$
 </div>
 What this means in English, is that the set of x-values, where \\(f(x) \neq g(x)\\) has measure 0.
