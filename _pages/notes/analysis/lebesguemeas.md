@@ -113,5 +113,13 @@ $$
 </div>
 
 Now that we have a notion of measurable functions, we will begin to outline some notable measurable functions. First, the building block of integration theory, the characteristic function defined on a set \\(E\\): 
-\\[\chi_E(x) = \\]
+<div style="text-align: center;">
+$$
+\chi_E(x) = 
+\begin{cases}
+0: \text{ if } x \in E \\
+1: \text{ if } x \notin E
+\end{cases} 
+$$
+</div>
 
