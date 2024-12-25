@@ -117,8 +117,8 @@ Now that we have a notion of measurable functions, we will begin to outline some
 $$
 \chi_E(x) = 
 \begin{cases}
-0: \text{ if } x \in E \\
-1: \text{ if } x \notin E
+1: \text{ if } x \in E \\
+0: \text{ if } x \notin E
 \end{cases} 
 $$
 </div>
