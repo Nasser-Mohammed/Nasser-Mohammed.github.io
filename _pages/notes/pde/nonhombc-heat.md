@@ -73,10 +73,10 @@ And
 Substituting those into
 \\[u_t = \alpha^2u_{xx}\\] 
 We get
-\\[S_t(x,t) + U_t(x,t) = \alpha^2(S_{xx}(x,t) + U_{xx}(x,t))\\]
-Now, \\(S_t(x,t) = 3-3x\\) and \\(S_{xx} = 0\\), plugging that in above we get,
-\\[3-3x + U_t(x,t) = \alpha^2U_{xx}(x,t)\\] 
+\\[S_t + U_t = \alpha^2(S_{xx} + U_{xx})\\]
+Now, \\(S_t = 3-3x\\) and \\(S_{xx} = 0\\), plugging that into the equation above we get,
+\\[3-3x + U_t = \alpha^2U_{xx}\\] 
 We can rewrite it in a way, more akin to the heat equation we first saw, so
-\\[U_t(x,t) = \alpha^2U_{xx}(x,t) + 3x - 3\\]
+\\[U_t = \alpha^2U_{xx} + 3x - 3\\]
 This is a **non-homogenous** version of the heat equation, and will cover how to solve it in the next section. However, we know we have homogenous boundary conditions, \\[U(0, t) = 0 \text{ and } U(1,t) = 0\\]
 
