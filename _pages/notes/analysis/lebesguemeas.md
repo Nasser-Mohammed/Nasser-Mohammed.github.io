@@ -156,7 +156,7 @@ Now we can state a result which is really the bread and butter for integration a
 $$
 \begin{align*}
 &\text{If } f \text{ is a measurable function on } \mathbb{R}^d \text{ Then } \exists \text{ a sequence of simple functions } \{\phi_k\}_{k =1}^{\infty}\\
-&\text{ that converges pointwise to } f. \text{ In other words, the limit of the sequence } \{\phi_k\}_{k = 1}^{\infty} = f. \\
+&\text{ that converges pointwise to } f. \text{ In other words, } \lim_{k \rightarrow \infty}\phi_k = f(x) \forall x. \\
 &\text{ Additionally, the absolute value of this sequence is increasing, i.e. } \left|\phi_k(x)\right| \leq \left|\phi_{k + 1}(x)\right|
 \end{align*}
 $$
