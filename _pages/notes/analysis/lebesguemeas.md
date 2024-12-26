@@ -160,4 +160,4 @@ $$
 &\text{ Additionally, the absolute value of this sequence is increasing, i.e. } \left|\phi_k(x)\right| \leq \left|\phi_{k + 1}(x)\right|
 \end{align*}
 $$
-<\div>
+</div>
