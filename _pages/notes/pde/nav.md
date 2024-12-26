@@ -10,4 +10,5 @@ The notes below come from personal notes, lecture notes, and *Partial Differenti
    - [The Heat Equation with Non-Homogenous Boundary Conditions](nonHomBC-heat.md)
 - [The Wave Equation](waveequation.md)
 - [Laplace's Equation](laplaceequation.md)
+
  
