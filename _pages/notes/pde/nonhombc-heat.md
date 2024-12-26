@@ -78,5 +78,6 @@ Now, \\(S_t = 3-3x\\) and \\(S_{xx} = 0\\), plugging that into the equation abov
 \\[3-3x + U_t = \alpha^2U_{xx}\\] 
 We can rewrite it in a way, more akin to the heat equation we first saw, so
 \\[U_t = \alpha^2U_{xx} + 3x - 3\\]
-This is a **non-homogenous** version of the heat equation, and will cover how to solve it in the next section. However, we know we have homogenous boundary conditions, \\[U(0, t) = 0 \text{ and } U(1,t) = 0\\]
+This is a **non-homogenous** version of the heat equation, and I will cover how to solve it in the next section. However, we know we have homogenous boundary conditions, \\[U(0, t) = 0 \text{ and } U(1,t) = 0\\]
+Since we cannot use separation of variables on a non-homogenous PDE, then we will have to use something called eigenfunction expansion. Which will be covered in the next section.
 
