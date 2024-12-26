@@ -11,7 +11,7 @@ We consider the standard 1-D heat equation with an inhomogeneity of \\(f(x,t)\\)
 \\[u(x,t) = \sum_{n = 1}^{\infty}T_n(t)X_n(x)\\]
 \\[f(x,t) = \sum_{n = 1}^{\infty}f_n(t)X_n(x)\\]
 Since the \\(X_n(x)\\) comes from solving the homogenous version of PDE, \\(X_n(x) = \sin(n\pi x)\\), and since we are writing \\(f(x,t)\\) as its Fourier Series, we can just replace the \\(\sin(n\pi x)\\) from the Fourier Series representation with \\(X_n(x)\\). Now lets compute the partial derivatives, 
-\\[u_t = \sum_{n = 1}^{\infty}T_n^'(t)X_n(x)\\]
+\\[u_t = \sum_{n = 1}^{\infty}T_n^{\'}(t)X_n(x)\\]
 \\[u_{xx} = \sum_{n = 1}^{\infty}T_n(t)X_n^{\''}(x)\\]
 Plugging all of this into our PDE we get,
-\\[\sum_{n = 1}^{\infty}T_n^'(t)X_n(x) = \sum_{n = 1}^{\infty}T_n(t)X_n^{\''}(x) + \sum_{n = 1}^{\infty}f_n(t)X_n(x)\\]
+\\[\sum_{n = 1}^{\infty}T_n^{\'}(t)X_n(x) = \sum_{n = 1}^{\infty}T_n(t)X_n^{\''}(x) + \sum_{n = 1}^{\infty}f_n(t)X_n(x)\\]
