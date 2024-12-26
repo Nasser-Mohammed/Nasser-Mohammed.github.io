@@ -58,7 +58,7 @@ A common template for finding the homogenizer of time varying boundary condition
 \\[S(x,t) = A(t)\[1-\frac{x}{L}\] + B(t)\[\frac{x}{L}\]\\]
 Where \\(L\\) is the length of the rod, in our case 1.
 Let's consider the boundary conditions below,
-\\[u(t, 0) = 3t, u(t, 1) = \frac{1}{t}\\]
+\\[u(t, 0) = 3t \text{, } u(t, 1) = \frac{1}{t}\\]
 Then as mentioned, we want this function to equal our boundary conditions. So
 \\[S(0, t) = A(t) = u(0, t) = 3t \implies A(t) = 3t\\]
 \\[\text{Then substitute our found function of } A(t) \text{ into our steady-state solution to get } S(x,t) = 3t\[1-x\] + B(t)\[x\]\\]
