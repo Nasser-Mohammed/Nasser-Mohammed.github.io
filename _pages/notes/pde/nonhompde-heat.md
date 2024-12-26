@@ -22,4 +22,5 @@ We can pull the summation out to get,
 We note here, that \\(X_n(x) = \sin(n\pi x) \implies X_n^{\''} = (n\pi)^2\sin(n\pi x)\\). So plugging these into the equation above we arrive at, 
 \\[\sum_{n = 1}^{\infty}T_n^{\'}\sin(n\pi x) - T_n(t)(n\pi)^2\sin(n\pi x) - f_n(t)\sin(n\pi x) = 0\\]
 And pulling out the \\(\sin(n\pi x)\\) term we get
-\\[\sum_{n = 1}^{\infty}\[T_n^{\'} - T_n(t)(n\pi)^2 - f_n(t)\]\sin(n\pi x)\\]
+\\[\sum_{n = 1}^{\infty}\[T_n^{\'} - T_n(t)(n\pi)^2 - f_n(t)\]\sin(n\pi x) = 0\\]
+The sequence of functions \\(\sin(n\pi x)\\) forms an [orthogonal basis](https://en.wikipedia.org/wiki/Orthogonal_basis). Without going into much detail, this says that for any function \\(g(t)\\), then \\(g(t)sin(n\pi x) = 0 \implies  g(t) = 0\\). Applying this to our equation, \\(T_n^{\'} - T_n(t)(n\pi)^2 - f_n(t)\\) is the function that must be 0. So we can set \\[T_n^{\'} - T_n(t)(n\pi)^2 - f_n(t) = 0\\], since we know this must be true. In doing this, we arrive at a non-homogenous ODE, in T. However, we have tools to solve non-homogenous ODEs, such as an integrating factor or through method of undetermined coefficients (among other ways, but these are most common). Once we solve for \\(T_n(t)\\) we then have our solution \\(u(x,t) = T_n(t)X_n(x)\\)
