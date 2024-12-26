@@ -5,4 +5,4 @@ permalink: /notes/pde/nonHomBC-heat/
 author_profile: false
 --- 
 <hr style="border: 2px solid black;">
-\\[u_t=\alpha^2u_{xx}\\]
+\\[u_t=\alpha^2u_{xx}\\] 
