@@ -14,7 +14,7 @@ As you can see, the PDE is the same as before. However, we will want to consider
 
 So how do we go about solving such a problem? Well, it turns out that we assume the solution takes a particular form. That is, we assume that the solution \\(u\\) is the sum of a steady-state and transient solution. Our goal is to "homogenize" the boundary conditions, and solve a PDE for another function which is related to the solution of our problem in a known way. 
 \\[u(x,t) = S(x,t) + U(x,t)\\]
-\\[\text{Where } S(x,t) \text{ is our stead-state, and } U(x,t) \text{ is our transient part}\\]
+\\[\text{Where } S(x,t) \text{ is our steady-state, and } U(x,t) \text{ is our transient part}\\]
 A steady-state solution (sometimes called a "homogenizer"), is one that handles the boundary conditions, so we form this function in such a way that equals the boundary conditions at \\(x = 0\\) and \\(x = 1\\).
 It takes some trial and error to find a proper "homogenizer", but usually, we start off with simple functions like lower degree polynomials, and increase the degree as we need more and more constants to solve for the two boundary condition. 
 
