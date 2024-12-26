@@ -7,7 +7,7 @@ author_profile: false
 <hr style="border: 2px solid black;">
 \\[u_t=\alpha^2u_{xx} + f(x,t)\\] 
 
-We consider the standard 1-D heat equation with an inhomogeneity of \\(f(x,t)\\). The idea, is to write this inhomgeneity \\(f(x,t)\\) as a sin-series (also called its Fourier Series), as well as rewriting \\(u(x,t)\\) as a sin-series. Once we rewrite the PDE in this way, we can make some observations that allow us to solve the problem. It will become clear that we can sort of "push" the inhomogeneity onto an ODE in \\(T\\). As mentioned, rewriting everything in terms of their Fourier Series, we have
+We consider the standard 1-D heat equation with an inhomogeneity of \\(f(x,t)\\). The idea, is to write this inhomogeneity \\(f(x,t)\\) as a sin-series (also called its Fourier Series), as well as rewriting \\(u(x,t)\\) as a sin-series. Once we rewrite the PDE in this way, we can make some observations that allow us to solve the problem. It will become clear that we can sort of "push" the inhomogeneity onto an ODE in \\(T\\). As mentioned, rewriting everything in terms of their Fourier Series, we have
 \\[u(x,t) = \sum_{n = 1}^{\infty}T_n(t)X_n(x)\\]
 \\[f(x,t) = \sum_{n = 1}^{\infty}f_n(t)X_n(x)\\]
 Since the \\(X_n(x)\\) comes from solving the homogenous version of PDE, \\(X_n(x) = \sin(n\pi x)\\), and since we are writing \\(f(x,t)\\) as its Fourier Series, we can just replace the \\(\sin(n\pi x)\\) from the Fourier Series representation with \\(X_n(x)\\). Now lets compute the partial derivatives, 
