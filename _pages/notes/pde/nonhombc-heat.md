@@ -36,7 +36,7 @@ Substituting those into
 We get
 \\[S_t(x,t) + U_t(x,t) = \alpha^2(S_{xx}(x,t) + U_{xx}(x,t))\\]
 But \\(S(x,t) = 4x + 1 \implies S_t(x,t) = 0\\) and \\(S_{xx}(x,t) = 0\\). So our equation simplifies to, 
-\\[U_t(x,t) = \alpha^2U_{xx}(x,t))\\]
+\\[U_t(x,t) = \alpha^2U_{xx}(x,t)\\]
 This is simply the heat equation for the function \\(U(x,t)\\), but if we can find this function, we know that \\(u(x,t) = S(x,t) + U(x,t)\\) and we already know \\(S(x,t)\\). But we must convert our boundary conditions to solve this, we know these boundary conditions will become 0, because we designed \\(S(x,t)\\) that way, but I will still go through the computation. Our boundary conditions were, \\(u(0, t) = 1\\) and \\(u(1, t) = 5\\), now substituting \\(S(x,t) + U(x,t)\\) in place for \\(u(x,t)\\). We get,
 \\[u(0,t) = S(0, t) + U(0,t) = 1\\]
 But we know \\(S(0,t) = 1\\), so we substract it from both sides to get \\[U(0,t) = 0\\] 
