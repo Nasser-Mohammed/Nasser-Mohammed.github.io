@@ -150,7 +150,7 @@ $$
 </div>
 This definition of "almost everywhere equal", is really a hallmark of Lebesgue Measure Theory. We essentially replace the pointwise convergence/equality found in Riemann Integration, with almost everywhere convergence/equality. This allows for more general and stronger statements to be made. In Lebesgue Measure Theory, these sets of measure 0 are called null sets, and things like integration pass through null sets essentially. \\
 \\
-Now we can state a result which is really the bread and butter for integration and \\(L^p\\) theory. As stated earlier, we can essentially approximate measurable functions, to an arbitrary degree, with sequences of simple function. Then, in limit, we get almost everywhere convergence/equality. The statement is as follows:
+Now we can state a result which is really the bread and butter for integration and \\(L^p\\) theory. As stated earlier, we can essentially approximate measurable functions, to an arbitrary degree, with sequences of simple function. Then, in limit, we actually get pointwise convergence in this case. The statement is as follows:
 
 <div style="text-align: center;">
 $$
@@ -163,7 +163,7 @@ $$
 </div>
 I believe this is a good overview of the basics of Lebesgue Measure Theory. The most important things to consider are \\(\sigma\\)-algebras, the exterior measure, countable additivity vs sub-additivity, measurability, the algebra formed by measurable sets, measurable functions, simple functions, and the theorem stating that every measurable function can be written as the limit of some simple functions (i.e. is states the **existence** of the sequence of simple functions needed to converge to a function). For brevity, there are things left out, such as the Cantor set, Vitali Set, Ergorov's Theorem, etc. If I do not have one of the topics yet in my notes, you can check the links below.
 
--[Cantor Set](https://en.wikipedia.org/wiki/Cantor_set)
--[Vitali Set](https://en.wikipedia.org/wiki/Vitali_set)
--[Ergorov's Theorem](https://en.wikipedia.org/wiki/Egorov%27s_theorem)
+- [Cantor Set](https://en.wikipedia.org/wiki/Cantor_set)
+- [Vitali Set](https://en.wikipedia.org/wiki/Vitali_set)
+- [Ergorov's Theorem](https://en.wikipedia.org/wiki/Egorov%27s_theorem)
 
