@@ -1,7 +1,7 @@
 ---
 layout: archive
 title: "The Heat Equation with Non-Homogenous Boundary Conditions"
-permalink: /notes/pde/nonHomogBC-heat/
+permalink: /notes/pde/nonHomBC-heat/
 author_profile: false
 --- 
 <hr style="border: 2px solid black;">
