@@ -9,5 +9,5 @@ The notes below come from personal notes, lecture notes, *Real Analysis: Measure
 - [Sigma Algebras](sigmaAlgebras.md)
 - [Lebesgue Measure Theory](lebesguemeas.md)
 - [Lebesgue Integration Theory](lebintegral.md)
-- [Establishing the Fundamental Theorem of Calculus with Lebesgue Integral](ftc.md)
+- [Establishing the Fundamental Theorem of Calculus with The Lebesgue Integral](ftc.md)
 - [Abstract Measure Theory](abstractmeasure.md)
