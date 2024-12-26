@@ -22,4 +22,4 @@ We can pull the summation out to get,
 We note here, that \\(X_n(x) = \sin(n\pi x) \implies X_n^{\''} = (n\pi)^2\sin(n\pi x)\\). So plugging these into the equation above we arrive at, 
 \\[\sum_{n = 1}^{\infty}T_n^{\'}\sin(n\pi x) - T_n(t)(n\pi)^2\sin(n\pi x) - f_n(t)\sin(n\pi x) = 0\\]
 And pulling out the \\(\sin(n\pi x)\\) term we get
-\\[\sum_{n = 1}^{\infty}(T_n^{\'} - T_n(t)(n\pi)^2 - f_n(t))\sin(n\pi x)\\]
+\\[\sum_{n = 1}^{\infty}\[T_n^{\'} - T_n(t)(n\pi)^2 - f_n(t)\]\sin(n\pi x)\\]
