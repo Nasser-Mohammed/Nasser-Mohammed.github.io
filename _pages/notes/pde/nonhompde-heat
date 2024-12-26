@@ -4,5 +4,6 @@ title: "The Non-Homogenous Heat Equation"
 permalink: /notes/pde/nonhompde-heat/
 author_profile: false
 --- 
+
 <hr style="border: 2px solid black;">
 \\[u_t=\alpha^2u_{xx} + f(x,t)\\]
