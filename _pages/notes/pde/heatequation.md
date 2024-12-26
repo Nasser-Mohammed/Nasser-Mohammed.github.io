@@ -24,6 +24,7 @@ Separation of Variables
 =
 <hr style="border: 2px solid black;">
 This is a very powerful and straight forward method to solving PDEs, and requires us to make an assumption on the form of the solution and separating the \\(x\\) and \\(t\\) variables. Once we separate the variables, we arrive at ODEs in those variables, whose solutions are well known (through ODE theory). 
+**Note:** We must have **linear-homogenous** boundary conditions **and** a linear-homogenous PDE (in the case of the heat equation) to do separation of variables. 
 
 So, How do we Begin to Solve it?
 =====
