@@ -23,4 +23,10 @@ called the continuous frequency resolution. This extension, now allows us to tra
 \\[\\mathcal{F}\[f\] = F(\xi) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(x)e^{-i\xi x}dx\\]
 With the Inverse Fourier Transform is defined as:
 \\[\\mathcal{F}^{-1}\[F\] = f(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}F(\xi)e^{i\eta x}d\xi\\]
-Now a lot of the times, we don't have to actually compute this integral. If the function we are transforming is in a form with a well known transformation, we can usually just write its transform (usually given by a table of transforms in the back of textbooks). For example, the Fourier Transform for \\(e^{-a^2x^2}\\) is given by  \\[\frac{1}{a\sqrt{2}}e^{\frac{-\omega^2}{4a^2}}\\]
+Now a lot of the times, we don't have to actually compute this integral. If the function we are transforming is in a form with a well known transformation, we can usually just write its transform (usually given by a table of transforms in the back of textbooks). For example, the Fourier Transform for \\(e^{-a^2x^2}\\) is given by  \\[\mathcal{F}\[e^{-a^2x^2}\] = \frac{1}{a\sqrt{2}}e^{\frac{-\omega^2}{4a^2}}\\]
+We typically use the Fourier Transform to transform the spatial derivative \\(x\\), in doing this, we will get an ODE in \\(t\\). 
+Before we can transform the PDE, we need to note the transforms of some partial derivatives:
+\\[\mathcal{F}\[u_x\] = i\xi\mathcal{F}\[u\]\\]
+\\[\mathcal{F}\[u_{xx}\] = -\xi^2\mathcal{F}\[u\]\\]
+\\[\mathcal{F}\[u_t\] = \frac{\partial}{\partial t}\mathcal{F}\[u\]\\]
+\\[\mathcal{F}\[u_{tt}\] = \frac{\partial^2}{\partial t^2}\mathcal{F}\[u\]\\]
