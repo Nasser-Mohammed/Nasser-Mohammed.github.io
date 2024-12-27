@@ -6,3 +6,4 @@ author_profile: false
 ---
 
 - [The Black-Scholes Equation](/expos/black-scholes.md)
+- [The Schrödinger Equation](/expos/schrödinger-equation.md)
