@@ -4,4 +4,4 @@ title: "Tips"
 permalink: /tips/
 author_profile: false
 ---
-hello
+Have not gotten to this yet.
