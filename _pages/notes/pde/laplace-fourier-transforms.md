@@ -20,7 +20,7 @@ The Fourier Transform
 We have already considered the sin and cos transforms of some functions, by means of a series (called the Fourier sin/cos series). However, to 
 generalize the functions we can apply this sort of apply this type of transform to, we consider the *Fourier Integral Representation*, sometimes
 called the continuous frequency resolution. This extension, now allows us to transform non-periodic functions on \\(\mathbb{R}\\) as well. The Fourier Transform is defined as:
-\\[\\mathcal{F}\[f\] = F(\eta) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(x)e^{-i\eta x}dx\\]
+\\[\\mathcal{F}\[f\] = F(\xi) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(x)e^{-i\xi x}dx\\]
 With the Inverse Fourier Transform is defined as:
-\\[\\mathcal{F}^{-1}\[F\] = f(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}F(\eta)e^{i\eta x}d\eta\\]
+\\[\\mathcal{F}^{-1}\[F\] = f(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}F(\xi)e^{i\eta x}d\xi\\]
 Now a lot of the times, we don't have to actually compute this integral if the function we are transforming is in a form with a well known transformation, we can usually just write its transform (usually given by a table of transforms in the back of textbooks). For example, the Fourier Transform for \\(e^{-a^2x^2}\\) is given by  \\[\frac{1}{a\sqrt{2}}e^{\frac{-\omega^2}{4a^2}\\]
