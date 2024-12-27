@@ -4,4 +4,5 @@ title: "Expositions"
 permalink: /expositions/
 author_profile: false
 ---
-hello
+
+- [The Black-Scholes Equation](/expos/black-scholes.md)
