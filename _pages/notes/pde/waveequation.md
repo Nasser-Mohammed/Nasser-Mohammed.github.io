@@ -21,9 +21,9 @@ The Vibrating Wave (Guitar String)
 ===
 Consider the following IBVP:
 
-\\[\text{PDE: } u_{tt} = \alpha^2u_{xx} 0 < x < L   0 < t < \infty\\]
-\\[\text{Boundary conditions: } u(0, t) = 0 = u(L, t)\\]
-\\[\text{Initial conditions: } u(x,0) = \phi(x),  u_t(x, 0) = \psi(x)\\]
+\\[\text{PDE:  } u_{tt} = \alpha^2u_{xx} \text{   } 0 < x < L  \text{  } 0 < t < \infty\\]
+\\[\text{Boundary conditions:  } u(0, t) = 0 = u(L, t)\\]
+\\[\text{Initial conditions:  } u(x,0) = \phi(x) \text{,   }  u_t(x, 0) = \psi(x)\\]
 Note that we have two initial conditions now, this is due to the fact that our temporal derivative \\(u_{tt}\\) is of 2nd order, and therefore the solution to an ODE in \\(t\\) will produce two coefficients. It makes sense if we think about the guitar string example again, we don't only need the initial position of the string, but we also need to know how "fast" the string is moving from its initial position since that will affect the evolution of the string. We solve this problem through separation of variables, so we assume
 \\[u(x,t) = T(t)X(x)\\]
 Plugging this into \\(u_{tt} = \alpha^2u_{xx}\\) we get:
