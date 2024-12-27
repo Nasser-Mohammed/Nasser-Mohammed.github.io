@@ -1,7 +1,7 @@
 ---
 layout: archive
-title: "The Wave Equation"
-permalink: /notes/pde/wave-eq/
+title: "The Black-Scholes Equation"
+permalink: /expos/black-scholes/
 author_profile: false
 ---
 <hr style="border: 2px solid black;">
