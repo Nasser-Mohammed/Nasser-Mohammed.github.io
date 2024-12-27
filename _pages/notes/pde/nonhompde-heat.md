@@ -24,14 +24,14 @@ We note here, that \\(X_n(x) = \sin(n\pi x) \implies X_n^{\''} = (n\pi)^2\sin(n\
 And pulling out the \\(\sin(n\pi x)\\) term we get
 \\[\sum_{n = 1}^{\infty}\[T_n^{\'} - T_n(t)(n\pi)^2 - f_n(t)\]\sin(n\pi x) = 0\\]
 The sequence of functions \\(\sin(n\pi x)\\) forms an [orthogonal basis](https://en.wikipedia.org/wiki/Orthogonal_basis). Without going into much detail, this says that for any function \\(g(t)\\), then \\(g(t)\sin(n\pi x) = 0 \implies  g(t) = 0\\). Applying this to our equation, \\(T_n^{\'} - T_n(t)(n\pi)^2 - f_n(t)\\) is the function that must be 0. So we can set \\[T_n^{\'} - T_n(t)(n\pi)^2 - f_n(t) = 0\\] Since we know this must be true. In doing this, we arrive at a non-homogenous ODE, in T. However, we have tools to solve non-homogenous ODEs, such as an [integrating factor](https://en.wikipedia.org/wiki/Integrating_factor) or through [method of undetermined coefficients](https://en.wikipedia.org/wiki/Method_of_undetermined_coefficients) (among other ways, but these are most common). 
-However, I have skipped over some steps, like how do we find the values \\(f_n(t)\\)? It turns out, we again use the orthogonality of \\(\sin(n\pix)\\), first we know
+However, I have skipped over some steps, like how do we find the values \\(f_n(t)\\)? It turns out, we again use the orthogonality of \\(\sin(n\pi x)\\), first we know
 \\[f(x,t) = \sum_{n = 1}^{\infty}f_n(t)sin(n\pi x)\\]
-Then as before, multiplying both sides by \\(\sin(m\pi x)\\) and integrating from 0 to 1 (with respect to \\(x\\)) will eliminate most of the right side, leaving \\\frac{1}{2}f_n(t)\\). If you do not see why, go back to the original [heat equation](heatequation.md) page, where I go through the derivation of this. So we now have an expression for \\(f_n(t)\\)
+Then as before, multiplying both sides by \\(\sin(m\pi x)\\) and integrating from 0 to 1 (with respect to \\(x\\)) will eliminate most of the right side, leaving \\(frac{1}{2}f_n(t)\\). If you do not see why, go back to the original [heat equation](heatequation.md) page, where I go through the derivation of this. So we now have an expression for \\(f_n(t)\\)
 \\[f_n(t) = 2\int_0^1f(x,t)sin(n\pi x)dx\\]
 So, for each \\(n\\), we can solve the ODE since we have our corresponding \\(f_n(t)\\). There is one more consideration, the initial condition. We are given the initial condition as a function typically (not a series), so we will substitute \\(u(0, x)\\) with its Fourier sin-series
-\\[u(x, 0) = \phi(x) = \sum{n = 1}^{\infty}T_n(0)X_n(x)\\]
+\\[u(x, 0) = \phi(x) = \sum_{n = 1}^{\infty}T_n(0)X_n(x)\\]
 Again, carrying out the process of multiplying by a factor of \\(\sin(m\pi x)\\) and integrating from 0 to 1 with respect to \\(x\\), we get that
 \\[T_n(0) = 2\int_0^1\phi(x)sin(n\pi x)\\]
-There we now have a way to compute the necessary initial condition for the \\(n^{th} ODE \text{ in } T\\)
-Once we solve for each \\(T_n(t)\\) we then have \\[u(x,t) = \sum_{n = 1}^{\infty}T_n(t)X_n(x)\\]
-As our final solution.
+Then we now have a way to compute the necessary initial condition for the \\(n^{th} \text{ ODE in } T\\).
+Once we solve for each \\(T_n(t)\\) we then have \\[u(x,t) = \sum_{n = 1}^{\infty}T_n(t)\sin(n\pi x)\\]
+As our final solution, where the \\(T_n(t)\\)s are solved by the above process.
