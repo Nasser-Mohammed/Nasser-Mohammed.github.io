@@ -19,4 +19,7 @@ The Fourier Transform
 ====
 We have already considered the sin and cos transforms of some functions, by means of a series (called the Fourier sin/cos series). However, to 
 generalize the functions we can apply this sort of apply this type of transform to, we consider the *Fourier Integral Representation*, sometimes
-called the continuous frequency resolution. This extension, now allows us to transform non-periodic functions on \\(\mathbb{R}\\) as well. 
+called the continuous frequency resolution. This extension, now allows us to transform non-periodic functions on \\(\mathbb{R}\\) as well. The Fourier Transform is defined as:
+\\[\\mathbb{F}\[f\] = F(\eta) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(x)e^{-i\eta x}dx\\]
+With the Inverse Fourier Transform is defined as:
+\\[\\mathbb{F}^{-1}\[F\] = f(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}F(\eta)e^{i\eta x}d\eta\\]
