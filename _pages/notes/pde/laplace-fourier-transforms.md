@@ -22,7 +22,7 @@ generalize the functions we can apply this sort of apply this type of transform 
 called the continuous frequency resolution. This extension, now allows us to transform non-periodic functions on \\(\mathbb{R}\\) as well. The Fourier Transform is defined as:
 \\[\\mathcal{F}\[f\] = F(\xi) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(x)e^{-i\xi x}dx\\]
 With the Inverse Fourier Transform is defined as:
-\\[\\mathcal{F}^{-1}\[F\] = f(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}F(\xi)e^{i\eta x}d\xi\\]
+\\[\\mathcal{F}^{-1}\[F\] = f(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}F(\xi)e^{i\xi x}d\xi\\]
 Now a lot of the times, we don't have to actually compute this integral. If the function we are transforming is in a form with a well known transformation, we can usually just write its transform (usually given by a table of transforms in the back of textbooks). For example, the Fourier Transform for \\(e^{-a^2x^2}\\) is given by  \\[\mathcal{F}\[e^{-a^2x^2}\] = \frac{1}{a\sqrt{2}}e^{\frac{-\omega^2}{4a^2}}\\]
 We typically use the Fourier Transform to transform the spatial derivative \\(x\\), in doing this, we will get an ODE in \\(t\\). 
 Before we can transform the PDE, we need to note the transforms of some partial derivatives:
@@ -58,7 +58,7 @@ Now we compute the convolution
 \\[\phi (x) \ast \frac{1}{\alpha \sqrt{2t}}e^{-(\frac{x^2}{4\alpha^2t})}\\]
 Which is equal to 
 \\[\frac{1}{2\alpha \sqrt{\pi t}}\int_{-\infty}^{\infty}\phi(\xi)e^{-(\frac{(x-\xi)^2}{4\alpha^2t})}d\xi\\]
-And that is our final solution to the heat equation on the infinite rod.
+And that is our final solution to the heat equation on the infinite rod. \\
 **Note:** As mentioned, \\(\xi\\) is a constant when we are solving our ODE, however, it is the variable of integration during the inverse Fourier transform, while \\(t\\) is treated as a constant. 
 
 The Laplace Transform
@@ -69,12 +69,12 @@ With the Inverse Laplace Transform defined as
 \\[\mathcal{L}^{-1}\[F\] = f(t) = \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}F(s)e^{st}ds\\]
 Let's note some things here. First, the reason we call is semi-finite, is that the transformation takes place across the half real line (i.e. \\(\mathbb{R}^{+} \cup {0}\\) the positive real numbers and 0). This means that the variable that we want to transform, must have be defined only on the set \\((0, \infty)\\). So, naturally we could transform the time variable \\(t\\), since \\(t \in (0,\infty)\\). Or, we can transform the spatial variable \\(x\\), if we are considering the semi-infinite rod. In other words, we have a rod that goes off in only one direction, so \\(x \in (0, \infty )\\) The other thing to note is the kernel, \\(e^{-st}\\) compared to the Fourier Transform kernel of \\(e^{-i\xi x\\). If we recall, \\(e^{-i\xi x} = \cos(\xi x) - i\sin(\xi x)\\) so the kernel in the Fourier Transform doesn't involve decay necessarily, but is rather oscillitory. Then, the function that we are trying to transform by multiplying by \\(e^{-i\xi x}\\) must then ensure the decay. However, the Laplace Transform has a \\(e^{-st}\\) factor. Since \\(t \ge 0\\) and \\(s = \sigma + i\omega\\), then substituting that in we get,
 \\[e^{-(\sigma + i\omega)t} = e^{-\sigma t}e^{-i\omega t}\\]
-Now \\(e^{-i\omega t}\\) is simply the same kernel from the Fourier Transform, which we know doesn't necessarily cause decay. However, we also have a \\(e^{-\sigma t}\\) factor. Since \\( t \ge 0\\) then the numerator of \\(e^{-\sigma t}\\) can either grow exponentially or decay exponentially depending on \\(\simga\\), that way we can handle both oscillitory and decaying signals. Those are the main differences between the two important transforms. Now to solve the heat equation on the semi-infinite rod. We must note the transforms of the partial derivatives and the convolution property first. The important partial deriviative transforms are below, defined for transforming the \\(t\\) variable (although since the rod is semi-finite, we could have also transformed the \\(x\\) variable).
+Now \\(e^{-i\omega t}\\) is simply the same kernel from the Fourier Transform, which we know doesn't necessarily cause decay. However, we also have a \\(e^{-\sigma t}\\) factor. Since \\( t \ge 0\\) then the numerator of \\(e^{-\sigma t}\\) can either grow exponentially or decay exponentially depending on \\(\sigma\\), that way we can handle both oscillitory and decaying signals. Those are the main differences between the two important transforms. Now to solve the heat equation on the semi-infinite rod. We must note the transforms of the partial derivatives and the convolution property first. The important partial deriviative transforms are below, defined for transforming the \\(t\\) variable (although since the rod is semi-finite, we could have also transformed the \\(x\\) variable).
 \\[\mathcal{L}\[u_t\] = sU(x,s) - u(x,0)\\]
 \\[\mathcal{L}\[u_{tt}\] = s^2U(x,s) - su(x,0) - u_t(x, 0)\\]
-\\[\mathcal{L}\[u_x\] = \frac{\partial U(x,s)}{\partial x}\\]
-\\[\mathcal{L}\[u_{xx}\] = \frac{\partial^2 U(x,s)}{\partial x^2}\\]
+\\[\mathcal{L}\[u_x\] = \frac{\partial U}{\partial x}(x,s)\\]
+\\[\mathcal{L}\[u_{xx}\] = \frac{\partial^2 U}{\partial x^2}(x,s)\\]
 Where we know that \\(\mathcal{L}\[u(x,t)\] = U(x,s)\\). Note that here \\(s\\) is the "constant" and is only treated as a variable when we take the inverse Laplace Transform (and x is treated as a constant during that inversion). So our PDE
 \\[u_t = \alpha^2u_{xx}\\] 
 After taking the Laplace Transform, becomes
-\\[sU(x,s) - u(x, 0) = \alpha^2\frac{\partial^2 U(x,s)}{\partial x^2}\\]
+\\[sU(x,s) - u(x, 0) = \alpha^2\frac{\partial^2 U}{\partial x^2}(x,s)\\]
