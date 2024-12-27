@@ -85,4 +85,4 @@ After taking the Laplace Transform, becomes
 We then plug in the necessary values, treat \\(s\\) as a constant, and rewrite it as an ODE in \\(x\\):
 \\[sU(x) - u(x,0) = \alpha^2U^{\''}(x)\\]
 \\[\alpha^2U^{\''}-sU+u(x,0) = 0\\]
-We then solve this ODE, but we will get a constant from it, so we must also transform the boundary condition to solve for that coefficient. Then we take the inverse Laplace Transform, and that is our solution. I won't go through much more of the computation, becuase solving the ODE is pretty routine, and taking the inverse is straightforward.
+We then solve this ODE and use the transformed boundary condition to solve for the coefficient. Then we take the inverse Laplace Transform, and that is our solution. I won't go through much more of the computation, becuase solving the ODE is pretty routine, and taking the inverse is straightforward.
