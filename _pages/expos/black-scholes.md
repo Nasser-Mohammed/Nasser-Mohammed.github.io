@@ -1,7 +1,7 @@
 ---
 layout: archive
 title: "The Black-Scholes Equation"
-permalink: /expos/black-scholes/
+permalink: /expositions/black-scholes/
 author_profile: false
 ---
 <hr style="border: 2px solid black;">
