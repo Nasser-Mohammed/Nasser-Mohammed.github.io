@@ -7,7 +7,7 @@ author_profile: false
 <hr style="border: 2px solid black;">
 \\[u_t=\alpha^2u_{xx}\\]
 
-Our PDE here looks the same, however, we are going to consider when are rod is semi-infinite and infinite in length. That means we will have
+Our PDE here looks the same, however, we are going to consider when our rod is semi-infinite and infinite in length. That means we will have
 1 and 0 boundary conditions respectively. Until now, our techniques have only worked on homogenous boundary conditions. We now introduce a method
 that does not rely on homogenous boundary conditions. This is due to the fact that these transforms essentially transform our derivatives into 
 multiplication. In other words, we can sometimes turn differential equations into algebraic ones. Even when this does not happen, we essentially
