@@ -6,7 +6,7 @@ author_profile: false
 ---
 <hr style="border: 2px solid black;">
 \\[u_{tt}=c^2u_{xx}\\]
-Originally solved by Jean le Rond d'Alembert in 1747, the function \\(u\\) describes the "height" of a string (or wave) at a point in space and time \\((x,t)\\). Note, we are considering a 1 dimensional string. Here (when considering \\(c = 1\\)), we seek a function whose second temporal partial derivative is equal to its second spatial partial derivative. Immediately, that should set off light bulbs in your head of some sort of  \\(\sin\\) and \\(cos\\) functions.
+Originally solved by Jean le Rond d'Alembert in 1747, the function \\(u\\) describes the "height" of a string (or wave) at a point in space and time \\((x,t)\\). Note, we are considering a 1 dimensional string. Here (when considering \\(c = 1\\)), we seek a function whose second temporal partial derivative is equal to its second spatial partial derivative. Immediately, that should set off light bulbs in your head of some sort of  \\(\sin\\) and \\(\cos\\) functions.
 
 Boundary Conditions on the 1-D String
 ===
@@ -14,6 +14,7 @@ There are several boundary conditions to consider but we will mostly be concerne
  - endpoints held at 0 (homogenous)
  - endpoints that vary with time
  - force specified on the end points
+
 To interpret these, let's consider the first boundary condition, imagine a guitar string that is clamped down at the ends (as usual), if you pull the string up and release, it will send "standing" waves through the string. For the second boundary condition, imagine two people holding opposite ends of a rope, where they are raising there end up and down. Intuitively, this will send "waves" through the string, so we will seek a function that describes these waves As for the last boundary condition, we consider the endpoints of a string connected to a frictionless sleeve, now as the sleeve moves up and down, it will drag the string with it. In that way, we have the force specified at the boundary, instead of the explicit position of the string at the endpoint. In the rest of this page, I will only consider the first boundary condition.
 
 The Vibrating Wave (Guitar String)
