@@ -30,7 +30,7 @@ Before we can transform the PDE, we need to note the transforms of some partial 
 \\[\mathcal{F}\[u_{xx}\] = -\xi^2\mathcal{F}\[u\]\\]
 \\[\mathcal{F}\[u_t\] = \frac{\partial}{\partial t}\mathcal{F}\[u\]\\]
 \\[\mathcal{F}\[u_{tt}\] = \frac{\partial^2}{\partial t^2}\mathcal{F}\[u\]\\]
-Finally, there are two quick things to note before we can solve the heat equation this way. The first is something called a **convolution**. The formula for a convolution of two functions \\(f\\) and \\(g\\) is defined as 
+Finally, there are two quick things to note before we can solve the heat equation this way. The first is something called a **convolution** (in this case it's more specifically called the **infinite** convolution). The formula for an infinite convolution of two functions \\(f\\) and \\(g\\) is defined as 
 \\[(f \ast g)(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(x - \xi)g(\xi)d \xi \\]
 A convolution (without going into much theory) allows us to take the Fourier Inverse of a product of two transformed functions. In other words,
 \\[\mathcal{F}\[f(x)g(x)\] \neq \mathcal{F}\[f\]\mathcal{F}\[g\]\\]
@@ -74,7 +74,13 @@ Now \\(e^{-i\omega t}\\) is simply the same kernel from the Fourier Transform, w
 \\[\mathcal{L}\[u_{tt}\] = s^2U(x,s) - su(x,0) - u_t(x, 0)\\]
 \\[\mathcal{L}\[u_x\] = \frac{\partial U}{\partial x}(x,s)\\]
 \\[\mathcal{L}\[u_{xx}\] = \frac{\partial^2 U}{\partial x^2}(x,s)\\]
-Where we know that \\(\mathcal{L}\[u(x,t)\] = U(x,s)\\). Note that here \\(s\\) is the "constant" and is only treated as a variable when we take the inverse Laplace Transform (and x is treated as a constant during that inversion). So our PDE
+Where we know that \\(\mathcal{L}\[u(x,t)\] = U(x,s)\\). Note that here \\(s\\) is the "constant" and is only treated as a variable when we take the inverse Laplace Transform (and x is treated as a constant during that inversion). The last thing before transforming our PDE, is to note the **finite** convolution that we use for the Laplace Transform. It is defined as:
+\\[(f \ast g)(t) = \int_0^tf(\tau)g(t - \tau)d\tau = \int_0^tf(t-\tau)g(\tau)d\tau\\]
+With that, our PDE
 \\[u_t = \alpha^2u_{xx}\\] 
 After taking the Laplace Transform, becomes
 \\[sU(x,s) - u(x, 0) = \alpha^2\frac{\partial^2 U}{\partial x^2}(x,s)\\]
+We then plug in the necessary values, treat \\(s\\) as a constant, and rewrite it as an ODE in \\(x\\):
+\\[sU(x) - u(x,0) = \alpha^2U^{\''}(x)\\]
+\\[\alpha^U^{\''}-sU+u(x,0) = 0\\]
+We then solve this ODE, but we will get a constant from it, so we must also transform the boundary condition to solve for that coefficient. Then we take the inverse Laplace Transform, and that is our solution. I won't go through much more of the computation, becuase solving the ODE is pretty routine, and taking the inverse is straightforward.
