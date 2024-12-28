@@ -87,7 +87,7 @@ It's easy to see that at each \\(n\\), when \\(n \neq m: \int_0^L b_n \sin(\frac
 Solving for \\(b_n\\), we get
 \\[b_n = \frac{2}{L}\int_0^L \phi(x)\sin(\frac{n\pi x}{L})dx\\]
 Repeating this process for our other initial condition \\(u_t(x, 0) = \psi (x)\\) we first compute \\(u_t\\) to get:
-\\[u_t = \sum_{n = 1}^{\infty}\sin(\frac{n \pi x}{L})\[a_n(\frac{n\pi \alpha}{L})\cos(\frac{n \pi \alpha t}{L}) - b_n(\frac{n\pi \alpha}{L})\sin(\frac{n\pi \alpha}{L})\]\\]
+\\[u_t = \sum_{n = 1}^{\infty}\sin(\frac{n \pi x}{L})\[a_n(\frac{n\pi \alpha}{L})\cos(\frac{n \pi \alpha t}{L}) - b_n(\frac{n\pi \alpha t}{L})\sin(\frac{n\pi \alpha t}{L})\]\\]
 Then plugging in our initial condition \\(u_t(x, 0) = \psi (x)\\), we get:
 \\[u_t(x, 0) = \psi (x) = \sum_{n = 1}^{\infty}\sin(\frac{n \pi x}{L})\[a_n(\frac{n\pi \alpha}{L})\cos(0) - b_n(\frac{n\pi \alpha}{L})\sin(0)\]\\]
 This simplifies to
