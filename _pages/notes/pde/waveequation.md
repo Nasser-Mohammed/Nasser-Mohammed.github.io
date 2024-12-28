@@ -91,7 +91,7 @@ Repeating this process for our other initial condition \\(u_t(x, 0) = \psi (x)\\
 Then plugging in our initial condition \\(u_t(x, 0) = \psi (x)\\), we get:
 \\[u_t(x, 0) = \psi (x) = \sum_{n = 1}^{\infty}\sin(\frac{n \pi x}{L})\[a_n(\frac{n\pi}{L})\cos(0) - b_n(\frac{n\pi}{L})\sin(0)\]\\]
 This simplifies to
-\\[\psi (x) = \sum_{n = 1}^{\infty}a_n\sin(\frac{n \pi x}{L})\\]
+\\[\psi (x) = \sum_{n = 1}^{\infty}a_n\frac{n\pi}{L}\sin(\frac{n \pi x}{L})\\]
 Carrying out the same steps for \\(a_n\\) as we did for \\(b_n\\) yields, 
 \\[a_n = \frac{2}{n\pi \alpha}\int_0^L\psi(x)\sin(\frac{n\pi x}{L}) dx\\]
 And that's it, our final solution is
