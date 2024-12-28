@@ -15,13 +15,13 @@ There are several boundary conditions to consider but we will mostly be concerne
  - endpoints that vary with time
  - force specified on the end points
 
-To interpret these, let's consider the first boundary condition, imagine a guitar string that is clamped down at the ends (as usual), if you pull the string up and release, it will send "standing" waves through the string. For the second boundary condition, imagine two people holding opposite ends of a rope, where they are raising there end up and down. Intuitively, this will send "waves" through the string, so we will seek a function that describes these waves As for the last boundary condition, we consider the endpoints of a string connected to a frictionless sleeve, now as the sleeve moves up and down, it will drag the string with it. In that way, we have the force specified at the boundary, instead of the explicit position of the string at the endpoint. In the rest of this page, I will only consider the first boundary condition.
+To interpret these, let's consider the first boundary condition, imagine a guitar string that is clamped down at the ends (as usual), if you pull the string up and release, it will send "standing" waves through the string. For the second boundary condition, imagine two people holding opposite ends of a rope, where they are raising there end up and down. Intuitively, this will send "waves" through the string, so we will seek a function that describes these waves. As for the last boundary condition, we consider the endpoints of a string connected to a frictionless sleeve, now as the sleeve moves up and down, it will drag the string with it. In that way, we have the force specified at the boundary, instead of the explicit position of the string at the endpoint. In the rest of this page, I will only consider the first boundary condition.
 
 The Vibrating Wave (Guitar String)
 ===
 Consider the following IBVP:
 
-\\[\text{PDE:  } u_{tt} = \alpha^2u_{xx} \text{   } 0 < x < L  \text{  } 0 < t < \infty\\]
+\\[\text{PDE:  } u_{tt} = \alpha^2u_{xx} \text{     } 0 < x < L  \text{   } 0 < t < \infty\\]
 \\[\text{Boundary conditions:  } u(0, t) = 0 = u(L, t)\\]
 \\[\text{Initial conditions:  } u(x,0) = \phi(x) \text{,   }  u_t(x, 0) = \psi(x)\\]
 Note that we have two initial conditions now, this is due to the fact that our temporal derivative \\(u_{tt}\\) is of 2nd order, and therefore the solution to an ODE in \\(t\\) will produce two coefficients. It makes sense if we think about the guitar string example again, we don't only need the initial position of the string, but we also need to know how "fast" the string is moving from its initial position since that will affect the evolution of the string. We solve this problem through separation of variables, so we assume
@@ -40,9 +40,33 @@ Now rewriting them as
 \\[T^{\''}(t) - k\alpha^2T(t) = 0\\]
 and 
 \\[X^{\''}(x) - kX(x) = 0\\]
-So it is apparent that we have two ODEs. However, there is a big difference between this scenario and the heat equation. In the heat equation, we showed that our constant \\(k\\) **must** be negative, however, in this scenario we cannot make such an assumption. Recall, we made that assumption because we solved for our simple first order ODE in \\(t\\) that didn't rely on the value of \\(k\\), however, our ODE in \\(t\\) is no longer first order. So both of our ODEs **do** depend on \\(k\\). However, we do know that both \\(X(x)\\) and \\(T(t)\\) have three possible solution forms.
+So it is apparent that we have two ODEs. However, there is a big difference between this scenario and the heat equation. In the heat equation, we showed that our constant \\(k\\) **must** be negative, however, in this scenario we cannot come to such a conclusion. Recall, we got to that conclusion because we solved for our simple first order ODE in \\(t\\) that didn't rely on the value of \\(k\\), however, now our ODE in \\(t\\) is no longer of first order. So both of our ODEs **do** depend on \\(k\\). Luckily, we do know that both \\(X(x)\\) and \\(T(t)\\) have three possible solution forms, as they are second order homogenous linear ODEs.
 
-1. first thing
-2. second thing
-3. third thing
+1. (\\k = 0: \text{ } T(t) = At + D=B \text{  } X(x) = Cx + D\\)
+2. \\(k < 0: \text{ } T(t) = A\sin(\alpha\beta t) + B\cos(\alpha \beta t) \text{    } X(x) = C\sin(\beta x) + D\cos(\beta x)\\)
+3. \\(k > 0: \text{ } T(t) = Ae^{\alpha \beta t} + Be^{-\alpha \beta t} \text{    } X(x) = Ce^{\beta x} + De^{-\beta x}\\)
+
+It is a routine exercise to go through these cases, which you will find that only \\(k < 0\\) does not produce a trivial or unbounded solution (as \\(t \rightarrow \infty)\\)), when we are considering homogenous Dirichlet boundary conditions. Therefore, we now know:
+\\[u(x,t) = \[C\sin(\beta x) + D\cos(\beta x)\]\[A\sin(\alpha \beta \t) + B\cos(\alpha \beta t)\]\\]
+Now plugging in our boundary conditions \\(u(0, t) = 0 = u(L, t)\\) we get:
+\\[u(0, t) = D\[A\sin(\alpha \beta t) + B\cos(\alpha \beta t)\] = 0 \implies D = 0\\]
+Since \\(\sin(0) = 0\\) and \\(\cos(0) = 1\\)
+Now since \\(D = 0\\),  our solution is
+\\[u(x,t) = C\sin(\beta x)\[A\sin(\alpha \beta \t) + B\cos(\alpha \beta t)\]\\]
+Plugging in our other boundary condition \\(u(L, t) = 0\\), we get
+\\[u(L, t) = C\sin(\beta L)\[A\sin(\alpha \beta t) + B\cos(\alpha \beta t)\] = 0\\]
+Now if we tried to assume \\(C = 0\\), we would get a trivial solution (i.e. our solution would just the 0\\), so instead we know that \\[\sin(\beta L) = 0 \implies \beta_n L = (n\pi) \implies \beta_n = \frac{n\pi}{L}\\]
+Since solutions to linear homogenous PDEs form a vector space, then any linear combination of these solutions is also a solution. We then say:
+\\[u(x,t) = \sum_{n = 0}^{\infty}\sin(\frac{n\pi x}{L})\[a_n\sin(\frac{n \pi \alpha t}{L}) + b_n\cos(\frac{n \pi \alpha t}{L})\]\\]
+Finally, to solve account for our two initial conditions:
+\\[u(x, 0) = \phi(x)\\]
+And
+\\[u_t(x, 0) = g(x)\\]
+Plugging these in to our solution yields, 
+\\[u(x, 0) = \phi (x) = \sum_{n = 1}^{\infty}b_n \sin(\frac{n \pi x}{L})\\]
+Using orthogonality of \\(\sin(n\pi x)\\):
+
+we multiply both sides by \\(\sin(m\pi x)\\) and integrate from 0 to L. In doing so we get,
+
+
 
