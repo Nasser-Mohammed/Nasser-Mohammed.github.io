@@ -100,6 +100,6 @@ Where
 \\[a_n = \frac{2}{n\pi \alpha}\int_0^L\psi(x)\sin(\frac{n\pi x}{L}) dx\\]
 and 
 \\[b_n = \frac{2}{L}\int_0^L \phi(x)\sin(\frac{n\pi x}{L})dx\\]
-This is the final solution to the finite vibrating string with homogenous Dirichlet boundary conditions and arbitrary initial conditions (when \\(u\\) and \\(u_t\\) are given\\)). 
+This is the final solution to the finite vibrating string with homogenous Dirichlet boundary conditions and arbitrary initial conditions (when \\(u\\) and \\(u_t\\) are given). 
 
 
