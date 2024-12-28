@@ -52,6 +52,11 @@ I will compute the necessary partial derivatives below:
 Plugging this into our PDE:
 \\[u_{rr}+\frac{1}{r}u_r + \frac{1}{r^2}u_{\theta \theta} = 0\\]
 Becomes
-\\[R^{\''}(r)\Theta(\theta) +\frac{1}{r}R^{\'}(r)\Theta(\theta) + \frac{1}{r^2}R(r)\Theta^{\''}(\theta)\\]
+\\[R^{\''}(r)\Theta(\theta) +\frac{1}{r}R^{\'}(r)\Theta(\theta) + \frac{1}{r^2}R(r)\Theta^{\''}(\theta) = 0\\]
+Now we will try to move the two respective functions to opposite sides of the equation.
+\\[\Theta(\theta)(R^{\''}(r) +\frac{1}{r}R^{\'}(r)) + \frac{1}{r^2}R(r)\Theta^{\''}(\theta) = 0\\]
+Dividing by \\(\Theta(\theta)\\) we get:
+\\[R^{\''}(r) +\frac{1}{r}R^{\'}(r) + \frac{1}{r^2}\frac{R(r)\Theta^{\''}(\theta)}{\Theta(\theta)} = 0\\]
+
 
 
