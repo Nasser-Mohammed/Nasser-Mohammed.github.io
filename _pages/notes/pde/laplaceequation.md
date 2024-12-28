@@ -62,5 +62,17 @@ Now dividing by \\(R(r)\\) we get:
 Moving the sum to opposite sides yields:
 \\[\frac{R^{\''}(r) +\frac{1}{r}R^{\'}(r)}{R(r)} = - \frac{1}{r^2}\frac{\Theta^{\''}(\theta)}{\Theta(\theta)}\\]
 But we want all functions of \\(r\\) to be on the same side of the equation, so we multiply both sides by \\(r^2\\) to get:
-\\[r^2\frac{R^{\''}(r) +\frac{1}{r}R^{\'}(r)}{R(r)} = - \frac{\Theta^{\''}(\theta)}{\Theta(\theta)}\\]
-
+\\[\frac{R^{\''}(r) +\frac{1}{r}R^{\'}(r)}{R(r)}r^2 = - \frac{\Theta^{\''}(\theta)}{\Theta(\theta)}\\]
+Finally, we now can conclude that since we have the variables completely separated, that these ratios must be equal to some constant, say \\(\lambda\\). We will now be able to produce two ODEs that are readily solvable.
+\\[\frac{R^{\''}(r) +\frac{1}{r}R^{\'}(r)}{R(r)}r^2 = - \frac{\Theta^{\''}(\theta)}{\Theta(\theta)} = \lambda \\]
+Breaking this into two separate equations yields:
+\\[\frac{R^{\''}(r) +\frac{1}{r}R^{\'}(r)}{R(r)}r^2 = \lambda \\]
+and 
+\\[- \frac{\Theta^{\''}(\theta)}{\Theta(\theta)} = \lambda \\]
+We will use standard ODE theory to solve these ODEs. First, let's rewrite them in a more ODE-esque way
+\\[r^2R^{\''}(r) +rR^{\'}(r) - \lambda R(r) = 0 \\]
+and
+\\[=\Theta^{\''}(\theta)} - \lambda \Theta(\theta) = 0 \\]
+These are both second order ODEs. The first ODE:
+\\[r^2R^{\''}(r) +rR^{\'}(r) - \lambda R(r) = 0 \\]
+Is called an Euler Differential Equation.
