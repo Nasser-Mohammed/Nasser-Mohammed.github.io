@@ -79,11 +79,11 @@ $$
 </div>
 
 So, we multiply both sides by \\(\sin(\frac{m\pi x}{L})\\) and integrate from 0 to L. In doing so we get, 
-\\[\int_0^1\phi(x)\sin(m \pi x) dx = \int_0^L\sum_{n = 1}^{\infty}b_n\sin(\frac{n \pi x}{L})\sin(\frac{m\pi x}{L})dx\\]
+\\[\int_0^1\phi(x)\sin(\frac{m \pi x}{L}) dx = \int_0^L\sum_{n = 1}^{\infty}b_n\sin(\frac{n \pi x}{L})\sin(\frac{m\pi x}{L})dx\\]
 By the linearity of the summation, we can apply the integral at each \\(n\\), which will allow us to cancel out each term except when \\(m = n\\) due to the aforementioned orthogonality. You can see this below,
 \\[\int_0^L\sum_{n = 1}^{\infty}b_n\sin(\frac{n \pi x}{L})\sin(\frac{m\pi x}{L})dx = \sum_{n = 1}^{\infty}\int_0^Lb_n\sin(\frac{n \pi x}{L})\sin(\frac{m\pi x}{L})dx\\]
 It's easy to see that at each \\(n\\), when \\(n \neq m: \int_0^L b_n \sin(\frac{n \pi x}{L})\sin(\frac{m\pi x}{L})dx = 0\\). So we will simply get a sum of 0's everywhere, except where \\(n = m\\), since we get: \\(\int_0^L b_n\sin(\frac{n \pi x}{L})\sin(\frac{m\pi x}{L})dx = b_n\frac{L}{2}\\). Since adding 0 does not affect the sum, we are only left with  \\(b_n\frac{L}{2}\\). So,
-\\[\int_0^L\phi(x)\sin(n \pi x) dx = b_n\frac{L}{2}\\]
+\\[\int_0^L\phi(x)\sin(\frac{n \pi x}{L}) dx = b_n\frac{L}{2}\\]
 Solving for \\(b_n\\), we get
 \\[b_n = \frac{2}{L}\int_0^L \phi(x)\sin(\frac{n\pi x}{L})dx\\]
 Repeating this process for our other initial condition \\(u_t(x, 0) = \psi (x)\\) we first compute \\(u_t\\) to get:
