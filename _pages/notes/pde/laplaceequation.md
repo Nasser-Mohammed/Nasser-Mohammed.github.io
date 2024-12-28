@@ -54,9 +54,13 @@ Plugging this into our PDE:
 Becomes
 \\[R^{\''}(r)\Theta(\theta) +\frac{1}{r}R^{\'}(r)\Theta(\theta) + \frac{1}{r^2}R(r)\Theta^{\''}(\theta) = 0\\]
 Now we will try to move the two respective functions to opposite sides of the equation.
-\\[\Theta(\theta)(R^{\''}(r) +\frac{1}{r}R^{\'}(r)) + \frac{1}{r^2}R(r)\Theta^{\''}(\theta) = 0\\]
+\\[\Theta(\theta)\[R^{\''}(r) +\frac{1}{r}R^{\'}(r)\] + \frac{1}{r^2}R(r)\Theta^{\''}(\theta) = 0\\]
 Dividing by \\(\Theta(\theta)\\) we get:
 \\[R^{\''}(r) +\frac{1}{r}R^{\'}(r) + \frac{1}{r^2}\frac{R(r)\Theta^{\''}(\theta)}{\Theta(\theta)} = 0\\]
-
-
+Now dividing by \\(R(r)\\) we get:
+\\[\frac{R^{\''}(r) +\frac{1}{r}R^{\'}(r)}{R(r)} + \frac{1}{r^2}\frac{\Theta^{\''}(\theta)}{\Theta(\theta)} = 0\\]
+Moving the sum to opposite sides yields:
+\\[\frac{R^{\''}(r) +\frac{1}{r}R^{\'}(r)}{R(r)} = - \frac{1}{r^2}\frac{\Theta^{\''}(\theta)}{\Theta(\theta)}\\]
+But we want all functions of \\(r\\) to be on the same side of the equation, so we multiply both sides by \\(r^2\\) to get:
+\\[r^2\frac{R^{\''}(r) +\frac{1}{r}R^{\'}(r)}{R(r)} = - \frac{\Theta^{\''}(\theta)}{\Theta(\theta)}\\]
 
