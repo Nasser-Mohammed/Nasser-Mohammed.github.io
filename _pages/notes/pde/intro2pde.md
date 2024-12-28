@@ -14,11 +14,11 @@ An example is the equation that describes heat flow, \\[u_t=\alpha^2u_{xx}\\] wh
 
 Where do PDEs Come From?
 ===
-PDEs are typically from physical laws or experimental findings, however, not all are or need be. It seems though, as the universe is best described by PDEs, so they are of great interest to study. 
+PDEs are typically derived from physical laws or experimental findings, however, not all are or need be. It seems though, as the universe is best described by PDEs, so they are of great interest to study from both a pure and applied point of view.
 
 Boundary Conditions
 ===
-PDEs without some sort of spatial restriction/requirement usually don't tell us much. That is because we can usually find an infinite number of solutions which are very different, yet still solve the PDE. So to derive meaning from these equations, we impose something called \\(Boundary Conditions\\). Boundary conditions are nothing more than the explicit value of the function (or its derivative) at the spatial boundaries. For example, if we are solving the heat equation on a metal rod of length 1, then an example of boundary conditions would be knowing the value of the function at both ends of the rod. With this information, we get a much better idea of the behavior of the function that we are looking for. 
+PDEs without some sort of spatial restriction/requirement usually don't tell us much. That is because we can usually find an infinite number of solutions which are very different, yet still solve the PDE. So to derive meaning from these equations, we impose something called *Boundary Conditions*. Boundary conditions are nothing more than the explicit value of the function (or its derivative) at the spatial boundaries. For example, if we are solving the heat equation on a metal rod of length 1, then an example of boundary conditions would be knowing the heat at both ends of the rod. With this information, we get a much better idea of the behavior of the function that we are looking for. 
 
 Initial Conditions
 ===
