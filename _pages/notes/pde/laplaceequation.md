@@ -72,7 +72,7 @@ and
 We will use standard ODE theory to solve these ODEs. First, let's rewrite them in a more ODE-esque way
 \\[r^2R^{\''}(r) +rR^{\'}(r) - \lambda R(r) = 0 \\]
 and
-\\[=\Theta^{\''}(\theta)} - \lambda \Theta(\theta) = 0 \\]
+\\[\Theta^{\''}(\theta) + \lambda \Theta(\theta) = 0 \\]
 These are both second order ODEs. The first ODE:
 \\[r^2R^{\''}(r) +rR^{\'}(r) - \lambda R(r) = 0 \\]
-Is called an Euler Differential Equation.
+Is called an Euler Differential Equation. 
