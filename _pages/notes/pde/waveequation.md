@@ -57,19 +57,19 @@ Plugging in our other boundary condition \\(u(L, t) = 0\\), we get
 \\[u(L, t) = C\sin(\beta L)\[A\sin(\alpha \beta t) + B\cos(\alpha \beta t)\] = 0\\]
 Now if we tried to assume \\(C = 0\\), we would get a trivial solution (i.e. our solution would just be 0), so instead we know that \\[\sin(\beta L) = 0 \implies \beta_n L = n\pi \implies \beta_n = \frac{n\pi}{L}\\]
 Since solutions to linear homogenous PDEs form a vector space, then any linear combination of these solutions is also a solution. We then say:
-\\[u(x,t) = \sum_{n = 1}^{\infty}\sin(\frac{n\pi}{L}x)\[a_n\sin(\frac{n \pi \alpha}{L}t) + b_n\cos(\frac{n \pi \alpha}{L}t)\]\\]
+\\[u(x,t) = \sum_{n = 1}^{\infty}\sin(\frac{n\pi x}{L})\[a_n\sin(\frac{n \pi \alpha t}{L}) + b_n\cos(\frac{n \pi \alpha t}{L})\]\\]
 Finally, to solve account for our two initial conditions:
 \\[u(x, 0) = \phi(x)\\]
 And
 \\[u_t(x, 0) = g(x)\\]
 Plugging these in to our solution yields, 
-\\[u(x, 0) = \phi (x) = \sum_{n = 1}^{\infty}b_n \sin(\frac{n \pi }{L}x)\\]
+\\[u(x, 0) = \phi (x) = \sum_{n = 1}^{\infty}b_n \sin(\frac{n \pi x}{L})\\]
 Using orthogonality of \\(\sin(n\pi x)\\):
 
 <div style="text-align: center;">
 $$
 \begin{align}
-\int_0^L{\text{sin}(n\pi x) \text{sin}(m\pi x) \ dx} = 
+\int_0^L{\sin(\frac{n\pi x}{L}) \sin(\frac{m\pi x}{L}) \ dx} = 
 \begin{cases}
 \frac{L}{2} &: \text{if } n = m \\
 0 &: \text{if } n \neq m
@@ -78,18 +78,20 @@ $$
 $$
 </div>
 
-So, we multiply both sides by \\(\sin(m\pi x)\\) and integrate from 0 to L. In doing so we get, 
-\\[\int_0^1\phi(x)\sin(n \pi x) dx = \int_0^L\sum_{n = 1}^{\infty}b_n\sin(\frac{n \pi x}{L})\sin(\frac{n\pi x}{L})dx\\]
+So, we multiply both sides by \\(\sin(\frac{m\pi x}{L})\\) and integrate from 0 to L. In doing so we get, 
+\\[\int_0^1\phi(x)\sin(m \pi x) dx = \int_0^L\sum_{n = 1}^{\infty}b_n\sin(\frac{n \pi x}{L})\sin(\frac{m\pi x}{L})dx\\]
 By the linearity of the summation, we can apply the integral at each \\(n\\), which will allow us to cancel out each term except when \\(m = n\\) due to the aforementioned orthogonality. You can see this below,
-\\[\int_0^L\sum_{n = 1}^{\infty}\sin(\frac{n \pi x}{L})\sin(\frac{m\pi x}{L})dx = \sum_{n = 1}^{\infty}\int_0^L\sin(\frac{n \pi x}{L})\sin(\frac{m\pi x}{L})dx\\]
+\\[\int_0^L\sum_{n = 1}^{\infty}b_n\sin(\frac{n \pi x}{L})\sin(\frac{m\pi x}{L})dx = \sum_{n = 1}^{\infty}\int_0^Lb_n\sin(\frac{n \pi x}{L})\sin(\frac{m\pi x}{L})dx\\]
 It's easy to see that at each \\(n\\), when \\(n \neq m: \int_0^L b_n \sin(\frac{n \pi x}{L})\sin(\frac{m\pi x}{L})dx = 0\\). So we will simply get a sum of 0's everywhere, except where \\(n = m\\), since we get: \\(\int_0^L b_n\sin(\frac{n \pi x}{L})\sin(\frac{m\pi x}{L})dx = b_n\frac{L}{2}\\). Since adding 0 does not affect the sum, we are only left with  \\(b_n\frac{L}{2}\\). So,
-\\[\int_0^1\phi(x)\sin(n \pi x) dx = b_n\frac{L}{2}\\]
+\\[\int_0^L\phi(x)\sin(n \pi x) dx = b_n\frac{L}{2}\\]
 Solving for \\(b_n\\), we get
 \\[b_n = \frac{2}{L}\int_0^L \phi(x)\sin(\frac{n\pi x}{L})dx\\]
 Repeating this process for our other initial condition \\(u_t(x, 0) = \psi (x)\\) we first compute \\(u_t\\) to get:
 \\[u_t = \sum_{n = 1}^{\infty}\sin(\frac{n \pi x}{L})\[a_n(\frac{n\pi}{L})\cos(\frac{n \pi t}{L}) - b_n(\frac{n\pi}{L})\sin(\frac{n\pi}{L})\\]
 Then plugging in our initial condition \\(u_t(x, 0) = \psi (x)\\), we get:
-\\[u_t(x, 0) = \psi (x) = \sum_{n = 1}^{\infty}\sin(\frac{n \pi x}{L})\[a_n(\frac{n\pi}{L})\cos(\frac{n \pi t}{L}) - b_n(\frac{n\pi}{L})\sin(\frac{n\pi}{L})\\]
+\\[u_t(x, 0) = \psi (x) = \sum_{n = 1}^{\infty}\sin(\frac{n \pi x}{L})\[a_n(\frac{n\pi}{L})\cos(0) - b_n(\frac{n\pi}{L})\sin(0)\\]
+This simplifies to
+\\[\psi (x) = \sum_{n = 1}^{\infty}a_n\sin(\frac{n \pi x}{L})
 Carrying out the same steps for \\(a_n\\) as we did for \\(b_n\\) yields, 
 \\[a_n = \frac{2}{n\pi \alpha}\int_0^L\psi(x)\sin(\frac{n\pi x}{L}) dx\\]
 And that's it, our final solution is
