@@ -11,17 +11,17 @@ author_profile: false
 \\[\nabla^2u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\\]
 In 3 spatial dimensions (x,y,z), this looks like:
 \\[\nabla^2u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} + \frac{\partial^2 u}{\partial z^2}\\]
-We notice, that our function is no longer dependent on time. Initially, I found it hard to try and imagine a physical system that doesn't evolve with time. However, there are several, and the one that made most sense to me was the example of a static electric field. In a static electric field, we have a field that is at a steady-state, and will not change with time. Imagine a magnet, its magnetic field will not vary with time, but will vary with space, that is, if you were a charged particle and sat somewhere in a magnets magnetic field, you will be pushed somewhere and eventually come to rest, once you come to rest, no matter how long you sit there the magnetic field will not change. This indicates that it is not changing with respect to time, however, if you somehow obtained the force needed to move through the magnetic field, the field itself would change as you move through it. This indicates that the field changes with respect to space. These are a couple of examples where Laplace's equation could be used to model the system. Now let's look at solving Laplace's equation.
+We notice, that our function is no longer dependent on time. Initially, I found it hard to try and imagine a physical system that doesn't evolve with time. However, there are several, and the one that made most sense to me was the example of a static electric field. In a static electric field, we have a field that is at a steady-state, and will not change with time. Imagine a magnet, its magnetic field will not vary with time, but will vary with space, that is, if you were a charged particle and sat somewhere in a magnet's magnetic field, you will be pushed somewhere and eventually come to rest. Once you come to rest, no matter how long you sit there, the magnetic field will not change. This indicates that it is not changing with respect to time. However, if you somehow obtained the force needed to move through the magnetic field, the field itself would change as you move through it. This indicates that the field changes with respect to space. These are a couple of examples where Laplace's equation could be used to model the system. Now let's look at solving Laplace's equation.
 
 Laplace's Equation in Polar Coordinates
 ====
-The geometry of the boundaries of many problems that utilize Laplace's equation, are circular in some way (spherical, cylindrical, etc). So we shall consider Laplace's equation in polar coordinates. So,
+The geometry of the boundaries of many problems that utilize Laplace's equation, are circular in some way (spherical, cylindrical, etc). So we shall consider Laplace's equation in polar coordinates. Then,
 \\[\nabla^2u = 0\\]
 Becomes
 \\[u_{rr}+\frac{1}{r}u_r + \frac{1}{r^2}u_{\theta \theta} = 0\\]
 This, for example, would be used to describe some steady state solution of a system with circular geometry (in 2 dimensions). If you do not see how we got here, recall the definition of polar coordinates:
 \\[r^2 = x^2+y^2\\]
-\\[\theta = \tan^{-1}(\frac{y}{x})
+\\[\theta = \tan^{-1}(\frac{y}{x})\\]
 or
 \\[x = r\cos(\theta)\\]
 \\[y = r\sin(\theta)\\]
