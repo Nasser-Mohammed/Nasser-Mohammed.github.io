@@ -10,7 +10,7 @@ Originally solved by Jean le Rond d'Alembert in 1747, the function \\(u\\) descr
 
 Boundary Conditions on the 1-D String
 ===
-There are several boundary conditions to consider but we will mostly be concerned with two kinds:
+There are several boundary conditions to consider but we will mostly be concerned with three kinds:
  - endpoints held at 0 (homogenous)
  - endpoints that vary with time
  - force specified on the end points
