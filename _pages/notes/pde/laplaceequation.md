@@ -75,4 +75,4 @@ and
 \\[\Theta^{\''}(\theta) + \lambda \Theta(\theta) = 0 \\]
 These are both second order ODEs. The first ODE:
 \\[r^2R^{\''}(r) +rR^{\'}(r) - \lambda R(r) = 0 \\]
-Is called an Euler Differential Equation. 
+Is called an Euler Differential Equation.
