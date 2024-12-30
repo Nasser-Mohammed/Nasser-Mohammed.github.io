@@ -62,7 +62,7 @@ Does **NOT** imply
 \\[m_{\ast}(E) = \sum_{j = 1}^{\infty}3 - \frac{1}{j} - 0\\]
 The strongest thing we can say is that
 \\[m_{\ast}(E) \leq \sum_{j = 1}^{\infty}m_{\ast}(E_j)\\]
-However, there are restrictions that we can apply to sets that allows us to have countable additivity. One more thing to note, is that even in contrast to the example I gave above, if I used a countable union of disjoint sets, we still cannot ensure countable additivity on all subsets of \\(\mathbb{R}^d\\) because of some highly pathalogical sets. Below are two examples where we have better additivity.\
+**However**, there are restrictions that we can apply to sets that allows us to have countable additivity. One more thing to note, is that even in contrast to the example I gave above, if I used a countable union of disjoint sets, we still cannot ensure countable additivity on all subsets of \\(\mathbb{R}^d\\) because of some highly pathalogical sets. Below are two examples where we have better additivity.\
 \
 **Observation 3:** If \\[E = \bigcup_{j = 1}^{\infty}Q_j\\] Where each \\(Q_j\\) is an almost disjoint cube, then 
 \\[m_{\ast}(E) = \sum_{j = 1}^{\infty}\left|Q_j\right|\\] \
