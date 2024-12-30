@@ -7,7 +7,7 @@ author_profile: false
 
 <hr style="border: 2px solid black;">
 \\[\nabla^2 u = 0\\]
-\\(\nabla^2\\) is called **the Laplacian operator** (or just the Laplacian for short), and is arguably one of the most important operators in math and physics. The Laplacian essentially tells us how the value of a function at a point compares to the average of its neighbors. If \\(\nabla^2u > 0\\), then \\(u\\) (at that point) is less than the average of its neighbors. Visually, in 3 dimensions, this would look like a little dip in a stretched out fabric. If \\(\nabla^2u < 0\\), then \\(u\\) (at that point) is greater than the average of its neighbors. Visually, in 3 dimensions, this would look like someone poking their finger upwards from below a stretched out fabric, creating a little "peak". If \\(\nabla^2u = 0\\), then the region we are looking at would appear flat, since \\(u\\) (at that point) would be the same as the average of its neighbors. \\(\nabla^2u\\) is defined as the sum of all the spatial second partial derivatives. In two spatial dimensions (x,y), this looks like:
+\\(\nabla^2\\) is called **the Laplace operator** (or just Laplacian for short), and is arguably one of the most important operators in math and physics. The Laplacian essentially tells us how the value of a function at a point compares to the average of its neighbors. If \\(\nabla^2u > 0\\), then \\(u\\) (at that point) is less than the average of its neighbors. Visually, in 3 dimensions, this would look like a little dip in a stretched out fabric. If \\(\nabla^2u < 0\\), then \\(u\\) (at that point) is greater than the average of its neighbors. Visually, in 3 dimensions, this would look like someone poking their finger upwards from below a stretched out fabric, creating a little "peak". If \\(\nabla^2u = 0\\), then the region we are looking at would appear flat, since \\(u\\) (at that point) would be the same as the average of its neighbors. \\(\nabla^2u\\) is defined as the sum of all the spatial second partial derivatives. In two spatial dimensions (x,y), this looks like:
 \\[\nabla^2u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\\]
 In 3 spatial dimensions (x,y,z), this looks like:
 \\[\nabla^2u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} + \frac{\partial^2 u}{\partial z^2}\\]
@@ -73,6 +73,20 @@ We will use standard ODE theory to solve these ODEs. First, let's rewrite them i
 \\[r^2R^{\''}(r) +rR^{\'}(r) - \lambda R(r) = 0 \\]
 and
 \\[\Theta^{\''}(\theta) + \lambda \Theta(\theta) = 0 \\]
-These are both second order ODEs. The first ODE:
+These are both second order ODEs. We will solve the ODE in \\(\Theta\\), since it it simpler.
+\\[\Theta^{\''}(\theta) + \lambda \Theta(\theta) = 0 \\]
+From our work with the heat equation, we know that the solution to this has 3 possible forms:
+
+
+
+
 \\[r^2R^{\''}(r) +rR^{\'}(r) - \lambda R(r) = 0 \\]
-Is called an Euler Differential Equation.
+Is called an Euler Differential Equation. These differential equations are of the form
+\\[\alpha x^2y^{\''} + \beta xy^{\'} + \omega y = 0\\]
+Where \\(\alpha, \beta, \omega\\) are all constants. In other words, it's a differential equation, with constants multiplied to the **independent** variable being raised to the same power as the order of the derivative of \\(\y\\) that it's being multiplied to. To solve our example (with variables \\(r\\) and function \\(R\\)), we assume \\(R = r^{\gamma}\\) where \\(\gamma\\) is a constant that we will find. So, computing the necessary derivatives yields:
+\\[R^{\''} = \gamma^2 r^{\gamma - 2}\\]
+\\[R^{\'} = \gamma r^{\gamma - 1}\\]
+Plugging these into our DE, we get
+\\[r^2(\gamma^2 r^{\gamma - 2}) +r(gamma r^{\gamma - 1}) - \lambda r^{\gamma} = 0\\]
+We then do algebraic manipulation by dividing out \\(x^{\gamma}\\), and we will get an algebraic equation. However, in our case we don't know what \\(\lambda\\) is, which would affect our solution. So instead of computing the solution for each possible \\(\lambda\\), I will just state them and we will try to determine which ones are possible. 
+
