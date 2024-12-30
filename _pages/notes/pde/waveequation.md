@@ -42,7 +42,7 @@ and
 \\[X^{\''}(x) - kX(x) = 0\\]
 So it is apparent that we have two ODEs. However, there is a big difference between this scenario and the heat equation. In the heat equation, we showed that our constant \\(k\\) **must** be negative, however, in this scenario we cannot come to such a conclusion. Recall, we got to that conclusion because we solved for our simple first order ODE in \\(t\\) that didn't rely on the value of \\(k\\), however, now our ODE in \\(t\\) is no longer of first order. So both of our ODEs **do** depend on \\(k\\). Luckily, we do know that both \\(X(x)\\) and \\(T(t)\\) have three possible solution forms, as they are second order homogenous linear ODEs.
 
-1. \\(k = 0: \text{ } T(t) = At + D=B \text{,   } X(x) = Cx + D\\)
+1. \\(k = 0: \text{ } T(t) = At + B \text{,   } X(x) = Cx + D\\)
 2. \\(k < 0: \text{ } T(t) = A\sin(\alpha\beta t) + B\cos(\alpha \beta t) \text{,     } X(x) = C\sin(\beta x) + D\cos(\beta x)\\)
 3. \\(k > 0: \text{ } T(t) = Ae^{\alpha \beta t} + Be^{-\alpha \beta t} \text{,     } X(x) = Ce^{\beta x} + De^{-\beta x}\\)
 
