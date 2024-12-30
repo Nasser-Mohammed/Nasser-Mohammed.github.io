@@ -77,7 +77,7 @@ These are both second order ODEs. We will solve the ODE in \\(\Theta\\), since i
 \\[\Theta^{\''}(\theta) + k \Theta(\theta) = 0 \\]
 From our work with the heat equation, we know that the solution to this has 3 possible forms:
 1. \\(k = 0: \Theta(\theta) = A\theta + B\\)
-2. \\(k < 0: \Theta(\theta) = A\sin(\beta x) + D\cos(\beta x)\\)
+2. \\(k < 0: \Theta(\theta) = A\sin(\beta \theta) + D\cos(\beta \theta)\\)
 3. \\(k > 0: \Theta(\theta) = Ae^{\beta \theta} + De^{-\beta \theta}\\)
 
 
@@ -85,10 +85,10 @@ From our work with the heat equation, we know that the solution to this has 3 po
 \\[r^2R^{\''}(r) +rR^{\'}(r) - k R(r) = 0 \\]
 Is called an Euler Differential Equation. These differential equations are of the form
 \\[\alpha x^2y^{\''} + \beta xy^{\'} + \omega y = 0\\]
-Where \\(\alpha, \beta, \omega\\) are all constants. In other words, it's a differential equation, with constants multiplied to the **independent** variable being raised to the same power as the order of the derivative of \\(\y\\) that it's being multiplied to. To solve our example (with variables \\(r\\) and function \\(R\\)), we assume \\(R = r^{\gamma}\\) where \\(\gamma\\) is a constant that we will find. So, computing the necessary derivatives yields:
+Where \\(\alpha, \beta, \omega\\) are all constants. In other words, it's a differential equation, with constants multiplied to the **independent** variable being raised to the same power as the order of the derivative of \\(y\\) that it's being multiplied to. To solve our example (with variables \\(r\\) and function \\(R\\)), we assume \\(R = r^{\gamma}\\) where \\(\gamma\\) is a constant that we will find. So, computing the necessary derivatives yields:
 \\[R^{\''} = \gamma^2 r^{\gamma - 2}\\]
 \\[R^{\'} = \gamma r^{\gamma - 1}\\]
 Plugging these into our DE, we get
-\\[r^2(\gamma^2 r^{\gamma - 2}) +r(gamma r^{\gamma - 1}) - \k r^{\gamma} = 0\\]
+\\[r^2(\gamma^2 r^{\gamma - 2}) +r(gamma r^{\gamma - 1}) - k r^{\gamma} = 0\\]
 We then do algebraic manipulation by dividing out \\(x^{\gamma}\\), and we will get an algebraic equation. However, in our case we don't know what \\(k\\) is, which would affect our solution. So instead of computing the solution for each possible \\(k\\), I will just state them and we will try to determine which ones are possible. 
 
