@@ -80,14 +80,14 @@ From our work with the heat equation, we know that the solution to this has 3 po
 2. \\(k > 0: \Theta(\theta) = A\sin(\beta \theta) + D\cos(\beta \theta)\\)
 3. \\(k < 0: \Theta(\theta) = Ae^{\beta \theta} + De^{-\beta \theta}\\)
 
-We can actually skip checking for these, since \\(\u(r, \theta)\\) must be \\(2\pi\\) periodic \\(\implies\\) \\(\Theta (\theta)\\) is \\(2\pi\\) periodic. So, this means option 2 is the correct solution and if we write out the characteristic equation for 
+We can actually skip checking for these, since \\(u(r, \theta)\\) must be \\(2\pi\\) periodic \\(\implies\\) \\(\Theta (\theta)\\) is \\(2\pi\\) periodic. So, this means option 2 is the correct solution and if we write out the characteristic equation for 
 \\[\Theta^{\''}(\theta) + k \Theta(\theta) = 0 \\]
 We get
 \\[\lambda^2 + k = 0 \implies \lambda = \sqrt{-k}\\]
-Where \\(k > 0\\), since to get a complex root (which produces solution 2.) then \\(k > 0\\) ensures that we are taking the square root of a negative number (and producing an imaginary unit as a result). However, \\(\Theta(\theta)\\) must match our initial condition, since we assumed \\(u(r,\theta) = R(r)\Theta (\theta)\\), then the initial condition \\(u(1,\theta) = g(\theta) \implies g(\theta) = \Theta (\theta)\\). If it still isn't obvious, \\(u(1,\theta) = g(\theta)\\) tells us that when we plug \\(1\\) into our solution, we get \\(u(1,\theta) = R(1)\Theta (\theta)\\). Here \\(R(1)\\) is essentially a constant \\(c\\) times \\(\Theta (\theta)\\), which is \\(ca_nsin(\sqrt{k} \theta) + cb_ncos(\sqrt{k} \theta}\\), and it's easy to see that \\(ca_n\\) and \\(cb_n\\) are just themselves constants. Now, we expand \\(g(\theta)\\) as a Fourier-Series to get
+Where \\(k > 0\\), since to get a complex root (which produces solution 2.) then \\(k > 0\\) ensures that we are taking the square root of a negative number (and producing an imaginary unit as a result). However, \\(\Theta(\theta)\\) must match our initial condition, since we assumed \\(u(r,\theta) = R(r)\Theta (\theta)\\), then the initial condition \\(u(1,\theta) = g(\theta) \implies g(\theta) = \Theta (\theta)\\). If it still isn't obvious, \\(u(1,\theta) = g(\theta)\\) tells us that when we plug \\(1\\) into our solution, we get \\(u(1,\theta) = R(1)\Theta (\theta)\\). Here \\(R(1)\\) is essentially a constant \\(c\\) times \\(\Theta (\theta)\\), which is \\(ca_nsin(\sqrt{k} \theta) + cb_ncos(\sqrt{k} \theta\\), and it's easy to see that \\(ca_n\\) and \\(cb_n\\) are just themselves constants. Now, we expand \\(g(\theta)\\) as a Fourier-Series to get
 \\[g(\theta) = \sum_{n = 0}^{\infty}a_n\cos(n\theta) + b_n\sin(n\theta)\\]
 And as mentioned \\(g(\theta) = \Theta (\theta)\\), writing this out yields
-\\[g(\theta) = sum_{n = 0}^{\infty}c_n\cos(n \theta) + d_n\sin(n \theta) = \Theta (\theta) = sum_{n = 0}^{\infty}a_n\cos(\sqrt{k} \theta) + b_n\sin(\sqrt{k} \theta)\\]
+\\[g(\theta) = \sum_{n = 0}^{\infty}c_n\cos(n \theta) + d_n\sin(n \theta) = \Theta (\theta) = \sum_{n = 0}^{\infty}a_n\cos(\sqrt{k} \theta) + b_n\sin(\sqrt{k} \theta)\\]
 This tells us that \\[\forall n, \Theta_n (\theta) = c_n\cos(n \theta) + d_n\sin(n \theta) \implies \sqrt{k} = n \implies k = n^2\\]
 
 Now we will tackle the other ODE
@@ -102,13 +102,13 @@ Plugging these into our DE, we get
 We then do algebraic manipulation by dividing out \\(r^{\gamma}\\), and we will get an algebraic equation. However. we know what \\(k\\) is so the equation becomes
 \\[r^2(\gamma^2 r^{\gamma - 2}) +r(\gamma r^{\gamma - 1}) - n r^{\gamma} = 0\\]
 And without going through all the possible cases, depending on the roots to this characteristic equation, we get different possible solutions. In this case, we get the following solution:
-\\[R(r) = ar^{n} + br^{-n\\]
+\\[R(r) = ar^{n} + br^{-n}\\]
 We have to be careful here, since \\(r \in (0, 1)\\), then it's a "small" decimal value, if we raise this number to a negative power \\(-n\\) we will get \\(\frac{1}{r^n}\\), the numerator \\(r^n\\) will be even smaller than \\(r\\) so we will get 1 divided by a really small number, which produces a very large number. As \\(n \rightarrow \infty\\) these denominators will get smaller and smaller, making \\(\frac{1}{r^n} \rightarrow \infty\\). Our solution obviously should be bounded, especially since we know \\(n \rightarrow \infty\\), so we can conclude that \\(b = 0\\), essentially throwing away the unbounded term \\(r^{-n}\\). So we now have solutions to both of our ODEs and we can say
 \\[u(r, \theta) = \sum_{n = 0}^{\infty}R(r)\Theta(\theta) = \sum_{n = 0}^{\infty}a_nr^n\[b_n\cos(n \theta) + c_n\sin(n \theta)\]\\]
 This simplifies to 
-\\[u(r, \theta) = = \sum_{n = 0}^{\infty}r^n\[a_nc\os(n \theta) + b_n\sin(n \theta)\]\\]
+\\[u(r, \theta) = = \sum_{n = 0}^{\infty}r^n\[a_n\cos(n \theta) + b_n\sin(n \theta)\]\\]
 Where \\(a_n\\) and \\(b_n\\) are constants that we will find based on our initial condition.
-\\[u(1, \theta) = g(\theta)  = \sum_{n = 0}^{\infty}a_n\cos(n \theta) + b_ns\in(n \theta)\\]
+\\[u(1, \theta) = g(\theta)  = \sum_{n = 0}^{\infty}a_n\cos(n \theta) + b_n\sin(n \theta)\\]
 When \\(n = 0\\) we get that 
 \\[g(\theta) = a_0\cos(0) + b_0\sin(0)\\]
 \\[\cos(0) = 1, \ \ \ \sin(0) = 0\\]
