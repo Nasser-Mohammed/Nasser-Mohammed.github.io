@@ -12,5 +12,7 @@ The notes below come from personal notes, lecture notes, and *Partial Differenti
    - [The Fourier and Laplace Transforms for Solving the Heat Equation](laplace-fourier-transforms.md) 
 - [The Wave Equation](waveequation.md)
 - [Laplace's Equation](laplaceequation.md)
+- [Method of Characteristics](method-of-characteristics.md)
+- [Non-Linear First Order PDE](conservation-eq.md)
 
  
