@@ -80,9 +80,10 @@ From our work with the heat equation, we know that the solution to this has 3 po
 2. \\(k > 0: \Theta(\theta) = A\sin(\beta \theta) + B\cos(\beta \theta)\\)
 3. \\(k < 0: \Theta(\theta) = Ae^{\beta \theta} + Be^{-\beta \theta}\\)
 
-Although we don't have the same restrictions as before, there are some to note. We want \\(u(r\theta)\\) to be \\(2\pi\\)-periodic and be bounded at the origin. The second restriction will be important when solving the other ODE, we use the first restriction for our ODE in \\(\Theta\\). So let's go through all the cases, I will begin with case 3.
+Although we don't have the same restrictions as before, there are some to note. We want  \\(u(r\theta)\\) to be \\(2\pi\\)-periodic and be bounded at the origin. The second restriction will be important when solving the other ODE, we use the first restriction for our ODE in \\(\Theta\\). So let's go through all the cases, I will begin with case 3.
 \\
-Case 3: \\(k < 0\\), now let's find the roots of the characteristic equations. 
+\\
+**Case 3:** \\(k < 0\\), now let's find the roots of the characteristic equations. 
 \\[\lambda^2 + k = 0 \implies \lambda = \sqrt{-k}\\]
 Now by assumption \\(k < 0\\), so \\(-k\\) is a positive number. This will imply that \\(\sqrt{-k}\\) produces two real values, a positive and negative value of \\(\sqrt{-k}\\). So \\(\lambda_1 = \sqrt{-k}\\) and \\(\lambda_2 = -\sqrt{-k}\\), and the corresponding solution for two real roots is 
 \\[\Theta (\theta) = Ae^{\sqrt{-k} \theta} + Be^{-\sqrt{-k} \theta}\\]
@@ -99,7 +100,22 @@ And
 We can simplify these expressions to 
 \\[e^{2\pi \sqrt{-k}} = 1\\]
 \\[e^{-2\pi \sqrt{-k}} = 1\\]
-Now here, we know that \\(e^x = 1 \implies x = 0\\), this means \\(2\pi \sqrt{-k} = 0\\) and \\(-2\pi \sqrt{-k} = 0\\). The only way for this to be possible, is if \\(\sqrt{-k} = 0\\), however this contradicts our assumption that \\(k < 0 \implies \sqrt{-k} \neq 0\\). So this solution cannot work, since this expression is not \\(2\pi\\)-periodic, and we now also know that \\(k \ge 0\\). 
+Now here, we know that \\(e^x = 1 \implies x = 0\\), this means \\(2\pi \sqrt{-k} = 0\\) and \\(-2\pi \sqrt{-k} = 0\\). The only way for this to be possible, is if \\(\sqrt{-k} = 0\\), however this contradicts our assumption that \\(k < 0 \implies \sqrt{-k} \neq 0\\). So this solution cannot work, since this expression is not \\(2\pi\\)-periodic, and we now also know that \\(k \ge 0\\). \\
+\\
+Now let's try case 1.
+**Case 1:** \\(\Theta (\theta) = A\theta + B\\), now let's test \\(2\pi\\)-periodicity. So we need, \\(\Theta (\theta) = \Theta (2\pi + \theta)\\). Plugging this in we get,
+\\[A\theta + B = A(2\pi + \theta) + B\\]
+This simplifies to
+\\[A\theta + B = 2\pi A + A\theta + B\\]
+Subtracting \\(B\\) from both sides yields, 
+\\[A\theta = 2\pi A + A\theta\\]
+Subtracting \\(A\theta\\) to get
+\\[2\pi A = 0 \implies A = 0\\]
+So for our solution to be \\(2\pi\\)-periodic, we need \\(A = 0\\), so our solution simplifies to a constant \\(C\\)
+\\[\Theta (\theta) = C\\]
+Now for our final case, case 2\\
+**Case 2:** \\(\Theta (\theta) = A\cos(\sqrt{-k} \theta) + B\sin(\sqrt{-k} \theta)\\). Now let's check if this can be \\(2\pi\\)-periodic, i.e. \\(\Theta (\theta) = \Theta (2\pi + \theta)\\). Plugging this in yields,
+\\[A\cos(\sqrt{-k} \theta) + B\sin(\sqrt{-k} \theta) = A\cos(\sqrt{-k} (2\pi + \theta)) + B\sin(\sqrt{-k} (2\pi + \theta))\\]
 \\
 \\
 \\
