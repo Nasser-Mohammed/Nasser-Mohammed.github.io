@@ -90,11 +90,17 @@ Now, as mentioned we need this to be \\(2\pi\\)-periodic \\(\implies \Theta (\th
 \\[\Theta (\theta) = Ae^{\sqrt{-k} \theta} + Be^{-\sqrt{-k} \theta} = \Theta (\theta + 2\pi) = Ae^{\sqrt{-k}(2\pi + \theta)} + Be^{-\sqrt{-k}(2\pi + \theta)}\\]
 So,
 \\[Ae^{\sqrt{-k} \theta} + Be^{-\sqrt{-k} \theta} = Ae^{\sqrt{-k}(2\pi + \theta)} + Be^{-\sqrt{-k}(2\pi + \theta)}\\]
-We can break the \\(e^{\sqrt{-k}(2\pi + \theta)}\\) into \\(e^{2\pi \sqrt{-k}}e^{(\sqrt{-k} \theta)}\\), rewriting the equation this way, we get
+We can break the \\(e^{\sqrt{-k}(2\pi + \theta)}\\) into \\(e^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta}\\), rewriting the equation this way, we get
 \\[Ae^{\sqrt{-k} \theta} + Be^{-\sqrt{-k} \theta} = Ae^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta} + Be^{-2\pi \sqrt{-k}}e^{-\sqrt{-k} \theta}\\]
 Moving the \\(A\\) terms to the left hand side, and the \\(B\\) terms to the right hand side we get,
 \\[Ae^{\sqrt{-k} \theta} - Ae^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta}  = Be^{-2\pi \sqrt{-k}}e^{-\sqrt{-k} \theta} - Be^{-\sqrt{-k} \theta}\\]
-
+We can rewrite both sides as
+\\[A(e^{\sqrt{-k} \theta} - e^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta})  = B(e^{-2\pi \sqrt{-k}}e^{-\sqrt{-k} \theta} - e^{-\sqrt{-k} \theta})\\]
+Now, we can use some analytical thinking to see how this convoluted equation might resolve. If we decide both sides of the equation by 
+\\[e^{\sqrt{-k} \theta} - e^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta}\\]
+We get 
+\\[A = B \frac{e^{-2\pi \sqrt{-k}}e^{-\sqrt{-k} \theta} - e^{-\sqrt{-k} \theta}}{e^{\sqrt{-k} \theta} - e^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta}}\\]
+Now, we can say that if we assumed \\(B = 0\\)
 
 \\
 \\
