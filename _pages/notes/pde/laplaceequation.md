@@ -102,7 +102,7 @@ We can simplify these expressions to
 \\[e^{-2\pi \sqrt{-k}} = 1\\]
 Now here, we know that \\(e^x = 1 \implies x = 0\\), this means \\(2\pi \sqrt{-k} = 0\\) and \\(-2\pi \sqrt{-k} = 0\\). The only way for this to be possible, is if \\(\sqrt{-k} = 0\\), however this contradicts our assumption that \\(k < 0 \implies \sqrt{-k} \neq 0\\). So this solution cannot work, since this expression is not \\(2\pi\\)-periodic, and we now also know that \\(k \ge 0\\). \\
 \\
-Now let's try case 1.
+Now let's try case 1. \\
 **Case 1:** \\(\Theta (\theta) = A\theta + B\\), now let's test \\(2\pi\\)-periodicity. So we need, \\(\Theta (\theta) = \Theta (2\pi + \theta)\\). Plugging this in we get,
 \\[A\theta + B = A(2\pi + \theta) + B\\]
 This simplifies to
@@ -116,6 +116,8 @@ So for our solution to be \\(2\pi\\)-periodic, we need \\(A = 0\\), so our solut
 Now for our final case, case 2\\
 **Case 2:** \\(\Theta (\theta) = A\cos(\sqrt{-k} \theta) + B\sin(\sqrt{-k} \theta)\\). Now let's check if this can be \\(2\pi\\)-periodic, i.e. \\(\Theta (\theta) = \Theta (2\pi + \theta)\\). Plugging this in yields,
 \\[A\cos(\sqrt{-k} \theta) + B\sin(\sqrt{-k} \theta) = A\cos(\sqrt{-k} (2\pi + \theta)) + B\sin(\sqrt{-k} (2\pi + \theta))\\]
+Now to simplify this we will need the following trig-identities:
+
 \\
 \\
 \\
