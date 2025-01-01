@@ -73,14 +73,32 @@ We will use standard ODE theory to solve these ODEs. First, let's rewrite them i
 \\[r^2R^{\''}(r) +rR^{\'}(r) - k R(r) = 0 \\]
 and
 \\[\Theta^{\''}(\theta) + k \Theta(\theta) = 0 \\]
-These are both second order ODEs. We will solve the ODE in \\(\Theta\\), since it it simpler.
+These are both second order ODEs. We will solve the ODE in \\(\Theta\\), since it is simpler. Note though, that our cases are flipped for \\(k < 0\\) and \\(k > 0\\), this is because in the ODE produced by the heat equation, we had a \\(-k\\) term, but here we just have \\(k\\).
 \\[\Theta^{\''}(\theta) + k \Theta(\theta) = 0 \\]
 From our work with the heat equation, we know that the solution to this has 3 possible forms:
 1. \\(k = 0: \Theta(\theta) = A\theta + B\\)
-2. \\(k > 0: \Theta(\theta) = A\sin(\beta \theta) + D\cos(\beta \theta)\\)
-3. \\(k < 0: \Theta(\theta) = Ae^{\beta \theta} + De^{-\beta \theta}\\)
+2. \\(k > 0: \Theta(\theta) = A\sin(\beta \theta) + B\cos(\beta \theta)\\)
+3. \\(k < 0: \Theta(\theta) = Ae^{\beta \theta} + Be^{-\beta \theta}\\)
 
-We can actually skip checking for these, since \\(u(r, \theta)\\) must be \\(2\pi\\) periodic \\(\implies\\) \\(\Theta (\theta)\\) is \\(2\pi\\) periodic. So, this means option 2 is the correct solution and if we write out the characteristic equation for 
+Although we don't have the same restrictions as before, there are some to note. We want \\(u(r\theta)\\) to be \\(2\pi\\)-periodic and be bounded at the origin. The second restriction will be important when solving the other ODE, we use the first restriction for our ODE in \\(\Theta\\). So let's go through all the cases, I will begin with case 3.
+\\
+Case 3: \\(k < 0\\), now let's find the roots of the characteristic equations. 
+\\[\lambda^2 + k = 0 \implies \lambda = \sqrt{-k}\\]
+Now by assumption \\(k < 0\\), so \\(-k\\) is a positive number. This will imply that \\(\sqrt{-k}\\) produces two real values, a positive and negative value of \\(\sqrt{-k}\\). So \\(\lambda_1 = \sqrt{-k}\\) and \\(\lambda_2 = -\sqrt{-k}\\), and the corresponding solution for two real roots is 
+\\[\Theta (\theta) = Ae^{\sqrt{-k} \theta} + Be^{-\sqrt{-k} \theta}\\]
+Now, as mentioned we need this to be \\(2\pi\\)-periodic \\(\implies \Theta (\theta) = \Theta (\theta + 2\pi)\\) must be true. So writing this out we get,
+\\[\Theta (\theta) = Ae^{\sqrt{-k} \theta} + Be^{-\sqrt{-k} \theta} = \Theta (\theta + 2\pi) = Ae^{\sqrt{-k}(2\pi + \theta)} + Be^{-\sqrt{-k}(2\pi + \theta)}\\]
+So,
+\\[Ae^{\sqrt{-k} \theta} + Be^{-\sqrt{-k} \theta} = Ae^{\sqrt{-k}(2\pi + \theta)} + Be^{-\sqrt{-k}(2\pi + \theta)}\\]
+We can break the \\(e^{\sqrt{-k}(2\pi + \theta)}\\) into \\(e^{2\pi \sqrt{-k}}e^{(\sqrt{-k} \theta)}\\), rewriting the equation this way, we get
+\\[Ae^{\sqrt{-k} \theta} + Be^{-\sqrt{-k} \theta} = Ae^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta} + Be^{-2\pi \sqrt{-k}}e^{-\sqrt{-k} \theta}\\]
+Moving the \\(A\) terms to the left hand side, and the \\(B\\) terms to the right hand side we get,
+\\[Ae^{\sqrt{-k} \theta} - Ae^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta}  = Be^{-2\pi \sqrt{-k}}e^{-\sqrt{-k} \theta} - Be^{-\sqrt{-k} \theta}\\]
+
+\\
+\\
+\\
+
 \\[\Theta^{\''}(\theta) + k \Theta(\theta) = 0 \\]
 We get
 \\[\lambda^2 + k = 0 \implies \lambda = \sqrt{-k}\\]
