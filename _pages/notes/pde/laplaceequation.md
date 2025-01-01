@@ -92,20 +92,17 @@ So,
 \\[Ae^{\sqrt{-k} \theta} + Be^{-\sqrt{-k} \theta} = Ae^{\sqrt{-k}(2\pi + \theta)} + Be^{-\sqrt{-k}(2\pi + \theta)}\\]
 We can break the \\(e^{\sqrt{-k}(2\pi + \theta)}\\) into \\(e^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta}\\), rewriting the equation this way, we get
 \\[Ae^{\sqrt{-k} \theta} + Be^{-\sqrt{-k} \theta} = Ae^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta} + Be^{-2\pi \sqrt{-k}}e^{-\sqrt{-k} \theta}\\]
-Moving the \\(A\\) terms to the left hand side, and the \\(B\\) terms to the right hand side we get,
-\\[Ae^{\sqrt{-k} \theta} - Ae^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta}  = Be^{-2\pi \sqrt{-k}}e^{-\sqrt{-k} \theta} - Be^{-\sqrt{-k} \theta}\\]
-We can rewrite both sides as
-\\[A(e^{\sqrt{-k} \theta} - e^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta})  = B(e^{-2\pi \sqrt{-k}}e^{-\sqrt{-k} \theta} - e^{-\sqrt{-k} \theta})\\]
-Now, we can use some analytical thinking to see how this convoluted equation might resolve. If we decide both sides of the equation by 
-\\[e^{\sqrt{-k} \theta} - e^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta}\\]
-We get 
-\\[A = B \frac{e^{-2\pi \sqrt{-k}}e^{-\sqrt{-k} \theta} - e^{-\sqrt{-k} \theta}}{e^{\sqrt{-k} \theta} - e^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta}}\\]
-Now, we can say that if we assumed \\(B = 0\\)
-
+So if we look at this equation, we see that the expression being multiplied by \\(A\\) on the left hand side must match the expression being multiplied to \\(A\\) on the right hand side. We can repeat this observation for \\(B\\). Doing this we get the following two conclusions:
+\\[e^{\sqrt{-k} \theta} = e^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta}\\]
+And
+\\[e^{-\sqrt{-k} \theta} = e^{-2\pi \sqrt{-k}}e^{-\sqrt{-k} \theta}\\]
+We can simplify these expressions to 
+\\[e^{2\pi \sqrt{-k}} = 1\\]
+\\[e^{-2\pi \sqrt{-k}} = 1\\]
+Now here, we know that \\(e^x = 1 \implies x = 0\\), this means \\(2\pi \sqrt{-k}} = 0\\) and \\(-2\pi \sqrt{-k}} = 0\\). The only way for this to be possible, is if \\(\sqrt{-k} = 0\\), however this contradicts our assumption that \\(k < 0 \implies \sqrt{-k} \neq 0\\). So this solution cannot work, since this expression is not \\(2\pi\\)-periodic, and we now also know that \\(k \ge 0\\). 
 \\
 \\
 \\
-
 \\[\Theta^{\''}(\theta) + k \Theta(\theta) = 0 \\]
 We get
 \\[\lambda^2 + k = 0 \implies \lambda = \sqrt{-k}\\]
