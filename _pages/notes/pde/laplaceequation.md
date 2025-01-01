@@ -92,8 +92,9 @@ So,
 \\[Ae^{\sqrt{-k} \theta} + Be^{-\sqrt{-k} \theta} = Ae^{\sqrt{-k}(2\pi + \theta)} + Be^{-\sqrt{-k}(2\pi + \theta)}\\]
 We can break the \\(e^{\sqrt{-k}(2\pi + \theta)}\\) into \\(e^{2\pi \sqrt{-k}}e^{(\sqrt{-k} \theta)}\\), rewriting the equation this way, we get
 \\[Ae^{\sqrt{-k} \theta} + Be^{-\sqrt{-k} \theta} = Ae^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta} + Be^{-2\pi \sqrt{-k}}e^{-\sqrt{-k} \theta}\\]
-Moving the \\(A\) terms to the left hand side, and the \\(B\\) terms to the right hand side we get,
+Moving the \\(A\\) terms to the left hand side, and the \\(B\\) terms to the right hand side we get,
 \\[Ae^{\sqrt{-k} \theta} - Ae^{2\pi \sqrt{-k}}e^{\sqrt{-k} \theta}  = Be^{-2\pi \sqrt{-k}}e^{-\sqrt{-k} \theta} - Be^{-\sqrt{-k} \theta}\\]
+
 
 \\
 \\
