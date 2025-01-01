@@ -99,7 +99,7 @@ And
 We can simplify these expressions to 
 \\[e^{2\pi \sqrt{-k}} = 1\\]
 \\[e^{-2\pi \sqrt{-k}} = 1\\]
-Now here, we know that \\(e^x = 1 \implies x = 0\\), this means \\(2\pi \sqrt{-k}} = 0\\) and \\(-2\pi \sqrt{-k}} = 0\\). The only way for this to be possible, is if \\(\sqrt{-k} = 0\\), however this contradicts our assumption that \\(k < 0 \implies \sqrt{-k} \neq 0\\). So this solution cannot work, since this expression is not \\(2\pi\\)-periodic, and we now also know that \\(k \ge 0\\). 
+Now here, we know that \\(e^x = 1 \implies x = 0\\), this means \\(2\pi \sqrt{-k} = 0\\) and \\(-2\pi \sqrt{-k} = 0\\). The only way for this to be possible, is if \\(\sqrt{-k} = 0\\), however this contradicts our assumption that \\(k < 0 \implies \sqrt{-k} \neq 0\\). So this solution cannot work, since this expression is not \\(2\pi\\)-periodic, and we now also know that \\(k \ge 0\\). 
 \\
 \\
 \\
