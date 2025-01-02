@@ -227,7 +227,7 @@ Now to solve for \\(a_n\\) we will restart this process with the equation
 We multiply both sides of the equation by \\(\cos(m\theta)\\) and integrate from \\(0\\) to \\(2\pi\\) to get
 \\[\int_0^{2\pi}\cos(m \theta)g(\theta)d\theta = \int_0^{2\pi}\sum_{n = 0}^{\infty}\[a_n\cos(m\theta)\cos(n\theta) + b_n\cos(m\theta)\sin(n\theta)\]d\theta\\]
 Like usual, we get 0's everywhere except when \\(m = n\\), so it simplifies to
-\\[\int_0^{2\pi}\cos(n \theta)g(\theta)d\theta = \int_0^{2\pi}\[a_n\cos(mntheta)\cos(n\theta) + b_n\cos(n\theta)\sin(n\theta)\]d\theta\\]
+\\[\int_0^{2\pi}\cos(n \theta)g(\theta)d\theta = \int_0^{2\pi}\[a_n\cos(n\theta)\cos(n\theta) + b_n\cos(n\theta)\sin(n\theta)\]d\theta\\]
 Which is equivalent to 
 \\[\int_0^{2\pi}\cos(n \theta)g(\theta)d\theta = \int_0^{2\pi}a_n\cos(n\theta)\cos(n\theta) + \int_0^{2\pi}b_n\cos(n\theta)\sin(n\theta)\]d\theta\\]
 Then using orthogonality, we get
