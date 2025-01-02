@@ -202,9 +202,9 @@ $$
 $$
 </div>
 
-\\[\int_0^{2\pi}{\sin(n \theta) \cos(m \theta) \ d\theta} = 0 \forall n,m \in \mathbb{Z}^{+}\\]
+\\[\int_0^{2\pi}{\sin(n \theta) \cos(m \theta) \ d\theta} = 0 \: \forall n,m \in \mathbb{Z}^{+}\\]
 
-With this in hand, we can to find the necessary coefficients that make our infinite sum agree with the boundary condition. As mentioned above:
+With this in hand, we can try to find the necessary coefficients that make our infinite sum agree with the boundary condition. As mentioned above:
 \\[u(1, \theta) = g(\theta) =\sum_{n = 0}^{\infty}\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
 So we will work on this equation
 \\[g(\theta) = \sum_{n = 0}^{\infty}\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
