@@ -14,5 +14,7 @@ The notes below come from personal notes, lecture notes, and *Partial Differenti
 - [Laplace's Equation](laplaceequation.md)
 - [Method of Characteristics](method-of-characteristics.md)
 - [Non-Linear First Order PDE](conservation-eq.md)
+- [Perturbation Theory](perturbation-theory.md)
+- [Variational Calculus](variational-calc.md)
 
  
