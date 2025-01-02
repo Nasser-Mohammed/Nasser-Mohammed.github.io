@@ -142,7 +142,7 @@ Now we note an important fact, \\(\cos(x) = 0 \implies \sin(x) = \pm 1\\) and th
 \\[2\pi\sqrt{k} = 2\pi n \: n \in 0, 1, 2, ...... \\]
 Solving for this tells us that 
 \\[k = n^2\\]
-This also solves the other equation for \\(B\:\\) \\(B = -A\sin(2\pi n) + B\cos(2\pi n)\\) 
+This also solves the other equation for \\(B\:\\) \\(B = -A\sin(2\pi n) + B\cos(2\pi n)\\). 
 Now we have a sequence of possible solutions, plugging the new value of \\(k\\) into our general solution for \\(\Theta\\) gives
 \\[\Theta_n(\theta) = a_n\cos(n\theta) + b_n\sin(n\theta)\\]
 What about the periodic solution when \\(k = 0\\)? If we recall, that was \\(\Theta (\theta) = C\\), luckily this solution is "baked" into our solution above. If we plug \\(n = 0\\) into our general solution, we get 
