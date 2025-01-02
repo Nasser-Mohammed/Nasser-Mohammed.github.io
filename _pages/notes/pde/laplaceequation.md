@@ -167,27 +167,11 @@ Now like the other 2nd order ODE, we have 3 possible solutions depending on the 
 \\[k > 0\: R(r) = ar^{n} + br^{-n}\\]
 If you recall, there were two physical restrictions on our solutions. The first being the \\(2\pi\\)-periodic restriction on \\(\Theta(\theta)\\), the other, was that we want our solution to be bounded (i.e. not blow up). If we look at the first possible solution for \\(R\\), as \\(r \rightarrow 0 \: \ln(r) \rightarrow -\infty\\), so this cannot work unless \\(b = 0\\), so in other words, \\(R(r) = a\\) a constant. For the second possibility
 \\[R(r) = ar^{n} + br^{-n}\\]
-Since \\(n \ge 0 \implies -n < 0\\) then \\(br^{-n}\\) is the same as \\(\frac{b}{r^n}\\). As \\(r \rightarrow 0 \: \frac{b}{r^n} \rightarrow \infty\\) and actually the fact that \\(r\\) is being raised to the \\(n\\) power makes this divergence even faster. So we must throw away that term by letting \\(b = 0\\). So now we have our solutions for \\(R(r)\\).
-
-
-We then do algebraic manipulation by dividing out \\(r^{\gamma}\\), and we will get an algebraic equation. However. we know what \\(k\\) is so the equation becomes
-\\[r^2(\gamma^2 r^{\gamma - 2}) +r(\gamma r^{\gamma - 1}) - n r^{\gamma} = 0\\]
-And without going through all the possible cases, depending on the roots to this characteristic equation, we get different possible solutions. In this case, we get the following solution:
-\\[R(r) = ar^{n} + br^{-n}\\]
-We have to be careful here, since \\(r \in (0, 1)\\), then it's a "small" decimal value, if we raise this number to a negative power \\(-n\\) we will get \\(\frac{1}{r^n}\\), the numerator \\(r^n\\) will be even smaller than \\(r\\) so we will get 1 divided by a really small number, which produces a very large number. As \\(n \rightarrow \infty\\) these denominators will get smaller and smaller, making \\(\frac{1}{r^n} \rightarrow \infty\\). Our solution obviously should be bounded, especially since we know \\(n \rightarrow \infty\\), so we can conclude that \\(b = 0\\), essentially throwing away the unbounded term \\(r^{-n}\\). So we now have solutions to both of our ODEs and we can say
-\\[u(r, \theta) = \sum_{n = 0}^{\infty}R(r)\Theta(\theta) = \sum_{n = 0}^{\infty}a_nr^n\[b_n\cos(n \theta) + c_n\sin(n \theta)\]\\]
-This simplifies to 
-\\[u(r, \theta) = = \sum_{n = 0}^{\infty}r^n\[a_n\cos(n \theta) + b_n\sin(n \theta)\]\\]
-Where \\(a_n\\) and \\(b_n\\) are constants that we will find based on our initial condition.
-\\[u(1, \theta) = g(\theta)  = \sum_{n = 0}^{\infty}a_n\cos(n \theta) + b_n\sin(n \theta)\\]
-When \\(n = 0\\) we get that 
-\\[g(\theta) = a_0\cos(0) + b_0\sin(0)\\]
-\\[\cos(0) = 1, \ \ \ \sin(0) = 0\\]
-Our equation simplifies to
-\\[g(\theta) = a_0\cos(0)\\]
-Multiplying both sides of the equation by \\(\cos(0)\\) and integrating from \\(0\\) to \\(2\pi\\). We get 
-\\[\int_0^{2\pi}\cos(0)g(\theta)d\theta = \int_0^{2\pi}\cos(0)\cos(n \theta) d\theta\\]
-Using the fact that  \\(\cos(n \theta)\\) is orthogonal on \\(\[0,2\pi\]\\). This means the right hand side integral 
-
-So instead of computing the solution for each possible \\(k\\), I will just state them and we will try to determine which ones are possible. 
+Since \\(n \ge 0 \implies -n < 0\\) then \\(br^{-n}\\) is the same as \\(\frac{b}{r^n}\\). As \\(r \rightarrow 0 \: \frac{b}{r^n} \rightarrow \infty\\) and actually the fact that \\(r\\) is being raised to the \\(n\\) power makes this divergence even faster. So we must throw away that term by letting \\(b = 0\\). So now we have our solutions for \\(R(r)\\). Much like the solution for \\(\Theta(\theta)\\), the solution \\(R_n(r) = ar^{n}\\) has the solution \\(R(r) = C\\) (where C is a constant) baked in. That is at \\(n = 0, R_0 = a(1) = a\\) where \\(a\\) is simply a constant. So we can just say that \\(R_n(r) = a_nr^n\\). Finally, we have a sequence of solutions:
+\\[u_n(r,\theta) = R_n(r)\Theta_n(\theta) = r^n\[a_n\cos(n\theta)+b_n\sin(n\theta)\]\\]
+By our known **Law of Superposition**, the solutions to a linear homogenous PDE forms a vector space. The reason we represent it as a sum, is because any solution that does exist, is baked into this sum. That is, every solution if found in this sum, we just have to configure the coefficients appropriately. So we say that the general solution is:
+\\[u(r,\theta) = a_0 + \sum_{n = 1}^{\infty}x^n\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
+Where I simply wrote the initial coefficient out before the summation, and started the summation index at 1 insead of 0. Now, the final step is to configure this sum to match our boundary condition.
+\\[u(1, \theta) = g(\theta) = a_0 + \sum_{n = 1}^{\infty}\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
+Here, we use orthogonality and **cross** orthogonality. Below are the important satements about this,
 
