@@ -234,7 +234,7 @@ Then using orthogonality, we get
 \\[\int_0^{2\pi}\cos(m \theta)g(\theta)d\theta = a_n\pi\\]
 Finally, our expression for \\(a_n\\) is 
 \\[a_n = \frac{1}{\pi}\int_0^{2\pi}\cos(m \theta)g(\theta)d\theta\\]
-That's the entire solution, we have solved the Interior Dirichlet Problem on a circle. There is one last thing to consider, since we essentially write \\(g(\theta)\\) as its Fourier Series, we need it to match the fact that the Fourier Series has an initial term of \\(\frac{a_0}{2}\\), so we will write our initial term as such. To recap, the solution is given by
+That's the entire solution, we have solved the Interior Dirichlet Problem on a circle. This problem could represent something like the electrostatic potential in a circle, when that value is given on the associated boundary. There is one last thing to consider, since we essentially write \\(g(\theta)\\) as its Fourier Series, we need it to match the fact that the Fourier Series has an initial term of \\(\frac{a_0}{2}\\), so we will write our initial term as such. To recap, the solution is given by
 
 \\[u(r,\theta) = \frac{a_0}{2} + \sum_{n = 1}^{\infty}x^n\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
 \\[\text{where }a_n = \frac{1}{\pi}\int_0^{2\pi}\cos(m \theta)g(\theta)d\theta\\]
