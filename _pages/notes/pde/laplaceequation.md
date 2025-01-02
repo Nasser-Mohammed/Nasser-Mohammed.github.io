@@ -175,3 +175,38 @@ Where I simply wrote the initial coefficient out before the summation, and start
 \\[u(1, \theta) = g(\theta) = a_0 + \sum_{n = 1}^{\infty}\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
 Here, we use orthogonality and **cross** orthogonality. Below are the important satements about this,
 
+<div style="text-align: center;">
+$$
+\begin{align}
+\int_0^{2\pi}{\sin(n \theta) \sin(m \theta) \ d\theta} = 
+\begin{cases}
+\\pi &: \text{if } n = m \\
+0 &: \text{if } n \neq m
+\end{cases} 
+\end{align}
+$$
+</div>
+
+<div style="text-align: center;">
+$$
+\begin{align}
+\int_0^{2\pi}{\cos(n \theta) \cos(m \theta) \ d\theta} = 
+\begin{cases}
+\\pi &: \text{if } n = m \\
+0 &: \text{if } n \neq m
+\end{cases} 
+\end{align}
+$$
+</div>
+
+<div style="text-align: center;">
+$$
+\begin{align}
+\int_0^{2\pi}{\sin(n \theta) \cos(m \theta) \ d\theta} = 
+\begin{cases}
+0 &: \forall n,m \in \mathbb{Z}^{\+}
+\end{cases} 
+\end{align}
+$$
+</div>
+
