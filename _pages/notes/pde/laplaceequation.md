@@ -122,27 +122,30 @@ Now to simplify this we will need the following trig-identities:
 Substituting this into our solution, this
 \\[A\cos(\sqrt{k} \theta) + B\sin(\sqrt{k} \theta) = A\cos(\sqrt{k} (2\pi + \theta)) + B\sin(\sqrt{k} (2\pi + \theta))\\]
 Changes into below,
-\\[A\cos(\sqrt{k} \theta) + B\sin(\sqrt{k} \theta) = A(\cos (2\pi\sqrt{k}) \cos (\sqrt{k}\theta) - \sin (2\pi\sqrt{k}) \sin (\sqrt{k}\theta)) + B(\sin (2\pi\sqrt{k}) \cos (\sqrt{k}\theta) + \cos (2\pi\sqrt{k}) \sin (\sqrt{k}\theta))\\]
+\\[A\cos(\sqrt{k} \theta) + B\sin(\sqrt{k} \theta) = A\[\cos (2\pi\sqrt{k}) \cos (\sqrt{k}\theta) - \sin (2\pi\sqrt{k}) \sin (\sqrt{k}\theta)\] + B\[\sin (2\pi\sqrt{k}) \cos (\sqrt{k}\theta) + \cos (2\pi\sqrt{k}) \sin (\sqrt{k}\theta)\]\\]
 As we did in our first case, we will essentially compare the constants in front of our functions to make a statement about equality. It is important to note which terms are constants here, \\(A, B, \cos(2\pi \sqrt{k}), \sin(2\pi \sqrt{k})\\). Any term with a \\(\theta\\) is **not** constant. Now rewriting the equation and distributing \\(A\\) and \\(B\\), the right hand side of the equation becomes
 \\[A\cos (2\pi\sqrt{k}) \cos (\sqrt{k}\theta) - A\sin (2\pi\sqrt{k}) \sin (\sqrt{k}\theta) + B\sin (2\pi\sqrt{k}) \cos (\sqrt{k}\theta) + B\cos (2\pi\sqrt{k}) \sin (\sqrt{k}\theta)\\]
 Now, we want to push all of the constants in front of our \\(\cos(\sqrt{k}\theta), \sin(\sqrt{k}\theta)\\) terms so that we can compare them directly to the left hand side of the equation. First grouping \\(\cos(\sqrt{k}\theta), \sin(\sqrt{k}\theta)\\) yields:
-\\[(A\cos (2\pi\sqrt{k}) \cos (\sqrt{k}\theta) + B\sin (2\pi\sqrt{k}) \cos (\sqrt{k}\theta)) + (- A\sin (2\pi\sqrt{k}) \sin (\sqrt{k}\theta) + B\cos (2\pi\sqrt{k}) \sin (\sqrt{k}\theta))\\]
+\\[\[A\cos (2\pi\sqrt{k}) \cos (\sqrt{k}\theta) + B\sin (2\pi\sqrt{k}) \cos (\sqrt{k}\theta)\] + \[- A\sin (2\pi\sqrt{k}) \sin (\sqrt{k}\theta) + B\cos (2\pi\sqrt{k}) \sin (\sqrt{k}\theta)\]\\]
 Now we pull out the non constant term in each "group" to get:
-\\[\cos(\sqrt{k}\theta)(A\cos (2\pi\sqrt{k}) + B\sin (2\pi\sqrt{k}) + \sin(\sqrtk}\theta)(- A\sin (2\pi\sqrt{k}) + B\cos (2\pi\sqrt{k}))\\]
+\\[\cos(\sqrt{k}\theta)\[A\cos (2\pi\sqrt{k}) + B\sin (2\pi\sqrt{k})\] + \sin(\sqrt{k}\theta)\[- A\sin (2\pi\sqrt{k}) + B\cos (2\pi\sqrt{k})\]\\]
 Now we are in a position to compare both sides of the equation, recall the full equation is 
-\\[\cos(\sqrt{k} \theta)A + \sin(\sqrt{k} \theta)B = \cos(\sqrt{k}\theta)(A\cos (2\pi\sqrt{k}) + B\sin (2\pi\sqrt{k}) + \sin(\sqrtk}\theta)(- A\sin (2\pi\sqrt{k}) + B\cos (2\pi\sqrt{k}))\\]
+\\[\cos(\sqrt{k} \theta)A + \sin(\sqrt{k} \theta)B = \cos(\sqrt{k}\theta)\[A\cos (2\pi\sqrt{k}) + B\sin (2\pi\sqrt{k}\] + \sin(\sqrt{k}\theta)\[- A\sin (2\pi\sqrt{k}) + B\cos (2\pi\sqrt{k})\]\\]
+Now observe that on the left hand side of the equation, \\(A\\) and \\(B\\) are constants being multiplied to \\(\cos(\sqrt{k} \theta)\\) and \\(\sin(\sqrt{k} \theta)\\) must **match** the constants being multiplied to \\(\cos(\sqrt{k} \theta)\\) and \\(\sin(\sqrt{k} \theta)\\) since they are **constant** and cannot change. So we can essentially set the coefficients of each of those terms equal to the corresponding coefficient on the right hand side, in doing this we get two equations:
+\\[A = A\cos(2\pi\sqrt{k}) + B\sin(2\pi\sqrt{k})\\]
+and 
+\\[B = -A\sin(2\pi\sqrt{k}) + B\cos(2\pi\sqrt{k})\\]
+Now we note an important fact, \\(\cos(x) = 0 \implies \sin(x) = \pm 1\\) and the reverse is true, \\(\sin(x) = 0 \implies \cos(x) = \pm 1\\). Now let's use this to analyze the equation. For the first equation, I want the \\(B\sin(2\pi\sqrt{k})\\) term to be 0, and I want the \\(\cos(2\pi\sqrt{k}\\) term to be 1, so that we are left with \\(A = A\\). Now, if we ignore the option of \\(B = 0\\), we note that \\(\sin(2\pi\sqrt{k}) = 0 \implies \cos(2\pi \sqrt{k}) = \pm 1\\), so this is almost what we want, now we simply want to limit the values of \\(\cos(2\pi \sqrt{k})\\) that give a \\(-1\\) to only give \\(1\\). We know that \\(\sin(x) = 0\\) at integer multiples of \\(\pi\\), however, \\(cos(n\pi) = \pm 1\\) depending on \\(n\\). However, we do know that \\(\cos(x) = 1\\) at *even* integer multiples of \\(\pi\\) and \\(sin(x) = 0\\) at *even* integers of \\(\pi\\) as well, so if we make make \\(2\pi\sqrt{k}\\) and even integer multiple of \\(\pi\\) we will have \\(2\pi\\)-periodicity. In other words
+\\[2\pi\sqrt{k} = 2\pi n \: n \in 0, 1, 2, ...... \\]
+Solving for this tells us that 
+\\[k = n^2\\]
+Now we have a sequence of possible solutions, so we add them all up, since any possible solution will be embedded into the infinite sum, we just have to configure it based on the boundary condition. \\
+Plugging this into our general solution for \\(\Theta\\) gives
+\\[\Theta(\theta) = \sum_{n=0}^{\infty}a_ncos(n\theta) + b_nsin(n\theta)\\]
+What about the periodic solution when \\(k = 0\\), if we recall that was \\(\Theta (\theta) = C\\), now this solution is "baked" into our solution above. If we plug \\(n = 0\\) into our general solution, we get 
+\\[\Theta_0 (\theta) = a_n\\]
+Since \\(\cos(0) = 1\\) and \\(\sin(0) = 0\\), so we have a constant, and that takes care of the case where \\(k = 0\\). \\
 \\
-\\
-\\
-\\[\Theta^{\''}(\theta) + k \Theta(\theta) = 0 \\]
-We get
-\\[\lambda^2 + k = 0 \implies \lambda = \sqrt{-k}\\]
-Where \\(k > 0\\), since to get a complex root (which produces solution 2.) then \\(k > 0\\) ensures that we are taking the square root of a negative number (and producing an imaginary unit as a result). However, \\(\Theta(\theta)\\) must match our initial condition, since we assumed \\(u(r,\theta) = R(r)\Theta (\theta)\\), then the initial condition \\(u(1,\theta) = g(\theta) \implies g(\theta) = \Theta (\theta)\\). If it still isn't obvious, \\(u(1,\theta) = g(\theta)\\) tells us that when we plug \\(1\\) into our solution, we get \\(u(1,\theta) = R(1)\Theta (\theta)\\). Here \\(R(1)\\) is essentially a constant \\(c\\) times \\(\Theta (\theta)\\), which is \\(ca_nsin(\sqrt{k} \theta) + cb_ncos(\sqrt{k} \theta\\), and it's easy to see that \\(ca_n\\) and \\(cb_n\\) are just themselves constants. Now, we expand \\(g(\theta)\\) as a Fourier-Series to get
-\\[g(\theta) = \sum_{n = 0}^{\infty}a_n\cos(n\theta) + b_n\sin(n\theta)\\]
-And as mentioned \\(g(\theta) = \Theta (\theta)\\), writing this out yields
-\\[g(\theta) = \sum_{n = 0}^{\infty}c_n\cos(n \theta) + d_n\sin(n \theta) = \Theta (\theta) = \sum_{n = 0}^{\infty}a_n\cos(\sqrt{k} \theta) + b_n\sin(\sqrt{k} \theta)\\]
-This tells us that \\[\forall n, \Theta_n (\theta) = c_n\cos(n \theta) + d_n\sin(n \theta) \implies \sqrt{k} = n \implies k = n^2\\]
-
 Now we will tackle the other ODE
 \\[r^2R^{\''}(r) +rR^{\'}(r) - k R(r) = 0 \\]
 Is called an Euler Differential Equation. These differential equations are of the form
