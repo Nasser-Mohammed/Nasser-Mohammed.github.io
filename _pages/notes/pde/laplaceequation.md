@@ -106,7 +106,7 @@ Now let's try case 1. \\
 \\
 **Case 1:** \\(\Theta (\theta) = A\theta + B\\) \\
 \\
-Now let's test \\(2\pi\\)-periodicity. So we need, \\(\Theta (\theta) = \Theta (2\pi + \theta)\\). Plugging this in we get,
+Let's test \\(2\pi\\)-periodicity. So we need, \\(\Theta (\theta) = \Theta (2\pi + \theta)\\). Plugging this in we get,
 \\[A\theta + B = A(2\pi + \theta) + B\\]
 This simplifies to
 \\[A\theta + B = 2\pi A + A\theta + B\\]
