@@ -114,15 +114,15 @@ Subtracting \\(A\theta\\) to get
 So for our solution to be \\(2\pi\\)-periodic, we need \\(A = 0\\), so our solution simplifies to a constant \\(C\\)
 \\[\Theta (\theta) = C\\]
 Now for our final case, case 2\\
-**Case 2:** \\(\Theta (\theta) = A\cos(\sqrt{-k} \theta) + B\sin(\sqrt{-k} \theta)\\). Now let's check if this can be \\(2\pi\\)-periodic, i.e. \\(\Theta (\theta) = \Theta (2\pi + \theta)\\). Note here, that since \\(k > 0\\), \\(\sqrt{-k}\\) produces an imaginary unit, so \\(\sqrt{-k} = \sqrt{k}i\\). So we will consider \\(\sqrt{k}\\) in our equation. Plugging this in yields,
+**Case 2:** \\(\Theta (\theta) = A\cos(\sqrt{k} \theta) + B\sin(\sqrt{k} \theta)\\). Now let's check if this can be \\(2\pi\\)-periodic, i.e. \\(\Theta (\theta) = \Theta (2\pi + \theta)\\). Note here, that since \\(k > 0\\), \\(\sqrt{-k}\\) produces an imaginary unit, so \\(\sqrt{-k} = \sqrt{k}i\\). So we will consider \\(\sqrt{k}\\) in our equation. Plugging this in yields,
 \\[A\cos(\sqrt{k} \theta) + B\sin(\sqrt{k} \theta) = A\cos(\sqrt{k} (2\pi + \theta)) + B\sin(\sqrt{k} (2\pi + \theta))\\]
 Now to simplify this we will need the following trig-identities:
-\\[\cos(\sqrt{k}(2\pi + \theta)) = \cos (2\sqrt{k}\pi) \cos (\sqrt{k}\theta) - \sin (2\sqrt{k}\pi) \sin (\sqrt{k}\theta)\\]
-\\[\sin(\sqrt{k}(2\pi + \theta)) = \sin (2\sqrt{k}\pi) \cos (\sqrt{k}\theta) + \cos (2\sqrt{k}\pi) \sin (\sqrt{k}\theta)\\]
+\\[\cos(\sqrt{k}(2\pi + \theta)) = \cos (2\pi\sqrt{k}) \cos (\sqrt{k}\theta) - \sin (2\pi\sqrt{k}) \sin (\sqrt{k}\theta)\\]
+\\[\sin(\sqrt{k}(2\pi + \theta)) = \sin (2\pi\sqrt{k}) \cos (\sqrt{k}\theta) + \cos (2\pi\sqrt{k}) \sin (\sqrt{k}\theta)\\]
 Substituting this into our solution, this
-\\[A\cos(\sqrt{-} \theta) + B\sin(\sqrt{k} \theta) = A\cos(\sqrt{k} (2\pi + \theta)) + B\sin(\sqrt{k} (2\pi + \theta))\\]
+\\[A\cos(\sqrt{k} \theta) + B\sin(\sqrt{k} \theta) = A\cos(\sqrt{k} (2\pi + \theta)) + B\sin(\sqrt{k} (2\pi + \theta))\\]
 Changes into below,
-\\[A\cos(\sqrt{k} \theta) + B\sin(\sqrt{k} \theta) = A(\cos (2\sqrt{k}\pi} \cos (\sqrt{k}\theta) - \sin (2\sqrt{k}\pi} \sin (\sqrt{k}\theta)) + B(\sin (2\sqrt{k}\pi} \cos (\sqrt{k}\theta) + \cos (2\sqrt{k}\pi} \sin (\sqrt{k}\theta))\\]
+\\[A\cos(\sqrt{k} \theta) + B\sin(\sqrt{k} \theta) = A(\cos (2\pi\sqrt{k} \cos (\sqrt{k}\theta) - \sin (2\pi\sqrt{k} \sin (\sqrt{k}\theta)) + B(\sin (2\pi\sqrt{k} \cos (\sqrt{k}\theta) + \cos (2\pi\sqrt{k} \sin (\sqrt{k}\theta))\\]
 As we did in our first case, we will essentially compare the constants in front of our functions to make a statement about equality. It is important to note which terms are constants here, \\(A, B, \cos{2\pi\sqrt{-k}}, \cos(2\pi \sqrt{k}), \sin(2\pi \sqrt{k})\\). Any term with a \\(\theta\\) is **not** constant. Now rewriting the equation and distributing \\(A\\) and \\(B\\), we get
 \\[\cos(\sqrt{k} \theta)A + \sin(\sqrt{k} \theta)B = A\cos (2\sqrt{k}\pi) \cos (\sqrt{k}\theta) - A\sin (2\sqrt{k}\pi) \sin (\sqrt{k}\theta)) + B\sin (2\sqrt{k}\pi) \cos (\sqrt{k}\theta) + B\cos (2\sqrt{k}\pi) \sin (\sqrt{k}\theta))\\]
 Now, we want to push all of the constants in front of our \\(\cos(\sqrt{k}\theta), \sin(\sqrt{k}\theta)\\) terms so that we can compare them directly to the left hand side of the equation. First grouping \\(\cos(\sqrt{k}\theta), \sin(\sqrt{k}\theta)\\) yields:
