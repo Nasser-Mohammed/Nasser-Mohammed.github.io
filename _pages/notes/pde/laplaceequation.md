@@ -103,7 +103,8 @@ We can simplify these expressions to
 Now here, we know that \\(e^x = 1 \implies x = 0\\), this means \\(2\pi \sqrt{-k} = 0\\) and \\(-2\pi \sqrt{-k} = 0\\). The only way for this to be possible, is if \\(\sqrt{-k} = 0\\), however this contradicts our assumption that \\(k < 0 \implies \sqrt{-k} \neq 0\\). So this solution cannot work, since this expression is not \\(2\pi\\)-periodic, and we now also know that \\(k \ge 0\\). \\
 \\
 Now let's try case 1. \\
-**Case 1:** \\(\Theta (\theta) = A\theta + B\\), now let's test \\(2\pi\\)-periodicity. So we need, \\(\Theta (\theta) = \Theta (2\pi + \theta)\\). Plugging this in we get,
+**Case 1:** \\(\Theta (\theta) = A\theta + B\\) \\
+Now let's test \\(2\pi\\)-periodicity. So we need, \\(\Theta (\theta) = \Theta (2\pi + \theta)\\). Plugging this in we get,
 \\[A\theta + B = A(2\pi + \theta) + B\\]
 This simplifies to
 \\[A\theta + B = 2\pi A + A\theta + B\\]
