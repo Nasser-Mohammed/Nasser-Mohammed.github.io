@@ -117,6 +117,12 @@ Now for our final case, case 2\\
 **Case 2:** \\(\Theta (\theta) = A\cos(\sqrt{-k} \theta) + B\sin(\sqrt{-k} \theta)\\). Now let's check if this can be \\(2\pi\\)-periodic, i.e. \\(\Theta (\theta) = \Theta (2\pi + \theta)\\). Plugging this in yields,
 \\[A\cos(\sqrt{-k} \theta) + B\sin(\sqrt{-k} \theta) = A\cos(\sqrt{-k} (2\pi + \theta)) + B\sin(\sqrt{-k} (2\pi + \theta))\\]
 Now to simplify this we will need the following trig-identities:
+\\[\cos(\sqrt{-k}(2\pi + \theta)) = \cos (2\sqrt{-k}\pi} \cos (\sqrt{-k}\theta) - \sin (2\sqrt{-k}\pi} \sin (\sqrt{-k}\theta)\\]
+\\[\sin(\sqrt{-k}(2\pi + \theta)) = \sin (2\sqrt{-k}\pi} \cos (\sqrt{-k}\theta) + \cos (2\sqrt{-k}\pi} \sin (\sqrt{-k}\theta)\\]
+Substituting this into our solution, this
+\\[A\cos(\sqrt{-k} \theta) + B\sin(\sqrt{-k} \theta) = A\cos(\sqrt{-k} (2\pi + \theta)) + B\sin(\sqrt{-k} (2\pi + \theta))\\]
+Changes into below,
+\\[A\cos(\sqrt{-k} \theta) + B\sin(\sqrt{-k} \theta) = A(\cos (2\sqrt{-k}\pi} \cos (\sqrt{-k}\theta) - \sin (2\sqrt{-k}\pi} \sin (\sqrt{-k}\theta)) + B(\sin (2\sqrt{-k}\pi} \cos (\sqrt{-k}\theta) + \cos (2\sqrt{-k}\pi} \sin (\sqrt{-k}\theta))\\]
 
 \\
 \\
