@@ -136,20 +136,20 @@ Now observe that on the left hand side of the equation, \\(A\\) and \\(B\\) are 
 \\[A = A\cos(2\pi\sqrt{k}) + B\sin(2\pi\sqrt{k})\\]
 and 
 \\[B = -A\sin(2\pi\sqrt{k}) + B\cos(2\pi\sqrt{k})\\]
-Now we note an important fact, \\(\cos(x) = 0 \implies \sin(x) = \pm 1\\) and the reverse is true, \\(\sin(x) = 0 \implies \cos(x) = \pm 1\\). Now let's use this to analyze the equation. For the first equation, I want the \\(B\sin(2\pi\sqrt{k})\\) term to be 0, and I want the \\(\cos(2\pi\sqrt{k}\\) term to be 1, so that we are left with \\(A = A\\). Now, if we ignore the option of \\(B = 0\\), we note that \\(\sin(2\pi\sqrt{k}) = 0 \implies \cos(2\pi \sqrt{k}) = \pm 1\\), so this is almost what we want, now we simply want to limit the values of \\(\cos(2\pi \sqrt{k})\\) that give a \\(-1\\) to only give \\(1\\). We know that \\(\sin(x) = 0\\) at integer multiples of \\(\pi\\), however, \\(cos(n\pi) = \pm 1\\) depending on \\(n\\). However, we do know that \\(\cos(x) = 1\\) at *even* integer multiples of \\(\pi\\) and \\(sin(x) = 0\\) at *even* integers of \\(\pi\\) as well, so if we make make \\(2\pi\sqrt{k}\\) and even integer multiple of \\(\pi\\) we will have \\(2\pi\\)-periodicity. In other words
+Now we note an important fact, \\(\cos(x) = 0 \implies \sin(x) = \pm 1\\) and the reverse is true, \\(\sin(x) = 0 \implies \cos(x) = \pm 1\\). Now let's use this to analyze the equation. For the first equation, I want the \\(B\sin(2\pi\sqrt{k})\\) term to be 0, and I want the \\(\cos(2\pi\sqrt{k}\\) term to be 1, so that we are left with \\(A = A\\). Now, if we ignore the option of \\(B = 0\\), we note that \\(\sin(2\pi\sqrt{k}) = 0 \implies \cos(2\pi \sqrt{k}) = \pm 1\\), so this is almost what we want, now we simply want to limit the values of \\(\cos(2\pi \sqrt{k})\\) that give a \\(-1\\) to only give \\(1\\). We know that \\(\sin(x) = 0\\) at integer multiples of \\(\pi\\), however, \\(cos(n\pi) = \pm 1\\) depending on \\(n\\). However, we do know that \\(\cos(x) = 1\\) at *even* integer multiples of \\(\pi\\) and \\(sin(x) = 0\\) at *even* integers of \\(\pi\\) as well, so if we make make \\(2\pi\sqrt{k}\\) an even integer multiple of \\(\pi\\) we will have \\(2\pi\\)-periodicity. In other words
 \\[2\pi\sqrt{k} = 2\pi n \: n \in 0, 1, 2, ...... \\]
 Solving for this tells us that 
 \\[k = n^2\\]
-This also solves the other equation for \\(B\\): \\(B = -A\sin(2\pi n + B\cos(2\pi n)\\) 
+This also solves the other equation for \\(B\:\\) \\(B = -A\sin(2\pi n) + B\cos(2\pi n)\\) 
 Now we have a sequence of possible solutions, plugging the new value of \\(k\\) into our general solution for \\(\Theta\\) gives
-\\[\Theta_n(\theta) = a_ncos(n\theta) + b_nsin(n\theta)\\]
-What about the periodic solution when \\(k = 0\\), if we recall that was \\(\Theta (\theta) = C\\), now this solution is "baked" into our solution above. If we plug \\(n = 0\\) into our general solution, we get 
+\\[\Theta_n(\theta) = a_n\cos(n\theta) + b_n\sin(n\theta)\\]
+What about the periodic solution when \\(k = 0\\)? If we recall, that was \\(\Theta (\theta) = C\\), luckily this solution is "baked" into our solution above. If we plug \\(n = 0\\) into our general solution, we get 
 \\[\Theta_0 (\theta) = a_0\\]
 Since \\(\cos(0) = 1\\) and \\(\sin(0) = 0\\), so we have a constant, and that takes care of the case where \\(k = 0\\). \\
 \\
 Now we will tackle the other ODE
 \\[r^2R^{\''}(r) +rR^{\'}(r) - k R(r) = 0 \\]
-Is called an Euler Differential Equation. These differential equations are of the form
+This is called a Cauchy-Euler Differential Equation. These differential equations are of the form
 \\[\alpha x^2y^{\''} + \beta xy^{\'} + \omega y = 0\\]
 Where \\(\alpha, \beta, \omega\\) are all constants. In other words, it's a differential equation, with constants multiplied to the **independent** variable being raised to the same power as the order of the derivative of \\(y\\) that it's being multiplied to. To solve our example (with variables \\(r\\) and function \\(R\\)), we assume \\(R = r^{\gamma}\\) where \\(\gamma\\) is a constant that we will find. So, computing the necessary derivatives yields:
 \\[R^{\''} = \gamma(\gamma - 1) r^{\gamma - 2}\\]
@@ -161,16 +161,16 @@ This simplifies to
 We can pull out and divide out a \\(r^{\gamma}\\) to get
 \\[\gamma^2 - \gamma + \gamma - k = 0\\]
 \\[\gamma^2 - k = 0\\]
-This is the associate **characteristic equation**, solving this will tell us the possible form of the solution. The solution to this equation is
+This is the associated **characteristic equation**, solving this will tell us the possible form of the solution. The solution to this equation is
 \\[\gamma = \sqrt{k}\\]
-Now like the other 2nd order ODE, we have 3 possible solutions depending on the nature of k. However, we know \\(\sqrt{k} = n \: k \ge 0\\). So we can simply consider the two solutions that are possible. Those are:
+Now like the other 2nd order ODE, we have 3 possible solutions depending on the nature of \\(k\\). However, we know \\(\sqrt{k} = n \: k \ge 0\\). So we can simply consider the two solutions that are possible. Those are:
 \\[k = 0\: R(r) = a + b\ln(r)\\]
 \\[k > 0\: R(r) = ar^{n} + br^{-n}\\]
-If you recall, there were two physical restrictions on our solutions. The first being the \\(2\pi\\)-periodic restriction on \\(\Theta(\theta)\\), the other, was that we want our solution to be bounded (i.e. not blow up). If we look at the first possible solution for \\(R\\), as \\(r \rightarrow 0 \: \ln(r) \rightarrow -\infty\\), so this cannot work unless \\(b = 0\\), so in other words, \\(R(r) = a\\) a constant. For the second possibility
+If you recall, there were two physical restrictions on our solutions. The first being the \\(2\pi\\)-periodic restriction on \\(\Theta(\theta)\\), the other, was that we want our solution to be bounded (i.e. not blow up). If we look at the first possible solution for \\(R\\), as \\(r \rightarrow 0^{+} \: \ln(r) \rightarrow -\infty\\), so this cannot work unless \\(b = 0\\), so in other words, \\(R(r) = C\\), a constant. For the second possibility
 \\[R(r) = ar^{n} + br^{-n}\\]
-Since \\(n \ge 0 \implies -n < 0\\) then \\(br^{-n}\\) is the same as \\(\frac{b}{r^n}\\). As \\(r \rightarrow 0 \: \frac{b}{r^n} \rightarrow \infty\\) and actually the fact that \\(r\\) is being raised to the \\(n\\) power makes this divergence even faster. So we must throw away that term by letting \\(b = 0\\). So now we have our solutions for \\(R(r)\\). Much like the solution for \\(\Theta(\theta)\\), the solution \\(R_n(r) = ar^{n}\\) has the solution \\(R(r) = C\\) (where C is a constant) baked in. That is at \\(n = 0, R_0 = a(1) = a\\) where \\(a\\) is simply a constant. So we can just say that \\(R_n(r) = a_nr^n\\). Finally, we have a sequence of solutions:
+Since \\(n \ge 0 \implies -n < 0\\) then \\(br^{-n}\\) is the same as \\(\frac{b}{r^n}\\). As \\(r \rightarrow 0^{+} \: \frac{b}{r^n} \rightarrow \infty\\), and actually the fact that \\(r\\) is being raised to the \\(n\\) power makes this divergence even faster. So we must throw away that term by letting \\(b = 0\\). So now we have our solutions for \\(R(r)\\). Much like the solution for \\(\Theta(\theta)\\), the solution \\(R_n(r) = a_nr^{n}\\) has the solution \\(R(r) = C\\) (where C is a constant) baked in. That is at \\(n = 0, R_0 = a_0(1) = a_0\\) where \\(a_0\\) is simply a constant. So we can just say that \\(R_n(r) = a_nr^n\\). Finally, we have a sequence of solutions:
 \\[u_n(r,\theta) = R_n(r)\Theta_n(\theta) = r^n\[a_n\cos(n\theta)+b_n\sin(n\theta)\]\\]
-By our known **Law of Superposition**, the solutions to a linear homogenous PDE forms a vector space. The reason we represent it as a sum, is because any solution that does exist, is baked into this sum. That is, every solution if found in this sum, we just have to configure the coefficients appropriately. So we say that the general solution is:
+By our known **Law of Superposition**, the solutions to a linear homogenous PDE, forms a vector space. The reason we represent it as a sum, is because any solution that does exist, is baked into this sum. That is, every solution is found in this sum, we just have to configure the coefficients appropriately. So we say that the general solution is:
 \\[u(r,\theta) = a_0 + \sum_{n = 1}^{\infty}x^n\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
 Where I simply wrote the initial coefficient out before the summation, and started the summation index at 1 insead of 0. Now, the final step is to configure this sum to match our boundary condition.
 \\[u(1, \theta) = g(\theta) = a_0 + \sum_{n = 1}^{\infty}\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
@@ -181,7 +181,7 @@ $$
 \begin{align}
 \int_0^{2\pi}{\sin(n \theta) \sin(m \theta) \ d\theta} = 
 \begin{cases}
-\\pi &: \text{if } n = m \\
+\\ \pi &: \text{if } n = m \\
 0 &: \text{if } n \neq m
 \end{cases} 
 \end{align}
@@ -193,7 +193,7 @@ $$
 \begin{align}
 \int_0^{2\pi}{\cos(n \theta) \cos(m \theta) \ d\theta} = 
 \begin{cases}
-\\pi &: \text{if } n = m \\
+\\ \pi &: \text{if } n = m \\
 0 &: \text{if } n \neq m
 \end{cases} 
 \end{align}
@@ -205,7 +205,7 @@ $$
 \begin{align}
 \int_0^{2\pi}{\sin(n \theta) \cos(m \theta) \ d\theta} = 
 \begin{cases}
-0 &: \forall n,m \in \mathbb{Z}^{\+}
+0 &: \forall n,m \in \mathbb{Z}^{+}
 \end{cases} 
 \end{align}
 $$
