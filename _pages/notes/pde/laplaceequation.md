@@ -134,7 +134,7 @@ Now we pull out the non constant term in each "group" to get:
 \\[\cos(\sqrt{k}\theta)\[A\cos (2\pi\sqrt{k}) + B\sin (2\pi\sqrt{k})\] + \sin(\sqrt{k}\theta)\[- A\sin (2\pi\sqrt{k}) + B\cos (2\pi\sqrt{k})\]\\]
 Now we are in a position to compare both sides of the equation, recall the full equation is 
 \\[\cos(\sqrt{k} \theta)A + \sin(\sqrt{k} \theta)B = \cos(\sqrt{k}\theta)\[A\cos (2\pi\sqrt{k}) + B\sin (2\pi\sqrt{k}\] + \sin(\sqrt{k}\theta)\[- A\sin (2\pi\sqrt{k}) + B\cos (2\pi\sqrt{k})\]\\]
-Now observe that on the left hand side of the equation, \\(A\\) and \\(B\\) are constants being multiplied to \\(\cos(\sqrt{k} \theta)\\) and \\(\sin(\sqrt{k} \theta)\\) must **match** the constants being multiplied to \\(\cos(\sqrt{k} \theta)\\) and \\(\sin(\sqrt{k} \theta)\\) since they are **constant** and cannot change. So we can essentially set the coefficients of each of those terms equal to the corresponding coefficient on the right hand side, in doing this we get two equations:
+Now observe that on the left hand side of the equation, the \\(A\\) and \\(B\\) terms are constants being multiplied to \\(\cos(\sqrt{k} \theta)\\) and \\(\sin(\sqrt{k} \theta)\\) and must **match** the constants being multiplied to \\(\cos(\sqrt{k} \theta)\\) and \\(\sin(\sqrt{k} \theta)\\). Again, this is because they are **constant** and cannot change. So we can essentially set the coefficients of each of those terms equal to the corresponding coefficient on the right hand side, in doing this we get two equations:
 \\[A = A\cos(2\pi\sqrt{k}) + B\sin(2\pi\sqrt{k})\\]
 and 
 \\[B = -A\sin(2\pi\sqrt{k}) + B\cos(2\pi\sqrt{k})\\]
