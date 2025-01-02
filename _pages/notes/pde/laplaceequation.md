@@ -103,7 +103,9 @@ We can simplify these expressions to
 Now here, we know that \\(e^x = 1 \implies x = 0\\), this means \\(2\pi \sqrt{-k} = 0\\) and \\(-2\pi \sqrt{-k} = 0\\). The only way for this to be possible, is if \\(\sqrt{-k} = 0\\), however this contradicts our assumption that \\(k < 0 \implies \sqrt{-k} \neq 0\\). So this solution cannot work, since this expression is not \\(2\pi\\)-periodic, and we now also know that \\(k \ge 0\\). \\
 \\
 Now let's try case 1. \\
+\\
 **Case 1:** \\(\Theta (\theta) = A\theta + B\\) \\
+\\
 Now let's test \\(2\pi\\)-periodicity. So we need, \\(\Theta (\theta) = \Theta (2\pi + \theta)\\). Plugging this in we get,
 \\[A\theta + B = A(2\pi + \theta) + B\\]
 This simplifies to
@@ -200,14 +202,41 @@ $$
 $$
 </div>
 
-<div style="text-align: center;">
-$$
-\begin{align}
-\int_0^{2\pi}{\sin(n \theta) \cos(m \theta) \ d\theta} = 
-\begin{cases}
-0 &: \forall n,m \in \mathbb{Z}^{+}
-\end{cases} 
-\end{align}
-$$
-</div>
+\\[\int_0^{2\pi}{\sin(n \theta) \cos(m \theta) \ d\theta} = 0 \forall n,m \in \mathbb{Z}^{+}\\]
+
+With this in hand, we can to find the necessary coefficients that make our infinite sum agree with the boundary condition. As mentioned above:
+\\[u(1, \theta) = g(\theta) =\sum_{n = 0}^{\infty}\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
+So we will work on this equation
+\\[g(\theta) = \sum_{n = 0}^{\infty}\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
+Now we are going to multiply both sides by \\(\sin(m\theta)\\) and integrate from \\(0\\) to \\(2\pi\\). 
+\\[\int_0^{2\pi}\sin(m \theta)g(\theta)d\theta = \int_0^{2\pi}\sum_{n = 0}^{\infty}\[a_n\sin(m\theta)\cos(n\theta) + b_n\sin(m\theta)\sin(n\theta)\]d\theta\\]
+By the linearity of the integral, we can rewrite the right hand side as
+\\[\sum_{n = 0}^{\infty}\int_0^{2\pi}\[a_n\sin(m\theta)\cos(n\theta) + b_n\sin(m\theta)\sin(n\theta)\]d\theta\\]
+Now we know that when \\(m \neq n\\) we get 0's, so this will simplify to 
+\\[\int_0^{2\pi}\[a_n\sin(m\theta)\cos(n\theta) + b_n\sin(m\theta)\sin(n\theta)\]d\theta\\]
+This is equal to 
+\\[\int_0^{2\pi} a_n\sin(n\theta)\cos(n\theta)d\theta + \int_0^{2\pi}b_n\sin(n\theta)\sin(n\theta)d\theta\\]
+By the orthogonality above, this reduces to
+\\[b_n\pi\\]
+Which is equal to the original left hand side of the equation
+\\[\int_0^{2\pi}\sin(m \theta)g(\theta)d\theta = b_n\pi\\]
+Then our equation for \\(b_n\\) becomes
+\\[b_n = \frac{1}{\pi}\int_0^{2\pi}\sin(m \theta)g(\theta)d\theta\\]
+Now to solve for \\(a_n\\) we will restart this process with the equation
+\\[g(\theta) = a_0 + \sum_{n = 0}^{\infty}\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
+We multiply both sides of the equation by \\(\cos(m\theta)\\) and integrate from \\(0\\) to \\(2\pi\\) to get
+\\[\int_0^{2\pi}\cos(m \theta)g(\theta)d\theta = \int_0^{2\pi}\sum_{n = 0}^{\infty}\[a_n\cos(m\theta)\cos(n\theta) + b_n\cos(m\theta)\sin(n\theta)\]d\theta\\]
+Like usual, we get 0's everywhere except when \\(m = n\\), so it simplifies to
+\\[\int_0^{2\pi}\cos(n \theta)g(\theta)d\theta = \int_0^{2\pi}\[a_n\cos(mntheta)\cos(n\theta) + b_n\cos(n\theta)\sin(n\theta)\]d\theta\\]
+Which is equivalent to 
+\\[\int_0^{2\pi}\cos(n \theta)g(\theta)d\theta = \int_0^{2\pi}a_n\cos(n\theta)\cos(n\theta) + \int_0^{2\pi}b_n\cos(n\theta)\sin(n\theta)\]d\theta\\]
+Then using orthogonality, we get
+\\[\int_0^{2\pi}\cos(m \theta)g(\theta)d\theta = a_n\pi\\]
+Finally, our expression for \\(a_n\\) is 
+\\[a_n = \frac{1}{\pi}\int_0^{2\pi}\cos(m \theta)g(\theta)d\theta\\]
+That's the entire solution, we have solved the Interior Dirichlet Problem on a Circle. To recap, the solution is given by
+
+\\[u(r,\theta) = um_{n = 0}^{\infty}x^n\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
+\\[\text{where }a_n = \frac{1}{\pi}\int_0^{2\pi}\cos(m \theta)g(\theta)d\theta\\]
+\\[\text{and where } b_n = \frac{1}{\pi}\int_0^{2\pi}\sin(m \theta)g(\theta)d\theta\\]
 
