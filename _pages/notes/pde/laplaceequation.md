@@ -223,7 +223,7 @@ Which is equal to the original left hand side of the equation
 Then our equation for \\(b_n\\) becomes
 \\[b_n = \frac{1}{\pi}\int_0^{2\pi}\sin(m \theta)g(\theta)d\theta\\]
 Now to solve for \\(a_n\\) we will restart this process with the equation
-\\[g(\theta) = a_0 + \sum_{n = 0}^{\infty}\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
+\\[g(\theta) = \sum_{n = 0}^{\infty}\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
 We multiply both sides of the equation by \\(\cos(m\theta)\\) and integrate from \\(0\\) to \\(2\pi\\) to get
 \\[\int_0^{2\pi}\cos(m \theta)g(\theta)d\theta = \int_0^{2\pi}\sum_{n = 0}^{\infty}\[a_n\cos(m\theta)\cos(n\theta) + b_n\cos(m\theta)\sin(n\theta)\]d\theta\\]
 Like usual, we get 0's everywhere except when \\(m = n\\), so it simplifies to
@@ -236,7 +236,7 @@ Finally, our expression for \\(a_n\\) is
 \\[a_n = \frac{1}{\pi}\int_0^{2\pi}\cos(m \theta)g(\theta)d\theta\\]
 That's the entire solution, we have solved the Interior Dirichlet Problem on a Circle. To recap, the solution is given by
 
-\\[u(r,\theta) = um_{n = 0}^{\infty}x^n\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
+\\[u(r,\theta) = \sum_{n = 0}^{\infty}x^n\[a_n\cos(n\theta) + b_n\sin(n\theta)\]\\]
 \\[\text{where }a_n = \frac{1}{\pi}\int_0^{2\pi}\cos(m \theta)g(\theta)d\theta\\]
 \\[\text{and where } b_n = \frac{1}{\pi}\int_0^{2\pi}\sin(m \theta)g(\theta)d\theta\\]
 
