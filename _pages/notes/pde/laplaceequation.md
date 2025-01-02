@@ -139,11 +139,11 @@ Now we note an important fact, \\(\cos(x) = 0 \implies \sin(x) = \pm 1\\) and th
 \\[2\pi\sqrt{k} = 2\pi n \: n \in 0, 1, 2, ...... \\]
 Solving for this tells us that 
 \\[k = n^2\\]
-Now we have a sequence of possible solutions, so we add them all up, since any possible solution will be embedded into the infinite sum, we just have to configure it based on the boundary condition. \\
-Plugging this into our general solution for \\(\Theta\\) gives
-\\[\Theta(\theta) = \sum_{n=0}^{\infty}a_ncos(n\theta) + b_nsin(n\theta)\\]
+This also solves the other equation for \\(B\\): \\(B = -A\sin(2\pi n + B\cos(2\pi n)\\) 
+Now we have a sequence of possible solutions, plugging the new value of \\(k\\) into our general solution for \\(\Theta\\) gives
+\\[\Theta_n(\theta) = a_ncos(n\theta) + b_nsin(n\theta)\\]
 What about the periodic solution when \\(k = 0\\), if we recall that was \\(\Theta (\theta) = C\\), now this solution is "baked" into our solution above. If we plug \\(n = 0\\) into our general solution, we get 
-\\[\Theta_0 (\theta) = a_n\\]
+\\[\Theta_0 (\theta) = a_0\\]
 Since \\(\cos(0) = 1\\) and \\(\sin(0) = 0\\), so we have a constant, and that takes care of the case where \\(k = 0\\). \\
 \\
 Now we will tackle the other ODE
@@ -151,10 +151,25 @@ Now we will tackle the other ODE
 Is called an Euler Differential Equation. These differential equations are of the form
 \\[\alpha x^2y^{\''} + \beta xy^{\'} + \omega y = 0\\]
 Where \\(\alpha, \beta, \omega\\) are all constants. In other words, it's a differential equation, with constants multiplied to the **independent** variable being raised to the same power as the order of the derivative of \\(y\\) that it's being multiplied to. To solve our example (with variables \\(r\\) and function \\(R\\)), we assume \\(R = r^{\gamma}\\) where \\(\gamma\\) is a constant that we will find. So, computing the necessary derivatives yields:
-\\[R^{\''} = \gamma^2 r^{\gamma - 2}\\]
+\\[R^{\''} = \gamma(\gamma - 1) r^{\gamma - 2}\\]
 \\[R^{\'} = \gamma r^{\gamma - 1}\\]
 Plugging these into our DE, we get
-\\[r^2(\gamma^2 r^{\gamma - 2}) +r(\gamma r^{\gamma - 1}) - k r^{\gamma} = 0\\]
+\\[r^2(\gamma(\gamma - 1) r^{\gamma - 2}) +r(\gamma r^{\gamma - 1}) - k r^{\gamma} = 0\\]
+This simplifies to 
+\\[(\gamma^2 - \gamma) r^{\gamma} + \gamma r^{\gamma} - kr^{\gamma} = 0 \\]
+We can pull out and divide out a \\(r^{\gamma}\\) to get
+\\[\gamma^2 - \gamma + \gamma - k = 0\\]
+\\[\gamma^2 - k = 0\\]
+This is the associate **characteristic equation**, solving this will tell us the possible form of the solution. The solution to this equation is
+\\[\gamma = \sqrt{k}\\]
+Now like the other 2nd order ODE, we have 3 possible solutions depending on the nature of k. However, we know \\(\sqrt{k} = n \: k \ge 0\\). So we can simply consider the two solutions that are possible. Those are:
+\\[k = 0\: R(r) = a + b\ln(r)\\]
+\\[k > 0\: R(r) = ar^{n} + br^{-n}\\]
+If you recall, there were two physical restrictions on our solutions. The first being the \\(2\pi\\)-periodic restriction on \\(\Theta(\theta)\\), the other, was that we want our solution to be bounded (i.e. not blow up). If we look at the first possible solution for \\(R\\), as \\(r \rightarrow 0 \: \ln(r) \rightarrow -\infty\\), so this cannot work unless \\(b = 0\\), so in other words, \\(R(r) = a\\) a constant. For the second possibility
+\\[R(r) = ar^{n} + br^{-n}\\]
+Since \\(n \ge 0 \implies -n < 0\\) then \\(br^{-n}\\) is the same as \\(\frac{b}{r^n}\\). As \\(r \rightarrow 0 \: \frac{b}{r^n} \rightarrow \infty\\) and actually the fact that \\(r\\) is being raised to the \\(n\\) power makes this divergence even faster. So we must throw away that term by letting \\(b = 0\\). So now we have our solutions for \\(R(r)\\).
+
+
 We then do algebraic manipulation by dividing out \\(r^{\gamma}\\), and we will get an algebraic equation. However. we know what \\(k\\) is so the equation becomes
 \\[r^2(\gamma^2 r^{\gamma - 2}) +r(\gamma r^{\gamma - 1}) - n r^{\gamma} = 0\\]
 And without going through all the possible cases, depending on the roots to this characteristic equation, we get different possible solutions. In this case, we get the following solution:
