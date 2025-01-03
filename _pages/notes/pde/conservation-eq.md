@@ -16,7 +16,7 @@ So in our original equation
 \\[u_t + g(u)u_x = 0\\]
 We replace \\(g(u)u_x\\) with \\(f_x\\) since \\(g(u)u_x = \frac{\partial f}{\partial u}u_x\\) \\
 \\
-Now we use characteristic curves to solve this PDE. We pick an initial point that represents some subdomain of the domain. That is, if the initial value of the function \\(u\\) has different equations representing different intervals, then we pick a point from each of those intervals, and then do the following. **Note:** Here you can find theory behind The Method of Characteristics](method-of-characteristics.md) \\
+Now we use characteristic curves to solve this PDE. We pick an initial point that represents some subdomain of the domain. That is, if the initial value of the function \\(u\\) has different equations representing different intervals, then we pick a point from each of those intervals, and then do the following. **Note:** Here you can find theory behind [The Method of Characteristics](method-of-characteristics.md) \\
 \\
 Now since I go into the theory behind the method of characteristics on the mentioned page. We find that the implicit solution to this PDE is given by
 \\[u = \phi\[x-g(u)t\]\\]
