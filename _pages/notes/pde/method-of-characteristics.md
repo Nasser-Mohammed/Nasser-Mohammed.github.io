@@ -1,7 +1,7 @@
 ---
 layout: archive
-title: "First-Order Equations"
-permalink: /notes/pde/first-order/
+title: "Method of Characteristics"
+permalink: /notes/pde/method-of-characteristics/
 author_profile: false
 --- 
 <hr style="border: 2px solid black;">
