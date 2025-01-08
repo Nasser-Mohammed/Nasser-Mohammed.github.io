@@ -6,7 +6,7 @@ author_profile: false
 --- 
 <hr style="border: 2px solid black;">
 \\[a(x,t)u_x + b(x,t)u_t + c(x,t)u = 0 \\]
-The method of characteristics is a very powerful method for solving first order PDEs, though there are ways to also solve certain second order hyperbolic PDEs. However, our focus will be on the first order approach. This method involves breaking a PDE into a system of ODEs. We do this by finding certain curves called **characteristics**, along which the PDE reduces to an ODE. Then we can use standard ODE theory to solve for the unknown function \\(u\\) and translate it back into the proper coordinate system to find the full solution to the PDE.
+The method of characteristics is a very powerful method for solving first order PDEs, though there are ways to also solve certain second order hyperbolic PDEs. However, our focus will be on the first order approach. This method involves breaking a PDE into a system of ODEs. We do this by finding certain curves called **characteristics** or **characteristic curves**, along which the PDE reduces to an ODE. Then we can use standard ODE theory to solve for the unknown function \\(u\\) and translate it back into the proper coordinate system to find the full solution to the PDE.
 
 
 Theory Behind It
