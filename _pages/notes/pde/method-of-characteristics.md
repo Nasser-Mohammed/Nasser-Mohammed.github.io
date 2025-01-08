@@ -61,7 +61,7 @@ Now plugging these into our solutions for \\(x\\) and \\(t\\) we get
 and
 \\[x(0) = \tau = C_1e^0 \implies \tau = C_1 \implies x(s) = \tau e^{2s}\\]
 So now \\(x\\) and \\(t\\) are parameterized by \\(s\\) and \\(\tau\\). Now we can handle our initial condition \\(u(0, x) = \phi (x)\\). We know that \\(t = 0\\) when \\(s = 0\\) \\(\implies x(0, \tau) = \tau\\) so we plug that in to our equation 
-\\[u(t(s), x(s)) = s + C_3 \implies u(t(0) = 0, x(0) = \tau) = C_3 \implies \phi(x) = C_3 \implies \phi(x(0)) = \phi(\tau) \implies \phi(\tau) = C_3\\]
+\\[u(t(s), x(s)) = s + C_3 \implies u(t(0) = 0, x(0) = \tau) = C_3 \implies \phi(x(0)) = C_3 \implies \phi(x(0)) = \phi(\tau) \implies \phi(\tau) = C_3\\]
 So our solution in \\((s, \tau)\\) is
 \\[u(s, \tau) = s + \phi(\tau)\\]
 Finally, we need to convert this back into the \\((x,t)\\) plane.
@@ -69,6 +69,6 @@ Finally, we need to convert this back into the \\((x,t)\\) plane.
 Is straightforward, now plugging in \\(t\\) for \\(s\\) in \\(x(s)\\) we get
 \\[x(t) = \tau e^{2t} \implies \tau = \frac{x}{e^{2t}}\\]
 Now plugging in our expressions for \\(s\\) and \\(\tau\\) into our solution \\(u(s, \tau) = s + \phi(\tau)\\). We get
-\\[u(x,t) = t + \phi(\frac{x}{e^{2t}})\\]
-That is our solution for an arbitrary initial condition.
+\\[u(x,t) = t + \phi\left (\frac{x}{e^{2t}}\right )\\]
+That is our solution to the PDE with an arbitrary initial condition.
 
