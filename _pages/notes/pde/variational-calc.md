@@ -71,9 +71,11 @@ Recall our boundary conditions are \\(y(0) = 0, y(2) = 2\\). Plugging these in w
 Plugging in our other BC we get:
 \\[y(2) = Ae^{2} + Be^{-2} = 2\\]
 Substituting \\(-B\\) in for \\(A\\) yields:
-\\[-Be^{2} + Be{-2} = 2 \implies B = \frac{2}{-e^{2}+e^{-2}} \approx -0.28 \implies B = -0.28\\]
+\\[-Be^{2} + Be^{-2} = 2 \implies B = \frac{2}{-e^{2}+e^{-2}} \approx -0.28 \implies B = -0.28\\]
 Since we know \\(A = -B\\), we have our final solution
 \\[y(x) = 0.28e^{x} - 0.28e^{-x}\\]
+Which we can write as
+\\[y(x) = 0.28e^{x} - \frac{0.28}{e^{x}}\\]
 This function minimizes the functional: 
 \\[J\[y\] = \int_0^1\left(y^2+(y')^2\right)dx\\]
 
