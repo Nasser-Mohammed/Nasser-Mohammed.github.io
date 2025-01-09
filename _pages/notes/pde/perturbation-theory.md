@@ -13,3 +13,5 @@ We couldn't use our general techniques, since this is a nonlinear PDE (and we do
 \\[\nabla^2 u + \epsilon u^2 = 0\\]
 Now when \\(\epsilon = 0\\) we just get Laplace's equation above. We can then consider \\(\epsilon \in (0,1)\\), and finally \\(\epsilon = 1\\) where we recovered the original nonlinear PDE.
 
+To Be Continued When I Know More on It
+====
