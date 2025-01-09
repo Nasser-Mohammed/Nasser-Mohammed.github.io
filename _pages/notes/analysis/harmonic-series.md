@@ -16,7 +16,7 @@ If you are familiar with sequences, the first sequence you usually study is the 
 We know this sequence converges by an \\(\varepsilon\\)-\\(\delta\\) proof. To quickly demonstrate this, we say that a sequence of real numbers converge to a limit \\(L\\), if
 <div style="text-align: center;">
 $$
-\forall \varepsilon > 0 \text{, } \exists N \in \mathbb{N} \text{ such that } \forall n > N \newline
+\forall \varepsilon > 0 \text{, } \exists N \in \mathbb{N} \text{ such that } \forall n > N <br>
 \left|x_n - L \right| < \varepsilon
 $$
 </div>
