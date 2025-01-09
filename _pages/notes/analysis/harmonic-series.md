@@ -14,12 +14,9 @@ Why is the Harmonic Series Counterintuitive?
 If you are familiar with sequences, the first sequence you usually study is the sequence 
 \\[\{x_n\} = \frac{1}{n}\\]
 We know this sequence converges by an \\(\varepsilon\\)-\\(\delta\\) proof. To quickly demonstrate this, we say that a sequence of real numbers converge to a limit \\(L\\), if
-<div style="text-align: center;">
-$$
-\forall \varepsilon > 0 \text{, } \exists N \in \mathbb{N} \text{ such that } \forall n > N <br>
-\left|x_n - L \right| < \varepsilon
-$$
-</div>
+
+\\[\forall \varepsilon > 0 \text{, } \exists N \in \mathbb{N} \text{ such that } \forall n > N\\]
+\\[\left|x_n - L \right| < \varepsilon\\]
 In our example 
 \\[\{x_n\} = \frac{1}{n}\\]
 So the proof would be to find \\(n\\) as a function of \\(\varepsilon\\)
