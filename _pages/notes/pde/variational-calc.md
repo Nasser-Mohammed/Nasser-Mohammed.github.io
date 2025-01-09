@@ -39,12 +39,18 @@ Here we note that this integral must be 0 **for any function** \\(\eta (x)\\) th
 \\[\frac{\partial F}{\partial \overline{y}} - \frac{d}{dx}\left(\frac{\partial F}{\partial \overline{y}'}\right)\\]
 **Must** be 0, so setting this equal to 0 we get
 \\[\frac{\partial F}{\partial \overline{y}} - \frac{d}{dx}\left(\frac{\partial F}{\partial \overline{y}'}\right) = 0\\]
-And as mentioned earlier, this is the **Euler-Lagrange Equation**. This is a second order ODE in \\(\overline{y}\\). Solving this ODE will give us our minimum function \\(\overline{y}\\). In other words,
+And as mentioned earlier, this is the **Euler-Lagrange Equation**. This is a second order ODE in \\(\overline{y}\\). Solving this ODE will give us our minimum function \\(\overline{y}\\). In other words, to paraphrase *Partial Differential Equations for Scientists and Engineers* by Stanley Farlow
+
+<div style="text-align: center;">
+$$
+\text{If y minimizes } J\[y\] = \int_a^bF(x,y,y')dx \implies y \text{must satisfy the equation: } \\
+\frac{\partial F}{\partial y} - \frac{d}{dx}\left(\frac{\partial F}{\partial y'}\right) = 0
+$$
+</div>
 
 
-
-
-
+Example Problem
+===
 
 
 
