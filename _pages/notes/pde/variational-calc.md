@@ -43,7 +43,7 @@ And as mentioned earlier, this is the **Euler-Lagrange Equation**. This is a sec
 
 <div style="text-align: center;">
 $$
-\text{If y minimizes } J\[y\] = \int_a^bF(x,y,y')dx \implies y \text{must satisfy the equation: } \\
+\text{If y minimizes } J[y] = \int_a^bF(x,y,y')dx \implies y \text{ must satisfy the equation: } \\
 \frac{\partial F}{\partial y} - \frac{d}{dx}\left(\frac{\partial F}{\partial y'}\right) = 0
 $$
 </div>
@@ -51,6 +51,31 @@ $$
 
 Example Problem
 ===
+Consider the functional 
+\\[J\[y\] = \int_0^1\left(y^2+(y')^2\right)dx\\]
+Where we want to find the minimizer \\(y(x)\\) through the points \\((0,0)\\) and \\((2,2)\\). We begin by writing the associated Euler-Lagrange equation.
+\\[F_y - \frac{d}{dx}F_y = 0\\]
+Our BCs to consider are \\(y(0) = 0\\) and \\(y(2) = 2\\). In our scenario, \\(F(x,y,y') = y^2 + (y')^2\\), so computing the partial derivatives gives
+\\[F_y = 2y\\]
+\\[F_{y'} = 2y'\\]
+So our Euler-Lagrange equation becomes
+\\[2y - \frac{d}{dx}(2y') = 0\\]
+This simplifies to 
+\\[y^{\''} - y = 0\\]
+The characteristic equation for this is
+\\[\lambda^2 - 1 = 0 \implies \lambda = \sqrt{1} \implies \lambda_1 = 1, \lambda_2 = -1\\]
+Since we have two real roots, our solution will be 
+\\[y(x) = Ae^{\lambda_1 x} + Be^{\lambda_2 x} = Ae^{x} + Be^{-x}\\]
+Recall our boundary conditions are \\(y(0) = 0, y(2) = 2\\). Plugging these in we get:
+\\[y(0) = A + B = 0 \implies A = - B\\]
+Plugging in our other BC we get:
+\\[y(2) = Ae^{2} + Be^{-2} = 2\\]
+Substituting \\(-B\\) in for \\(A\\) yields:
+\\[-Be^{2} + Be{-2} = 2 \implies B = \frac{2}{-e^{2}+e^{-2}} \approx -0.28 \implies B = -0.28\\]
+Since we know \\(A = -B\\), we have our final solution
+\\[y(x) = 0.28e^{x} - 0.28e^{-x}\\]
+This function minimizes the functional: 
+\\[J\[y\] = \int_0^1\left(y^2+(y')^2\right)dx\\]
 
 
 
