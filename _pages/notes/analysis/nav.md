@@ -5,8 +5,7 @@ permalink: /notes/analysis/
 author_profile: false
 ---
 The notes below come from personal notes, lecture notes, *Real Analysis: Measure Theory, Integration, and Hilbert Spaces (Princeton Lectures in Analysis)* by Elias M. Stein and Rami Shakarchi, and *Principles of Mathematical Analysis* by Walter Rudin.
-- [Sequences and Convergence](seqandconv.md)
-- [Divergence of the Harmonic Series](harmonic-series.md)
+- [Sequences and Series: Divergence of the Harmonic Series](harmonic-series.md)
 - [Sigma Algebras](sigmaAlgebras.md)
 - [Lebesgue Measure Theory](lebesguemeas.md)
 - [Lebesgue Integration Theory](lebintegral.md)
