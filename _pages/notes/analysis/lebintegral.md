@@ -20,7 +20,7 @@ Since \\(\phi(x)\chi_F(x)\\) is a simple function too. This basically sets the f
 - Additivity: \\(\int_{E\cup F}\phi = \int_{E}\phi + \int_{F}\phi\\)
 - Monotonicity: \\(\phi \leq \psi \implies \int\phi \leq \int\psi\\)
 - Triangle Inequality: \\(\text{| } \int \phi \text{| } \leq \int \text{|} \phi \text{|}\\)
-These properties will continue to hold for our more generalized integrals. Also note, that we assume \\(E\\) and \\(F\\) are disjoint and finite measure in the additivity property. One last thing to note, is that if \\(\phi\\) is a simple function then so is \\(\left|\phi\right|\\)
+These properties will continue to hold for our more generalized integrals. Also note, that we assume \\(E\\) and \\(F\\) are disjoint and finite measure in the additivity property. One last thing to note, is that if \\(\phi\\) is a simple function then so is \\(\text{|} \phi\text{|}\\)
 
 Integral of Nonnegative Functions
 ===
