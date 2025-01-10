@@ -22,6 +22,26 @@ Since \\(\phi(x)\chi_F(x)\\) is a simple function too. This basically sets the f
 - Triangle Inequality: \\(\| \int \phi \|\leq \int \| \phi \|\\) \\
 These properties will continue to hold for our more generalized integrals. Also note, that we assume \\(E\\) and \\(F\\) are disjoint and finite measure in the additivity property. One last thing to note, is that if \\(\phi\\) is a simple function then so is \\(\| \phi\|\\)
 
+Integral of Bounded Functions Supported on Sets of Finite Measure
+===
+Supported on a set just means that the function is non-zero on that set, i.e. \\(f(x)\\) is supported on \\(E \implies f(x) \ne 0\\) where \\(x \in E\\). There isn't much to note with the following definition for the integral, we do however, use it for building the next type of integral. Before we define it, we must note a conclusions. We assume here that \\(f\\) is a bounded function supported on a set \\(E\\) of finite measure.\\
+\\
+\\[\text{If } \phi_n(x) \text{ is a sequence of simple functions that converge to } f \text{ } a.e \text{ } x \text{, and each } \phi_n(x) \text{ is supported on } E \text{ and is bounded by } M \text{ then, }\\]
+\\[1. \lim_{n \to \infty}\int \phi_n \text{ exists}\\]
+\\[2. f = 0 \implies \lim_{n \to \infty}\int\phi_n = 0\\]
+Now we define the integral of a bounded function supported on a set of finite measure as:\\
+\\[\int f(x) dx = \lim_{n \to \infty}\int\phi_n(x)dx\\]
+This integral enjoys the same properties as our first integral, **linearity, monotonicity, additivity, and respects the triangle inequality**. We will now introduce the first convergence theorem, the Bounded Convergence Theorem.
+
+Bounded Convergence Theorem
+===
+This is the first of our convergence theorems, but sort of becomes obsolete once we introduce the more powerful convergence theorems. However, it is a necessary stepping stone to developing those theorems. The theorem is as follows: 
+\\[\text{If we have a sequence of measurable functions, bounded by } M \text{ and supported on a set } E \text{ of finite measure, with the sequence of functions converging to } f\\]
+\\[\text{i.e } \phi_n(x) \to f(x) \text{ } a.e \text{  }x \text{as } n \to \infty \text{ we then have that }\\]
+\\[\int \phi_n(x) \to \int f \text{ as } n \to \intfy\\]
+We now move on to a less restrictive integral.
+
+
 Integral of Nonnegative Functions
 ===
 Before we get into these, we define **integrability** as:
@@ -82,16 +102,24 @@ We can now define the integral with tools that we've been building up to this po
 **The Lebesgue Integral of a Measurable Function** \\(f\\):
 \\[\int f = \int f^{+} - \int f^{-}\\]
 If a function is integrable, the integral, like the ones before, is **additive, linear, monotonic, and respects the triangle inequality.**\\
-Additionally, we have a very important property, sometimes called **absolute continuity**. Informally, it says that if a function is integrable, we can find a small enough set such that the integral on that small is also very small. More formally:
+Additionally, we have a very important property, sometimes called **absolute continuity**. Informally, it says that if a function is integrable, we can find a small enough set such that the integral on that set is also very small. More formally:
 \\[\text{If } f \text{ is an integrable function, then } \forall \varepsilon > 0:\\]
 \\[\exists \delta > 0 \text{ such that if } m(E) < \delta \text{ then}\\]
 \\[\int_E \left| f \right| < \varepsilon\\]
-Another thing to note, is that we can also find a ball such that the integral over the complement of the ball is arbitrarily small.
+Another thing to note, is that we can also find a ball such that the integral of the absolute value of the function, over the complement of the ball is arbitrarily small (i.e. \\(< \varepsilon\\)).
 
 
 The Dominated Convergence Theorem
 ===
+This is pretty much the summation of the results so far. It gives us the criteria for the integral of a sequence of functions to converge to the integral of the function that they converge to. Formally:
 
+\\[\text{If } f_n \text{ is a sequence of measurable functions, where } f_n(x) \to f(x) \text{ } a.e \text{ } x \text{ as } n \to \infty \text{ and }\\]
+\\[\left| f_n(x) \right| \leq g(x) \text{ where } g \text{ is an integrable function, then }\\]
+\\[\int f_n \to \int f \text{ as } n \to \infty\\]
+In other words, if we can "dominate" our sequence by a function that we know is integrable, then we can conclude that the limit of the integral is the integral of the limit.\\
+\\
 
-
+Conclusion
+===
+This covered the majority of the results in Lebesgue Integration Theory, there are some other considerations such as the \\(L^1\\) space, however I will cover that in the section about \\(L^p\\) theory.
 
