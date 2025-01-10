@@ -36,8 +36,9 @@ This integral enjoys the same properties as our first integral, **linearity, mon
 Bounded Convergence Theorem
 ===
 This is the first of our convergence theorems, but sort of becomes obsolete once we introduce the more powerful convergence theorems. However, it is a necessary stepping stone to developing those theorems. The theorem is as follows: 
-\\[\text{If we have a sequence of measurable functions, bounded by } M \text{ and supported on a set } E \text{ of finite measure, with the sequence of functions converging to } f\\]
-\\[\text{i.e } \phi_n(x) \to f(x) \text{ } a.e \text{  }x \text{as } n \to \infty \text{ we then have that }\\]
+\\[\text{If we have a sequence of measurable functions, bounded by } M \text{ and supported on a set } E \text{ of finite measure}\\]
+\\[\text{with the sequence of functions converging to } f\\]
+\\[\text{i.e  } \phi_n(x) \to f(x) \text{ } a.e \text{  }x \text{ as } n \to \infty \text{, we then have that }\\]
 \\[\int \phi_n(x) \to \int f \text{ as } n \to \intfy\\]
 We now move on to a less restrictive integral.
 
@@ -117,9 +118,8 @@ This is pretty much the summation of the results so far. It gives us the criteri
 \\[\left| f_n(x) \right| \leq g(x) \text{ where } g \text{ is an integrable function, then }\\]
 \\[\int f_n \to \int f \text{ as } n \to \infty\\]
 In other words, if we can "dominate" our sequence by a function that we know is integrable, then we can conclude that the limit of the integral is the integral of the limit.\\
-\\
 
 Conclusion
 ===
-This covered the majority of the results in Lebesgue Integration Theory, there are some other considerations such as the \\(L^1\\) space, however I will cover that in the section about \\(L^p\\) theory.
+This covered the majority of the results in Lebesgue Integration Theory, there are some other considerations such as the \\(L^1\\) space, however I will cover that in the section about \\(L^p\\) theory. There are also things like the convolution, dilation, etc, that I will cover in the section on Fubini's Theorem and Tonelli's Theorem.
 
