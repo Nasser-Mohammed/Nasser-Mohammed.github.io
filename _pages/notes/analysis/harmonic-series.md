@@ -33,6 +33,14 @@ We come to the conclusion taht
 \\[\frac{1}{\varepsilon} < n\\]
 In other words, for any \\(\varepsilon > 0\\), we can find a corresponding natural number \\(n\\), such that any point in our sequence past the index \\(n\\) will be less than a distance of \\(\varepsilon\\) away from our limit point (in this scenario 0). If you notice, as \\(\varepsilon\\) gets smaller and smaller, \\(\frac{1}{\varepsilon}\\) gets larger and larger, this forces \\(n\\) to be a larger and larger naturally number since \\(\frac{1}{\varepsilon} < n\\). Now this should make sense to you, after all, we would need to go further and further along the sequence to get within a smaller and smaller \\(\varepsilon\\) distance away from the limit point.
 
+When Do Series Converge?
+===
+To give a rigorous definition, similar to the convergence of a sequence, I will define the convergence of a series below. First I will introduce the notion of a partial sum:
+\\[\text{A partial sum of a series } s_m \text}, is defined as: } s_m = \sum_{n = 1}^{m}\{x_n\}\\]
+Essentially, it is the sum up to a certain number. Now, to define the convergence of a full series, in English we say that if the sequence of its partial sums converge to a number, then the series converges to that number. In simpler terms, we are saying that for a series to converge to a value (not infinity), then the sum must have smaller and smaller "additions" to cause the sequence to converge to a number. More formally:
+\\[\text{A series } \sum_{n = 1}^{\infty}\{x_n\} \text{, converges to a value L if }\\]
+\\[\text{the sequence of partial sums: } s_m \text{, converge to L}\\]
+
 Why is the Harmonic Series Counterintuitive?
 ===
 Well series are simply a sum of a sequence. In other words, instead of considering the behavior of the points \\(\frac{1}{n}\\) as \\(n \to \infty}, we consider what happens if we add up each of these terms. Now, since we know that 
@@ -43,6 +51,6 @@ Consider the first term, \\(n = 1\\), we get the value \\(\frac{1}{1} = 1\\), no
 \\[\frac{1}{2} + \frac{1}{3} + \frac{1}{4} = \frac{13}{12}\\]
 We know that \\(\frac{13}{12} > 1\\) so adding this value will maintain the divergence we are looking for. Now we consider the next 8 terms, from \\(n = 5\\) to \\(n = 12\\):
 \\[\frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8} + \frac{1}{9} + \frac{1}{10} + \frac{1}{11} + \frac{1}{12} \approx 1\\]
-
+However, we actually only need 7 terms if we use the remainder of the last partial sum \\(\frac{13}{12}\\). Regardless, we then add up the next 22 values of the series, from \\(n = 13)\\) to \\(n = 34\\), to get approximately 1. Repeating this process, we need to add up the next 60 to get 1, and so on. We find that we need at most somewhere between \\(2^{k}\\) and \\(2^{k+1}\\) numbers to add up to 1, where \\(k\\) is the \\(k\\)-th group of numbers we are adding together. The first group was just would require \\(2^1\\) numbers, which we had since we just needed 1. The second group \\(k = 2\\) would require at most \\(2^{2} = 4\\) numbers to add up to 1, we used 3. For the third group \\(k = 3\\), we would need at most \\(8\\) numbers, and we used 8. We see that we can group this sum up in a way that always produces 1, which would give us an infinite sum of 1's, resulting in infinity (divergence).
 
 
