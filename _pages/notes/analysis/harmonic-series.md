@@ -27,7 +27,7 @@ Now we have to prove this. So the proof would be to find \\(n\\) as a function o
 \\[\left|\frac{1}{n} - L\right| < \varepsilon\\]
 Where \\(L = 0\\), so our inequality reduces to
 \\[\left|\frac{1}{n}\right| < \varepsilon\\]
-We know that since \\(n \in \mathbb{N}\\) that \\(n \ge 1, \forall n\\) and this implies that \\(\frac{1}{n} \ge 0, \forall n\\). So we can drop the absolute values in our inequality around \\(\frac{1}{n}\\) since we know it's always positive. Doing that leaves:
+We know that since \\(n \in \mathbb{N}\\) and \\(n \ge 1, \forall n\\), then this implies that \\(\frac{1}{n} \ge 0, \forall n\\). So we can drop the absolute values in our inequality around \\(\frac{1}{n}\\) since we know it's always positive. Doing that leaves:
 \\[\frac{1}{n} < \varepsilon\\]
 We come to the conclusion taht 
 \\[\frac{1}{\varepsilon} < n\\]
