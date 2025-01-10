@@ -26,7 +26,8 @@ Integral of Bounded Functions Supported on Sets of Finite Measure
 ===
 Supported on a set just means that the function is non-zero on that set, i.e. \\(f(x)\\) is supported on \\(E \implies f(x) \ne 0\\) where \\(x \in E\\). There isn't much to note with the following definition for the integral, we do however, use it for building the next type of integral. Before we define it, we must note an important conclusion. We assume here that \\(f\\) is a bounded function supported on a set \\(E\\) of finite measure.\\
 \\
-\\[\text{If } \phi_n(x) \text{ is a sequence of simple functions that converges to } f \text{ } a.e \text{ } x \text{, and each } \phi_n(x) \text{ is supported on } E \text{ and is bounded by } M \text{ then, }\\]
+\\[\text{If } \phi_n(x) \text{ is a sequence of simple functions that converges to } f \text{ } a.e \text{ } x \\]
+\\[\text{, and each } \phi_n(x) \text{ is supported on } E \text{ and is bounded by } M \text{ then, }\\]
 \\[1. \lim_{n \to \infty}\int \phi_n \text{ exists}\\]
 \\[2. f = 0 \implies \lim_{n \to \infty}\int\phi_n = 0\\]
 Now we define the integral of a bounded function supported on a set of finite measure as:\\
