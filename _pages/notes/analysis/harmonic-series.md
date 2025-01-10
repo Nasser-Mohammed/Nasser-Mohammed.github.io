@@ -29,7 +29,7 @@ Where \\(L = 0\\), so our inequality reduces to
 \\[\left|\frac{1}{n}\right| < \varepsilon\\]
 We know that since \\(n \in \mathbb{N}\\) and \\(n \ge 1, \forall n\\), then this implies that \\(\frac{1}{n} \ge 0, \forall n\\). So we can drop the absolute values in our inequality around \\(\frac{1}{n}\\) since we know it's always positive. Doing that leaves:
 \\[\frac{1}{n} < \varepsilon\\]
-We come to the conclusion taht 
+We come to the conclusion that 
 \\[\frac{1}{\varepsilon} < n\\]
 In other words, for any \\(\varepsilon > 0\\), we can find a corresponding natural number \\(n\\), such that any point in our sequence past the index \\(n\\) will be less than a distance of \\(\varepsilon\\) away from our limit point (in this scenario 0). If you notice, as \\(\varepsilon\\) gets smaller and smaller, \\(\frac{1}{\varepsilon}\\) gets larger and larger, this forces \\(n\\) to be a larger and larger naturally number since \\(\frac{1}{\varepsilon} < n\\). Now this should make sense to you, after all, we would need to go further and further along the sequence to get within a smaller and smaller \\(\varepsilon\\) distance away from the limit point.
 
@@ -37,7 +37,7 @@ When Do Series Converge?
 ===
 To give a rigorous definition, similar to the convergence of a sequence, I will define the convergence of a series below. First I will introduce the notion of a partial sum:
 \\[\text{A partial sum } s_m \text{, of a series } \text{ is defined as: } s_m = \sum_{n = 1}^{m}x_n\\]
-Essentially, it is the sum up to a certain number. Now, to define the convergence of a full series, in English we say that if the sequence of its partial sums converge to a number, then the series converges to that number. In simpler terms, we are saying that for a series to converge to a value (not infinity), then the sum must have smaller and smaller "additions" to cause the sequence to converge to a number. More formally:
+Essentially, it is the sum up to a certain index. Now, to define the convergence of a full series, in English we say that if the sequence of its partial sums converge to a number, then the series converges to that number. In simpler terms, we are saying that for a series to converge to a value (not infinity), then the sum must have smaller and smaller "additions" to cause the sequence to converge to a number. More formally:
 \\[\text{A series } \sum_{n = 1}^{\infty}\{x_n\} \text{, converges to a value L if }\\]
 \\[\text{the sequence of partial sums } s_m \text{, converges to L}\\]
 
