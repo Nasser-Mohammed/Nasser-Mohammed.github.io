@@ -52,7 +52,7 @@ From this, we get an important corollary that when combined with Fatou's Lemma a
 **Corollary:**
 \\[\text{If } f \text{ is a non-negative measurable function and we have a sequence of measurable non-negative functions } f_n \\]
 \\[\text{ that converge almost everywhere to } f \text{ with } f_n(x) \leq f(x) \text{ then }\\]
-\\[\lim_{n \to \infty} f_n = \int f\\]
+\\[\lim_{n \to \infty} \int f_n = \int f\\]
 In other words, under these conditions, **the limit of the integral is the integral of the limit**. But we want to generalize this to where we don't have to put restrictions on \\(f\\). This leads us to the next big result, the Monotone Convergence Theorem.
 
 Monotone Convergence Theorem
