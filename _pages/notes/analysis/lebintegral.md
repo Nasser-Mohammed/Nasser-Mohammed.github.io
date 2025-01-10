@@ -118,9 +118,9 @@ This is pretty much the summation of the results so far. It gives us the criteri
 \\[\text{If } f_n \text{ is a sequence of measurable functions, where } f_n(x) \to f(x) \text{ } a.e \text{ } x \text{ as } n \to \infty \text{ and }\\]
 \\[\left| f_n(x) \right| \leq g(x) \text{ where } g \text{ is an integrable function, then }\\]
 \\[\int f_n \to \int f \text{ as } n \to \infty\\]
-In other words, if we can "dominate" our sequence by a function that we know is integrable, then we can conclude that the limit of the integral is the integral of the limit.\\
+In other words, if we can "dominate" our sequence by a function that we know is integrable, then we can conclude that the limit of the integral is the integral of the limit.
 
 Conclusion
 ===
-This covered the majority of the results in Lebesgue Integration Theory, there are some other considerations such as the \\(L^1\\) space, however I will cover that in the section about \\(L^p\\) theory. There are also things like the convolution, dilation, etc, that I will cover in the section on Fubini's Theorem and Tonelli's Theorem.
+This covered the majority of the results of Lebesgue Integration Theory, there are some other considerations such as the \\(L^1\\) space, however I will cover that in the section about \\(L^p\\) theory. There are also things like the convolution, dilation, etc, that I will cover in the section on Fubini's and Tonelli's Theorems.
 
