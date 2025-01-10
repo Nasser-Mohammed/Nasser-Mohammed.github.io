@@ -36,10 +36,10 @@ In other words, for any \\(\varepsilon > 0\\), we can find a corresponding natur
 When Do Series Converge?
 ===
 To give a rigorous definition, similar to the convergence of a sequence, I will define the convergence of a series below. First I will introduce the notion of a partial sum:
-\\[\text{A partial sum of a series } s_m \text{, is defined as: } s_m = \sum_{n = 1}^{m}\{x_n\}\\]
+\\[\text{A partial sum } s_m \text{, of a series } \text{, is defined as: } s_m = \sum_{n = 1}^{m}\{x_n\}\\]
 Essentially, it is the sum up to a certain number. Now, to define the convergence of a full series, in English we say that if the sequence of its partial sums converge to a number, then the series converges to that number. In simpler terms, we are saying that for a series to converge to a value (not infinity), then the sum must have smaller and smaller "additions" to cause the sequence to converge to a number. More formally:
 \\[\text{A series } \sum_{n = 1}^{\infty}\{x_n\} \text{, converges to a value L if }\\]
-\\[\text{the sequence of partial sums: } s_m \text{, converge to L}\\]
+\\[\text{the sequence of partial sums: } \{s_m\} \text{, converge to L}\\]
 
 Why is the Harmonic Series Counterintuitive?
 ===
