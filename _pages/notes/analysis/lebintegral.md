@@ -19,7 +19,7 @@ Since \\(\phi(x)\chi_F(x)\\) is a simple function too. This basically sets the f
 - Linearity: \\(\int_{\mathbb{R}^d}(a\phi(x) + b\psi(x)) dx = a\int_{\mathbb{R}^d}\phi(x)dx + b\int_{\mathbb{R}^d}\psi(x)dx\\)
 - Additivity: \\(\int_{E\cup F}\phi = \int_{E}\phi + \int_{F}\phi\\)
 - Monotonicity: \\(\phi \leq \psi \implies \int\phi \leq \int\psi\\)
-- Triangle Inequality: \\(\left| \int \phi \right| \leq \int \left| \phi \right|\\)
+- Triangle Inequality: \\(\text{| } \int \phi \text{| } \leq \int \text{|} \phi \text{|}\\)
 These properties will continue to hold for our more generalized integrals. Also note, that we assume \\(E\\) and \\(F\\) are disjoint and finite measure in the additivity property. One last thing to note, is that if \\(\phi\\) is a simple function then so is \\(\left|\phi\right|\\)
 
 Integral of Nonnegative Functions
@@ -29,9 +29,9 @@ Before we get into these, we define **integrability** as:
 
 For a non-negative function \\(f\\), we define its integral as:
 \\[\int f(x)dx = \underset{g}{sup}\int g(x)dx\\]
-We are taking the supremum over all measurable bounded functions \\(g\\) supported on a set of finite measure (this allows for use of the Bounded Convergence Theorem) such that \\(0 \leq g \leq f\\). We have the same properties as the last integral, i.e. we have linearity, additivity, monotonicity, and the triangle inequality. However, there are a couple of other things to consider:
+We are taking the supremum over all measurable bounded functions \\(g\\) supported on a set of finite measure such that \\(0 \leq g \leq f\\) (this allows for use of the Bounded Convergence Theorem). We have the same properties as the last integral, i.e. we have linearity, additivity, monotonicity, and the triangle inequality. However, there are a couple of other things to consider:
 - If \\(g\\) is integrable and \\(0 \leq f \leq g \implies f \\) is integrable.
-- \\(f\\) being integrable \\(\implies f < \infty \text{ } a.e x\\)
+- \\(f\\) being integrable \\(\implies f < \infty \text{ } a.e \text{ } x\\)
 - If the integral of a function is 0, then that function is 0 almost everywhere. More formally: \\(\int f = 0 \implies f(x) = 0 \text{ } a.e x\\)
 
 Now I will introduce a very important lemma
@@ -44,7 +44,7 @@ We actually cannot assume that
 \\[\int f_n dx \to \int f dx\\]
 This is due to some counterexamples that prevent this straightforward approach. Instead we have Fatou's Lemma
 
-\\[\text{Assume we have a sequence of measurable functions } f_n \text{ with } f_n \ge 0. \text{ Then, if } \lim_{n \to \infty}f_n(x) = f(x) \text{ } a.e x \text{ then }\\]
+\\[\text{Assume we have a sequence of measurable functions } f_n \text{ with } f_n \ge 0. \text{ Then, if } \lim_{n \to \infty}f_n(x) = f(x) \text{ } a.e \text{ } x \text{ then }\\]
 \\[\int f \leq \lim_{n \to \infty}\text{inf} \int f_n\\]
 
 From this, we get an important corollary that when combined with Fatou's Lemma above, will give us a convergence theorem. \\
