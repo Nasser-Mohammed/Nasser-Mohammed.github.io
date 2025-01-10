@@ -36,14 +36,14 @@ In other words, for any \\(\varepsilon > 0\\), we can find a corresponding natur
 When Do Series Converge?
 ===
 To give a rigorous definition, similar to the convergence of a sequence, I will define the convergence of a series below. First I will introduce the notion of a partial sum:
-\\[\text{A partial sum } s_m \text{, of a series } \text{ is defined as: } s_m = \sum_{n = 1}^{m}\text{\{}x_n\text{\}}\\]
+\\[\text{A partial sum } s_m \text{, of a series } \text{ is defined as: } s_m = \sum_{n = 1}^{m}x_n\\]
 Essentially, it is the sum up to a certain number. Now, to define the convergence of a full series, in English we say that if the sequence of its partial sums converge to a number, then the series converges to that number. In simpler terms, we are saying that for a series to converge to a value (not infinity), then the sum must have smaller and smaller "additions" to cause the sequence to converge to a number. More formally:
 \\[\text{A series } \sum_{n = 1}^{\infty}\{x_n\} \text{, converges to a value L if }\\]
-\\[\text{the sequence of partial sums: } \{s_m\} \text{, converge to L}\\]
+\\[\text{the sequence of partial sums } s_m \text{, converges to L}\\]
 
 Why is the Harmonic Series Counterintuitive?
 ===
-Well series are simply a sum of a sequence. In other words, instead of considering the behavior of the points \\(\frac{1}{n}\\) as \\(n \to \infty}, we consider what happens if we add up each of these terms. Now, since we know that 
+Well series are simply a sum of a sequence. In other words, instead of considering the behavior of the points \\(\frac{1}{n}\\) as \\(n \to \infty\\), we consider what happens if we add up each of these terms. Now, since we know that 
 \\[\lim_{n \to \infty} \frac{1}{n} = 0\\]
 It would be intuitive to assume that eventually, we would be adding up numbers that are so small that they don't really add anything. Since we know these points eventually get as close as possible to 0, then adding up these tiny numbers would end up not affecting the sum. However this **sum** goes to \\(\infty\\), in other words, it **diverges**. This will be an informal proof, but generally, if a sum converges to a value, then at some index, the sum of every point past that index is arbitrarily small. Like in our sequence example, past a certain \\(n\\), our points were as close to 0 as we wanted. If we wanted closer and closer points, we just consider a smaller and smaller epsilon value. Now let's look at the series:
 \\[\sum_{n = 1}^{\infty} \frac{1}{n}\\]
