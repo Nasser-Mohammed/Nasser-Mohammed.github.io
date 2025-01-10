@@ -5,7 +5,7 @@ permalink: /notes/analysis/lebintegral/
 author_profile: false
 --- 
 <hr style="border: 2px solid black;">
-Once we established a rigorous theory to the measurement of sets, it is natural to begin the development of integration. We begin by defining the integral on the easiest case, simple functions, and use these results to build up to a more general integral.
+Once we have established a rigorous theory to the measurement of sets, it is natural to begin the development of integration. We begin by defining the integral on the easiest case, simple functions, and use these results to build up to a more general integral.
 
 Integral of Simple Functions
 ===
