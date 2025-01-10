@@ -90,7 +90,7 @@ We also can conclude that if
 \\[\sum_{k = 1}^{\infty}\int \phi_k(x)dx < \infty \implies \\sum_{k = 1}^{\infty} \phi_k(x) \text{ converges to a finite value for almost every } x\\]
 
 
-The Generalized Integral
+The Generalized Integral (For any measurable function)
 ===
 Before, we had restrictions on our functions, we now tackle the problem of defining an integral on any measurable function. Here, we say that a function \\(f\\) is integrable if
 \\[\left|f\right| < \infty\\]
