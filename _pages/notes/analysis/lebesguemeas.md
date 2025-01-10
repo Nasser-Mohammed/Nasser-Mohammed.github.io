@@ -155,15 +155,12 @@ Now we can state a result which is really the bread and butter for integration a
 <div style="text-align: center;">
 $$
 \begin{align*}
-&\text{If } f \text{ is a measurable function on } \mathbb{R}^d \text{ Then } \exists \text{ a sequence of simple functions } \{\phi_k\}_{k =1}^{\infty}\\
+&\text{If } f \text{ is a measurable function on } \mathbb{R}^d \text{. Then } \exists \text{ a sequence of simple functions } \{\phi_k\}_{k =1}^{\infty}\\
 &\text{ that converges pointwise to } f. \text{ In other words, } \lim_{k \rightarrow \infty}\phi_k = f(x) \text{ } \forall x. \\
 &\text{ Additionally, the absolute value of this sequence is increasing, i.e. } \left|\phi_k(x)\right| \leq \left|\phi_{k + 1}(x)\right|
 \end{align*}
 $$
 </div>
-I believe this is a good overview of the basics of Lebesgue Measure Theory. The most important things to consider are \\(\sigma\\)-algebras, the exterior measure, countable additivity vs sub-additivity, measurability, the algebra formed by measurable sets, measurable functions, simple functions, and the theorem stating that every measurable function can be written as the limit of some simple functions (i.e. it states the **existence** of the sequence of simple functions needed to converge to a function). For brevity, there are things left out, such as the Cantor set, Vitali Set, Ergorov's Theorem, etc. If I do not have one of the topics yet in my notes, you can check the links below.
+I believe this is a good overview of the basics of Lebesgue Measure Theory. The most important things to consider are \\(\sigma\\)-algebras, the exterior measure, countable additivity vs sub-additivity, measurability, the \\(\sigma\\)-algebra formed by measurable sets, measurable functions, simple functions, and the theorem stating that every measurable function can be written as the limit of some simple functions (i.e. it states the **existence** of the sequence of simple functions needed to converge to a function). For brevity, there are things left out, such as the [Cantor Set](https://en.wikipedia.org/wiki/Cantor_set), [Vitali Set](https://en.wikipedia.org/wiki/Vitali_set), [Ergorov's Theorem](https://en.wikipedia.org/wiki/Egorov%27s_theorem), etc. If I do not have one of the topics yet in my notes, you can check otu those links.
 
-- [Cantor Set](https://en.wikipedia.org/wiki/Cantor_set)
-- [Vitali Set](https://en.wikipedia.org/wiki/Vitali_set)
-- [Ergorov's Theorem](https://en.wikipedia.org/wiki/Egorov%27s_theorem)
 
