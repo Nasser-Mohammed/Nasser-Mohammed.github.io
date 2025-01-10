@@ -75,6 +75,7 @@ We must now define another way to write a measurable function, we say that we ca
 Where
 \\[f^{+}(x) = max(f(x), 0) \text{    and    } f^{-}(x) = max(-f(x), 0)\\]
 We can now define the integral with tools that we've been building up to this point. That is because each term \\(f^{+}\\) and \\(f^{-}\\) are non-negative measurable functions, and we can therefore use prior results on them.\\
+\\
 **The Lebesgue Integral of a Measurable Function** \\(f\\):
 \\[\int f = \int f^{+} - \int f^{-}\\]
 
