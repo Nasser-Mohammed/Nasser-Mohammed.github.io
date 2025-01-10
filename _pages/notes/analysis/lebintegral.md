@@ -32,7 +32,7 @@ For a non-negative function \\(f\\), we define its integral as:
 We are taking the supremum over all measurable bounded functions \\(g\\) supported on a set of finite measure such that \\(0 \leq g \leq f\\) (this allows for use of the Bounded Convergence Theorem). We have the same properties as the last integral, i.e. we have linearity, additivity, monotonicity, and the triangle inequality. However, there are a couple of other things to consider:
 - If \\(g\\) is integrable and \\(0 \leq f \leq g \implies f \\) is integrable.
 - \\(f\\) being integrable \\(\implies f < \infty \text{ } a.e \text{ } x\\)
-- If the integral of a function is 0, then that function is 0 almost everywhere. More formally: \\(\int f = 0 \implies f(x) = 0 \text{ } a.e x\\)
+- If the integral of a function is 0, then that function is 0 almost everywhere. More formally: \\(\int f = 0 \implies f(x) = 0 \text{ } a.e \text{ } x\\)
 
 Now I will introduce a very important lemma
 
@@ -50,7 +50,8 @@ This is due to some counterexamples that prevent this straightforward approach. 
 From this, we get an important corollary that when combined with Fatou's Lemma above, will give us a convergence theorem. \\
 \\
 **Corollary:**
-\\[\text{If } f \text{ is a non-negative measurable function and we have a sequence of measurable non-negative functions } f_n \text{ that converge almost everywhere to } f \text{ with } f_n(x) \leq f(x) \text{ then }\\]
+\\[\text{If } f \text{ is a non-negative measurable function and we have a sequence of measurable non-negative functions } f_n \\]
+\\[\text{ that converge almost everywhere to } f \text{ with } f_n(x) \leq f(x) \text{ then }\\]
 \\[\lim_{n \to \infty} f_n = \int f\\]
 In other words, under these conditions, **the limit of the integral is the integral of the limit**. But we want to generalize this to where we don't have to put restrictions on \\(f\\). This leads us to the next big result, the Monotone Convergence Theorem.
 
