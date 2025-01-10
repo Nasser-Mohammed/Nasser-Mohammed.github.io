@@ -60,12 +60,13 @@ Monotone Convergence Theorem
 This theorem is used for nonnegative measurable functions, in essence, it allows us to say the same thing as the last corollary, but in a more generalized setting. That is, it lets us say that the **limit of the integral is the integral of the limit**. The theorem is stated below:
 \\[\text{Let } f_n \text{ be a sequence of non-negative measurable functions } f_n \nearrow f \text{, then }\\]
 \\[\lim_{n \to \infty}\int f_n = \int f\\]
-This theorem implies another important result, with the way a series of non-negative measurable functions interacts with an integral:\\
+This theorem implies another important result, with the way a series of non-negative measurable functions interacts with an integral.\\
+\\
 **Corollary:**
 \\[\text{If we have a series of non-negative measurable functions: } \sum_{k = 1}^{\infty}\phi_k(x) \text{ then }\\]
 \\[\int\sum_{k = 1}^{\infty}\phi_k(x) dx = \sum_{k = 1}^{\infty}\int \phi_k(x)dx\\]
 We also can conclude that if 
-\\[\sum_{k = 1}^{\infty}\int \phi_k(x)dx \leq \infty \implies \\sum_{k = 1}^{\infty} \phi_k(x) \text{ converges to a finite value for almost every } x\\]
+\\[\sum_{k = 1}^{\infty}\int \phi_k(x)dx < \infty \implies \\sum_{k = 1}^{\infty} \phi_k(x) \text{ converges to a finite value for almost every } x\\]
 
 
 The Generalized Integral
@@ -80,7 +81,16 @@ We can now define the integral with tools that we've been building up to this po
 \\
 **The Lebesgue Integral of a Measurable Function** \\(f\\):
 \\[\int f = \int f^{+} - \int f^{-}\\]
+If a function is integrable, the integral, like the ones before, is **additive, linear, monotonic, and respects the triangle inequality.**\\
+Additionally, we have a very important property, sometimes called **absolute continuity**. Informally, it says that if a function is integrable, we can find a small enough set such that the integral on that small is also very small. More formally:
+\\[\text{If } f \text{ is an integrable function, then } \forall \varepsilon > 0:\\]
+\\[\exists \delta > 0 \text{ such that if } m(E) < \delta \text{ then}\\]
+\\[\int_E \left| f \right| < \varepsilon\\]
+Another thing to note, is that we can also find a ball such that the integral over the complement of the ball is arbitrarily small.
 
+
+The Dominated Convergence Theorem
+===
 
 
 
