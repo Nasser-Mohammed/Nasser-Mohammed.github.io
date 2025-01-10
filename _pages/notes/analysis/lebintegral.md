@@ -58,9 +58,9 @@ In other words, under these conditions, **the limit of the integral is the integ
 Monotone Convergence Theorem
 ===
 This theorem is used for nonnegative measurable functions, in essence, it allows us to say the same thing as the last corollary, but in a more generalized setting. That is, it lets us say that the **limit of the integral is the integral of the limit**. The theorem is stated below:
-\\[\text{Let } f_n \text{ be a sequence of non-negative measurable functions } f_n \nearrow f \text{, then }
+\\[\text{Let } f_n \text{ be a sequence of non-negative measurable functions } f_n \nearrow f \text{, then }\\]
 \\[\lim_{n \to \infty}\int f_n = \int f\\]
-This theorem implies another important result, with the way a series interacts with an integral:\\
+This theorem implies another important result, with the way a series of non-negative measurable functions interacts with an integral:\\
 **Corollary:**
 \\[\text{If we have a series of non-negative measurable functions: } \sum_{k = 1}^{\infty}\phi_k(x) \text{ then }
 \\[\int\sum_{k = 1}^{\infty}\phi_k(x) dx = \sum_{k = 1}^{\infty}\int \phi_k(x)dx\\]
