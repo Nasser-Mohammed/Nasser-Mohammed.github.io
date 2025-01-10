@@ -62,20 +62,20 @@ This theorem is used for nonnegative measurable functions, in essence, it allows
 \\[\lim_{n \to \infty}\int f_n = \int f\\]
 This theorem implies another important result, with the way a series of non-negative measurable functions interacts with an integral:\\
 **Corollary:**
-\\[\text{If we have a series of non-negative measurable functions: } \sum_{k = 1}^{\infty}\phi_k(x) \text{ then }
+\\[\text{If we have a series of non-negative measurable functions: } \sum_{k = 1}^{\infty}\phi_k(x) \text{ then }\\]
 \\[\int\sum_{k = 1}^{\infty}\phi_k(x) dx = \sum_{k = 1}^{\infty}\int \phi_k(x)dx\\]
 
 
 The Generalized Integral
 ===
-Before we had restrictions on our functions, we now tackle the problem of defining an integral on any measurable function. Here, we say that a function \\(f\\) is integrable if
+Before, we had restrictions on our functions, we now tackle the problem of defining an integral on any measurable function. Here, we say that a function \\(f\\) is integrable if
 \\[\left|f\right| < \infty\\]
 We must now define another way to write a measurable function, we say that we can decompose any measurable function \\(f\\) as:
 \\[f = f^{+} - f^{-}\\]
 Where
 \\[f^{+}(x) = max(f(x), 0) \text{    and    } f^{-}(x) = max(-f(x), 0)\\]
-We can now define the integral with tools that we've been building up to this point. That is because each term \\(f^{+}\\) and \\(f^{-}\\) are non-negative measurable functions, and we can therefore use prior results on them. With this, we define the integral\\
-**Lebesgue Integral:**
+We can now define the integral with tools that we've been building up to this point. That is because each term \\(f^{+}\\) and \\(f^{-}\\) are non-negative measurable functions, and we can therefore use prior results on them.\\
+**The Lebesgue Integral of a Measurable Function** \\(f\\):
 \\[\int f = \int f^{+} - \int f^{-}\\]
 
 
