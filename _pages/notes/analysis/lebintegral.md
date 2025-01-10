@@ -16,10 +16,10 @@ In other words, this is a **finite** sum of some constants multiplied to a chara
 We can then easily define the integral over a specific subset \\(F\\) of \\(\mathbb{R}^d\\) as:
 \\[\int_{F}\phi(x) dx = \int_{\mathbb{R}^d}\phi(x)\chi_F(x) dx\\]
 Since \\(\phi(x)\chi_F(x)\\) is a simple function too. This basically sets the function to 0 everywhere, except the part that we care about. There are a few important properties of this integral that I will simply list.
-- Linearity: \\(\int_{\mathbb{R}^d}(a\phi(x) + b\psi(x)) dx = a\int_{\mathbb{R}^d}\phi(x) + b\int_{\mathbb{R}^d}\psi(x)\\)
-- Additivity: \\(\int{E\cup F}\phi = \int_{E}\phi + \int_{F}\phi\\)
+- Linearity: \\(\int_{\mathbb{R}^d}(a\phi(x) + b\psi(x)) dx = a\int_{\mathbb{R}^d}\phi(x)dx + b\int_{\mathbb{R}^d}\psi(x)dx\\)
+- Additivity: \\(\int_{E\cup F}\phi = \int_{E}\phi + \int_{F}\phi\\)
 - Monotonicity: \\(\phi \leq \psi \implies \int\phi \leq \int\psi\\)
-- Triangle Inequality: \left| \int \phi \right| \leq \int |\phi |
+- Triangle Inequality: \\(\left| \int \phi \right| \leq \int \left| \phi \right|\\)
 These properties will continue to hold for our more generalized integrals. Also note, that we assume \\(E\\) and \\(F\\) are disjoint and finite measure in the additivity property. One last thing to note, is that if \\(\phi\\) is a simple function then so is \\(\left|\phi\right|\\)
 
 Integral of Nonnegative Functions
