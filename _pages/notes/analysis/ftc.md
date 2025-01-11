@@ -9,7 +9,7 @@ Most people are familiar with the sort of inverse relationship between the integ
 
 What to Consider
 ==
-The first, does integrability on an interval imply the existance of a derivative. Additionally, does the derivative of the integrated function, return the unintegrated function. More formally:
+The first question, does integrability on an interval imply the existance of a derivative. Additionally, does the derivative of the integrated function, return the unintegrated function. More formally:
 \\[\text{If f is an integrable function on an interval } \[a,b\], \text{ where } F(x) = \int_a^x f(y) dy \\]
 \\[\text{can we say for certain that } F^{\'} \text{ exists, and furthermore, can we conclude that } F^{\'} = f \text{ (at least for almost every } x)\\]
 The second question, flips this question in the other direction. What restrictions do we have to place on a function \\(F\\) defined on an interval \\(\[a,b\]\\), such that we can ensure the derivative exists (at least for almost every \\(x\\)), and furthermore, that this function is integrable, and that the integral of this differentiated function equals the function \\(F\\) evaluated at \\(b\\) minus the function \\(F\\) evaluated at \\(a\\). More formally, we ask:
@@ -40,12 +40,24 @@ Now we have existance, the next step is to ask whether
 \\[\lim_{m(B) \to 0} \frac{1}{m(B)}\int_Bf(y)dy = f(x) \text{ for a.e } x\\]
 This is known as the **averaging problem**. This comes from the fact that 
 \\[\frac{1}{m(B)}\int_Bf(y)dy\\]
-This is simply the average value of the function \\(f\\). If it still isn't obvious, we can look at the integral as a sort of sum of values produced by \\(f\\), the average of a sum of values is simply the sum of values divided by the amount of stuff we added together. This is analogous to our equation above. Now as mentioned, the question is whether or not the equation holds for almost every \\(x\\). I will begin by showing this equality holds for continuous functions.
+This is simply the average value of the function \\(f\\). If it still isn't obvious, we can look at the integral as a sort of sum of values produced by \\(f\\), the average of a sum of values is simply the sum of values divided by the amount of stuff we added together. This is analogous to our expression above. It's basically asking if the average value of a function converges to the value of the function as the interval we are averaging the function over, gets smaller and smaller around the point. Now as mentioned, the question is whether or not the equation holds for almost every \\(x\\). I will begin by showing this equality holds for continuous functions.\\
+\\
+First, to recall, a function \\(f\\) is continuous if
+\\[\forall \varepsilon > 0, \exists \delta > 0 \text{ such that }\\]
+\\[\left|f(y) - f(x)\right| < \varepsilon \implies \left|y - x\right| < \delta\\]
+With this in mind.
+\\[\text{Assume } f \text{ is a continuous function, then if our claim is that}\\]
+\\[\lim_{m(B) \to 0} \frac{1}{m(B)}\int_Bf(y)dy = f(x)\\]
+\\[\text{Then by the definition of convergence, we are trying to show}\\]
+\\[\left|\frac{1}{m(B)}\int_Bf(y)dy - f(x)\right| < \varepsilon\\]
+First we note that 
+\\[\frac{1}{m(B)}\int_Bf(y)dy - f(x) = \frac{1}{m(B)}\int_B(f(y) - f(x))dy\\]
+With this in mind we can rewrite our expression in the absolute value as
+\\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right|\\]
+Now by the triangle inequality:
+\\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| < \frac{1}{m(B)}\int_B\left|(f(y) - f(x))\right|dy\\]
+Now since we know (by our assumption that \\(f\\) is continuous) that 
+\\[\left|f(y)-f(x)\right| < \varepsilon\\]
+Granted that \\(\left|x - y\right| < \delta\\). Now all we have to do is consider that our ball \\(B\\) has radius \\(\frac{\delta}{2}\\) (i.e. \\(B_{\frac{\delta}{2}}\\)), this means that \\(m(B) < \frac{\delta}{2}\\). We do this, since we want to ensure any two points in the ball are less than a distance \\(\delta\\) from each other, since this will enforce \\(\left|f(y) - f(x)\right| < \varepsilon\\) by our assumption that \\(f\\) is continuous. Now, two points in a ball can be a maximum distance of 2 times the radius of the ball away from each other, i.e. \\(2\delta\\). So if we make the radius of the ball less than \\(\frac{delta}{2}\\), then two points will always be less than \\(2\frac{\delta}{2} = \delta\\), and we ensure continuity. 
 
-<div style="text-align: center;">
-$$
-
-
-$$
-</div> 
 
