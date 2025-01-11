@@ -82,19 +82,20 @@ Plugging this in gives
 And we have proven that the limit of the average value is indeed the function evaluated at that point. In other words, when \\(f\\) is continuous we have that: 
 \\[\lim_{m(B) \to 0} \frac{1}{m(B)}\int_Bf(y)dy = f(x) \text{ for a.e } x\\]
 Now to prove this for more general functions requires a pretty technical covering theorem with spheres, and use of the [Hardy-Littlewood Maximal Function](https://en.wikipedia.org/wiki/Hardy%E2%80%93Littlewood_maximal_function), instead we will just state the final conclusion of this investigation.\\
+\\
 **The Lebesgue Differentation Theorem:**\\
 If \\(f\\) is any integrable function on \\(\mathbb{R}^d\\), then 
 \\[\lim_{m(B) \to 0}\frac{1}{m(B)}\int_Bf(y)dy = f(x) \text{ for almost every } x \text{ with } x \in B\\]
 So we have found the necessary conditions for the first question. In other words, the derivative of the integral of a function is in fact just the unintegrated function (the integrand of the function), granted that the function is integrable.\\
 \\
 There are a few more things to consider. In our assumptions above, \\(f\\) was integrable, and integrability speaks to the global behavior of a function. However, there are several functions that we can still show that the **Lebesgue Differentiation Theorem** holds for *locally*. So we introduce the concept of *local integrability*, that is for a function \\(f\\), if \\(B\\) is a ball then,
-\\[\forall B, \int f(x)\chi_{B}(x) < \infty\\]
+\\[\forall B, \text{  } \int f(x)\chi_{B}(x) < \infty\\]
 That is, if the function is integrable, on any finite ball, we then say that the function is *locally integrable*. We denote the space of these functions as
-\\[L_{\text{loc}^1(\mathbb{R}^d\\]
+\\[L_{\text{loc}}^1(\mathbb{R}^d\\]
 What we are showing in defining this, is that the way a function acts at its extremities (infinity), should not affect how the integral acts on the function everywhere else. Since we proved that the Lebesgue Differentiation Theorem works for any integrable function, and local integrability is a "softer" requirement, then it also follows that the Lebesgue Differentation Theorem holds for locally integrable function too. This result leads to a result about a characteristic of measurable sets.\\
 \\
 **Lebesgue Density:**\\
-For a measurable set \\(E\\) and a real number \\(x\\) (or vector of real numbers in higher dimensional sets), then \\(x\\) is a point of **Lebesgue Density** of \\(E\\) if
+For a measurable set \\(E\\) and a real number \\(x\\) (or vector of real numbers in higher dimensional sets), then \\(x\\) is a point of Lebesgue Density of \\(E\\) if
 \\[\lim_{m(B) \to 0}\frac{m(B \cap E)}{m(B)} = 1 \text{  where } x \in B\\]
 What this says, is that a point of Lebesgue Density, when covered by smaller and smaller balls, will have those balls completely contained in the set \\(E\\). This makes sense intuitively and leads to an important corollary and another definition.\\
 \\
@@ -107,7 +108,7 @@ For any measurable subset \\(E\\) of \\(\mathbb{R}^d\\)
 and finally, we define one more thing.\\
 \\
 **Lebesgue Set:**\\
-This refers to a set of points that cause a function (that is locally integrable) to behave a certain way. That is, the **Lebesgue Set** of a function \\(f\\) is the set of points \\(x\\) such that 
+This refers to a set of points that cause a function (that is locally integrable) to behave a certain way. That is, the Lebesgue Set of a function \\(f\\) is the set of points \\(x\\) such that 
 \\[\lim_{m(B)\to 0}\frac{1}{m(B)}\int_B\left| f(y) - f(x) \right|dy = 0\\]
 Note that this is essentially a stronger version of the Lebesgue Differentiation Theorem. We note that if we have a Lebesgue Set \\(E\\), then \\(x \in E \implies f \text{ is continuous at } x\\). And as mentioned, we have the Lebesgue Differentiation theorem for any point in the Lebesgue Set. The last thing to remark, is that local integrability implies that almost every point in \\(\mathbb{R}^d\\) is in the Lebesgue Set of \\(f\\). \\
 \\
