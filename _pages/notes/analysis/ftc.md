@@ -41,9 +41,11 @@ Now we have existance, the next step is to ask whether
 This is known as the **averaging problem**. This comes from the fact that 
 \\[\frac{1}{m(B)}\int_Bf(y)dy\\]
 This is simply the average value of the function \\(f\\). If it still isn't obvious, we can look at the integral as a sort of sum of values produced by \\(f\\), the average of a sum of values is simply the sum of values divided by the amount of stuff we added together. This is analogous to our equation above. Now as mentioned, the question is whether or not the equation holds for almost every \\(x\\). I will begin by showing this equality holds for continuous functions.
+
+<div style="text-align: center;">
 $$
 
 
 $$
-
+</div> 
 
