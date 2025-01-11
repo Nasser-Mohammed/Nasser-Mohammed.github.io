@@ -18,7 +18,7 @@ The second question, flips this question in the other direction. What restrictio
 \\[\text{that } F(b) - F(a) = \int_a^bF^{\'}(x) dx \text{  holds}\\]
 In other words, the first question is concerned with differentiation of an integrated function. Whereas the second question is concerned with integrating a differentiated function. In both cases we are concerned with existance of a derivative, integrability, and ensuring an inverse operation. However, the difference is in the order we apply these operations. As mentioned, we will begin with the first question. 
 
-The Derivative of an Integral
+The Derivative of an Integral and The Lebesgue Differentation Theorem
 ==
 We define a function that serves as the definite integral of a function as:
 \\[F(x) = \int_a^xf(y)dy \text{     } a \leq x \leq b\\]
@@ -58,6 +58,26 @@ Now by the triangle inequality:
 \\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| < \frac{1}{m(B)}\int_B\left|(f(y) - f(x))\right|dy\\]
 Now since we know (by our assumption that \\(f\\) is continuous) that 
 \\[\left|f(y)-f(x)\right| < \varepsilon\\]
-Granted that \\(\left|x - y\right| < \delta\\). Now all we have to do is consider that our ball \\(B\\) has radius \\(\frac{\delta}{2}\\) (i.e. \\(B_{\frac{\delta}{2}}\\)), this means that \\(m(B) < \frac{\delta}{2}\\). We do this, since we want to ensure any two points in the ball are less than a distance \\(\delta\\) from each other, since this will enforce \\(\left|f(y) - f(x)\right| < \varepsilon\\) by our assumption that \\(f\\) is continuous. Now, two points in a ball can be a maximum distance of 2 times the radius of the ball away from each other, i.e. \\(2\delta\\). So if we make the radius of the ball less than \\(\frac{delta}{2}\\), then two points will always be less than \\(2\frac{\delta}{2} = \delta\\), and we ensure continuity. 
+Granted that \\(\left|x - y\right| < \delta\\). Now all we have to do is consider that our ball \\(B\\) has radius \\(\frac{\delta}{2}\\) (i.e. \\(B_{\frac{\delta}{2}}\\)), this means that \\(m(B) < \frac{\delta}{2}\\). We do this, since we want to ensure any two points in the ball are less than a distance \\(\delta\\) from each other, since this will enforce \\(\left|f(y) - f(x)\right| < \varepsilon\\) by our assumption that \\(f\\) is continuous. Now, two points in a ball can be a maximum distance of 2 times the radius of the ball away from each other, i.e. \\(2\delta\\). So if we make the radius of the ball less than \\(\frac{delta}{2}\\), then two points will always be less than \\(2\frac{\delta}{2} = \delta\\), and we ensure continuity. Now, that we have our continuity condition, putting the above inequalities together. 
+\\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| < \frac{1}{m(B)}\int_B\left|(f(y) - f(x))\right|dy < \frac{1}{m(B)}\varepsilon\\]
+And we can say that 
+\\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| < \frac{1}{m(B)}\varepsilon\\]
+We know that 
+\\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| = \left|\frac{1}{m(B)}\int_Bf(y)dy - f(x)\right|\\]
+Plugging this in gives
+\\[\left|\frac{1}{m(B)}\int_Bf(y)dy - f(x)\right| < \frac{1}{m(B)}\varepsilon\\]
+Now since we can make \\(\varepsilon\\) as small as possible, we can write \\(\frac{1}{m(B)}\varepsilon\\) as \\(\varepsilon\\). This gives us
+\\[\left|\frac{1}{m(B)}\int_Bf(y)dy - f(x)\right| < \varepsilon\\]
+And we have proven that the limit of the average value is indeed the function evaluated at the point. In other words, when \\(f\\) is continuous we have that: 
+\\[\lim_{m(B) \to 0} \frac{1}{m(B)}\int_Bf(y)dy = f(x) \text{ for a.e } x\\]
+Now to prove this for more general functions requires a pretty technical covering theorem with spheres, and use of the [Hardy-Littlewood Maximal Function](https://en.wikipedia.org/wiki/Hardy%E2%80%93Littlewood_maximal_function), instead we will just state the final conclusion of this investigation. The Lebesgue Differentiation Theorem.\\
+**The Lebesgue Differentation Theorem:**\\
+If \\(f\\) is any integrable function on \\(\mathbb{R}^d\\), then 
+\\[\lim_{m(B) \to 0}\frac{1}{m(B)}\int_Bf(y)dy = f(x) \text{ for almost every } x \text{ with } x \in B\\]
+So we have found the necessary conditions for the first question. In other words, the derivative of the integral of a functoin is in fact just the unintegrated function (the function in the integrand), granted that the function is integrable. 
+
+The Integral of a Differentiated Function
+===
+
 
 
