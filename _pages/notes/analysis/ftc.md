@@ -117,7 +117,7 @@ That covers most of the considerations of the question raised at the beginning. 
 
 The Integral of a Differentiated Function
 ===
-Now we turn to the other question, we are looking how we can ensure the following equality holds:
+Now we turn to the other question, we are looking for how we can ensure the following equality holds:
 \\[F(b) - F(a) = \int_a^bF^{\'}(x)dx\\]
 However, not all functions are differentiable, we can't even say all continuous functions are differentiable almost everywhere because of the existence of a continuous everywhere but nowhere differentiable function. See the [Weierstrass function](https://en.wikipedia.org/wiki/Weierstrass_function). Even if we ensure that the derivative exists, we need to find a way to ensure that the differentiated function is integrable (since if it's not, \\(F(b) - F(a)\\) would be meaningless). We begin this investigation with the introduction of bounded variation. \\
 \\
@@ -161,7 +161,7 @@ exists almost everywhere. Which is what we were looking for. Now we know what co
 **Corollary:**\\
 If \\(F\\) is increasing and continuous (meaning it's of bounded variation), then \\(F^{\'}\\) exists almost everywhere, and we have the following inequality (note that \\(F^{\'}\\) is non-negative and measurable):
 \\[\int_a^bF^{\'}(x)dx \le F(b) - F(a)\\]
-If you notice, this is almost what we want, however, we want the conditions for strict equality. A famous counter example to the equality we want (\\(\int_a^bF^{\'}(x)dx = F(b) - F(a)\\)), is the [Cantor-Lebesgue Function](https://en.wikipedia.org/wiki/Cantor_function). The reason this is a counter example, is due ot the fact that this function is differentiable almost everywhere, with the derivative equal to \\(0\\) and because of that, the integral of the function from \\(0\\) to \\(1\\) is \\(0\\). But the function \\(F\\) has the following values at the endpoints: \\(F(0) = 0\\) and \\(F(1) = 1\\). So we see that 
+If you notice, this is almost what we want, however, we want the conditions for strict equality. A famous counter example to the equality we want \\(\left(\int_a^bF^{\'}(x)dx = F(b) - F(a)\right)\\), is the [Cantor-Lebesgue Function](https://en.wikipedia.org/wiki/Cantor_function). The reason this is a counter example, is due ot the fact that this function is differentiable almost everywhere, with the derivative equal to \\(0\\) and because of that, the integral of the function from \\(0\\) to \\(1\\) is \\(0\\). But the function \\(F\\) has the following values at the endpoints: \\(F(0) = 0\\) and \\(F(1) = 1\\). So we see that 
 \\[\int_a^bF^{\'}(x)dx \neq F(b) - F(a)\\]
 Since
 \\[\int_a^bF^{\'}(x)dx = 0\\]
