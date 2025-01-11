@@ -12,8 +12,8 @@ main:
   - title: "Expositions"
     url: /expositions/    
     
-  - title: "Tips"
-    url: /tips/
+  - title: "Textbook Solutions"
+    url: /solutions/
     
   - title: "CV"
     url: /cv/
