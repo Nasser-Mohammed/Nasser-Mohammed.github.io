@@ -34,17 +34,17 @@ It's apparent now, that this simplifies to
 \\[\lim_{h \to 0} \frac{\int_x^{x+h}f(y)dy}{h}\\]
 We can rewrite this as 
 \\[\lim_{h \to 0} \frac{1}{h}\int_x^{x+h}f(y)dy\\]
-To simplify the notation, since we know that we have the interval \\(\[x,x+h\]\\), so we can denote this by a ball \\(B\\). We also replace \\(\frac{1}{h}\\) as \\(\frac{1}{m(B)}\\) where \\(m(B)\\) is simply the measure of the ball, since the measure of the interval \\(\[x,x+h\]\\) is just \\(h\\). Now, we also replace our notion of \\(h \to 0\\) with \\(m(B) \to 0\\). Then our limit becomes
+To simplify the notation, since we know that we have an interval \\(\[x,x+h\]\\), then we can denote this by a ball \\(B\\). We also replace \\(\frac{1}{h}\\) as \\(\frac{1}{m(B)}\\) where \\(m(B)\\) is simply the measure of the ball, since the measure of the interval \\(\[x,x+h\]\\) is just \\(h\\). Now, we also replace our notion of \\(h \to 0\\) with \\(m(B) \to 0\\). Then our limit becomes
 \\[\lim_{m(B) \to 0} \frac{1}{m(B)}\int_Bf(y)dy\\]
 Now we have existance, the next step is to ask whether 
 \\[\lim_{m(B) \to 0} \frac{1}{m(B)}\int_Bf(y)dy = f(x) \text{ for a.e } x\\]
-This is known as the **averaging problem**. This comes from the fact that 
+This is known as the **averaging problem**. This comes from the fact that
 \\[\frac{1}{m(B)}\int_Bf(y)dy\\]
-This is simply the average value of the function \\(f\\). If it still isn't obvious, we can look at the integral as a sort of sum of values produced by \\(f\\), the average of a sum of values is simply the sum of values divided by the amount of stuff we added together. This is analogous to our expression above. It's basically asking if the average value of a function converges to the value of the function as the interval we are averaging the function over, gets smaller and smaller around the point. Now as mentioned, the question is whether or not the equation holds for almost every \\(x\\). I will begin by showing this equality holds for continuous functions.\\
+Is simply the average value of the function \\(f\\). If it still isn't obvious, we can look at the integral as a sort of sum of values produced by \\(f\\), the average of a sum of values is simply the sum of values divided by the amount of stuff we added together. This is analogous to our expression above. It's basically asking if the average value of a function converges to the value of the function as the interval we are averaging the function over, gets smaller and smaller around the point. Now as mentioned, the question is whether or not the equation holds for almost every \\(x\\). I will begin by showing this equality holds for continuous functions.\\
 \\
 First, to recall, a function \\(f\\) is continuous if
 \\[\forall \varepsilon > 0, \exists \delta > 0 \text{ such that }\\]
-\\[\left|f(y) - f(x)\right| < \varepsilon \implies \left|y - x\right| < \delta\\]
+\\[\left|y - x\right| < \delta \implies \left|f(y) - f(x)\right| < \varepsilon\\]
 With this in mind.
 \\[\text{Assume } f \text{ is a continuous function, then if our claim is that}\\]
 \\[\lim_{m(B) \to 0} \frac{1}{m(B)}\int_Bf(y)dy = f(x)\\]
@@ -52,23 +52,33 @@ With this in mind.
 \\[\left|\frac{1}{m(B)}\int_Bf(y)dy - f(x)\right| < \varepsilon\\]
 First we note that 
 \\[\frac{1}{m(B)}\int_Bf(y)dy - f(x) = \frac{1}{m(B)}\int_B(f(y) - f(x))dy\\]
+It might not be obvious why, so first note that the integral is with respect to \\(y\\), meaning when we integrate a function of \\(x\\), we essentially just have a constant function with respect to \\(y\\). It might help to write out what carrying out the integral yields, 
+\\[\int_Bf(x)dy = f(x)\int_Bdy = f(x)m(B)\\]
+So if we were to write \\(f(x)\\) by itself, it would require us to multiply the term by \\(\frac{1}{m(B)}\\). Then it's easy to see that 
+\\[\frac{1}{m(B)}\int_Bf(y)dy - f(x) = \frac{1}{m(B)}\int_Bf(y)dy - \frac{1}{m(B)}\int_Bf(x)dy\\]
+and as we saw,
+\\[\frac{1}{m(B)}\int_Bf(x)dy = \frac{1}{m(B)}f(x)\frac{1}{m(B)} = f(x)\\]
+Then we can just pull out the integral and \\(\frac{1}{m(B)}\\) term out of the expression
+\\[\frac{1}{m(B)}\int_Bf(y)dy - \frac{1}{m(B)}\int_Bf(x)dy = \frac{1}{m(B)}\int_B(f(y) - f(x))dy\\]
+And finally we see,
+\\[\frac{1}{m(B)}\int_Bf(y)dy - f(x) = \frac{1}{m(B)}\int_B(f(y) - f(x))dy\\]
+
 With this in mind we can rewrite our expression in the absolute value as
 \\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right|\\]
 Now by the triangle inequality:
 \\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| < \frac{1}{m(B)}\int_B\left|(f(y) - f(x))\right|dy\\]
 Now since we know (by our assumption that \\(f\\) is continuous) that 
 \\[\left|x - y\right| < \delta \implies \left|f(y)-f(x)\right| < \varepsilon\\]
-Now all we have to do is consider that our ball \\(B\\) has radius \\(\frac{\delta}{2}\\) (i.e. \\(B_{\frac{\delta}{2}}\\)), this means that \\(m(B) < \frac{\delta}{2}\\). We do this, since we want to ensure any two points in the ball are less than a distance \\(\delta\\) from each other, since this will enforce \\(\left|f(y) - f(x)\right| < \varepsilon\\) by our assumption that \\(f\\) is continuous. Now, two points in a ball can be a maximum distance of 2 times the radius of the ball away from each other, i.e. \\(2\delta\\). So if we make the radius of the ball less than \\(\frac{\delta}{2}\\), then two points will always be less than \\(2\frac{\delta}{2} = \delta\\), and we ensure continuity. Now, that we have our continuity condition, putting the above inequalities together. 
-\\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| < \frac{1}{m(B)}\int_B\left|(f(y) - f(x))\right|dy < \frac{1}{m(B)}\varepsilon\\]
+Now all we have to do is consider that our ball \\(B\\) has radius \\(\frac{\delta}{2}\\) (i.e. \\(B_{\frac{\delta}{2}}\\)). We do this, since we want to ensure any two points in the ball are less than a distance \\(\delta\\) from each other, since this will enforce \\(\left|f(y) - f(x)\right| < \varepsilon\\) by our assumption that \\(f\\) is continuous. Now, two points in a ball can be a maximum distance of 2 times the radius of the ball away from each other, i.e. \\(2\delta\\). So if we make the radius of the ball less than \\(\frac{\delta}{2}\\), then two points will always be less than \\(2\frac{\delta}{2} = \delta\\), and we ensure continuity. Now we have our continuity condition, we can also note the property of absolute continuity, that is.
+\\[m(E) < \delta \implies \int_E|g| < \varepsilon\\]
+\\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| < \frac{1}{m(B)}\int_B\left|(f(y) - f(x))\right|dy < \varepsilon\\]
 And we can say that 
-\\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| < \frac{1}{m(B)}\varepsilon\\]
+\\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| < \varepsilon\\]
 We know that 
 \\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| = \left|\frac{1}{m(B)}\int_Bf(y)dy - f(x)\right|\\]
 Plugging this in gives
-\\[\left|\frac{1}{m(B)}\int_Bf(y)dy - f(x)\right| < \frac{1}{m(B)}\varepsilon\\]
-Now since we can make \\(\varepsilon\\) as small as possible, we can write \\(\frac{1}{m(B)}\varepsilon\\) as \\(\varepsilon\\). This gives us
 \\[\left|\frac{1}{m(B)}\int_Bf(y)dy - f(x)\right| < \varepsilon\\]
-And we have proven that the limit of the average value is indeed the function evaluated at the point. In other words, when \\(f\\) is continuous we have that: 
+And we have proven that the limit of the average value is indeed the function evaluated at that point. In other words, when \\(f\\) is continuous we have that: 
 \\[\lim_{m(B) \to 0} \frac{1}{m(B)}\int_Bf(y)dy = f(x) \text{ for a.e } x\\]
 Now to prove this for more general functions requires a pretty technical covering theorem with spheres, and use of the [Hardy-Littlewood Maximal Function](https://en.wikipedia.org/wiki/Hardy%E2%80%93Littlewood_maximal_function), instead we will just state the final conclusion of this investigation.\\
 **The Lebesgue Differentation Theorem:**\\
