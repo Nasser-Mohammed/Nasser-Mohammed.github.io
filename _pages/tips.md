@@ -1,7 +1,7 @@
 ---
 layout: archive
-title: "Tips"
-permalink: /tips/
+title: "Textbook Solutions"
+permalink: /solutions/
 author_profile: false
 ---
 Have not gotten to this yet.
