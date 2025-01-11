@@ -71,7 +71,8 @@ Now since we know (by our assumption that \\(f\\) is continuous) that
 \\[\left|x - y\right| < \delta \implies \left|f(y)-f(x)\right| < \varepsilon\\]
 Now all we have to do is consider that our ball \\(B\\) has radius \\(\frac{\delta}{2}\\) (i.e. \\(B_{\frac{\delta}{2}}\\)). We do this, since we want to ensure any two points in the ball are less than a distance \\(\delta\\) from each other, since this will enforce \\(\left|f(y) - f(x)\right| < \varepsilon\\) by our assumption that \\(f\\) is continuous. Now, two points in a ball can be a maximum distance of 2 times the radius of the ball away from each other, i.e. \\(2\delta\\). So if we make the radius of the ball less than \\(\frac{\delta}{2}\\), then two points will always be less than \\(2\frac{\delta}{2} = \delta\\), and we ensure continuity. Now we have our continuity condition, we can also note the property of absolute continuity, that is.
 \\[m(E) < \delta \implies \int_E|g| < \varepsilon\\]
-\\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| < \frac{1}{m(B)}\int_B\left|(f(y) - f(x))\right|dy < \varepsilon\\]
+However, I prove the statement without this conclusion.
+\\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| < \frac{1}{m(B)}\int_B\left|(f(y) - f(x))\right|dy < \frac{1}{m(B)}\int_B\varepsilon dy = \frac{1}{m(B)}\varepsilon m(B) = \varepsilon\\]
 And we can say that 
 \\[\left|\frac{1}{m(B)}\int_B(f(y) - f(x))dy\right| < \varepsilon\\]
 We know that 
