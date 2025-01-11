@@ -140,7 +140,7 @@ In both cases, the supremum is taken over all partitions of \\(\[a,x\]\\). There
 The last tool that we need, is the following statement:
 \\[\text{A function } F \text{ is of bounded variation on } \[a,b\] \text{ if and only if } F \text{ is }\\]
 \\[\text{the difference of two increasing functions}\\]
-This is pretty easy to see to show, first to show the \\(\rightarrow\\) direction. We assume \\(F = F_1 - F_2\\), and \\(F_1\\) and \\(F_2\\) are both increasing and of bounded variation. It directly follows that \\(F\\) is of bounded variation. For the \\(\leftarrow\\) direction, we assume \\(F\\) is of bounded variation and show it's decomposition. We can let 
+This is pretty easy to see to show, first to show the \\(\rightarrow\\) direction. We assume \\(F = F_1 - F_2\\), and \\(F_1\\) and \\(F_2\\) are both increasing and of bounded variation. It directly follows that \\(F\\) is of bounded variation. For the \\(\leftarrow\\) direction, we assume \\(F\\) is of bounded variation and show its decomposition. We can let 
 \\[F_1(x) = P_F(a,x) + F(a)\\]
 and
 \\[F_2(x) = N_F(a,x)\\]
@@ -152,14 +152,16 @@ We see that
 Rearranging the terms to 
 \\[F(x) = P_F(a,x) + F(a) - N_F(a,x)\\]
 We see that \\(F(x) = F_1(x) + F_2(x)\\) where they are both increasing and of bounded variation. So the proof is completed. Now, we have our final result for the existence of a derivative:\\
+\\
 **Differentiation Existence Theorem:**\\
 If a function \\(F\\) is of bounded variation on an interval \\(\[a,b\]\\), then \\(F\\) is differentiable almost everywhere. i.e.
 \\[\lim_{h \to 0}\frac{F(x+h) - F(x)}{h}\\]
 exists almost everywhere. Which is what we were looking for. Now we know what conditions ensure the existence of a derivative. The next step is to find out when the integral of this derivative gives us our wanted equality presented at the beginning of the section. First we get this important corollary:\\
+\\
 **Corollary:**\\
 If \\(F\\) is increasing and continuous (meaning it's of bounded variation), then \\(F^{\'}\\) exists almost everywhere, and we have the following inequality (note that \\(F^{\'}\\) is non-negative and measurable):
 \\[\int_a^bF^{\'}(x)dx \le F(b) - F(a)\\]
-If you notice, this is almost what we want, however, we want the conditions for strict equality. A famous counter example to the equality we want (\\\int_a^bF^{\'}(x)dx = F(b) - F(a)\\)), is the [Cantor-Lebesgue Function](https://en.wikipedia.org/wiki/Cantor_function). The reason this is a counter example, is due ot the fact that this function is differentiable almost everywhere, with the derivative equal to \\(0\\) and because of that, the integral of the function from \\(0\\) to \\(1\\) is \\(0\\). But the function \\(F\\) has the following values at the endpoints: \\(F(0) = 0\\) and \\(F(1) = 1\\). So we see that 
+If you notice, this is almost what we want, however, we want the conditions for strict equality. A famous counter example to the equality we want (\\(\int_a^bF^{\'}(x)dx = F(b) - F(a)\\)), is the [Cantor-Lebesgue Function](https://en.wikipedia.org/wiki/Cantor_function). The reason this is a counter example, is due ot the fact that this function is differentiable almost everywhere, with the derivative equal to \\(0\\) and because of that, the integral of the function from \\(0\\) to \\(1\\) is \\(0\\). But the function \\(F\\) has the following values at the endpoints: \\(F(0) = 0\\) and \\(F(1) = 1\\). So we see that 
 \\[\int_a^bF^{\'}(x)dx \neq F(b) - F(a)\\]
 Since
 \\[\int_a^bF^{\'}(x)dx = 0\\]
