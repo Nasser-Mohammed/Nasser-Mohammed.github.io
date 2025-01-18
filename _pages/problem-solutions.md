@@ -1,6 +1,6 @@
 ---
 layout: archive
-title: "Textbook Solutions"
+title: "Problem Solutions"
 permalink: /solutions/
 author_profile: false
 ---
