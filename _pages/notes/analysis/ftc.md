@@ -162,7 +162,7 @@ exists almost everywhere. Which is what we were looking for. Now we know what co
 **Corollary:**\\
 If \\(F\\) is increasing and continuous (meaning it's of bounded variation), then \\(F^{\'}\\) exists almost everywhere, and we have the following inequality (note that \\(F^{\'}\\) is non-negative and measurable):
 \\[\int_a^bF^{\'}(x)dx \le F(b) - F(a)\\]
-If you notice, this is almost what we want, however, we want the conditions for strict equality. A famous counter example to the equality we want \\(\left(\int_a^bF^{\'}(x)dx = F(b) - F(a)\right)\\), is the [Cantor-Lebesgue Function](https://en.wikipedia.org/wiki/Cantor_function). The reason this is a counter example, is due ot the fact that this function is differentiable almost everywhere, with the derivative equal to \\(0\\) and because of that, the integral of the function from \\(0\\) to \\(1\\) is \\(0\\). But the function \\(F\\) has the following values at the endpoints: \\(F(0) = 0\\) and \\(F(1) = 1\\). So we see that 
+If you notice, this is almost what we want, however, we want the conditions for strict equality. A famous counter example to the equality we want \\(\left(\int_a^bF^{\'}(x)dx = F(b) - F(a)\right)\\), is the [Cantor-Lebesgue Function](https://en.wikipedia.org/wiki/Cantor_function). The reason this is a counter example, is due to the fact that this function is differentiable almost everywhere, with the derivative equal to \\(0\\) and because of that, the integral of the function from \\(0\\) to \\(1\\) is \\(0\\). But the function \\(F\\) has the following values at the endpoints: \\(F(0) = 0\\) and \\(F(1) = 1\\). So we see that 
 \\[\int_a^bF^{\'}(x)dx \neq F(b) - F(a)\\]
 Since
 \\[\int_a^bF^{\'}(x)dx = 0\\]
