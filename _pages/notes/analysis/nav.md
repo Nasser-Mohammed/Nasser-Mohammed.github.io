@@ -9,7 +9,5 @@ The notes below come from personal notes, lecture notes, *Real Analysis: Measure
 - [Sigma Algebras](sigmaAlgebras.md)
 - [Lebesgue Measure Theory](lebesguemeas.md)
 - [Lebesgue Integration Theory](lebintegral.md)
-- [Fubini's and Tonelli's Theorems](fubini-tonelli.md)
 - [Establishing the Fundamental Theorem of Calculus with The Lebesgue Integral](ftc.md)
-- [Abstract Measure Theory](abstractmeasure.md)
-- [Lp Theory](Lp-theory.md)
+- [The Rest of Measure Theory](missing.md)
