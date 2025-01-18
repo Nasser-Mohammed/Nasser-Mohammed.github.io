@@ -176,7 +176,7 @@ This leads us to our last condition to get the Fundamental Theorem of Calculus. 
 A function \\(F\\) is absolutely continuous on an interval \\(\[a,b\]\\) if
 \\[\forall \varepsilon > 0, \exists \delta > 0 \text{ such that }\\]
 \\[\sum_{k = 1}^N(b_k - a_k) < \delta \implies \sum_{k = 1}^N\left|F(b_k) - F(a_k)\right| < \varepsilon\\]
-Now this is a stronger version of continuity, than even uniform continuity (i.e. absolute continuity \\(\implies\\) uniform continuity). Finally, we have our much wanted result from this condition. In the proof of this result, we need very techinical tools like [the vitali covering lemma](https://en.wikipedia.org/wiki/Vitali_covering_lemma), however, I will not go into detail on this. Now our final result is as follows.\\
+Now this is a strong version of continuity, stronger than even uniform continuity (i.e. absolute continuity \\(\implies\\) uniform continuity). Finally, we have our much desired result from this condition. In the proof of this result, we need very techinical tools like the [vitali covering lemma](https://en.wikipedia.org/wiki/Vitali_covering_lemma), however, I will not go into detail on this. Now our final result is as follows.\\
 \\
 **Theorem on the Integral of the Derivative:**\\
 If \\(F\\) is an absolutely continuous function on \\(\[a,b\]\\), then \\(F^{\'}\\) exists almost everywhere and is integrable, and we have our much desired equality:
