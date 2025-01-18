@@ -5,7 +5,7 @@ permalink: /notes/analysis/missing/
 author_profile: false
 --- 
 <hr style="border: 2px solid black;">
-The topics above are not an exhaustive treatment of measure theory, rather some of the most "notable" results and simply the ones I understood best. Below is a list of most of the other important topics that I could not go into detail on (either from lack of knowledge, time, or material).
+The topics covered so far is not an exhaustive treatment of measure theory, rather some of the most "notable" results and simply the ones I understood best. Below is a list of most of the other important topics that I could not go into detail on (either from lack of knowledge, time, or material). The abstract measure theory section seems like a lot, but most of it is pretty intuitive after going through Lebesgue measure theory.
 
 - [Fubini's and Tonelli's Theorems](https://en.wikipedia.org/wiki/Fubini%27s_theorem)
 - [Lp Theory](https://en.wikipedia.org/wiki/Lp_space)
