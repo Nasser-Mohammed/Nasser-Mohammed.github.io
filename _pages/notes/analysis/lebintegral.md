@@ -87,7 +87,7 @@ This theorem implies another important result, with the way a series of non-nega
 **Corollary:**
 \\[\text{If we have a series of non-negative measurable functions: } \sum_{k = 1}^{\infty}\phi_k(x) \text{ then }\\]
 \\[\int\sum_{k = 1}^{\infty}\phi_k(x) dx = \sum_{k = 1}^{\infty}\int \phi_k(x)dx\\]
-We also can conclude that if 
+We also can conclude that
 \\[\sum_{k = 1}^{\infty}\int \phi_k(x)dx < \infty \implies \\sum_{k = 1}^{\infty} \phi_k(x) \text{ converges to a finite value for almost every } x\\]
 
 
