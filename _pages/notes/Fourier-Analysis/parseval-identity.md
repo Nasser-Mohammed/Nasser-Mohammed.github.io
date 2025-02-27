@@ -49,7 +49,7 @@ This result holds for any integer \\(m\\). With that we can finish the proof of 
 \\[\frac{1}{2\pi}\sum_{n \in \mathbb{Z}}\left(\int_{-\pi}^{\pi}g(\theta)C_ne^{in\theta}d\theta\right) = \frac{1}{2\pi}\sum_{n \in \mathbb{Z}}C_n\left(\int_{-\pi}^{\pi}g(\theta)e^{in\theta}d\theta\right) = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_nD_{-n}\\]
 So we have the \\
 \\
-\underline{\textbf{Fourier Reciprocity Formula}}
+**Fourier Reciprocity Formula**
 \\[\frac{1}{2\pi}\int_{-\pi}^{\pi}f(\theta)g(\theta)d\theta = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_nD_{-n}\\]
 By letting,
 \\[g = \bar{f} \ \ \ \text{where } \bar{f} \ \ \text{ is the complex conjugate of } f\\]
@@ -63,5 +63,5 @@ And
 \\[2iab \not \in \mathbb{R} \ \ \text{ (obviously assuming } a \neq 0, b \neq 0)\\]
 Finally, when \\(g = \bar{f}\\) we have\\
 \\
-\underline{\textbf{Parseval's Identity on the Circle}}
+**Parseval's Identity on the Circle**
 \\[\frac{1}{2\pi}\int_{-\pi}^{\pi}\left|f(\theta)\right|^2d(\theta) = \frac{1}{2\pi}\sum_{n \in \mathbb{Z}}\left|C_n\right|^2\\]
