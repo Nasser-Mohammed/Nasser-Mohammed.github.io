@@ -35,7 +35,7 @@ Note that
 By the property that \\(f\\) is even, and \\(\sin\\) is odd. Substituting this in, we get
 \\[\frac{1}{\pi}\left(\int_{0}^{\pi}f(\theta)\sin(n\theta)d\theta -\int_{0}^{\pi}f(\theta)\sin(n\theta)d\theta\right) = \frac{1}{\pi}\cdot 0 = 0\\]
 Therefore, we see that 
-\\[\forall n \in \mathbb{N} \text{ and } \forall \theta \in (-\pi, \pi] \ \ \ b_n = 0\\]
+\\[\forall n \in \mathbb{N} \text{ and } \forall \theta \in (-\pi, \pi], \ \ \ b_n = 0\\]
 Finally, our Fourier Series of our even function is simply
 \\[f(\theta) = a_0 + \sum_{n=1}^{\infty}a_n\cos(n\theta)\\]
 We see that this even function is only comprised of cosine waves. 
