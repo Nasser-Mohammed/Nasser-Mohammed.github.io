@@ -35,8 +35,33 @@ Now let,
 \\[g \in L^1(\mathbb{T})\\]
 and similar to above,
 \\[D_n = \frac{1}{2\pi}\int_{-\pi}^{\pi}g(\theta)e^{-in\theta}d\theta\\]
-Now, we consider 
-\\[\int_{-\pi}^{\pi}f(\theta)g(\theta)d\theta\\]
-We can carry out integration by parts
-\\[u = f(\theta) \ \ \ \ \ du = f'(\theta)\\]
-\\[dv = g(\theta) \ \ \ \ \ v = \int g(\theta)d\theta\\]
+We must note an important orthogonality concept, in complex form we have that,
+\\[\int_{-\pi}^{\pi}e^{-ni\theta} e^{mi\theta} = 0 \ \ \text{if } m \neq n \ \text{ and equals } 2\pi \text{ when } n = m\\]
+From this, we have that (where \\(m \in \mathbb{Z}\\))
+\\[\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{-im\theta}f(\theta)d\theta = \frac{1}{2\pi}\int_{-\pi}^{\pi}e^{-im\theta}\sum_{n\in\mathbb{Z}}\left(C_ne^{in\theta}\right)d\theta \\]
+\\[\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{-im\theta}\sum_{n\in\mathbb{Z}}\left(C_ne^{in\theta}\right)d\theta = \frac{1}{2\pi}\int_{-\pi}^{\pi}\sum_{n\in\mathbb{Z}}\left(C_ne^{-im\theta}e^{in\theta}\right)d\theta\\]
+\\[\frac{1}{2\pi}\int_{-\pi}^{\pi}\sum_{n\in\mathbb{Z}}\left(C_ne^{-im\theta}e^{in\theta}\right)d\theta = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}\int_{-\pi}^{\pi}\left(C_ne^{-im\theta}e^{in\theta}\right)d\theta\\]
+\\[\frac{1}{2\pi}\sum_{n\in\mathbb{Z}}\int_{-\pi}^{\pi}\left(C_ne^{-im\theta}e^{in\theta}\right)d\theta = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_n\int_{-\pi}^{\pi}\left(e^{-im\theta}e^{in\theta}\right)d\theta\\]
+As mentioned, we know that the integral will evaluate to \\(0 \ \forall n \neq m\\) and therefore, only when \\(m = n\\) do we have \\(2\pi\\). Therefore, this will be a sum of all \\(0's\\) except for when \\(m=n\\), so we can replace \\(n\\) with \\(m\\), and we have that the entire sum evaluates to
+\\[\frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_n\int_{-\pi}^{\pi}\left(e^{-im\theta}e^{in\theta}\right)d\theta = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_n\int_{-\pi}^{\pi}\left(e^{-im\theta}e^{im\theta}\right)d\theta = 2\pi(\frac{C_m}{2\pi}) = C_m\\]
+This result holds for any integer \\(m\\). With that we can finish the proof of the formula. If we consider,
+\\[\frac{1}{2\pi}\int_{-\pi}^{\pi}f(\theta)g(\theta)d\theta = \frac{1}{2\pi}\int_{-\pi}^{\pi}g(\theta)\sum_{n \in \mathbb{Z}}C_ne^{in\theta}d\theta =  \frac{1}{2\pi}\sum_{n \in \mathbb{Z}}\left(\int_{-\pi}^{\pi}g(\theta)C_ne^{in\theta}d\theta\right)\\]
+\\[\frac{1}{2\pi}\sum_{n \in \mathbb{Z}}\left(\int_{-\pi}^{\pi}g(\theta)C_ne^{in\theta}d\theta\right) = \frac{1}{2\pi}\sum_{n \in \mathbb{Z}}C_n\left(\int_{-\pi}^{\pi}g(\theta)e^{in\theta}d\theta\right) = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_nD_{-n}\\]
+So we have the \\
+\\
+\underline{\textbf{Fourier Reciprocity Formula}}
+\\[\frac{1}{2\pi}\int_{-\pi}^{\pi}f(\theta)g(\theta)d\theta = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_nD_{-n}\\]
+By letting,
+\\[g = \bar{f} \ \ \ \text{where } \bar{f} \ \ \text{ is the complex conjugate of } f\\]
+We get Parseval's Identity. Note that taking the complex conjugate is necessary, since for a complex function \\(f\\),
+\\[f\bar{f} = \left|f\right|^2\\]
+Which is what we want in our identity, and it is not necessarily true for complex functions that \\(f\cdot f = \left|f\right|^2\\) since we are left with an imaginary unit and the modulus of a complex function is real. Therefore, we see that we need the complex conjugate to get back to a real function. For example, take 
+\\[f(x) = a(x) + ib(x)\\]
+Then
+\\[f(x)\cdot f(x) = a^2 +2iab - b^2\\]
+And 
+\\[2iab \not \in \mathbb{R} \ \ \text{ (obviously assuming } a \neq 0, b \neq 0)\\]
+Finally, when \\(g = \bar{f}\\) we have\\
+\\
+\underline{\textbf{Parseval's Identity on the Circle}}
+\\[\frac{1}{2\pi}\int_{-\pi}^{\pi}\left|f(\theta)\right|^2d(\theta) = \frac{1}{2\pi}\sum_{n \in \mathbb{Z}}\left|C_n\right|^2\\]
