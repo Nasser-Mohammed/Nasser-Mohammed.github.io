@@ -38,8 +38,5 @@ Therefore, we see that
 \\[\forall n \in \mathbb{N} \text{ and } \forall \theta \in (-\pi, \pi] \ \ \ b_n = 0\\]
 Finally, our Fourier Series of our even function is simply
 \\[f(\theta) = a_0 + \sum_{n=1}^{\infty}a_n\cos(n\theta)\\]
-\begin{tcolorbox}[colback=white, colframe=black]
-\[
-\sum_{n=1}^{\infty}\frac{1}{n^4} = \frac{\pi^4}{90}
-\]
-\end{tcolorbox}
+We see that this even function is only comprised of cosine waves. 
+
