@@ -5,7 +5,6 @@ permalink: /notes/fourier-analysis/odd-even-fourier-rep/
 author_profile: false
 --- 
 <hr style="border: 2px solid black;">
-\\
 We begin by recalling the definition of an even and odd function.\\
 \\
 An even function has the property that
@@ -35,8 +34,30 @@ Note that
 By the property that \\(f\\) is even, and \\(\sin\\) is odd. Substituting this in, we get
 \\[\frac{1}{\pi}\left(\int_{0}^{\pi}f(\theta)\sin(n\theta)d\theta -\int_{0}^{\pi}f(\theta)\sin(n\theta)d\theta\right) = \frac{1}{\pi}\cdot 0 = 0\\]
 Therefore, we see that 
-\\[\forall n \in \mathbb{N} \text{ and } \forall \theta \in (-\pi, \pi], \ \ \ b_n = 0\\]
+\\[\forall n \in \mathbb{N} \text{ and } \forall \theta \in (-\pi, \pi] \ \ \ b_n = 0\\]
 Finally, our Fourier Series of our even function is simply
 \\[f(\theta) = a_0 + \sum_{n=1}^{\infty}a_n\cos(n\theta)\\]
-We see that this even function is only comprised of cosine waves. 
+
+Now we will assume \\(f\\) is odd and show that its Fourier series is only comprised of sine waves. So, we have that 
+\\[f(-\theta) = -f(\theta)\\]
+We will consider the trigonometric Fourier Series of a function on the circle \\((-\pi, \pi]\\).
+\\[f(\theta) = a_0 + \sum_{n = 1}^{\infty}\left(a_n\cos\left(n\theta\right) +b_n\sin\left(n\theta\right)\right)\\]
+\\[a_0  = \frac{1}{2\pi}\int_{-\pi}^{\pi}f(\theta)d\theta \ \ \ \ \ \ \ \ \ \ \\]
+\\[a_n = \frac{1}{\pi}\int_{-\pi}^{\pi}f(\theta)\cos(n\theta)d\theta\\]
+\\[b_n = \frac{1}{\pi}\int_{-\pi}^{\pi}f(\theta)\sin(n\theta)d\theta\\]
+Let's analyze \\(a_n\\) more closely,
+\\[a_n = \frac{1}{2\pi}\int_{-\pi}^{\pi}f(\theta)\cos(n\theta)d\theta = \frac{1}{\pi}\left(\int_{0}^{\pi}f(\theta)\cos(n\theta)d\theta + \int_{-\pi}^{0}f(\theta)\cos(n\theta)d\theta\right)\\]
+Like before,
+\\[ \int_{-\pi}^{0}f(\theta)\cos(n\theta)d\theta =  \int_{0}^{\pi}f(-\theta)\cos(-n\theta)d\theta\\]
+Plugging that in above we have,
+\\[a_n = \frac{1}{\pi}\left(\int_{0}^{\pi}f(\theta)\cos(n\theta)d\theta + \int_{0}^{\pi}f(-\theta)\cos(-n\theta)d\theta\right)\\]
+By the property that \\(f(-\theta) = -f(\theta)\\) and \\(\cos(-n\pi) = \cos(n\pi)\\), we have
+\\[\int_{0}^{\pi}f(-\theta)\cos(-n\theta)d\theta = -\int_{0}^{\pi}f(\theta)\cos(n\theta)d\theta\\]
+Making this final substitution, we have
+\\[a_n = \frac{1}{\pi}\left(\int_{0}^{\pi}f(\theta)\cos(n\theta)d\theta  -\int_{0}^{\pi}f(\theta)\cos(n\theta)d\theta\right) = \frac{1}{\pi}\cdot 0\\]
+Therefore, we have shown that 
+\\[a_n = 0\\]
+For any odd function on the circle \\((-\pi, \pi]\\). Finally, 
+\\[f(\theta) =\sum_{n = 1}^{\infty}b_n\sin\left(n\theta\right)\\]
+We see that any odd function is comprised of only sine waves in its Fourier decomposition.
 
