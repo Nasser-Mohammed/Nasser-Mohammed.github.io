@@ -11,7 +11,7 @@ Inner product theory tells us that two function are orthogonal on an interval \\
 Note, we want the \\(L^2\\) norm, as this is the only \\(L^p\\) space whose norm comes from an inner product, 
 \\[||\cdot|| = \sqrt{\langle \cdot, \cdot \rangle}\\]
 that turns it into a Hilbert space. With a Hilbert space, we then have a concept of orthogonality. Additionally, we want an \\(L^p\\) in general (and specifically \\(L^2\\)) because we are using the Lebesgue integral and measure in our theory and therefore want to deal with functions that are integrable. Now, let's consider some integrals,
-\\[\int_{-\pi}^{\pi}\cos(nx)dx = \left[\frac{\sin(nx)}{n}\right]_{\pi}^{\pi} = \frac{1}{n}\left(\sin(n\pi) - \sin(-n\pi)\right) = 0 \ \ \forall n \geq 1\\]
+\\[\int_{-\pi}^{\pi}\cos(nx)dx = \frac{\sin(nx)}{n} = \frac{1}{n}\left(\sin(n\pi) - \sin(-n\pi)\right) = 0 \ \ \forall n \geq 1\\]
 Since \\(\sin(n\pi) = 0 \ \ \forall n \in \mathbb{Z}\\)
 \\[\int_{-\pi}^{\pi}\sin(nx)dx = \left[\frac{-\cos(nx)}{n}\right]_{\pi}^{\pi} = \frac{1}{n}\left(-\cos(n\pi) + \cos(-n\pi)\right) = \frac{1}{n}\left(-\cos(n\pi) + \cos(n\pi)\right) =0 \ \ \forall n \neq 1\\]
 By \\(\cos\\) being even and therefore, \\(\cos(-n\pi) = \cos(n\pi)\\)\\
