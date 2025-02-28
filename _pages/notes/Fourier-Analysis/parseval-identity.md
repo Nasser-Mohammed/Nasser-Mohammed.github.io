@@ -64,4 +64,4 @@ And
 Finally, when \\(g = \bar{f}\\) we have\\
 \\
 **Parseval's Identity on the Circle**
-\\[\frac{1}{2\pi}\int_{-\pi}^{\pi}\left|f(\theta)\right|^2d(\theta) = \frac{1}{2\pi}\sum_{n \in \mathbb{Z}}\left|C_n\right|^2\\]
+\\[\frac{1}{2\pi}\int_{-\pi}^{\pi}\left|f(\theta)\right|^2d\theta = \frac{1}{2\pi}\sum_{n \in \mathbb{Z}}\left|C_n\right|^2\\]
