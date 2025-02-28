@@ -45,6 +45,6 @@ We can now handle the integral,
 \\[  \frac{1}{2}\left(\int_{-\pi}^{\pi}\sin[(n-m)x] - \sin[(n + m)x]dx\right)  =   \frac{1}{2}\left(\int_{-\pi}^{\pi}\sin[(n-m)x] - \int_{-\pi}^{\pi}\sin[(n + m)x]dx\right) = 0\\]
 Note again, that for \\(n = m\\) we get \\(\pi\\) and for \\(n=-m\\) we get \\(-\pi\\) since \\(\sin\\) is odd and therefore we can pull the negative sign to the front and we would just have the negative integral of \\(\sin^2\\) which we know would be \\(-\pi\\). \\ 
 \\
-Therefore, we see that for the set of functions
-\\[\{1, \sin(nx), \cos(nx)\}\\]
+Therefore, we see that for the set of functions\\
+{\\(1, \sin(nx), \cos(nx)\\\)}
 Where \\(n \in \mathbb{N}\\), we have that all functions of this set are orthogonal to each other on the interval \\([-\pi, \pi]\\).
