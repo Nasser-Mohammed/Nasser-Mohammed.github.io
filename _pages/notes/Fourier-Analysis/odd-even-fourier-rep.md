@@ -9,7 +9,7 @@ We begin by recalling the definition of an even and odd function.\\
 \\
 An even function has the property that
 \\[f(-x) = f(x)\\]
-In other words, this function is symmetric across the y-axis.\\
+In other words, this function is **symmetric across the y-axis**.\\
 \\
 An odd function has the property that
 \\[f(-x) = -f(x)\\]
