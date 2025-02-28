@@ -46,5 +46,5 @@ We can now handle the integral,
 Note again, that for \\(n = m\\) we get \\(\pi\\) and for \\(n=-m\\) we get \\(-\pi\\) since \\(\sin\\) is odd and therefore we can pull the negative sign to the front and we would just have the negative integral of \\(\sin^2\\) which we know would be \\(-\pi\\). \\ 
 \\
 Therefore, we see that for the set of functions\\
-{\\(1, \sin(nx), \cos(nx)\\\)}
+{\\(1, \sin(nx), \cos(nx)\\\)}\\
 Where \\(n \in \mathbb{N}\\), we have that all functions of this set are orthogonal to each other on the interval \\([-\pi, \pi]\\).
