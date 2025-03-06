@@ -38,7 +38,7 @@ A TVS \\(E\\) is metrizable if there is a countable basis of neighborhoods of \\
 A complete metrizable TVS
 
 ## Frech\'et Space
-Also known as an $F$-space, this is a metrizable, complete, locally convex TVS.
+Also known as an \\(F\\)-space, this is a metrizable, complete, locally convex TVS.
 
 ## Normed Space
 A space whose topology can be defined by a norm. 
