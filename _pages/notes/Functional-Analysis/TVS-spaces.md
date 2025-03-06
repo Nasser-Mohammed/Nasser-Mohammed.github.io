@@ -22,7 +22,7 @@ Again, in English this means that every point has some form of separation betwee
 ## Compact TVS
 A Hausdorff TVS is said to be compact if every open cover has a finite subcover. An open cover of a set \\(A\\) is a collection of subsets of \\(A\\), such that \\(A\\) is the subset of the union of all the subsets in the collection. In other words, we cover our set with subsets of itself. Then a finite subcover is simply an open cover that is finite in length and therefore we can cover the set with a finite number of subsets. Closed subsets of a compact space are compact.\\
 \\
-$$ Locally Convex TVS
+## Locally Convex TVS
 A set is considered convex if it contains the line between any two of its elements. A TVS \\(E\\) is called locally convex if there is a basis of neighborhoods of \\(E\\) consisting of all convex sets. A more formal definition of convexity is as follows: A set \\(A\\) is convex if
 \\[\forall x,y \in A, \ \ \  \alpha x + \beta y \in A \ \ \text{ with } \alpha, \beta \geq 0, \ \ \alpha + \beta = 1\\]
 It's also important to note the concept of a convex hull. The convex hull of a set \\(F\\) (usually denoted \\(\Gamma (F)\\)) is the set of all finite linear combinations of elements of \\(F\\) with nonnegative coefficients who sum up to 1. More technically,\\
