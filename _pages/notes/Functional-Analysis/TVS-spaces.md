@@ -43,10 +43,10 @@ Also known as an $F$-space, this is a metrizable, complete, locally convex TVS.
 ## Normable Space
 A space whose topology can be defined by a norm. 
 
-##Banach Space
+## Banach Space
 Complete normed space
 
-##Complex Hausdorff pre-Hilbert Space
+## Complex Hausdorff pre-Hilbert Space
 A vector space with a positive definite sesquilinear form.
 
 ## Hilbert Space
