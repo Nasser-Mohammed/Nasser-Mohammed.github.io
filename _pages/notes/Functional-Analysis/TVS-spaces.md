@@ -40,7 +40,7 @@ A complete metrizable TVS
 ## Frech\'et Space
 Also known as an $F$-space, this is a metrizable, complete, locally convex TVS.
 
-## Normable Space
+## Normed Space
 A space whose topology can be defined by a norm. 
 
 ## Banach Space
