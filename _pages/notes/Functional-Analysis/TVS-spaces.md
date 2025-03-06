@@ -20,8 +20,8 @@ A TVS is Hausdorff (sometimes called \\(T_2\\)) if for any two points, there exi
 Again, in English this means that every point has some form of separation between any other point. Hausdorff spaces are pretty general and therefore we need more restrictions to make stronger conclusions. Every important TVS that we will later see will be a subset of Hausdorff TV spaces. One important result we do get from Hausdorff space is the uniqueness of the limit. In other words, sequences converge to 1 limit. 
 
 ## Compact TVS
-A Hausdorff TVS is said to be compact if every open cover has a finite subcover. An open cover of a set \\(A\\) is a collection of subsets of \\(A\\), such that \\(A\\) is the subset of the union of all the subsets in the collection. In other words, we cover our set with subsets of itself. Then a finite subcover is simply an open cover that is finite in length and therefore we can cover the set with a finite number of subsets. Closed subsets of a compact space are compact.\\
-\\
+A Hausdorff TVS is said to be compact if every open cover has a finite subcover. An open cover of a set \\(A\\) is a collection of subsets of \\(A\\), such that \\(A\\) is the subset of the union of all the subsets in the collection. In other words, we cover our set with subsets of itself. Then a finite subcover is simply an open cover that is finite in length and therefore we can cover the set with a finite number of subsets. Closed subsets of a compact space are compact.
+
 ## Locally Convex TVS
 A set is considered convex if it contains the line between any two of its elements. A TVS \\(E\\) is called locally convex if there is a basis of neighborhoods of \\(E\\) consisting of all convex sets. A more formal definition of convexity is as follows: A set \\(A\\) is convex if
 \\[\forall x,y \in A, \ \ \  \alpha x + \beta y \in A \ \ \text{ with } \alpha, \beta \geq 0, \ \ \alpha + \beta = 1\\]
