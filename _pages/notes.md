@@ -15,6 +15,7 @@ Below is a list of different topics
 - [Analysis](/notes/analysis/nav.md)
 - [Fourier Analysis and Wavelets](/notes/Fourier-Analysis/nav.md)
 - [Linear Algebra](/notes/linear-algebra/nav.md)
+- [Functional Analysis](/notes/Functional-Analysis/nav.md)
 
 
 
