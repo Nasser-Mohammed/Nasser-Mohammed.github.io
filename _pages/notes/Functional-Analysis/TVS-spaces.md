@@ -30,3 +30,27 @@ It's also important to note the concept of a convex hull. The convex hull of a s
 \\(\Gamma(F) = \\) {\\(\alpha x + \beta y \ | \ x,y \in F, \ \\ \alpha, \beta \geq 0, \ \alpha + \beta = 1\\)}\\
 \\
 Therefore, the convex hull is the smallest convex set containing \\(F\\) and we can also see that a set is convex if it's equal to its convex hull.
+
+## Metrizable TVS
+A TVS \\(E\\) is metrizable if there is a countable basis of neighborhoods of \\(0\\). This follows from the fact that a topology on \\(E\\) can be defined by a metric if and only if \\(E\\) is Hausdorff and has a countable basis of neighborhoods of \\(0\\). 
+
+## Baire Space
+A complete metrizable TVS
+
+## Frech\'et Space
+Also known as an $F$-space, this is a metrizable, complete, locally convex TVS.
+
+## Normable Space
+A space whose topology can be defined by a norm. 
+
+##Banach Space
+Complete normed space
+
+##Complex Hausdorff pre-Hilbert Space
+A vector space with a positive definite sesquilinear form.
+
+## Hilbert Space
+A complete complex Hausdorff pre-Hilbert space.
+
+## LF Space
+This has a complicated rigorous definition, however, it is more or less some sort of limit of a union of Frech\'et spaces. Any LF space is complete. 
