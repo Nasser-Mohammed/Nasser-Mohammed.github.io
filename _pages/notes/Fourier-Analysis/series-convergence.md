@@ -32,4 +32,4 @@ What this says, is that the tail end of a convergent series will be arbitrarily 
 ## Weierstrass M-Test (Uniform Convergence)
 If \\(|f_n(x)| \leq M_n \ \forall x\\) and \\(\sum M_n\\) converges, then
 \\[\sum f_n(x) \ \ \text{converges uniformly}\\]
-Furthermore, this convergence is uniform and absolute.
+Furthermore, this convergence is absolute.
