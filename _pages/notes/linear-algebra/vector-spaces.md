@@ -11,7 +11,7 @@ First we will start with a non-empty set \\(V\\) of arbitrary elements. Without 
 A subspace of a vector space, is a subset that satisfies the definition of a vector space. This definition might seem circular, however, a subspace is simply a vector space contained in another vector space. 
 
 ## Span
-The span of a set of vectors \\(T\\), is simply the set of all linear combinations of vectors from \\(T\\). For example, let \\(T =\\){\\(v_1, v_2, v_3\\)}, then the span of this set, are all the elements of the form
+The span of a set of vectors \\(T\\), is the set of all linear combinations of vectors from \\(T\\). For example, let \\(T =\\){\\(v_1, v_2, v_3\\)}, then the span of this set, are all the elements of the form
 \\[\sum_{n =1}^{3}cv_n\\]
 Where \\(c\\) can be any constant. It follows directly that the sum of any element of \\(T\\) is in the span, and so is any scalar multiple of an element from \\(T\\). Therefore, the span of any set of vectors forms a vector space itself and is therefore a subspace of the vector space that \\(T\\) is in. But what if one of the elements of \\(T\\) is some linear combination of the other two? That is, what if (for simplicity) \\(v_1 = v_2 + v_3\\)? Then it would be redundant to include \\(v_1\\) when considering our linear combination, since it is already implicitly in it. In other words, the span of \\(T\\) is the same as the span of {\\(v_2, v_3\\)}. We then may ask, what is the smallest set of vectors that spans a certain vector space? 
 
