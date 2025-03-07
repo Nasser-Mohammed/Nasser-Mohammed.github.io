@@ -9,3 +9,4 @@ The notes below come from personal notes, lecture notes, *Real Analysis: Measure
 - [Fourier Reciprocity Formula and Parseval's Identity](parseval-identity.md)
 - [Fourier Series Representation of Even and Odd Functions](odd-even-fourier-rep.md)
 - [Orthogonality of Sine and Cosine on the Circle](trig-orthogonality.md)
+- [Series Convergence Tests](series-convergence.md)
