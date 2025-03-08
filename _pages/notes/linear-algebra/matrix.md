@@ -25,10 +25,11 @@ To really understand matrices, we must know what a linear map is. We say a map \
 Here, \\(x,y \in A\\) and \\(\lambda\\) is some scalar (usually a complex or real number). This concept is very important and we will see why later.
 
 ## Back to Matrices
-We know the algorithm for computing a matrix multiplied on the left to a vector. Recall, we are considering a \\(2\times 2\\) matrix \\(A\\) and a \\(2\times 1\\) vector \\(\overline{v}\\). So the result of \\(A\cdot \overline{v}=\\)
+We know the algorithm for computing a matrix multiplied on the left to a vector. Recall, we are considering a \\(2\times 2\\) matrix \\(A\\) and a \\(2\times 1\\) vector \\(\overline{v}\\). So the result of \\(A\cdot \overline{v}=\\)\\
+Let
 <div style="text-align: center;">
 $$
-\begin{bmatrix} 
+A = \begin{bmatrix} 
 a & b \\
 c & d 
 \end{bmatrix}
