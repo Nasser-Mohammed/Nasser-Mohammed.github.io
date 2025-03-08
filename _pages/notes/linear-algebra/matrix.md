@@ -25,18 +25,27 @@ To really understand matrices, we must know what a linear map is. We say a map \
 Here, \\(x,y \in A\\) and \\(\lambda\\) is some scalar (usually a complex or real number). This concept is very important and we will see why later.
 
 ## Back to Matrices
-We know the algorithm for computing a matrix multiplied on the left to a vector. Recall, we are considering a \\(2\times 2\\) matrix \\(A\\) and a \\(2\times 1\\) vector \\(\overline{v}\\). So the result of \\(A\cdot \overline{v}=\\)\\
+We know the algorithm for computing a matrix multiplied on the left to a vector. Recall, we are considering a \\(2\times 2\\) matrix \\(A\\) and a \\(2\times 1\\) vector \\(\overline{v}\\).
 Let
 <div style="text-align: center;">
 $$
 A = \begin{bmatrix} 
-a_{11} & a_{12} \\
-a_{21} & a_{22} 
+a_{1,1} & a_{1,2} \\
+a_{2,1} & a_{2,2} 
 \end{bmatrix}
-\ \ \ \
+\ \ \ \ \ \ 
 \overline{v} = \begin{bmatrix} 
 y_{1}\\ 
 y_2
+\end{bmatrix}
+$$
+</div>
+So the result of \\(A\cdot \overline{v}=\\) is
+<div style="text-align: center;">
+$$
+A \cdot \overline{v} = \begin{bmatrix} 
+\sum_{n=1}^2 a_{1,n}y_n \\
+\sum_{n=1}^2 a_{2,n}y_n
 \end{bmatrix}
 $$
 </div>
