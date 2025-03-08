@@ -30,13 +30,13 @@ Let
 <div style="text-align: center;">
 $$
 A = \begin{bmatrix} 
-a & b \\
-c & d 
+a_{11} & a_{12} \\
+a_{21} & a_{22} 
 \end{bmatrix}
-\begin{bmatrix} 
-\sum_{n=1}^2  \\ 
-2 \\ 
-3 
+\ \ \ \
+\overline{v} = \begin{bmatrix} 
+y_{1}\\ 
+y_2
 \end{bmatrix}
 $$
 </div>
