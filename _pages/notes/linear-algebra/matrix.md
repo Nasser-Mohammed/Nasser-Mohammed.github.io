@@ -28,7 +28,7 @@ Here, \\(x,y \in A\\) and \\(\lambda\\) is some scalar (usually a complex or rea
 We know the algorithm for computing a matrix multiplied on the left to a vector. Recall, we are considering a \\(2\times 2\\) matrix \\(A\\) and a \\(2\times 1\\) vector \\(\overline{v}\\). So the result of \\(A\cdot \overline{v}=\\)
 \\[
 \begin{bmatrix} 
-a & b \\ 
+a & b \\\ 
 c & d 
 \end{bmatrix}
 \begin{bmatrix} 
