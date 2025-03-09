@@ -73,13 +73,13 @@ Finally, we can bring out the \\(y_1\\) and \\(y_2\\) and get
 <div style="text-align: center;">
 $$
 y_1 \begin{bmatrix}
-a_{1,1}\cdot y_1 \\
-a_{2,1} \cdot y_1
+a_{1,1} \\
+a_{2,1}
 \end{bmatrix}
 +
 y_2 \begin{bmatrix}
-  a_{1,2}\cdot y_2\\
-  a_{2,2} \cdot y_2
+  a_{1,2}\\
+  a_{2,2}
   \end{bmatrix}
 \
 $$
@@ -118,7 +118,7 @@ Which really is
 \\[(\sum_{n=1}^2 a_{1,n}\cdot y_n)\hat{i} + (\sum_{n=1}^2 a_{2,n} \cdot y_n)\hat{j}\\]
 
 ## Nullspace of a Matrix
-The nullspace is a property of a matrix. If you are familiar with abstract algebra it is similar to the concept of the kernel of a mapping. Essentially, it is the set of all vectors that a matrix sends to the origin. More fomally, for a matrix \\(A\\), it is the set of all vectors that satisfies the equation
+The nullspace is a characterstic of a matrix, and forms a subspace of the vector space we are in. If you are familiar with abstract algebra it is similar to the concept of the kernel of a mapping. Essentially, it is the set of all vectors that a matrix sends to the origin. More fomally, for a matrix \\(A\\), it is the set of all vectors that satisfies the equation
 \\[A\overline{x} = 0\\]
 
 ## Column Space of a Matrix
