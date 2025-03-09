@@ -47,6 +47,11 @@ A \cdot \overline{v} = \begin{bmatrix}
 \sum_{n=1}^2 a_{1,n}\cdot y_n \\
 \sum_{n=1}^2 a_{2,n} \cdot y_n
 \end{bmatrix}
+  = 
+  \begin{bmatrix}
+a_{1,1}\cdot y_1 +a_{1,2}\cdot y_2\\
+a_{2,1} \cdot y_1 + a_{2,2} \cdot y_2
+\end{bmatrix}
 $$
 </div>
 We can break this up into two vectors, 
