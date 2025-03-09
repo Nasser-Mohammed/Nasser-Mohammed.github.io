@@ -25,7 +25,7 @@ To really understand matrices, we must know what a linear map is. We say a map \
 Here, \\(x,y \in A\\) and \\(\lambda\\) is some scalar (usually a complex or real number). This concept is very important and we will see why later.
 
 ## Matrix Multiplied to a Vector
-We know the algorithm for computing a matrix multiplied on the left to a vector. Recall, we are considering a \\(2\times 2\\) matrix \\(A\\) and a \\(2\times 1\\) vector \\(\overline{v}\\). Also recall that an element of \\(\mathbb{R}^2\\) is a tuple of two real numbers (think of an ordered pair representing a point in the plane), and the basis of the vector space (the typical basis) is described by the two elements \\((1,0)\\) which is often regarded as the x unit vector, and \\(0,1)\\) which would be the y unit vector. Therefore, any other element in \\(\mathbb{R}^2\\) is described by some linear combination of these two elements. Scalar multiplication and addition of two elements here is defined the usual way. \\ 
+We know the algorithm for computing a matrix multiplied on the left to a vector. Recall, we are considering a \\(2\times 2\\) matrix \\(A\\) and a \\(2\times 1\\) vector \\(\overline{v}\\). Also recall that an element of \\(\mathbb{R}^2\\) is a tuple of two real numbers (think of an ordered pair representing a point in the plane), and the basis of the vector space (the typical basis) is described by the two elements \\((1,0)\\) which is often regarded as the x unit vector, and \\(0,1)\\) which would be the y unit vector. Therefore, any other element in \\(\mathbb{R}^2\\) is described by some linear combination of these two elements. Scalar multiplication and addition of two elements here is defined the usual way.
 Let
 <div style="text-align: center;">
 $$
@@ -84,6 +84,39 @@ y_2 \begin{bmatrix}
 \
 $$
 </div>
+In other words, our new transformed vector (we shall denote it by \\(\overline{z}\\)) is the linear combination of the columns with the components of \\(\overline{v}\\). What this means, is that if we applied this matrix to our entire vector space, every vector would be described by the linear combination of the columns of \\(A\\). In other words, we are essentially changing the basis of our vector space to the columns of \\(A\\). Now to be more certain of our assertion, let's consider what the matrix does to the actual basis elements. First, we must convince ourselves that 
+<div style="text-align: center;">
+$$
+ \begin{bmatrix}
+1 \\
+0
+\end{bmatrix}  \ \ \ \ \
+\text{  and   } \ \ \ \ \
+  y_1 \begin{bmatrix}
+0 \\
+1
+\end{bmatrix}
+$$
+</div>
+Correspond to the actual basis elements (\\(1,0)\\) and (\\(0,1\\)). Converting this from vector form, we know that the vectors are equal to 
+\\[1(1,0) + 0(0,1) \ \ \ \ \text{ and } 0(1,0) + 1(0,1)\\]
+Which are simply 
+\\[(1,0) \ \ \text{ and } (0,1) \ \ \text{respectively}\\]
+Which are indeed our basis elements. Now, if we consider the matrix multiplied to these basis elements, we would have
+<div style="text-align: center;">
+$$
+A \cdot \begin{bmatrix}
+1 \\
+0
+\end{bmatrix}  \ \ \ \ \
+\text{  and   } \ \ \ \ \
+A \cdot \begin{bmatrix}
+0 \\
+1
+\end{bmatrix}
+$$
+</div>
+
 
 # Then what is Matrix Multiplication
 Since we know that in the context of a matrix being multiplied to a vector, the result is a linear transformation of that vector, we might then ask what does it mean for two matrices to be multiplied together. Really, it is nothing more than the composition of two transformations, that is, we basically compress the effect of multiplying a vector by a matrix, then multiplying it again by another matrix, into one matrix via matrix multiplication.
