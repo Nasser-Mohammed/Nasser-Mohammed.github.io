@@ -58,7 +58,7 @@ k
 \end{bmatrix}
 $$
 </div>
-This is really just a notation of a vector, the real vector corresponding to 
+This is really just a concise notation for a vector, the real vector corresponding to 
 <div style="text-align: center;">
 $$
 \begin{bmatrix} 
@@ -69,8 +69,18 @@ $$
 </div>
 is actually 
 \\[2\hat{i} + 5\hat{j}\\]
-where we are assuming the basis vectors are \\(\hat{i}\\) and \\(\hat{j}\\) in the normal \\(\mathbb{R}^2\\) vector space. 
-
+where we are assuming the basis vectors are \\(\hat{i}\\) and \\(\hat{j}\\) in the normal \\(\mathbb{R}^2\\) vector space (i.e. the \\(x\\) and \\(y\\) unit vectors)
+So \\(A\cdot \overline{v}=\\) 
+<div style="text-align: center;">
+$$
+A \cdot \overline{v} = \begin{bmatrix} 
+\sum_{n=1}^2 a_{1,n}\cdot y_n \\
+\sum_{n=1}^2 a_{2,n} \cdot y_n
+\end{bmatrix}
+$$
+</div>
+Which really is 
+\\[(\sum_{n=1}^2 a_{1,n}\cdot y_n)\hat{i} + (\sum_{n=1}^2 a_{2,n} \cdot y_n)\hat{j}\\]
 
 
 
