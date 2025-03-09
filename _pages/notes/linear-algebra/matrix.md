@@ -40,7 +40,7 @@ y_2
 \end{bmatrix}
 $$
 </div>
-So the result of \\(A\cdot \overline{v}=\\) is
+So \\(A\cdot \overline{v}=\\) 
 <div style="text-align: center;">
 $$
 A \cdot \overline{v} = \begin{bmatrix} 
