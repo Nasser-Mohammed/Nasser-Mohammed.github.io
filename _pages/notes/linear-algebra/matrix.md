@@ -44,8 +44,8 @@ So the result of \\(A\cdot \overline{v}=\\) is
 <div style="text-align: center;">
 $$
 A \cdot \overline{v} = \begin{bmatrix} 
-\sum_{n=1}^2 a_{1,n}y_n \\
-\sum_{n=1}^2 a_{2,n}y_n
+\sum_{n=1}^2 a_{1,n}\cdot y_n \\
+\sum_{n=1}^2 a_{2,n} \cdot y_n
 \end{bmatrix}
 $$
 </div>
