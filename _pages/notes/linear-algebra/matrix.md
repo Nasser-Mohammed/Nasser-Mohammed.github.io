@@ -25,7 +25,7 @@ To really understand matrices, we must know what a linear map is. We say a map \
 Here, \\(x,y \in A\\) and \\(\lambda\\) is some scalar (usually a complex or real number). This concept is very important and we will see why later.
 
 ## Matrix Multiplied to a Vector
-We know the algorithm for computing a matrix multiplied on the left to a vector. Recall, we are considering a \\(2\times 2\\) matrix \\(A\\) and a \\(2\times 1\\) vector \\(\overline{v}\\).
+We know the algorithm for computing a matrix multiplied on the left to a vector. Recall, we are considering a \\(2\times 2\\) matrix \\(A\\) and a \\(2\times 1\\) vector \\(\overline{v}\\). Also recall that an element of \\(\mathbb{R}^2\\) is a tuple of two real numbers (think of an ordered pair representing a point in the plane), and the basis of the vector space (the typical basis) is described by the two elements \\((1,0)\\) which is often regarded as the x unit vector, and \\(0,1)\\) which would be the y unit vector. Therefore, any other element in \\(\mathbb{R}^2\\) is described by some linear combination of these two elements. Scalar multiplication and addition of two elements here is defined the usual way. \\ 
 Let
 <div style="text-align: center;">
 $$
@@ -84,38 +84,10 @@ y_2 \begin{bmatrix}
 \
 $$
 </div>
-Now we know that when we say a vector
-<div style="text-align: center;">
-$$
-\begin{bmatrix} 
-k\\
-m
-\end{bmatrix}
-$$
-</div>
-This is really just a concise notation for a vector, the real vector corresponding to 
-<div style="text-align: center;">
-$$
-\begin{bmatrix} 
-2\\
-5
-\end{bmatrix}
-$$
-</div>
-is actually 
-\\[2\hat{i} + 5\hat{j}\\]
-where we are assuming the basis vectors are \\(\hat{i}\\) and \\(\hat{j}\\) in the normal \\(\mathbb{R}^2\\) vector space (i.e. the \\(x\\) and \\(y\\) unit vectors)
-So \\(A\cdot \overline{v}=\\) 
-<div style="text-align: center;">
-$$
-A \cdot \overline{v} = \begin{bmatrix} 
-\sum_{n=1}^2 a_{1,n}\cdot y_n \\
-\sum_{n=1}^2 a_{2,n} \cdot y_n
-\end{bmatrix}
-$$
-</div>
-Which really is 
-\\[(\sum_{n=1}^2 a_{1,n}\cdot y_n)\hat{i} + (\sum_{n=1}^2 a_{2,n} \cdot y_n)\hat{j}\\]
+
+# Then what is Matrix Multiplication
+Since we know that in the context of a matrix being multiplied to a vector, the result is a linear transformation of that vector, we might then ask what does it mean for two matrices to be multiplied together. Really, it is nothing more than the composition of two transformations, that is, we basically compress the effect of multiplying a vector by a matrix, then multiplying it again by another matrix, into one matrix via matrix multiplication.
+
 
 ## Nullspace of a Matrix
 The nullspace is a characterstic of a matrix, and forms a subspace of the vector space we are in. If you are familiar with abstract algebra it is similar to the concept of the kernel of a mapping. Essentially, it is the set of all vectors that a matrix sends to the origin. More fomally, for a matrix \\(A\\), it is the set of all vectors that satisfies the equation
