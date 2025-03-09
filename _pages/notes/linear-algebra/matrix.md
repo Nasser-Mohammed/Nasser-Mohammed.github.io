@@ -69,6 +69,21 @@ a_{2,1} \cdot y_1
 \
 $$
 </div>
+Finally, we can bring out the \\(y_1\\) and \\(y_2\\) and get
+<div style="text-align: center;">
+$$
+y_1 \begin{bmatrix}
+a_{1,1}\cdot y_1 \\
+a_{2,1} \cdot y_1
+\end{bmatrix}
++
+y_2 \begin{bmatrix}
+  a_{1,2}\cdot y_2\\
+  a_{2,2} \cdot y_2
+  \end{bmatrix}
+\
+$$
+</div>
 Now we know that when we say a vector
 <div style="text-align: center;">
 $$
