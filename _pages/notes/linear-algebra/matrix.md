@@ -62,14 +62,14 @@ This is really just a notation of a vector, the real vector corresponding to
 <div style="text-align: center;">
 $$
 \begin{bmatrix} 
-j\\
-k
+2\\
+5
 \end{bmatrix}
 $$
 </div>
 is actually 
-\\[j + k\\]
-where we are assuming the basis vectors are \\((1,0)\\) and \\((0,1)\\) in the normal \\(\mathbb{R}^2\\) vector space. 
+\\[2\hat{i} + 5\hat{j}\\]
+where we are assuming the basis vectors are \\(\hat{i}\\) and \\(\hat{j}\\) in the normal \\(\mathbb{R}^2\\) vector space. 
 
 
 
