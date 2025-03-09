@@ -49,3 +49,28 @@ A \cdot \overline{v} = \begin{bmatrix}
 \end{bmatrix}
 $$
 </div>
+Now we know that when we say a vector
+<div style="text-align: center;">
+$$
+\begin{bmatrix} 
+j\\
+k
+\end{bmatrix}
+$$
+</div>
+This is really just a notation of a vector, the real vector corresponding to 
+<div style="text-align: center;">
+$$
+\begin{bmatrix} 
+j\\
+k
+\end{bmatrix}
+$$
+</div>
+is actually 
+\\[j + k\\]
+where we are assuming the basis vectors are \\((1,0)\\) and \\((0,1)\\) in the normal \\(\mathbb{R}^2\\) vector space. 
+
+
+
+
