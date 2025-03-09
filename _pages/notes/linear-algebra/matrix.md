@@ -24,7 +24,7 @@ To really understand matrices, we must know what a linear map is. We say a map \
 \\[\text{Homogeneity: } \phi(\lambda x) = \lambda\phi(x)\\]
 Here, \\(x,y \in A\\) and \\(\lambda\\) is some scalar (usually a complex or real number). This concept is very important and we will see why later.
 
-## Back to Matrices
+## Matrix Multiplied to a Vector
 We know the algorithm for computing a matrix multiplied on the left to a vector. Recall, we are considering a \\(2\times 2\\) matrix \\(A\\) and a \\(2\times 1\\) vector \\(\overline{v}\\).
 Let
 <div style="text-align: center;">
@@ -47,6 +47,21 @@ A \cdot \overline{v} = \begin{bmatrix}
 \sum_{n=1}^2 a_{1,n}\cdot y_n \\
 \sum_{n=1}^2 a_{2,n} \cdot y_n
 \end{bmatrix}
+$$
+</div>
+We can break this up into two vectors, 
+<div style="text-align: center;">
+$$
+\begin{bmatrix}
+a_{1,1}\cdot y_1 \\
+a_{2,1} \cdot y_1
+\end{bmatrix}
++
+\begin{bmatrix}
+  a_{1,2}\cdot y_2\\
+  a_{2,2} \cdot y_2
+  \end{bmatrix}
+\
 $$
 </div>
 Now we know that when we say a vector
@@ -81,6 +96,13 @@ $$
 </div>
 Which really is 
 \\[(\sum_{n=1}^2 a_{1,n}\cdot y_n)\hat{i} + (\sum_{n=1}^2 a_{2,n} \cdot y_n)\hat{j}\\]
+
+## Nullspace of a Matrix
+The nullspace is a property of a matrix. If you are familiar with abstract algebra it is similar to the concept of the kernel of a mapping. Essentially, it is the set of all vectors that a matrix sends to the origin. More fomally, for a matrix \\(A\\), it is the set of all vectors that satisfies the equation
+\\[A\overline{x} = 0\\]
+
+## Column Space of a Matrix
+The column space of a matrix is the set of all linear combinations of each column of the matrix.
 
 
 
