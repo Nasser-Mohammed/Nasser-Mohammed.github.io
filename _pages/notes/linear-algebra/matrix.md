@@ -53,8 +53,8 @@ Now we know that when we say a vector
 <div style="text-align: center;">
 $$
 \begin{bmatrix} 
-j\\
-k
+k\\
+m
 \end{bmatrix}
 $$
 </div>
