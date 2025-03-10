@@ -8,3 +8,7 @@ author_profile: false
 Since the theory of Functional Analysis is a reconciliation of topological and vector space characteristics and compatibility, we
 naturally necessitate some level of "algebraic" theory. The intent of this page is to go over some of the algebraic concepts to 
 allow for an ease of understanding when going through the other content.
+
+## Algebraic Dual Space
+
+## Natural Projection
