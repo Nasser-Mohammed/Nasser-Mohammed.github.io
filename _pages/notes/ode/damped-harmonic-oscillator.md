@@ -24,5 +24,5 @@ Again, acceleration is the second derivative of displacement, so we can rewrite 
 Depending on the coefficients, we could get different solutions. But let's imagine there was no friction, instead, our object would oscillate back and forth between the endpoints and the center. The equation would reduce to, 
 \\[m\ddot{x} = -kx\\]
 The solution to this ODE is simply
-\\[x(t) = Ccos(\sqrt{\frac{k}{m}}t + \phi\\]
-In other words, we can predict the future motion of this object through this equation. 
+\\[x(t) = Ccos(\sqrt{\frac{k}{m}}t + \phi)\\]
+In other words, we can predict the future motion of this object through this equation. When we assume that there is no friction, this becomes simply a harmonic oscillator (as there is no damping).
