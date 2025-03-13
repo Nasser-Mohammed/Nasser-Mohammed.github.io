@@ -5,7 +5,7 @@ permalink: /notes/fourier-analysis/cauchy-product/
 author_profile: false
 --- 
 <hr style="border: 2px solid black;">
-There are various tests/comparisons for determining if a series converges or not. Knowing the main ones is crucial for the study of Fourier Analysis, so I will cover the most used ones.\\
+There are various tests/comparisons for determining if a series converges or not. Knowing the main ones is crucial for the study of Fourier Analysis, so I will cover the most used ones.
 
 ## Comparison Test
 If we have that,
