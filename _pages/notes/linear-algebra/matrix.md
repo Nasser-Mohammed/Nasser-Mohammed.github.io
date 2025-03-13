@@ -130,4 +130,5 @@ The nullspace is a characterstic of a matrix, and forms a subspace of the vector
 The column space of a matrix is the set of all linear combinations of each column of the matrix.
 
 
-
+## Determinant of a Matrix
+The determinant essentially tells us the signed area (volume in higher dimensions) of the paralellogram formed by the column vectors the matrix consists of.
