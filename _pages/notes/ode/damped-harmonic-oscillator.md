@@ -25,4 +25,4 @@ Depending on the coefficients, we could get different solutions. But let's imagi
 \\[m\ddot{x} = -kx\\]
 The solution to this ODE is simply
 \\[x(t) = Ccos(\sqrt{\frac{k}{m}}t + \phi)\\]
-In other words, we can predict the future motion of this object through this equation. When we assume that there is no friction, this becomes simply a harmonic oscillator (as there is no damping).
+In other words, we can predict the future motion of this object through this equation. When we assume that there is no friction, this simply becomes a harmonic oscillator (as there is no damping).
