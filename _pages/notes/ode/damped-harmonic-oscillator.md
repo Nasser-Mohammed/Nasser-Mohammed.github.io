@@ -6,7 +6,7 @@ author_profile: false
 --- 
 <hr style="border: 2px solid black;">
 One of the simplest 2nd order ODEs that we can solve explicitly, is the so called **damped harmonic oscillator**. We will begin with the derivation of this ODE with some basic Newtonian mechanics. First, imagine that there is a small object attached to the end of a spring. This spring, when pulled, exerts a restoring force on the object, and assume that there is some form of friction on the object (either by air or ground). See the video below for more intuition.
-![Alt Text](damped_oscillator_k.gif)
+![Alt Text](damped_oscillator_k.gif) \\
 Now, Newton's second law of motion states that the force being applied to an object is equal to the mass of that object times its acceleration, or more formally,
 \\[F_{\text{net}} = m\cdot a\\]
 By Hooke's law, the force that a spring exerts on an object is given by 
