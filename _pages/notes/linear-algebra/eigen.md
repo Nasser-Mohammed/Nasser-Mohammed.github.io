@@ -48,3 +48,8 @@ Solving for \\(\lambda\\) (which is usually very simple with the quadratic formu
 \\[(A-\lambda I)\overline{v} = 0\\]
 Therefore, we have that the eigenvectors of a matrix, are the vectors in our vector space that are only scaled during transformation (kind of think of them as fixed vectors), and the corresponding eigenvalue tells you how much that eigenvector was scaled by. This should cover all of the intuition needed to understand eigenvalues and eigenvectors and where the formulas come from. An important thing to note is that eigenvalues and eigenvectors are "properties" of a matrix with respect to the vector space it's acting on. 
 
+## What Do Eigenvalues Tell Us About the Transformation?
+If our characteristic polynomial produces \\(n\\) many distinct real values, then it stretches each corresponding eigenvector by that value. If we have two repeated real valued eigenvalues then the transformation could shear our space (slant it in one direction) or scale it. If we have complex roots for \\(\lambda\\), then we have some sort of stretching based on the real component and rotation based on the imaginary component, this can sometimes look like a sort of spiraling motion.
+
+## Eigenbasis
+An eigenbasis, is simply a basis in which every element is an eigenvector for some matrix.
