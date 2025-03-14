@@ -53,3 +53,6 @@ If our characteristic polynomial produces \\(n\\) many distinct real values, the
 
 ## Eigenbasis
 An eigenbasis, is simply a basis in which every element is an eigenvector for some matrix.
+
+## Diagonal Matrices
+Diagonal matrices are very nice matrices to work with, but we can also note that in an \\(n\\) dimensional space, an \\(n\\) dimensional diagonal matrice's eigenvectors are the basis vectors of the space, and the eigenvalues are just the values that you multiply to each basis value to get the corresponding value in the diagonal matrix.
