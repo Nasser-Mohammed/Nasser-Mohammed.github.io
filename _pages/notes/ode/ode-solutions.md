@@ -31,7 +31,7 @@ Where the derivative is applied to each element of the matrix.
 ## The Wronskian
 An easy way to tell if a set of vector are linearly independent, is to put them as columns of a matrix, and take the determinent of that matrix. If the determinent of the matrix is **non-zero**, then the set of vector are linearly independent. If it's zero, then the set is linearly dependent. Above I mentioned the fundamental matrix solution, but we can have a matrix solution that is not the fundamental matrix solution. It solves the ODE, but the solutions are not linearly independent, therefore, we call the determinent of a matrix solution as the Wronskian. 
 \\[\mathbb{W}(t) = \det (M(t))\\]
-
+Now, we can know if a matrix solution is the fundamental matrix solution or not, based on whether or not \\(\mathbb{W}(t)\\) is non-zero.
 
 
 
