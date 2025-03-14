@@ -27,3 +27,13 @@ If it isn't obvious, we have that the derivative of this linear combination is e
 A question that naturally arises form the development of a vector space is, what is the basis for this vector space? Obviously, this is the set of linearly independent solutions which span the space. We call this set, the set of **Fundamental set of solutions**. With that, we can dump these solutions into a matrix, where each column is the solution vector. We call this matrix the **Fundamental matrix solution** and it also solves the ODE (by performing the appropriate operations on it). Say \\(M(t)\\) is the fundamental matrix solution, then it also solves the equation
 \\[\frac{d}{dt}M(t) = f(t)M(t)\\]
 Where the derivative is applied to each element of the matrix.
+
+## The Wronskian
+An easy way to tell if a set of vector are linearly independent, is to put them as columns of a matrix, and take the determinent of that matrix. If the determinent of the matrix is **non-zero**, then the set of vector are linearly independent. If it's zero, then the set is linearly dependent. Above I mentioned the fundamental matrix solution, but we can have a matrix solution that is not the fundamental matrix solution. It solves the ODE, but the solutions are not linearly independent, therefore, we call the determinent of a matrix solution as the Wronskian. 
+\\[\mathbb{W}(t) = \det (M(t))\\]
+
+
+
+
+
+
