@@ -14,9 +14,9 @@ One part of the previous question, is to consider if our vector was stretched or
 Let's assume that we are dealing with a "good" matrix \\(A\\), as defined in the first paragraph. Let us also suppose that there was possibly a vector in our space, that after the transformation via our matrix, still lies on the same "line" as before. In a more abstract sense, this means that the span of the vector before transformation, is the same as after the transformation. For more intuition, the matrix only scaled this vector. Let's denote this vector as \\(\overline{v}\\), then since we know that it was only scaled, we can say that
 \\[A\overline{v} = \lambda \overline{v}\\]
 Where \\(\lambda\\) is simply an element of our field (a scalar value, usually complex or real). In other words, the equation above, corresponds to the idea that the matrix multiplied to our vector has the same effect as multiplying the vector by a scalar, essentially just scaling it. We note that the identity matrix \\(I\\), which is simply just the matrix with 1's along the diagonal and 0's else where, can be multiplied to \\(\overline{v}\\) without altering it's values. It is the matrix version of the value \\(1\\). Doing so gives us
-\\[A\overline{v} = \lambda I \overline{v}\\]
+\\[A\overline{v} = \lambda I \bar{v}\\]
 Reearranging this equation yields, 
-\\[A\overline{v} - \lambda I \overline{v} = 0\\]
+\\[A\overline{v} - \lambda I \bar{v} = 0\\]
 Pulling out a \\(\overline{v}\\), gives
 \\[(A - \lambda I) \overline{v} = 0\\]
 Now, \\(\overline{v}\\) obviously solves this, but we are interested in non-zero solutions. So we are assuming \\(\overline{v} \neq \overline{0}\\).  As a quick note, \\(\overline{v}\\) is an eigenvector of the matrix \\(A\\), but there is still more work to do. The only time that the product of a matrix and a non-zero vector is 0 (and here \\(\overline{v} \neq \overline{0}\\)), is precisely when the determinent of the matrix is 0. Recall, that the determinent essentially tells us the "volume" created by the shape of the new basis vectors in the dimension of the transformation. If this is 0, then the matrix squished space down into a lower dimension, resulting in a volume of 0 with respect to the current space. That is, the new lower dimensional space takes up 0 area in our current dimension. Therefore, we can deduce that 
