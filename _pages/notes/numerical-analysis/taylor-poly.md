@@ -12,7 +12,7 @@ Where \\(f^{(n)}\\) is the \\(n\\)-th derivative, and \\((x-a)^n\\) is the \\(n\
 decomposition? The amazing thing about the Taylor series, is that we can write (almost) any function using this formula. Furthermore,
 this means that we can reconstruct (almost) any function as long as we know the value of the function at a point for every derivative
 (or to the degree of accuracy we want). Again, this is not a small result. We can completely reconstruct a function to an arbitrary degree
-with one (kind of two) piece of information (for every degree of accuracy we want), the value of a function at **one** single point 
+with one (kind of two) piece(s) of information (for every degree of accuracy we want), the value of a function at **one** single point 
 for each derivative of the function. More than just this, this is almost necessary in computational cases (as in your computer, phone, etc)
 since we cannot represent functions like \\(\sin, \cos, e^x\\) in their typical form. How would you compute \\(\sin\\) on a computer?
 That is exactly where this Taylor series comes in, on all of our devices and calculators, we represent these functions in their 
