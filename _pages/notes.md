@@ -12,6 +12,7 @@ Below is a list of different topics
 ===
 - [Linear Algebra](/notes/linear-algebra/nav.md)
 - [Analysis](/notes/analysis/nav.md)
+- [Numerical Analysis](/notes/numerical-analysis/nav.md)
 - [Ordinary Differential Equations](/notes/ode/nav.md)
 - [Partial Differential Equations](/notes/pde/nav.md)
 - [Fourier Analysis and Wavelets](/notes/Fourier-Analysis/nav.md)
