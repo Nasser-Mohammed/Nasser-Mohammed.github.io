@@ -1,7 +1,7 @@
 ---
 layout: archive
-title: "Trigonometric Fourier Representation of Odd and Even Functions"
-permalink: /notes/fourier-analysis/odd-even-fourier-rep/
+title: "The Taylor Series"
+permalink: /notes/numerical-analysis/taylor-series/
 author_profile: false
 --- 
 <hr style="border: 2px solid black;">
@@ -28,6 +28,6 @@ Differentiating our polynomial, we get
 Again, clearly we can set \\(x=0\\) to find \\(a_1\\)
 \\[f'(0) = a_1\\]
 Repeating this one more time,
-\\[f^{'\'}(x) = 2\cdot a_2 + 3\cdot 2 \cdot a_3x + ..........\\]
+\\[f^{\'\'}(x) = 2\cdot a_2 + 3\cdot 2 \cdot a_3x + ..........\\]
 We can now start to see a pattern. So we can start to rewrite our function as
-\\[f(x) = f(0) + f'(0)x + \frac{f^{'\'}(0)}{2}x^2 + ....... + \frac{f^{(n)}(0)}{n!}x^n + ......... +\\]
+\\[f(x) = f(0) + f'(0)x + \frac{f^{\'\'}(0)}{2}x^2 + ....... + \frac{f^{(n)}(0)}{n!}x^n + ......... +\\]
