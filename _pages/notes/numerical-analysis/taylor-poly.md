@@ -17,3 +17,17 @@ for each derivative of the function. More than just this, this is almost necessa
 since we cannot represent functions like \\(\sin, \cos, e^x\\) in their typical form. How would you compute \\(\sin\\) on a computer?
 That is exactly where this Taylor series comes in, on all of our devices and calculators, we represent these functions in their 
 Taylor series, and compute the functions to an arbitrary degree of accuracy.
+
+## Derivation of the Taylor Series
+I will provide a simple derivation of this series, as this formula alone does not really tell the whole story. After all, without context this seems like an arbitrary decomposition of a function. So, first let's assume we want to approximate our function \\(f(x)\\) with some polynomial of arbitrary length. So,
+\\[f(x) = a_0 + a_1x + a_2x^2 + ..... + a_nx^n + .....\\]
+Now the challenge here would be to find the right coefficients \\(a_n\\) that make this polynomial very close to our function. Well it's obvious that if we let \\(x=0\\), we'll be left with \\(a_0\\) and therefore have found our first coefficient. 
+\\[f(0) = a_0\\]
+Differentiating our polynomial, we get
+\\[f'(x) = a_1 + 2\cdot a_2x + 3\cdot a_3x^2..... + n\cdot a_nx^{n-1} + .....\\]
+Again, clearly we can set \\(x=0\\) to find \\(a_1\\)
+\\[f'(0) = a_1\\]
+Repeating this one more time,
+\\[f^{'\'}(x) = 2\cdot a_2 + 3\cdot 2 \cdot a_3x + ..........\\]
+We can now start to see a pattern. So we can start to rewrite our function as
+\\[f(x) = f(0) + f'(0)x + \frac{f^{'\'}(0)}{2}x^2 + ....... + \frac{f^{(n)}(0)}{n!}x^n + ......... +\\]
