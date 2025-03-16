@@ -31,3 +31,6 @@ Repeating this one more time,
 \\[f^{\'\'}(x) = 2\cdot a_2 + 3\cdot 2 \cdot a_3x + ..........\\]
 We can now start to see a pattern. So we can start to rewrite our function as
 \\[f(x) = f(0) + f'(0)x + \frac{f^{\'\'}(0)}{2}x^2 + ....... + \frac{f^{(n)}(0)}{n!}x^n + ......... +\\]
+Or more generally
+\\[f(x) = \sum_{n=0}^{\infty}\frac{f^{(n)}}{n!}x^n\\]
+Why does this differ from the first formula? Well, we made an implicit assumption during this derivation. That is, what about the actual value of \\(f(0)\\)? That's where the \\(-a\\) term comes in.
