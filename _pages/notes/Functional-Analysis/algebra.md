@@ -28,8 +28,8 @@ $$
 If we have a linear map
 \\[\varphi : V \to E\\]
 Where \\(V\\) and \\(E\\) are both vector spaces. Then the **algebraic transpose** (also known as the dual map) is the reverse map of their dual spaces. More formally, it is the map
-\\[\varphi *: E* \to V*\\]
-This says that, for every linear functional \\(\psi \in E*\\), the algebraic transpose is a linear functional \\(\varphi *(\psi) \in V*\\) defined by
+\\[\varphi \*: E\* \to V\*\\]
+This says that, for every linear functional \\(\psi \in E\*\\), the algebraic transpose is a linear functional \\(\varphi \*(\psi) \in V\*\\) defined by
 \\[(\varphi *(\psi))(v) = \psi(\varphi(v)) \ \ \forall v \in V\\]
 
 
