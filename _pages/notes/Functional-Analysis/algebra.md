@@ -14,6 +14,8 @@ allow for an ease of understanding when going through the other content.
 ## Natural Injection
 Consider,
 $$f:E \to F$$
-This is a canonical mapping that assigns every element of the image of a function to the same element 
+Then the natural injection is the injective map $i$, such that
+$$i: im(E) \to F$$
+In other words, since $f$ might not take every element of $E$ to $F$, we then define the natural injection from that image to the full set $F$. This allows us to embed the algebraic structure of a smaller set into a larger set.
 
 ## Natural Projection
