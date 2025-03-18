@@ -11,4 +11,9 @@ allow for an ease of understanding when going through the other content.
 
 ## Algebraic Dual Space
 
+## Natural Injection
+Consider,
+$$f:E \to F$$
+This is a canonical mapping that assigns every element of the image of a function to the same element 
+
 ## Natural Projection
