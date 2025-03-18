@@ -18,6 +18,12 @@ However, in linear algebra, functionals are more generally defined as maps from 
 
 ## Algebraic Dual Space
 For a vector space \\(V\\) over the field \\(\mathbb{C}\\), the algebraic dual, denoted \\(V*\\), is the set of all linear functionals. More formally,
+<div align="center">
+$$
+V^* = \{ \varphi : V \to \mathbb{C} \mid \varphi \text{ is linear} \}
+$$
+</div>
+
 
 ## Natural Injection
 Consider, \\
