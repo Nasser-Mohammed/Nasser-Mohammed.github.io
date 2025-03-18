@@ -9,7 +9,15 @@ Since the theory of Functional Analysis is a reconciliation of topological and v
 naturally necessitate some level of "algebraic" theory. The intent of this page is to go over some of the algebraic concepts to 
 allow for an ease of understanding when going through the other content.
 
+## Functionals
+Depending on the context this might take slightly different definitions. In calculus, functionals are functions of functions. In other words, they take in a function and output a value. We can think of a definite integral as a sort of functional in this regard. Consider
+\\[\phi(f) = \int_0^1f(x)dx\\]
+This would be a functional in the standard calculus way.\\
+\\
+However, in linear algebra, functionals are more generally defined as maps from a vector space to the field the vector space is over. Then we would consider a linear functional as linear map from a vector space to the field the vector space is over. In other words, they are ways to quantify vectors in a vector space.
+
 ## Algebraic Dual Space
+For a vector space \\(V\\) over the field \\(\mathbb{C}\\), the algebraic dual, denoted \\(V*\\), is the set of all linear functionals. More formally,
 
 ## Natural Injection
 Consider, \\
