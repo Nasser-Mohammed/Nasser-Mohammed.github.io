@@ -8,3 +8,4 @@ The notes below come from personal notes, lecture notes, *Real Analysis: Measure
 - [Topological Vector Spaces](TVS-spaces.md)
 - [Notable Topological Vector Space Facts](TVS-facts.md)
 - [Required Algebra](algebra.md)
+- [Hilbert Spaces](hilbert-space.md)
