@@ -23,9 +23,15 @@ We can also derive the following,
 Now \\(\cos\\) is an even function so \\[\cos(-\theta) = \cos(\theta)\\]
 \\(\sin\\) is an odd function so,
 \\[\sin(-\theta) = -\sin(\theta)\\]
+then we have that,
+\\[e^{-i\theta} = \cos(\theta) - i\sin(-\theta)\\]
 Now we can use these to rewrite our expression
 \\[\frac{1}{1-re^{i\theta}}\cdot \frac{1-re^{-i\theta}}{1-re^{-i\theta}} = \frac{1-re^{-i\theta}}{1 - re^{-i\theta}-re^{i\theta} + r^2e^{-i\theta}e^{i\theta}}\\]
 Which just results from multiplying out the denominator. Now let's analyze the denominator,
 \\[1 - re^{-i\theta}-re^{i\theta} + r^2e^{-i\theta}e^{i\theta}\\]
 We can rewrite
 \\[-re^{-i\theta}-re^{i\theta} = -r(e^{-i\theta}+e^{i\theta}) = -r(\cos(\theta) -i\sin(\theta) + \cos(\theta) + i\sin(\theta) = -2r\cos(\theta)\\]
+Which was just an application of Euler's formula. Now let's consider the other part of the denominator,
+\\[r^2e^{-i\theta}e^{i\theta} = r^2\cdot 1\\]
+Since \\(e^{-i\theta}\cdote^{i\theta} = 1\\). Then plugging everything in, we have
+\\[\frac{1-re^{-i\theta}}{r^2-2r\cos(\theta) + 1}\\]
