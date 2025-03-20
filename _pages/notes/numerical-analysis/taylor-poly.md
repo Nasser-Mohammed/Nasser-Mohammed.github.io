@@ -32,5 +32,6 @@ Repeating this one more time,
 We can now start to see a pattern. So we can start to rewrite our function as
 \\[f(x) = f(0) + f'(0)x + \frac{f^{\'\'}(0)}{2}x^2 + ....... + \frac{f^{(n)}(0)}{n!}x^n + ......... +\\]
 Or more generally
-\\[f(x) = \sum_{n=0}^{\infty}\frac{f^{(n)}}{n!}x^n\\]
-Why does this differ from the first formula? Well, we made an implicit assumption during this derivation. That is, what about the actual value of \\(f(0)\\)? That's where the \\(-a\\) term comes in.
+\\[f(x) = \sum_{n=0}^{\infty}\frac{f^{(n)}(0)}{n!}x^n\\]
+Why does this differ from the first formula? Well, we made an implicit assumption during this derivation. We assumed that we wanted our function to be \\(0\\) at \\(x=0\\). But what if the our function is zero at some other point, say for some \\(a\\)? Then we'd want our \\(x\\) terms to cancel out at \\(x = a \implies x - a = 0\\). Then we can replace this in the original equation to get
+\\[\sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n\\]
