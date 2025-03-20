@@ -78,13 +78,13 @@ Therefore, \\(\forall k\\), this expression reduces to
 In our current form, \\(\forall k, -k\\) we would have
 \\[r^{|k|}\cos(k\theta) + r^{|-k|}\cos(-k\theta) = r^{|k|}\cos(k\theta) + r^{|-k|}\cos(k\theta) = 2r^{|k|}\cos(k\theta)\\]
 So the two statements are equivalent. The only other case to consider is the only non-symmetric point \\(k=0\\), however \\(\sin(0)\\) ensures that we have no imaginary part for that index, and it reduces to \\(\cos(k\theta)\\) instead which is what we would have in our current expression since \\(r^0=1\\) and we'd be left with \\(\cos(0)\\). So finally, we have that
-\\[\frac{1}{2} + \frac{1}{2}\sum_{k \in \mathbb{Z}}r^{|k|}e^(k\theta)\\]
+\\[\frac{1}{2} + \frac{1}{2}\sum_{k \in \mathbb{Z}}r^{|k|}e^{(k\theta)}\\]
 The final thing to do, is compare it to the function it converges to, that is
-\\[\frac{1}{2} + \frac{1}{2}\sum_{k \in \mathbb{Z}}r^{|k|}e^(k\theta) = \frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)}\\]
+\\[\frac{1}{2} + \frac{1}{2}\sum_{k \in \mathbb{Z}}r^{|k|}e^{(k\theta)} = \frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)}\\]
 I will multiply both sides by two then subtract the remaining 1 value.
-\\[1 + \sum_{k \in \mathbb{Z}}r^{|k|}e^(k\theta) = 2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)}\\]
+\\[1 + \sum_{k \in \mathbb{Z}}r^{|k|}e^{(k\theta)} = 2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)}\\]
 Subtracting 1 gives,
-\\[\sum_{k \in \mathbb{Z}}r^{|k|}e^(k\theta) = 2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - 1\\]
+\\[\sum_{k \in \mathbb{Z}}r^{|k|}e^{(k\theta)} = 2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - 1\\]
 \\[2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - 1 = 2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - \frac{1+r^2-2r\cos(\theta)}{1+r^2-2r\cos(\theta)}\\]
 Continuing the simplification
 \\[2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - \frac{1+r^2-2r\cos(\theta)}{1+r^2-2r\cos(\theta)}\\]
