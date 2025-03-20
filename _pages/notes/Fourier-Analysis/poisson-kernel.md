@@ -85,6 +85,9 @@ I will multiply both sides by two then subtract the remaining 1 value.
 \\[1 + \sum_{k \in \mathbb{Z}}r^{|k|}e^(k\theta) = 2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)}\\]
 Subtracting 1 gives,
 \\[\sum_{k \in \mathbb{Z}}r^{|k|}e^(k\theta) = 2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - 1\\]
- \\[2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - 1 = 2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - \frac{1+r^2-2r\cos(\theta)}{1+r^2-2r\cos(\theta)}\\]
+\\[2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - 1 = 2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - \frac{1+r^2-2r\cos(\theta)}{1+r^2-2r\cos(\theta)}\\]
+Continuing the simplification
+\\[2\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - \frac{1+r^2-2r\cos(\theta)}{1+r^2-2r\cos(\theta)}\\]
+\\[=\frac{2-2r\cos(\theta) - 1 + r\cos(\theta){1+r^2-2r\cos(\theta)}\\]
 
 
