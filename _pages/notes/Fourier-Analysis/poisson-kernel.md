@@ -42,7 +42,7 @@ We can break this up as,
 \\[\frac{1-r\cos(\theta) + ir\sin(\theta)}{r^2-2r\cos(\theta) + 1} = \frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} + \frac{ir\sin(\theta)}{r^2-2r\cos(\theta) + 1}\\]
 Then we can easily extract the real part of this as
 \\[P_r(\theta) = \frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1}\\]
-In most settings, we will see this slightly altered, so I will also continue to getting the more common form. We know that we took the real part of this series, meaning it is equivalent to if we had take the real part of 
+In most settings, we will see this slightly altered, so I will also continue to show the more common form. We know that we took the real part of this series, meaning it is equivalent to if we had take the real part of 
 \\[\sum_{k = 0}^{\infty}p^k = \sum_{k = 0}^{\infty}r^ke^{ik\theta}\\]
 Taking the real part of the series above gives,
 \\[\Re (\sum_{k = 0}^{\infty}r^ke^{ik\theta}) = \sum_{k = 0}^{\infty}r^k\cos(k\theta)\\]
@@ -56,11 +56,11 @@ Again, we know \\(\cos\\) is even so \\(\cos(-k\theta) = \cos(k\theta)\\), so we
 \\[\sum_{k=-1}^{-\infty}r^{|k|}\cos(|k|\theta) =\sum_{k=-1}^{-\infty}r^{|k|}\cos(k\theta)\\]
 \\[\sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k=1}^{\infty}r^{|k|}\cos(k\theta)\\]
 So we can combine these sums into 1 sum to get,
-\\[\sum_{k \in \mathbb{Z}}}r^{|k|}\cos(k\theta)\\]
+\\[\sum_{k \in \mathbb{Z}}r^{|k|}\cos(k\theta)\\]
 Note, that this sum includes \\(k=0\\) which was not present in our previous summation, so we can disregard the \\(1\\) produced by \\(k=0\\) earlier. Now we are left with
-\\[2(1+\sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k \in \mathbb{Z}}}r^{|k|}\cos(k\theta)\\]
+\\[2(1+\sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k \in \mathbb{Z}}r^{|k|}\cos(k\theta)\\]
 So, to preserve what we had, we divide by two yielding
-\\[(1+\sum_{k=1}^{\infty}r^k\cos(k\theta) = \frac{1}{2}\sum_{k \in \mathbb{Z}}}r^{|k|}\cos(k\theta)\\]
+\\[(1+\sum_{k=1}^{\infty}r^k\cos(k\theta) = \frac{1}{2}\sum_{k \in \mathbb{Z}}r^{|k|}\cos(k\theta)\\]
 Finally, recall
 \\[e^{k\theta} = \cos(k\theta) + i\sin(k\theta)\\]
 Then we can replace \\(\cos(k\theta\\) with \\(e^{k\theta}\\), since 
