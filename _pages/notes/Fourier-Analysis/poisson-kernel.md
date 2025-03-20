@@ -57,10 +57,16 @@ Again, we know \\(\cos\\) is even so \\(\cos(-k\theta) = \cos(k\theta)\\), so we
 \\[\sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k=1}^{\infty}r^{|k|}\cos(k\theta)\\]
 So we can combine these sums into 1 sum to get,
 \\[\sum_{k \in \mathbb{Z}}r^{|k|}\cos(k\theta)\\]
-Note, that this sum includes \\(k=0\\) which was not present in our previous summation, so we can disregard the \\(1\\) produced by \\(k=0\\) earlier. Now we are left with
-\\[2(1+\sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k \in \mathbb{Z}}r^{|k|}\cos(k\theta)\\]
-So, to preserve what we had, we divide by two yielding
-\\[(1+\sum_{k=1}^{\infty}r^k\cos(k\theta) = \frac{1}{2}\sum_{k \in \mathbb{Z}}r^{|k|}\cos(k\theta)\\]
+Note, that this sum includes \\(k=0\\) so we must consider \\(k=0\\) in our original sum. Since we are combining the sum into 1 sum, this sum is going to be 2 times our original sum. In other words,
+\\[2\sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k \in \mathbb{Z}}(r^{|k|}\cos(k\theta)) - 1\\]
+Therefore we have that
+\\[\sum_{k=1}^{\infty}r^k\cos(k\theta) = \frac{1}{2}\cdot \sum_{k \in \mathbb{Z}}(r^{|k|}\cos(k\theta)) - \frac{1}{2}\\]
+We subtract this one to account for the \\(k=0\\) present on the right side that is not accounted for on the left. Now, our original expression was 
+\\[1+\sum_{k=1}^{\infty}r^k\cos(k\theta)\\]
+Plugging our new expression for the sum, we have
+\\[1+\sum_{k=1}^{\infty}r^k\cos(k\theta) = 1 +\frac{1}{2}\cdot \sum_{k \in \mathbb{Z}}(r^{|k|}\cos(k\theta)) - \frac{1}{2}\\]
+Which simplifies to 
+\\[\frac{1}{2} + \frac{1}{2}\sum_{k \in \mathbb{Z}}r^{|k|}\cos(k\theta)\\]
 Finally, recall
 \\[e^{k\theta} = \cos(k\theta) + i\sin(k\theta)\\]
 Then we can replace \\(\cos(k\theta)\\) with \\(e^{k\theta}\\), since 
@@ -71,7 +77,5 @@ Therefore, \\(\forall k\\), this expression reduces to
 \\[2r^{|k|}\cos(k\theta)\\]
 In our current form, \\(\forall k, -k\\) we would have
 \\[r^{|k|}\cos(k\theta) + r^{|-k|}\cos(-k\theta) = r^{|k|}\cos(k\theta) + r^{|-k|}\cos(k\theta) = 2r^{|k|}\cos(k\theta)\\]
-Which is double what we have, so we can make this substitution as long as we make sure to half it, doing so gives.
-\\[\frac{1}{2}+\frac{1}{2}\sum_{k\in \mathbb{Z}}r^{|k|}\cos(k\theta)\\]
-And we see that
-
+So the two statements are equivalent. The only other case to consider is the only non-symmetric point \\(k=0\\), however \\(\sin(0)\\) ensures that we have no imaginary part for that index, and it reduces to \\(\cos(k\theta)\\) instead which is what we have. So finally, we have that
+\\[\frac{1}{
