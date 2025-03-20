@@ -63,12 +63,14 @@ So, to preserve what we had, we divide by two yielding
 \\[(1+\sum_{k=1}^{\infty}r^k\cos(k\theta) = \frac{1}{2}\sum_{k \in \mathbb{Z}}r^{|k|}\cos(k\theta)\\]
 Finally, recall
 \\[e^{k\theta} = \cos(k\theta) + i\sin(k\theta)\\]
-Then we can replace \\(\cos(k\theta\\) with \\(e^{k\theta}\\), since 
+Then we can replace \\(\cos(k\theta)\\) with \\(e^{k\theta}\\), since 
 \\[\forall k, -k, \ \text{ we would have } r^{|k|}e^{k\theta} + r^{|-k|}e^{-k\theta}\\]
 It's easy to see that
 \\[ r^{|k|}e^{k\theta} + r^{|-k|}e^{-k\theta} = r^{|k|}(\cos(k\theta) + i\sin(k\theta) + \cos(-k\theta) - i\sin(k\theta))\\]
 Therefore, \\(\forall k\\), this expression reduces to 
 \\[2r^{|k|}\cos(k\theta)\\]
+In our current form, \\(\forall k, -k\\) we would have
+\\[r^{|k|}\cos(k\theta) + r^{|-k|}\cos(-k\theta) = r^{|k|}\cos(k\theta) + r^{|-k|}\cos(k\theta) = 2r^{|k|}\cos(k\theta)\\]
 Which is double what we have, so we can make this substitution as long as we make sure to half it, doing so gives.
 \\[\frac{1}{2}+\frac{1}{2}\sum_{k\in \mathbb{Z}}r^{|k|}\cos(k\theta)\\]
 And we see that
