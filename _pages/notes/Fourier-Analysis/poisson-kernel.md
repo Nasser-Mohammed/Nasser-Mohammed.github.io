@@ -38,5 +38,16 @@ Since \\(e^{-i\theta}\cdot e^{i\theta} = 1\\). Then plugging everything in, we h
 \\[\frac{1-re^{-i\theta}}{r^2-2r\cos(\theta) + 1}\\]
 Using Euler's formula again for the numerate, we have
 \\[\frac{1-r\cos(\theta) + ir\sin(\theta)}{r^2-2r\cos(\theta) + 1}\\]
-If we extract the real part of this, we have
+We can break this up as,
 \\[\frac{1-r\cos(\theta) + ir\sin(\theta)}{r^2-2r\cos(\theta) + 1} = \frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} + \frac{ir\sin(\theta)}{r^2-2r\cos(\theta) + 1}\\]
+Then we can easily extract the real part of this as
+\\[P_r(\theta) = \frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1}\\]
+In most settings, we will see this slightly altered, so I will also continue to getting the more common form. We know that we took the real part of this series, meaning it is equivalent to if we had take the real part of 
+\\[\sum_{k = 0}^{\infty}p^k = \sum_{k = 0}^{\infty}r^ke^{ik\theta}\\]
+Taking the real part of the series above gives,
+\\[\Re (\sum_{k = 0}^{\infty}r^ke^{ik\theta}) = \sum_{k = 0}^{\infty}r^k\cos(k\theta})\\]
+\\[\sum{k = 0}^{\infty}r^k\cos(k\theta)\\]
+At \\(k=0\\), \\(\cos(0) = 1\\). So, we have
+\\[\frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} = \\]
+
+
