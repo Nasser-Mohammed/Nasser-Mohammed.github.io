@@ -52,12 +52,15 @@ At \\(k=0\\), \\(\cos(0) = 1\\) and \\(r^0 =1\\). So, we have
 \\[\frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} = 1 + \sum_{k=1}^{\infty}r^k\cos(k\theta)\\]
 We note that,
 \\[\sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k=-1}^{-\infty}r^{|k|}\cos(|k|\theta)\\]
-Again, we know \\(\cos\\) is even so \\(\cos(-k\theta) = \cos(k\theta)\\), so we can drop the absolute value sign. Therefore,
+Again, we know \\(\cos\\) is even so \\(\cos(-k\theta) = \cos(k\theta)\\), so we can drop the absolute value sign.
 \\[\sum_{k=-1}^{-\infty}r^{|k|}\cos(|k|\theta) = \sum_{k=-1}^{-\infty}r^{|k|}\cos(k\theta)\\]
 Then, the series
 \\[\sum_{k=-1}^{-\infty}r^{|k|}\cos(k\theta) + \sum_{k=1}^{\infty}r^{k}\cos(k\theta)\\]
 Is just 
 \\[2\sum_{k=-1}^{-\infty}r^{|k|}\cos(k\theta)\\]
+and therefore, to preserve the fact that we only have half of this sum (the positive half) originally, we can rewrite our series as half of this, so
+
+\\[\frac{1}{2}\cdot(1+\sum_{k\in \mathbb{Z}}r^{|k|}\cos(k\theta)\\]
 
 
 
