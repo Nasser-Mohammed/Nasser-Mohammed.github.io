@@ -48,7 +48,16 @@ Taking the real part of the series above gives,
 \\[\Re (\sum_{k = 0}^{\infty}r^ke^{ik\theta}) = \sum_{k = 0}^{\infty}r^k\cos(k\theta)\\]
 and we know this is equivalent to our derived expression, so
 \\[\frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} = \sum_{k = 0}^{\infty}r^k\cos(k\theta)\\]
-At \\(k=0\\), \\(\cos(0) = 1\\). So, we have
-\\[\frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} = r + \sum_{k=1}^{\infty}r^k\cos(k\theta)\\]
+At \\(k=0\\), \\(\cos(0) = 1\\) and \\(r^0 =1\\). So, we have
+\\[\frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} = 1 + \sum_{k=1}^{\infty}r^k\cos(k\theta)\\]
+We note that,
+\\[\sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k=-1}^{-\infty}r^{|k|}\cos(|k|\theta)\\]
+Again, we know \\(\cos\\) is even so \\(\cos(-k\theta) = \cos(k\theta)\\), so we can drop the absolute value sign. Therefore,
+\\[\sum_{k=-1}^{-\infty}r^{|k|}\cos(|k|\theta) = \sum_{k=-1}^{-\infty}r^{|k|}\cos(k\theta)\\]
+Then, the series
+\\[\sum_{k=-1}^{-\infty}r^{|k|}\cos(k\theta) + \sum_{k=1}^{\infty}r^{k}\cos(k\theta)\\]
+Is just 
+\\[2\sum_{k=-1}^{-\infty}r^{|k|}\cos(k\theta)\\]
+
 
 
