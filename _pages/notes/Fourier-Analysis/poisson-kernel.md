@@ -92,6 +92,6 @@ Continuing the simplification
 \\[=\frac{1-r^2}{1+r^2-2r\cos(\theta)}\\]
 This is the usual function you will see associated with the Poisson kernel, so in summary, we have that
 \\[P_r(\theta) = \frac{1-r^2}{1+r^2-2r\cos(\theta)} = \sum_{k \in \mathbb{Z}}r^{|k|}e^{(k\theta)}\\]
-Where \\(P_r(\theta)\\) is called the **Poisson Kernel**. The Poisson kernel has several intresting properties, which you can read more about [here](https://en.wikipedia.org/wiki/Poisson_kernel).
+Where \\(P_r(\theta)\\) is called the **Poisson Kernel**. The Poisson kernel has several interesting properties, which you can read more about [here](https://en.wikipedia.org/wiki/Poisson_kernel).
 
 
