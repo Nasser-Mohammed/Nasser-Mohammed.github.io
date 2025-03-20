@@ -36,3 +36,7 @@ Which was just an application of Euler's formula. Now let's consider the other p
 \\[r^2e^{-i\theta}e^{i\theta} = r^2\cdot 1\\]
 Since \\(e^{-i\theta}\cdot e^{i\theta} = 1\\). Then plugging everything in, we have
 \\[\frac{1-re^{-i\theta}}{r^2-2r\cos(\theta) + 1}\\]
+Using Euler's formula again for the numerate, we have
+\\[\frac{1-r\cos(\theta) + ir\sin(\theta)}{r^2-2r\cos(\theta) + 1}\\]
+If we extract the real part of this, we have
+\\[\frac{1-r\cos(\theta) + ir\sin(\theta)}{r^2-2r\cos(\theta) + 1} = \frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} + \frac{ir\sin(\theta)}{r^2-2r\cos(\theta) + 1}\\]
