@@ -72,4 +72,5 @@ Therefore, \\(\forall k\\), this expression reduces to
 \\[2r^{|k|}\cos(k\theta)\\]
 Which is double what we have, so we can make this substitution as long as we make sure to half it, doing so gives.
 \\[\frac{1}{2}+\frac{1}{2}\sum_{k\in \mathbb{Z}}r^{|k|}\cos(k\theta)\\]
+And we see that
 
