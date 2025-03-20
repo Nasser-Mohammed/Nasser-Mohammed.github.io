@@ -89,5 +89,6 @@ Subtracting 1 gives,
 Continuing the simplification
 \\[2\cdot\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - \frac{1+r^2-2r\cos(\theta)}{1+r^2-2r\cos(\theta)}\\]
 \\[ =\frac{2-2r\cos(\theta) - 1 -r^2 + 2r\cos(\theta)}{1+r^2-2r\cos(\theta)}\\]
+\\[=\frac{1+r^2}{1+r^2-2r\cos(\theta)}\\]
 
 
