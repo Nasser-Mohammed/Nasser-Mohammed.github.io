@@ -45,10 +45,10 @@ Then we can easily extract the real part of this as
 In most settings, we will see this slightly altered, so I will also continue to getting the more common form. We know that we took the real part of this series, meaning it is equivalent to if we had take the real part of 
 \\[\sum_{k = 0}^{\infty}p^k = \sum_{k = 0}^{\infty}r^ke^{ik\theta}\\]
 Taking the real part of the series above gives,
-\\[\Re (\sum_{k = 0}^{\infty}r^ke^{ik\theta}) = \sum_{k = 0}^{\infty}r^k\cos(k\theta})\\]
+\\[\Re (\sum_{k = 0}^{\infty}r^ke^{ik\theta}) = \sum_{k = 0}^{\infty}r^k\cos(k\theta)\\]
 and we know this is equivalent to our derived expression, so
-\\[\frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} = \sum_{k = 0}^{\infty}r^k\cos(k\theta})\\]
+\\[\frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} = \sum_{k = 0}^{\infty}r^k\cos(k\theta)\\]
 At \\(k=0\\), \\(\cos(0) = 1\\). So, we have
-\\[\frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} = r + \sum{k=1}^{\infty}r^k\cos(k\theta)\\]
+\\[\frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} = r + \sum_{k=1}^{\infty}r^k\cos(k\theta)\\]
 
 
