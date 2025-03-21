@@ -19,5 +19,11 @@ Integrating both sides, gives
 \\[\ln(x) = Ct + A\\]
 Where \\(A\\) is just the constant of integration, then expnentiating to isolate \\(x\\), 
 \\[x = e^{Ct+A} = e^{Ct}e^{A}\\]
-\\(e^{A}\) is simply a constant, so we will write it as \\(\alpha\\) instead. Then our solution is
+\\(e^{A}\\) is simply a constant, so we will write it as \\(\alpha\\) instead. Then our solution is
 \\[x(t) = \alpha e^{Ct}\\]
+Now if we impose an initial condition when \\(t=0\\), this is equivalent to "telling" the equation where we want our path to start. Since, at \\(t=0\\) our equation reduces to \\(x(0) = \alpha e^0 = \alpha\\). In other words, if we require that 
+\\[x(0) = K\\]
+Where \\(K\\) is an arbitrary constant, then we must have that \\(\alpha = K\\). Now, we want to understand what this equation is actually telling us. We will consider various values of \\(C\\). 
+
+## C < 0
+In this scenario, our trajectory will **decay** towards \\(0\\) exponentially as \\(t \to \infty\\). However, it is asymptotic at \\(0\\), meaning it never actually reaches \\(0\\) (which we would expect because \\(e\\) never touches the x-axis). The actual value of \\(C\\) will determine how fast that decay happens. A \\(C\\) further away from \\(0\\) will decay faster. 
