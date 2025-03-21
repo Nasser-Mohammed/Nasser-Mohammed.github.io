@@ -33,3 +33,9 @@ This is a trivial case where the position of the object is constant from whereve
 
 ## C > 0
 In this case, no matter where you start at, you will eventually go towards infinity. Meaning you will just get further and further away from the x-axis.
+
+
+## Nonlinear Example
+The example above is simple and somewhat boring, the trajectory of certain starting points does not really change. Let's consider the ODE
+\\[\dot{x} = \cos (x)\\]
+In other words, the velocity of the object that obeys this ODE increases, and decreases with respect to the \\(\cos\\) function. We can plot the position of the object with respect to its velocity, which would just look like a \\(\cos\\) graph
