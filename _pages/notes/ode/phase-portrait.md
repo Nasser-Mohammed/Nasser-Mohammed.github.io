@@ -26,4 +26,10 @@ Now if we impose an initial condition when \\(t=0\\), this is equivalent to "tel
 Where \\(K\\) is an arbitrary constant, then we must have that \\(\alpha = K\\). Now, we want to understand what this equation is actually telling us. We will consider various values of \\(C\\). 
 
 ## C < 0
-In this scenario, our trajectory will **decay** towards \\(0\\) exponentially as \\(t \to \infty\\). However, it is asymptotic at \\(0\\), meaning it never actually reaches \\(0\\) (which we would expect because \\(e\\) never touches the x-axis). The actual value of \\(C\\) will determine how fast that decay happens. A \\(C\\) further away from \\(0\\) will decay faster. 
+In this scenario, our trajectory will **decay** towards \\(0\\) exponentially as \\(t \to \infty\\). However, it is asymptotic at \\(0\\), meaning it never actually reaches \\(0\\) (which we would expect because \\(e\\) never touches the x-axis). The actual value of \\(C\\) will determine how fast that decay happens. A \\(C\\) further away from \\(0\\) will decay faster. Note that no matter where we start from on the x-axis, we will approach the line \\(x=0\\) but never touch it.
+
+## C = 0
+This is a trivial case where the position of the object is constant from wherever it starts. Meaning there is no change in position so therefore no velocity.
+
+## C > 0
+In this case, no matter where you start at, you will eventually go towards infinity. Meaning you will just get further and further away from the x-axis.
