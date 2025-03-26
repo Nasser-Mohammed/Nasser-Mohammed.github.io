@@ -15,6 +15,8 @@ Now, we need to note a few properties of limits before we start the derivation. 
 \\[\text{Scalar multiplication: } \lim_{x\to a}cf(x) = c\cdot \lim_{x \to a}f(x) \ \ \text{for a constant } c\\]
 \\[\text{Products: } \lim_{x \to a}(f(x)\cdot g(x)) = \lim_{x\to a}f(x) \cdot \lim_{x \to a}g(x)\\]
 \\[\text{Powers: } \lim_{x\to a}(f(x))^n = (\lim_{x\to a}f(x))^n\\]
-
-## Limits
-The limit (of a function, sequence, etc.) captures the eventual, or long term behavior of certain "processes". In many cases, these processes produce infinite quantities, of which we aren't particularly interested. We are more interested in things that converge to something else. In plain English, something converges to something else if we are able to both things arbitrarily close. In a more analytic view, we say that a sequence
+With these, we can now begin the derivation. Let's start with the most common, the power rule:
+\\[\text{Let } f(x) = x^n \implies f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}\\]
+Replacing \\(f(x)\\) with \\(x^n\\), we see that we have
+\\[\lim_{h \to 0} \frac{(x+h)^n - x^n}{h}\\]
+We will use [Binomial Theorem](https://en.wikipedia.org/wiki/Binomial_theorem), to expand the \\(x+h)^n\\)
