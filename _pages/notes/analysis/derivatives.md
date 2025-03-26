@@ -20,4 +20,17 @@ With these, we can now begin the derivation. Let's start with the most common, t
 Replacing \\(f(x)\\) with \\(x^n\\), we see that we have
 \\[\lim_{h \to 0} \frac{(x+h)^n - x^n}{h}\\]
 We will use [Binomial Theorem](https://en.wikipedia.org/wiki/Binomial_theorem), to expand the \\((x+h)^n\\) into 
-\\[\sum_{k = 0}^{n} \binom{n}{k}x^kh^{n-k}\\]
+\\[\sum_{k = 0}^{n} \binom{n}{k}x^kh^{n-k} = x^n + \binom{n}{1}hx^{n-1} + \binom{n}{2}x^{n-2}h^2 + .... h^n\\]
+Then subtracting both sides by \\(x^n\\) gives,
+\\[(x+h)^n - x^n = \binom{n}{1}hx^{n-1} + \binom{n}{2}x^{n-2}h^2 + .... h^n\\]
+Dividing by \\(h\\), we have
+\\[\frac{(x+h)^n - x^n}{h} = \binom{n}{1}x^{n-1} + \binom{n}{2}x^{n-2}h + .... h^{n-1}\\]
+Now we consider the limit as \\(h \to 0\\),
+\\[\lim_{h \to 0}\frac{(x+h)^n - x^n}{h} = \binom{n}{1}x^{n-1} + \binom{n}{2}x^{n-2}h + .... h^{n-1}\\]
+\\[\lim_{h \to 0}\frac{(x+h)^n - x^n}{h} = \lim_{h \to 0}\binom{n}{1}x^{n-1} + \lim_{h \to 0}\binom{n}{2}x^{n-2}h + .... \lim_{h \to 0}h^{n-1}\\]
+Each term goes to \\(0\\), except for the first. 
+\\[\lim_{h \to 0}\frac{(x+h)^n - x^n}{h} = \lim_{h \to 0}\binom{n}{1}x^{n-1} = \binom{n}{1}x^{n-1}\\]
+Since the right hand side doesn't depend on \\(h\\). Therefore, we have that 
+\\[f'(x) = \binom{n}{1}x^{n-1} = \frac{n!}{1!(n-1)!}x^{n-1} = nx^{n-1}\\]
+And we have the known rule that,
+\\[f'(x) = nx^{n-1}\\]
