@@ -5,4 +5,16 @@ permalink: /notes/analysis/derivatives/
 author_profile: false
 --- 
 <hr style="border: 2px solid black;">
-Many students first encounter the derivative "rules" in a first year calculus course. However, many never learn where these rules come from, and why functions of certain forms follow certain rules. I will derive the primary derivative rules by use of limits, and the limit definition of derivative. After all, the derivative is the limit definition, and everything else comes after.
+Many students first encounter the derivative "rules" in a first year calculus course. However, many never learn where these rules come from, and why functions of certain forms follow certain rules. I will derive the primary derivative rules by use of limits, and the limit definition of derivative. After all, the derivative is the limit definition, and everything else comes after. Naturally, we will begin with the properties of a limit.
+
+## Limit Definition of a Derivative
+The derivative is defined in terms of a limit as such. For a function \\(f(x)\\), 
+\\[f'(x) = \lim_{h\to } \frac{f(x+h)-f(x)}{h}\\]
+Now, we need to note a few properties of limits before we start the derivation. Below are the most funadmental properties,
+\\[\text{Sums: } \lim_{x \to a}(f(x) + g(x)) = \lim_{x \to a}f(x) + \lim_{x\to a}g(x)\\]
+\\[\text{Scalar multiplication: } \lim_{x\to a}cf(x) = c\cdot \lim_{x \to a}f(x) \ \ \text{for a constant } c\\]
+\\[\text{Products: } \lim_{x \to a}(f(x)\cdot g(x)) = \lim_{x\to a}f(x) \cdot \lim_{x \to a}g(x)\\]
+\\[\text{Powers: } \lim_{x\to a}(f(x))^n = (\lim_{x\to a}f(x))^n\\]
+
+## Limits
+The limit (of a function, sequence, etc.) captures the eventual, or long term behavior of certain "processes". In many cases, these processes produce infinite quantities, of which we aren't particularly interested. We are more interested in things that converge to something else. In plain English, something converges to something else if we are able to both things arbitrarily close. In a more analytic view, we say that a sequence
