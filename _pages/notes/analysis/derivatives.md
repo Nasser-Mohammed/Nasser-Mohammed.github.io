@@ -26,7 +26,7 @@ Then subtracting both sides by \\(x^n\\) gives,
 Dividing by \\(h\\), we have
 \\[\frac{(x+h)^n - x^n}{h} = \binom{n}{1}x^{n-1} + \binom{n}{2}x^{n-2}h + .... h^{n-1}\\]
 Now we consider the limit as \\(h \to 0\\),
-\\[\lim_{h \to 0}\frac{(x+h)^n - x^n}{h} = \binom{n}{1}x^{n-1} + \binom{n}{2}x^{n-2}h + .... h^{n-1}\\]
+\\[\lim_{h \to 0}\frac{(x+h)^n - x^n}{h} = \lim_{h \to 0}\binom{n}{1}x^{n-1} + \binom{n}{2}x^{n-2}h + .... h^{n-1}\\]
 \\[\lim_{h \to 0}\frac{(x+h)^n - x^n}{h} = \lim_{h \to 0}\binom{n}{1}x^{n-1} + \lim_{h \to 0}\binom{n}{2}x^{n-2}h + .... \lim_{h \to 0}h^{n-1}\\]
 Each term goes to \\(0\\), except for the first. 
 \\[\lim_{h \to 0}\frac{(x+h)^n - x^n}{h} = \lim_{h \to 0}\binom{n}{1}x^{n-1} = \binom{n}{1}x^{n-1}\\]
