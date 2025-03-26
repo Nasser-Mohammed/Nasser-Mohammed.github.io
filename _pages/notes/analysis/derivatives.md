@@ -19,4 +19,5 @@ With these, we can now begin the derivation. Let's start with the most common, t
 \\[\text{Let } f(x) = x^n \implies f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}\\]
 Replacing \\(f(x)\\) with \\(x^n\\), we see that we have
 \\[\lim_{h \to 0} \frac{(x+h)^n - x^n}{h}\\]
-We will use [Binomial Theorem](https://en.wikipedia.org/wiki/Binomial_theorem), to expand the \\(x+h)^n\\)
+We will use [Binomial Theorem](https://en.wikipedia.org/wiki/Binomial_theorem), to expand the \\((x+h)^n\\) into 
+\\[\sum_{k = 0}^{n} \binom{n}{k}x^kh^{n-k}\\]
