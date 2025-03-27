@@ -12,7 +12,7 @@
 
     <div id="inputs">
       <label>
-        🐇 Bunnies:
+        🐰 Bunnies:
         <input id="bunny-input" type="text" value="40" />
       </label>
       <label>
@@ -23,17 +23,21 @@
 
     <div id="counters">
       <img src="bunny.png" class="icon">
-      <span id="bunny-count">Waiting...</span>
+      <span id="bunny-count"></span>
       <img src="wolf.png" class="icon">
-      <span id="wolf-count">Waiting...</span>
+      <span id="wolf-count"></span>
     </div>
 
     <canvas id="simCanvas" width="600" height="400"></canvas>
-    <button onclick="startSimulation()">Start Simulation</button>
+
+    <div id="controls">
+      <button onclick="startSimulation()">Start Simulation</button>
+      <button onclick="pauseSimulation()">Pause</button>
+      <button onclick="stopSimulation()">Stop</button>
+    </div>
   </div>
 
   <script src="pyodide-runner.js"></script>
   <script src="main.js"></script>
 </body>
-
 </html>
