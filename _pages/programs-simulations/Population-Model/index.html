@@ -9,9 +9,22 @@
 <body>
   <h1>Predator-Prey Simulator</h1>
 
+  <div id="inputs">
+    <label>
+      🐰 Bunnies:
+      <input id="bunny-input" type="text" value="40" />
+    </label>
+    <label>
+      🐺 Wolves:
+      <input id="wolf-input" type="text" value="9" />
+    </label>
+  </div>
+
   <div id="counters">
-    <img src="rabbit.png" class="icon"><span id="bunny-count">Loading...</span>
-    <img src="wolf.png" class="icon"><span id="wolf-count">Loading...</span>
+    <img src="rabbit.png" class="icon">
+    <span id="rabbit-count">Waiting...</span>
+    <img src="wolf.png" class="icon">
+    <span id="wolf-count">Waiting...</span>
   </div>
 
   <canvas id="simCanvas" width="600" height="400"></canvas>
