@@ -54,8 +54,8 @@ function stopSimulation() {
   pauseButton.textContent = "Pause";
 }
 
-async function loop() {
-  if (simulationLoopId) return;
+function loop() {
+  if (simulationLoopId) return; // Already running
 
   simulationLoopId = setInterval(async () => {
     if (!simulationRunning || simulationPaused) return;
@@ -67,6 +67,7 @@ async function loop() {
     drawCanvas();
   }, 1000);
 }
+
 
 function updateDisplay() {
   document.getElementById("bunny-count").textContent = `Bunnies: ${Math.floor(bunnyCount)}`;
