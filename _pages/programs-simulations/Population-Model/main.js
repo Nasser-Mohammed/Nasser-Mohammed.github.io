@@ -30,7 +30,7 @@ function updateDisplay() {
 function drawCanvas() {
   ctx.clearRect(0, 0, 600, 400);
   for (let i = 0; i < Math.floor(bunnyCount); i++) {
-    ctx.drawImage(document.querySelector("img[src='bunny.png']"), Math.random() * 550, Math.random() * 350, 20, 20);
+    ctx.drawImage(document.querySelector("img[src='rabbit.png']"), Math.random() * 550, Math.random() * 350, 20, 20);
   }
   for (let i = 0; i < Math.floor(wolfCount); i++) {
     ctx.drawImage(document.querySelector("img[src='wolf.png']"), Math.random() * 550, Math.random() * 350, 20, 20);
