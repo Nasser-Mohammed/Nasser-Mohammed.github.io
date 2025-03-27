@@ -12,8 +12,8 @@ main:
   - title: "Expositions"
     url: /expositions/    
     
-  - title: "Problem Solutions"
-    url: /solutions/
+  - title: "Programs and Simulations"
+    url: /programs-simulations/
     
   - title: "CV"
     url: /cv/
