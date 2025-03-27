@@ -6,6 +6,7 @@ author_profile: false
 ---
 The notes below come from personal notes, lecture notes, and *Partial Differential Equations for Scientists and Engineers* by S.J. Farlow
 - [What are Partial Differential Equations?](intro2pde.md)
+- [The Law of Superposition](superposition.md)
 - [The Heat Equation](heatequation.md)
    - [The Heat Equation with Non-Homogenous Boundary Conditions](nonhombc-heat.md)
    - [The Non-Homogenous Heat Equation](nonhompde-heat.md)
