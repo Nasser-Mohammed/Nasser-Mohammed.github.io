@@ -1,7 +1,8 @@
 ---
 layout: archive
-title: "Problem Solutions"
-permalink: /solutions/
+title: "Programs and Simulations"
+permalink: /programs-simulations/
 author_profile: false
 ---
-Have not gotten to this yet.
+Below are links to some programs and simulations I have built. Most are done in Python, but translated to WebAssembly using Pyodide so that it is compatible with the structure of Github Pages.
+-[Competitive Population Simulation](none.md)
