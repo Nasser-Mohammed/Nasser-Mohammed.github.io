@@ -1,29 +1,24 @@
-/* Global reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 body {
   font-family: sans-serif;
   background: #f4f4f4;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 40px 20px;
+  margin: 0;
+  padding: 20px;
 }
 
-/* Heading */
+/* This wrapper keeps everything nicely aligned */
+.wrapper {
+  width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 h1 {
   margin-bottom: 20px;
 }
 
-/* Input fields */
 #inputs {
   display: flex;
+  justify-content: center;
   gap: 20px;
   margin-bottom: 20px;
 }
@@ -38,22 +33,20 @@ h1 {
   margin-left: 5px;
 }
 
-/* Counters */
 #counters {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 20px;
   margin-bottom: 20px;
   font-size: 1.5em;
 }
 
-/* Images */
 .icon {
   width: 40px;
   height: 40px;
 }
 
-/* Canvas centered! */
 canvas {
   border: 2px solid black;
   background-color: white;
