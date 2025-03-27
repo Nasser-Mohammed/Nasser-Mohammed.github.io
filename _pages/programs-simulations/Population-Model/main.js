@@ -77,13 +77,17 @@ function handlePredatorChange() {
     <input id="predator-input" type="text" value="${predatorCount}" />
   `;
 
-  // Update icon in counter section
-  const icon = document.getElementById("predator-icon");
-  if (icon) icon.src = `${currentPredator}.png`;
+  // // Update icon in counter section
+  // const icon = document.getElementById("predator-icon");
+  // if (icon) icon.src = `${currentPredator}.png`;
 
-  // ✅ Update the preview image to the right of the dropdown
-  const preview = document.getElementById("predator-image");
-  if (preview) preview.src = `${currentPredator}.png`;
+  // // ✅ Update the preview image to the right of the dropdown
+  // const preview = document.getElementById("predator-image");
+  // if (preview) preview.src = `${currentPredator}.png`;
+
+  // Update counter image
+  document.getElementById("predator-icon").src = `${currentPredator}.png`;
+
 
   updateDisplay();
   drawCanvas();
@@ -95,7 +99,7 @@ function capitalize(word) {
 
 function updateDisplay() {
   document.getElementById("prey-count").textContent = `${capitalize(currentPrey)} population: ${Math.floor(preyCount)}`;
-document.getElementById("predator-count").textContent = `${capitalize(currentPredator)} population: ${Math.floor(predatorCount)}`;
+  document.getElementById("predator-count").textContent = `${capitalize(currentPredator)} population: ${Math.floor(predatorCount)}`;
 }
 //begin simulation
 async function startSimulation() {
@@ -105,6 +109,7 @@ async function startSimulation() {
   // Get input values
   preyCount = parseInt(document.getElementById("prey-input").value);
   predatorCount = parseInt(document.getElementById("predator-input").value);
+
 
   if (isNaN(preyCount) || preyCount < 0) preyCount = 0;
   if (isNaN(predatorCount) || predatorCount < 0) predatorCount = 0;

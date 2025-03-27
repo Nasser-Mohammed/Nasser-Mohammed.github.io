@@ -117,3 +117,24 @@ body {
     image-rendering: pixelated;
   }
 
+  #parameters {
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    font-size: 1em;
+  }
+  
+  .parameter-group {
+    margin-bottom: 15px;
+  }
+  
+  .parameter-group h4 {
+    margin-bottom: 8px;
+    margin-top: 12px;
+  }
+  
+  #parameters label {
+    display: block;
+    margin-bottom: 6px;
+  }
+  
