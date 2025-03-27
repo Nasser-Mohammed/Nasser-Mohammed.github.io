@@ -1,8 +1,11 @@
 body {
   font-family: sans-serif;
-  text-align: center;
   background: #f4f4f4;
   padding: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
@@ -27,6 +30,9 @@ h1 {
 #counters {
   margin-bottom: 20px;
   font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .icon {
@@ -38,7 +44,53 @@ h1 {
 canvas {
   border: 2px solid black;
   background-color: white;
-  display: block;
-  margin: 20px auto; /* horizontally center */
+  margin-bottom: 20px;
+}
+body {
+  font-family: sans-serif;
+  background: #f4f4f4;
+  padding: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+h1 {
+  margin-bottom: 20px;
+}
+
+#inputs {
+  margin-bottom: 15px;
+}
+
+#inputs label {
+  margin: 0 10px;
+  font-size: 1.2em;
+}
+
+#inputs input {
+  width: 60px;
+  text-align: center;
+  margin-left: 5px;
+}
+
+#counters {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  width: 40px;
+  vertical-align: middle;
+  margin: 0 10px;
+}
+
+canvas {
+  border: 2px solid black;
+  background-color: white;
+  margin-bottom: 20px;
+}
