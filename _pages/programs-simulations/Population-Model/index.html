@@ -2,30 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Predator-Prey Simulator</title>
+  <title>Competitive Population Simulation</title>
   <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="wrapper">
-    <h1>Predator-Prey Simulator</h1>
-
+    <h1>Competitive Population Simulation</h1>
+    <div class="selector-container">
+      <div class="selector-row">
+        <label for="prey-select">Choose a prey:</label>
+        <select id="prey-select" onchange="handlePreyChange()">
+          <option value="bunny">Bunny</option>
+          <option value="deer">Deer</option>
+        </select>
+        <img id="prey-image" src="bunny.png" width="50" height="50" />
+      </div>
+    
+      <div class="selector-row">
+        <label for="predator-select">Choose a predator:</label>
+        <select id="predator-select" onchange="handlePredatorChange()">
+          <option value="wolf">Wolf</option>
+          <option value="fox">Fox</option>
+        </select>
+        <img id="predator-image" src="wolf.png" width="50" height="50" />
+      </div>
+    </div>
     <div id="inputs">
-      <label>
-        🐰 Bunnies:
-        <input id="bunny-input" type="text" value="40" />
-      </label>
-      <label>
-        🐺 Wolves:
-        <input id="wolf-input" type="text" value="9" />
-      </label>
+      <p><strong>Input starting population for each:</strong></p>
+    
+      <div class="input-row">
+        <img id="prey-input-image" src="bunny.png" class="input-image" />
+        <input id="prey-input" type="text" value="40" />
+      </div>
+    
+      <div class="input-row">
+        <img id="predator-input-image" src="wolf.png" class="input-image" />
+        <input id="predator-input" type="text" value="9" />
+      </div>
     </div>
 
     <div id="counters">
-      <img src="bunny.png" class="icon">
-      <span id="bunny-count"></span>
-      <img src="wolf.png" class="icon">
-      <span id="wolf-count"></span>
+      <img id="prey-icon" src="bunny.png" class="icon">
+      <span id="prey-count"></span>
+      <img id="predator-icon" src="wolf.png" class="icon">
+      <span id="predator-count"></span>
     </div>
 
     <canvas id="simCanvas" width="600" height="400"></canvas>
@@ -33,7 +54,7 @@
     <div id="controls">
       <button onclick="startSimulation()">Start Simulation</button>
       <button onclick="pauseSimulation()">Pause</button>
-      <button onclick="stopSimulation()">Stop</button>
+      <button onclick="stopSimulation()">Reset</button>
     </div>
   </div>
 
