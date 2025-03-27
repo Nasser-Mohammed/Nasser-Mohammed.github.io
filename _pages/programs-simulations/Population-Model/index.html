@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Predator-Prey Simulator</title>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Predator-Prey Simulator</h1>
+
+  <div id="counters">
+    <img src="bunny.png" class="icon"><span id="bunny-count">Loading...</span>
+    <img src="wolf.png" class="icon"><span id="wolf-count">Loading...</span>
+  </div>
+
+  <canvas id="simCanvas" width="600" height="400"></canvas>
+  <button onclick="startSimulation()">Start Simulation</button>
+
+  <script src="pyodide-runner.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
