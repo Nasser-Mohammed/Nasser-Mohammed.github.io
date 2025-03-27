@@ -5,6 +5,25 @@ body {
   padding: 20px;
 }
 
+h1 {
+  margin-bottom: 20px;
+}
+
+#inputs {
+  margin-bottom: 15px;
+}
+
+#inputs label {
+  margin: 0 10px;
+  font-size: 1.2em;
+}
+
+#inputs input {
+  width: 60px;
+  text-align: center;
+  margin-left: 5px;
+}
+
 #counters {
   margin-bottom: 20px;
   font-size: 1.5em;
@@ -18,6 +37,5 @@ body {
 
 canvas {
   border: 2px solid black;
-  margin-top: 10px;
+  background-color: white;
 }
-
