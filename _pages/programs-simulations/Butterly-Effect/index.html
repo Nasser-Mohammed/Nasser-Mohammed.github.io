@@ -40,10 +40,38 @@
         <img id="sprite-preview" src="bunny.png" width="50" height="50" style="margin-left: 5px;" />
       </div>
 
+      <div id="controls">
+        <div>
+          <label>σ (sigma): <span id="sigma-val">10</span></label>
+          <input type="range" id="sigma" min="0" max="30" step="0.1" value="10">
+        </div>
+        <div>
+          <label>ρ (rho): <span id="rho-val">28</span></label>
+          <input type="range" id="rho" min="0" max="100" step="0.1" value="28">
+        </div>
+        <div>
+          <label>β (beta): <span id="beta-val">2.6667</span></label>
+          <input type="range" id="beta" min="0" max="10" step="0.01" value="2.6667">
+        </div>
+        <button id="reset-params">Reset Parameters</button>
+      </div>
+      <button id="reset-trajectory">Reset Trajectory</button>
+      <div id="preset-container">
+        <label for="preset-select">Presets:</label>
+        <select id="preset-select">
+          <option value="">— Choose a preset —</option>
+          <option value="classic">🦋 Classic Butterfly</option>
+          <option value="spiral">🌪️ Chaotic Spiral</option>
+          <option value="collapse">💧 Collapse</option>
+          <option value="explode">🚀 Escape</option>
+        </select>
+      </div>
+
     <div id="time-display">Time: 0.00s</div>
     <div class="canvas-container">
         <canvas id="simCanvas" width="1000" height="800"></canvas>
       </div>
+
       
     <script src="main.js?v=2"></script>
 </body>

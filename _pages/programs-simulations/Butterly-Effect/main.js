@@ -10,6 +10,8 @@ let point = {x: 1, y: 1, z: 1}
 const dt = 0.005;
 const trailMap = new Map(); // maps "x,y" → visit count
 let simulationTime = 0;
+let centerZ = 25;  // default projection center for Z axis
+
 
 const sprites = {
     bunny: new Image(),
@@ -61,10 +63,11 @@ function updateTimeDisplay() {
     frameCount++;
     if (frameCount % 2 !== 0) return; // optional slowdown
   
-    point = lorenzStep(point, dt);   // update Lorenz state
-    simulationTime += dt;            // update time
-    updateTimeDisplay();             // update DOM
-    drawLorenzPoint(point);          // draw on canvas
+    point = lorenzStep(point, dt);
+    simulationTime += dt;
+    updateTimeDisplay();
+    drawLorenzPoint(point); // 2D canvas
+
   }
   
 function drawLorenzPoint(p) {
@@ -73,10 +76,10 @@ function drawLorenzPoint(p) {
   
     const scale = 6;
     const centerX = 0;
-    const centerZ = 25;
+    // 👇 centerZ is now global and adjustable!
     const xOffset = canvas.width / 2;
     const yOffset = canvas.height / 2;
-  
+
     const cx = Math.round(xOffset + (p.x - centerX) * scale);
     const cy = Math.round(yOffset - (p.z - centerZ) * scale);
   
@@ -97,7 +100,6 @@ function drawLorenzPoint(p) {
     }
   }
 function lorenzStep(p, dt){
-    const sigma = 10, rho = 28, beta = 8/3;
 
     const dx = sigma * (p.y - p.x);
     const dy = p.x * (rho - p.z) - p.y;
@@ -114,6 +116,114 @@ function lorenzStep(p, dt){
 document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById("simCanvas");
     ctx = canvas.getContext("2d");
+
+    document.getElementById("sigma").addEventListener("input", (e) => {
+        sigma = parseFloat(e.target.value);
+        document.getElementById("sigma-val").textContent = sigma.toFixed(1);
+      });
+      
+      document.getElementById("rho").addEventListener("input", (e) => {
+        rho = parseFloat(e.target.value);
+        document.getElementById("rho-val").textContent = rho.toFixed(1);
+      });
+      
+      document.getElementById("beta").addEventListener("input", (e) => {
+        beta = parseFloat(e.target.value);
+        document.getElementById("beta-val").textContent = beta.toFixed(4);
+      });
+
+      document.getElementById("reset-params").addEventListener("click", () => {
+        // Reset values
+        sigma = 10;
+        rho = 28;
+        beta = 8 / 3;
+      
+        // Update sliders
+        document.getElementById("sigma").value = sigma;
+        document.getElementById("rho").value = rho;
+        document.getElementById("beta").value = beta;
+      
+        // Update displayed values
+        document.getElementById("sigma-val").textContent = sigma.toFixed(1);
+        document.getElementById("rho-val").textContent = rho.toFixed(1);
+        document.getElementById("beta-val").textContent = beta.toFixed(4);
+      });
+
+      
+      document.getElementById("reset-trajectory").addEventListener("click", () => {
+        // Reset the Lorenz state
+        point = { x: 1, y: 1, z: 1 };
+      
+        // Clear the trail
+        trailMap.clear();
+      
+        // Optional: reset simulation time
+        simulationTime = 0;
+        updateTimeDisplay();
+      
+        // Optional: wipe canvas instantly (not needed if trail builds over time)
+        const canvas = document.getElementById("simCanvas");
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+      
+
+      document.getElementById("preset-select").addEventListener("change", (e) => {
+        const preset = e.target.value;
+      
+        switch (preset) {
+          case "classic":
+            sigma = 10;
+            rho = 28;
+            beta = 8 / 3;
+            centerZ =25;
+            break;
+          case "spiral":
+            sigma = 14;
+            rho = 40;
+            beta = 3;
+            centerZ=25;
+            break;
+          case "collapse":
+            sigma = 10;
+            rho = 8;
+            beta = 3;
+            centerZ =25
+            break;
+          case "explode":
+            sigma = 16;
+            rho = 99;
+            beta = 2.5;
+            centerZ=85;
+            break;
+          default:
+            return; // no change
+        }
+      
+        // Update sliders and labels
+        document.getElementById("sigma").value = sigma;
+        document.getElementById("rho").value = rho;
+        document.getElementById("beta").value = beta;
+      
+        document.getElementById("sigma-val").textContent = sigma.toFixed(1);
+        document.getElementById("rho-val").textContent = rho.toFixed(1);
+        document.getElementById("beta-val").textContent = beta.toFixed(4);
+      
+        // Reset trajectory to reflect new parameters
+        point = { x: 1, y: 1, z: 1 };
+        trailMap.clear();
+        simulationTime = 0;
+        updateTimeDisplay();
+
+          
+      
+        // Clear the canvas
+        const canvas = document.getElementById("simCanvas");
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+    
+    
   
     handleSpriteChange(); // draw the default sprite
     animate();
