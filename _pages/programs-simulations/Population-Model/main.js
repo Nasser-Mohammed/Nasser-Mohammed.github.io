@@ -16,6 +16,10 @@ let gamma = 0.1;
 let delta = 0.005;
 
 
+let prey_reintro = 0
+let predator_reintro = 0
+
+
 animalImages.bunny.src = "bunny.png";
 animalImages.deer.src = "deer.png";
 animalImages.wolf.src = "wolf.png";
@@ -295,6 +299,7 @@ function updateTimerDisplay() {
 
 
 function simulateStep(prey, predator) {
+  
   const db = alpha * prey - beta * prey * predator;
   const dp = delta * prey * predator - gamma * predator;
 
