@@ -7,7 +7,7 @@ let beta = 8/3;
 let ctx;
 let currentSprite = "kodie";
 let point = {x: 1, y: 1, z: 1}
-const dt = 0.005;
+const dt = 0.01;
 const trailMap = new Map(); // maps "x,y" → visit count
 let simulationTime = 0;
 let centerZ = 25;  // default projection center for Z axis
