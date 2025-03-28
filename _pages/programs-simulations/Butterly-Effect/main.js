@@ -61,7 +61,7 @@ function updateTimeDisplay() {
     requestAnimationFrame(animate); // 🔁 keep looping
   
     frameCount++;
-    if (frameCount % 2 !== 0) return; // optional slowdown
+    if (frameCount % 3 !== 0) return; // optional slowdown
   
     point = lorenzStep(point, dt);
     simulationTime += 2*dt;
