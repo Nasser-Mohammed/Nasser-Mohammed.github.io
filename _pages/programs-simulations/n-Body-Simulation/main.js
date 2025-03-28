@@ -2,9 +2,14 @@
 let currentPlanet = "earth";
 let ctx;
 const G = 6.67*Math.pow(10, -11);
-let simulationRunning = false;
+let simulationStarted = false;
 const dt = 0.005;
 let point = {x: 150, y: 150}
+let frameCount = 0;
+let simulationTime = 0;
+let animationId = null;
+let running = false;
+
 
 let spawnedPlanetPos = {}
 
@@ -37,7 +42,7 @@ planets.neptune.src = "neptune.png";
 
 
 function startSimulation(){
-    simulationRunning = true;
+    animate();
     
 }
 
@@ -67,8 +72,6 @@ function drawPlanet(){
     const ctx = canvas.getContext("2d");
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    cx = point.x;
-    cy = point.y;
 
     const planetImg = planets[currentPlanet];
     if (planetImg && planetImg.complete) {
@@ -88,14 +91,22 @@ function timeStep(r1, r2, r3){
 
 
   function animate() {
-    requestAnimationFrame(animate);
+    if (!running) return;
+    animationId = requestAnimationFrame(animate);
   
     frameCount++;
   
     const canvas = document.getElementById("simCanvas");
     const ctx = canvas.getContext("2d");
-    point = (Math.floor(Math.random()*650), Math.floor(Math.random()*450));
-    drawPlanets();
+    newPoint1 = [Math.floor(Math.random()*650), Math.floor(Math.random()*450)];
+    newPoint2 = [Math.floor(Math.random()*650), Math.floor(Math.random()*450)];
+    newPoint3 = [Math.floor(Math.random()*650), Math.floor(Math.random()*450)];
+    spawnedPlanetPos.sun = newPoint1;
+    spawnedPlanetPos.moon = newPoint2;
+    spawnedPlanetPos.currentPlanet = newPoint3;
+    
+    if (frameCount % 40 !== 0) return; // Only update every 10th frame
+    drawPlanet();
 
   }
 
@@ -131,9 +142,19 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
     document.getElementById("start-simulation").addEventListener("click", (e) => {
-        simulation = true;
-        const startButton = document.getElementById("start-simulation");
-        startButton.disabled = true;
+        const btn = document.getElementById("start-simulation");
+        if (!running){
+            simulationTime = 0;
+            running = true;
+            startSimulation();
+            btn.textContent = "Pause";
+        }
+        else{
+            running = false;
+            cancelAnimationFrame(animationId);
+            btn.textContent = "Resume";
+        }
+        
         startSimulation();
     });
 
