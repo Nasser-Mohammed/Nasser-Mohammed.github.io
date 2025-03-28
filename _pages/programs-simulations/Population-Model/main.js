@@ -24,6 +24,24 @@ let predatorExtinctTime = 0;
 
 const extinctionThreshold = 7; // seconds
 
+let timeChart = null;
+let timeData = {
+  labels: [],
+  datasets: [
+    {
+      label: "Prey",
+      data: [],
+      borderColor: "#10b981", // greenish
+      fill: false
+    },
+    {
+      label: "Predator",
+      data: [],
+      borderColor: "#ef4444", // red
+      fill: false
+    }
+  ]
+};
 
 
 let stepCount = 0;
@@ -103,6 +121,43 @@ function initGraph() {
     }
   });
 }
+
+function initTimeGraph() {
+  const ctx = document.getElementById("timeGraph").getContext("2d");
+  timeChart = new Chart(ctx, {
+    type: "line",
+    data: timeData,
+    options: {
+      responsive: true,
+      animation: false,
+      plugins: {
+        legend: {
+          display: true
+        },
+        title: {
+          display: true,
+          text: "Population Over Time"
+        }
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: "Time (months)"
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: "Population"
+          },
+          min: 0
+        }
+      }
+    }
+  });
+}
+
 
 function flashReintroduction(message) {
   flashActive = true;
@@ -273,6 +328,13 @@ function stopSimulation() {
     graphData.datasets[0].data = [];
     graphChart.update();
   }
+  if (timeChart) {
+    timeData.labels = [];
+    timeData.datasets[0].data = [];
+    timeData.datasets[1].data = [];
+    timeChart.update();
+  }
+  
 }
 
 function loop() {
@@ -299,7 +361,7 @@ function loop() {
       predatorExtinctTime = 0;
     }
 
-    let reintroMsg = "";
+  let reintroMsg = "";
   if (preyExtinctTime >= extinctionThreshold) {
     preyCount += preyReintroAmount;
     preyExtinctTime = 0;
@@ -320,6 +382,14 @@ function loop() {
       });
       graphChart.update();
     }
+
+    if (timeChart) {
+      timeData.labels.push(elapsedTime);
+      timeData.datasets[0].data.push(preyCount);      // prey
+      timeData.datasets[1].data.push(predatorCount);  // predator
+      timeChart.update();
+    }
+    
     
   }, 500);
 }//the 1000 indicates it runs every 1000 ms = 1second
@@ -393,6 +463,8 @@ document.addEventListener("DOMContentLoaded", () => {
   updateDisplay();
   drawCanvas();
   initGraph();
+  initTimeGraph();
+
   const sliders = ["alpha", "beta", "gamma", "delta"];
   sliders.forEach(id => {
     const slider = document.getElementById(id);
