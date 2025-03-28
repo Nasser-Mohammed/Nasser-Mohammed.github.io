@@ -15,9 +15,21 @@ let beta = 0.01;
 let gamma = 0.1;
 let delta = 0.005;
 
+let flashActive = false;
+let flashTimer = null;
+let flashMessage = "";
 
-let prey_reintro = 0
-let predator_reintro = 0
+let preyExtinctTime = 0;
+let predatorExtinctTime = 0;
+
+const extinctionThreshold = 7; // seconds
+
+
+
+let stepCount = 0;
+const reintroInterval = 10;     // every 10 steps (7.5 seconds if loop is 750ms)
+const preyReintroAmount = 7;    // add 5 prey each time
+const predatorReintroAmount = 2; // optional
 
 
 animalImages.bunny.src = "bunny.png";
@@ -90,6 +102,17 @@ function initGraph() {
       }
     }
   });
+}
+
+function flashReintroduction(message) {
+  flashActive = true;
+  flashMessage = message;
+
+  if (flashTimer) clearTimeout(flashTimer);
+  flashTimer = setTimeout(() => {
+    flashActive = false;
+    flashMessage = "";
+  }, 1000); // visible for 1 second
 }
 
 
@@ -198,6 +221,7 @@ async function startSimulation() {
   drawCanvas();
   loop();
   elapsedTime = 0;
+  stepCount = 0;
   updateTimerDisplay();
 
   if (timerInterval) clearInterval(timerInterval);
@@ -206,7 +230,7 @@ async function startSimulation() {
       elapsedTime += 1;
       updateTimerDisplay();
     }
-  }, 1000); // every second
+  }, 500); // every second
 
   document.getElementById("prey-input").disabled = true;
   document.getElementById("predator-input").disabled = true;
@@ -240,6 +264,8 @@ function stopSimulation() {
 
   // Reset timer + graph (optional)
   elapsedTime = 0;
+  preyExtinctTime = 0;
+  predatorExtinctTime = 0;
   clearInterval(timerInterval);
   updateTimerDisplay();
 
@@ -258,6 +284,33 @@ function loop() {
     const [newPrey, newPredators] = simulateStep(preyCount, predatorCount);
     preyCount = Math.max(0, newPrey);
     predatorCount = Math.max(0, newPredators);
+
+
+    // ⏱️ Track extinction durations
+    if (Math.floor(preyCount) === 0) {
+      preyExtinctTime += 0.5;
+    } else {
+      preyExtinctTime = 0;
+    }
+
+    if (Math.floor(predatorCount) === 0) {
+      predatorExtinctTime += 0.5;
+    } else {
+      predatorExtinctTime = 0;
+    }
+
+    let reintroMsg = "";
+  if (preyExtinctTime >= extinctionThreshold) {
+    preyCount += preyReintroAmount;
+    preyExtinctTime = 0;
+    reintroMsg += "Reintroducing prey";
+  }
+  if (predatorExtinctTime >= extinctionThreshold) {
+    predatorCount += predatorReintroAmount;
+    predatorExtinctTime = 0;
+    reintroMsg += "Reintroducing predator";
+  }
+  if (reintroMsg) flashReintroduction(reintroMsg);
     updateDisplay();
     drawCanvas();
     if (graphChart) {
@@ -268,7 +321,7 @@ function loop() {
       graphChart.update();
     }
     
-  }, 1000);
+  }, 500);
 }//the 1000 indicates it runs every 1000 ms = 1second
 
 
@@ -289,6 +342,19 @@ function drawCanvas() {
   for (let i = 0; i < Math.floor(predatorCount); i++) {
     ctx.drawImage(predatorImg, Math.random() * 550, Math.random() * 350, 60, 60);
   }
+
+  if (flashActive && flashMessage) {
+    ctx.fillStyle = "rgba(255, 255, 0, 0.3)";
+    ctx.fillRect(0, 0, 600, 400);
+  
+    ctx.fillStyle = "#000";
+    ctx.font = "bold 26px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(flashMessage, 300, 200);
+  }
+  
+  
+
 }
 
 function updateTimerDisplay() {
@@ -299,11 +365,13 @@ function updateTimerDisplay() {
 
 
 function simulateStep(prey, predator) {
-  
+
   const db = alpha * prey - beta * prey * predator;
   const dp = delta * prey * predator - gamma * predator;
 
-  return [prey + db, predator + dp];
+  const dt = 0.5;
+  return [prey + db * dt, predator + dp * dt];
+
 }
 
 
