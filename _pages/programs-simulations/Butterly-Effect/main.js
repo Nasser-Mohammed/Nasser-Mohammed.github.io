@@ -9,6 +9,7 @@ let currentSprite = "kodie";
 let point = {x: 1, y: 1, z: 1}
 const dt = 0.005;
 const trailMap = new Map(); // maps "x,y" → visit count
+let simulationTime = 0;
 
 const sprites = {
     bunny: new Image(),
@@ -43,26 +44,29 @@ if (!ctx) return;
 const spriteImg = sprites[currentSprite];  // FIXED: use 'sprites' not 'animalImages'
 if (!spriteImg || !spriteImg.complete) return;
 
-//ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-// for (let i = 0; i < 10; i++) {
-//     const x = Math.random() * (ctx.canvas.width - 50);
-//     const y = Math.random() * (ctx.canvas.height - 50);
-//     ctx.drawImage(spriteImg, x, y, 40, 40);
-// }
 }
 
-let frameCount = 0;
+function updateTimeDisplay() {
+    const display = document.getElementById("time-display");
+    if (display) {
+      display.textContent = `Time: ${simulationTime.toFixed(2)}s`;
+    }
+  }
 
-function animate() {
-  requestAnimationFrame(animate);
+  let frameCount = 0;
 
-  frameCount++;
-  if (frameCount % 2 !== 0) return; // skip every other frame
-
-  point = lorenzStep(point, dt);
-  drawLorenzPoint(point);
-}
+  function animate() {
+    requestAnimationFrame(animate); // 🔁 keep looping
+  
+    frameCount++;
+    if (frameCount % 2 !== 0) return; // optional slowdown
+  
+    point = lorenzStep(point, dt);   // update Lorenz state
+    simulationTime += dt;            // update time
+    updateTimeDisplay();             // update DOM
+    drawLorenzPoint(point);          // draw on canvas
+  }
+  
 function drawLorenzPoint(p) {
     const canvas = document.getElementById("simCanvas");
     const ctx = canvas.getContext("2d");
@@ -76,20 +80,20 @@ function drawLorenzPoint(p) {
     const cx = Math.round(xOffset + (p.x - centerX) * scale);
     const cy = Math.round(yOffset - (p.z - centerZ) * scale);
   
-    // Key = "x,y"
+    // Track trails with color based on visits
     const key = `${cx},${cy}`;
     const count = trailMap.get(key) || 0;
     trailMap.set(key, count + 1);
   
-    // Color based on visit count
-    const alpha = Math.min(0.2 + count * 0.1, 1); // brighten each visit
-    // ctx.fillStyle = `rgba(0, 0, 255, ${alpha})`;
-    // ctx.fillRect(cx, cy, 2, 2);
+    const alpha = Math.min(0.2 + count * 0.1, 1);
+    ctx.fillStyle = `rgba(0, 0, 255, ${alpha})`;
+    ctx.fillRect(cx, cy, 2, 2); // tiny trail dot
   
-    // Also draw the sprite at the current position
+    // 🦋 Draw your butterfly sprite, smaller size
     const spriteImg = sprites[currentSprite];
     if (spriteImg && spriteImg.complete) {
-      ctx.drawImage(spriteImg, cx - 20, cy - 20, 40, 40);
+      const spriteSize = 20;
+      ctx.drawImage(spriteImg, cx - spriteSize / 2, cy - spriteSize / 2, spriteSize, spriteSize);
     }
   }
 function lorenzStep(p, dt){

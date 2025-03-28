@@ -22,8 +22,24 @@ body {
     margin-bottom: 20px;
   }
   canvas {
-    border: 2px solid #000;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: block;
+    margin: 0 auto 20px auto; /* top, right/left, bottom */
   }
+  .canvas-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* full screen height */
+  }
+  .canvas-container {
+    margin-top: 10px; /* reduce this to pull it up */
+    display: flex;
+    justify-content: center;
+  }
+  #time-display {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
