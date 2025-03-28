@@ -310,10 +310,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const btn = document.getElementById("double-launch");
 
+      if (!dualStarted) {
         simulationTime = 0;
         updateTimeDisplay();
-
-      if (!dualStarted) {
         dualMode = true;
         dualStarted = true;
         dualPaused = false;
