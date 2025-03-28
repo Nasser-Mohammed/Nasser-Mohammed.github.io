@@ -1,232 +1,78 @@
+// main.js
 
+const canvas = document.getElementById("pendulumCanvas");
+const ctx = canvas.getContext("2d");
 
+// Parameters
+const g = 9.81;
+const l = 200; // length of rods
+const m = 1; // mass (not used directly)
 
-let sigma = 10;
-let rho = 28;
-let beta = 8/3;
-let ctx;
-let currentSprite = "kodie";
-let point = {x: 1, y: 1, z: 1}
-const dt = 0.005;
-const trailMap = new Map(); // maps "x,y" → visit count
-let simulationTime = 0;
-let centerZ = 25;  // default projection center for Z axis
+// Initial angles and velocities
+let theta1 = Math.PI / 2;
+let theta2 = Math.PI / 2;
+let omega1 = 0;
+let omega2 = 0;
 
+const originX = canvas.width / 2;
+const originY = 200;
+const dt = 0.05;
 
-const sprites = {
-    bunny: new Image(),
-    deer: new Image(),
-    wolf: new Image(),
-    fox: new Image(),
-    kodie: new Image()
-  };
+function updatePendulum() {
+  const delta = theta2 - theta1;
 
+  const denom1 = (2 - Math.cos(2 * delta));
+  const denom2 = (2 - Math.cos(2 * delta));
 
-  sprites.bunny.src = "bunny.png";
-  sprites.deer.src = "deer.png";
-  sprites.wolf.src = "wolf.png";
-  sprites.fox.src = "fox.png";
-  sprites.kodie.src = "kodie.png";
+  const num1 = -g * (2 * Math.sin(theta1) + Math.sin(theta1 - 2 * theta2)) -
+               2 * Math.sin(delta) * (omega2 * omega2 + omega1 * omega1 * Math.cos(delta));
 
-  function handleSpriteChange() {
-    const select = document.getElementById("sprite-select");
-    currentSprite = select.value;
-  
-    // Update image preview
-    document.getElementById("sprite-preview").src = `${currentSprite}.png`;
-  
-    // If you're using this for drawing:
-    drawCanvas();
-  }
+  const num2 = 2 * Math.sin(delta) * (
+    omega1 * omega1 + g * Math.cos(theta1) + omega2 * omega2 * Math.cos(delta)
+  );
 
+  const a1 = num1 / (l * denom1);
+  const a2 = num2 / (l * denom2);
 
-function drawCanvas() {
-if (!ctx) return;
+  omega1 += a1 * dt;
+  omega2 += a2 * dt;
 
-const spriteImg = sprites[currentSprite];  // FIXED: use 'sprites' not 'animalImages'
-if (!spriteImg || !spriteImg.complete) return;
-
+  theta1 += omega1 * dt;
+  theta2 += omega2 * dt;
 }
 
-function updateTimeDisplay() {
-    const display = document.getElementById("time-display");
-    if (display) {
-      display.textContent = `Time: ${simulationTime.toFixed(2)}s`;
-    }
-  }
+function drawPendulum() {
+  ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  let frameCount = 0;
+  const x1 = originX + l * Math.sin(theta1);
+  const y1 = originY + l * Math.cos(theta1);
 
-  function animate() {
-    requestAnimationFrame(animate); // 🔁 keep looping
-  
-    frameCount++;
-    if (frameCount % 2 !== 0) return; // optional slowdown
-  
-    point = lorenzStep(point, dt);
-    simulationTime += dt;
-    updateTimeDisplay();
-    drawLorenzPoint(point); // 2D canvas
+  const x2 = x1 + l * Math.sin(theta2);
+  const y2 = y1 + l * Math.cos(theta2);
 
-  }
-  
-function drawLorenzPoint(p) {
-    const canvas = document.getElementById("simCanvas");
-    const ctx = canvas.getContext("2d");
-  
-    const scale = 6;
-    const centerX = 0;
-    // 👇 centerZ is now global and adjustable!
-    const xOffset = canvas.width / 2;
-    const yOffset = canvas.height / 2;
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(originX, originY);
+  ctx.lineTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
 
-    const cx = Math.round(xOffset + (p.x - centerX) * scale);
-    const cy = Math.round(yOffset - (p.z - centerZ) * scale);
-  
-    // Track trails with color based on visits
-    const key = `${cx},${cy}`;
-    const count = trailMap.get(key) || 0;
-    trailMap.set(key, count + 1);
-  
-    const alpha = Math.min(0.2 + count * 0.1, 1);
-    ctx.fillStyle = `rgba(0, 0, 255, ${alpha})`;
-    ctx.fillRect(cx, cy, 2, 2); // tiny trail dot
-  
-    // 🦋 Draw your butterfly sprite, smaller size
-    const spriteImg = sprites[currentSprite];
-    if (spriteImg && spriteImg.complete) {
-      const spriteSize = 20;
-      ctx.drawImage(spriteImg, cx - spriteSize / 2, cy - spriteSize / 2, spriteSize, spriteSize);
-    }
-  }
-function lorenzStep(p, dt){
+  ctx.fillStyle = "#000";
+  ctx.beginPath();
+  ctx.arc(x1, y1, 8, 0, Math.PI * 2);
+  ctx.fill();
 
-    const dx = sigma * (p.y - p.x);
-    const dy = p.x * (rho - p.z) - p.y;
-    const dz = p.x * p.y - beta * p.z;
+  ctx.beginPath();
+  ctx.arc(x2, y2, 8, 0, Math.PI * 2);
+  ctx.fill();
+}
 
-    return {
-        x: p.x + dx * dt,
-        y: p.y + dy * dt,
-        z: p.z + dz * dt
-    };
-  }
+function animate() {
+  updatePendulum();
+  drawPendulum();
+  requestAnimationFrame(animate);
+}
 
-// Initial display when page loads
-document.addEventListener("DOMContentLoaded", () => {
-    const canvas = document.getElementById("simCanvas");
-    ctx = canvas.getContext("2d");
-
-    document.getElementById("sigma").addEventListener("input", (e) => {
-        sigma = parseFloat(e.target.value);
-        document.getElementById("sigma-val").textContent = sigma.toFixed(1);
-      });
-      
-      document.getElementById("rho").addEventListener("input", (e) => {
-        rho = parseFloat(e.target.value);
-        document.getElementById("rho-val").textContent = rho.toFixed(1);
-      });
-      
-      document.getElementById("beta").addEventListener("input", (e) => {
-        beta = parseFloat(e.target.value);
-        document.getElementById("beta-val").textContent = beta.toFixed(4);
-      });
-
-      document.getElementById("reset-params").addEventListener("click", () => {
-        // Reset values
-        sigma = 10;
-        rho = 28;
-        beta = 8 / 3;
-      
-        // Update sliders
-        document.getElementById("sigma").value = sigma;
-        document.getElementById("rho").value = rho;
-        document.getElementById("beta").value = beta;
-      
-        // Update displayed values
-        document.getElementById("sigma-val").textContent = sigma.toFixed(1);
-        document.getElementById("rho-val").textContent = rho.toFixed(1);
-        document.getElementById("beta-val").textContent = beta.toFixed(4);
-      });
-
-      
-      document.getElementById("reset-trajectory").addEventListener("click", () => {
-        // Reset the Lorenz state
-        point = { x: 1, y: 1, z: 1 };
-      
-        // Clear the trail
-        trailMap.clear();
-      
-        // Optional: reset simulation time
-        simulationTime = 0;
-        updateTimeDisplay();
-      
-        // Optional: wipe canvas instantly (not needed if trail builds over time)
-        const canvas = document.getElementById("simCanvas");
-        const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      });
-      
-
-      document.getElementById("preset-select").addEventListener("change", (e) => {
-        const preset = e.target.value;
-      
-        switch (preset) {
-          case "classic":
-            sigma = 10;
-            rho = 28;
-            beta = 8 / 3;
-            centerZ =25;
-            break;
-          case "spiral":
-            sigma = 14;
-            rho = 40;
-            beta = 3;
-            centerZ=25;
-            break;
-          case "collapse":
-            sigma = 10;
-            rho = 8;
-            beta = 3;
-            centerZ =25
-            break;
-          case "explode":
-            sigma = 16;
-            rho = 99;
-            beta = 2.5;
-            centerZ=85;
-            break;
-          default:
-            return; // no change
-        }
-      
-        // Update sliders and labels
-        document.getElementById("sigma").value = sigma;
-        document.getElementById("rho").value = rho;
-        document.getElementById("beta").value = beta;
-      
-        document.getElementById("sigma-val").textContent = sigma.toFixed(1);
-        document.getElementById("rho-val").textContent = rho.toFixed(1);
-        document.getElementById("beta-val").textContent = beta.toFixed(4);
-      
-        // Reset trajectory to reflect new parameters
-        point = { x: 1, y: 1, z: 1 };
-        trailMap.clear();
-        simulationTime = 0;
-        updateTimeDisplay();
-
-          
-      
-        // Clear the canvas
-        const canvas = document.getElementById("simCanvas");
-        const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      });
-    
-    
-  
-    handleSpriteChange(); // draw the default sprite
-    animate();
-  
-    // Optionally: add other init functions
-});
+animate();
