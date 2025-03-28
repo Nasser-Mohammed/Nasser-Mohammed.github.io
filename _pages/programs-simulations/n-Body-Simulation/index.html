@@ -1,1 +1,55 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulation of the n-Body Problem</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <p>In memory of Kodie</p>
+  <img src="kodie.png" alt="Kodie" width="150" height="150">
+  <div class="wrapper">
+    <h1>The n-Body Problem Simulation</h1>
+    <h4>Solutions approximated by Euler's method coupled with state augmentation</h4>
+    <h2><u>The 3-Body System</u></h2>
+    <div>
+        \[
+        \begin{aligned}
+          \ddot{\boldsymbol{r}}_1 &= -Gm_2\frac{\boldsymbol{r_1}-\boldsymbol{r_2}}{|\boldsymbol{r_1}-\boldsymbol{r_2}|^3} -Gm_3\frac{\boldsymbol{r_1}-\boldsymbol{r_3}}{|\boldsymbol{r_1}-\boldsymbol{r_3}|^3}\\
+          \\
+          \ddot{\boldsymbol{r}}_2 &= -Gm_1\frac{\boldsymbol{r_2}-\boldsymbol{r_1}}{|\boldsymbol{r_2}-\boldsymbol{r_1}|^3} -Gm_3\frac{\boldsymbol{r_2}-\boldsymbol{r_3}}{|\boldsymbol{r_2}-\boldsymbol{r_3}|^3}\\
+          \\
+          \ddot{\boldsymbol{r}}_3 &= -Gm_1\frac{\boldsymbol{r_3}-\boldsymbol{r_1}}{|\boldsymbol{r_3}-\boldsymbol{r_1}|^3} -Gm_2\frac{\boldsymbol{r_3}-\boldsymbol{r_2}}{|\boldsymbol{r_3}-\boldsymbol{r_2}|^3}
+        \end{aligned}
+        \]
+      </div>
+      <hr>
+      <div class="planet-selector">
+        <label for="planet-select">Choose a planet:</label>
+        <select id="planet-select" onchange="handlePlanetChange()">
+          <option value="earth">Earth</option>
+          <option value="mars">Mars</option>
+          <option value="jupiter">Jupiter</option>
+          <option value="saturn">Saturn</option>
+          <option value="neptune">Neptune</option>
+        </select>
+      
+        <!-- Optional: Preview image -->
+        <img id="planet-preview" src="earth.png" width="40" height="40" style="margin-left: 5px;" />
+        </div>
+        <button id = "add-planet">Click to add a planet to the simulation</button>
+    </br>
+    <button id = "start-simulation">Click button to start simulation</button>
+    </br>
+    <div id="time-display">Time: 0.00s</div>
+    <div class="canvas-container">
+        <canvas id="simCanvas" width="700" height="500"></canvas>
+      </div>
+
+      
+    <script src="main.js?v=2"></script>
+</body>
+</html>
