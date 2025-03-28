@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Competitive Population Simulation</title>
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -52,6 +51,8 @@
       <span id="predator-count"></span>
     </div>
 
+    <div id="timer-display">Day: 0</div>
+
     <canvas id="simCanvas" width="600" height="400"></canvas>
 
     <div id="controls">
@@ -61,7 +62,8 @@
     </div>
   </div>
 
-  <script src="pyodide-runner.js"></script>
+  
+
   <script src="main.js"></script>
 </body>
 </html>

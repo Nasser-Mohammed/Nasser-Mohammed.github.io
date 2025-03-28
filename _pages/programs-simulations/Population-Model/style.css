@@ -138,3 +138,7 @@ body {
     margin-bottom: 6px;
   }
   
+  #timer-display {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }

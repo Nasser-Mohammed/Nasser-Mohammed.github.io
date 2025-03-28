@@ -7,6 +7,9 @@ const animalImages = {
   fox: new Image()
 };
 
+let elapsedTime = 0;
+let timerInterval = null;
+
 animalImages.bunny.src = "bunny.png";
 animalImages.deer.src = "deer.png";
 animalImages.wolf.src = "wolf.png";
@@ -48,22 +51,19 @@ function handlePreyChange() {
   const select = document.getElementById("prey-select");
   currentPrey = select.value;
 
-  // Update preview image
+  // Update dropdown preview image
   document.getElementById("prey-image").src = `${currentPrey}.png`;
 
-  // Update label and emoji
-  const emoji = getEmoji(currentPrey);
-  document.getElementById("prey-label").innerHTML = `
-    ${emoji} ${capitalize(currentPrey)}:
-    <input id="prey-input" type="text" value="${preyCount}" />
-  `;
-
-  // Update counter image
+  // ✅ Update icon in counter section
   document.getElementById("prey-icon").src = `${currentPrey}.png`;
+
+  // ✅ Update the small input icon next to population input
+  document.getElementById("prey-input-image").src = `${currentPrey}.png`;
 
   updateDisplay();
   drawCanvas();
 }
+
 
 function handlePredatorChange() {
   const select = document.getElementById("predator-select");
@@ -71,27 +71,28 @@ function handlePredatorChange() {
 
   const emoji = getEmoji(currentPredator);
 
-  // Update label and input
-  document.getElementById("predator-label").innerHTML = `
-    ${emoji} ${capitalize(currentPredator)}:
-    <input id="predator-input" type="text" value="${predatorCount}" />
-  `;
+  // Update label (if used) — optional
+  const predatorLabel = document.getElementById("predator-label");
+  if (predatorLabel) {
+    predatorLabel.innerHTML = `
+      ${emoji} ${capitalize(currentPredator)}:
+      <input id="predator-input" type="text" value="${predatorCount}" />
+    `;
+  }
 
-  // // Update icon in counter section
-  // const icon = document.getElementById("predator-icon");
-  // if (icon) icon.src = `${currentPredator}.png`;
+  // ✅ Update the preview image beside dropdown
+  document.getElementById("predator-image").src = `${currentPredator}.png`;
 
-  // // ✅ Update the preview image to the right of the dropdown
-  // const preview = document.getElementById("predator-image");
-  // if (preview) preview.src = `${currentPredator}.png`;
-
-  // Update counter image
+  // ✅ Update icon in counter section
   document.getElementById("predator-icon").src = `${currentPredator}.png`;
 
+  // ✅ Update the small input icon (next to input box)
+  document.getElementById("predator-input-image").src = `${currentPredator}.png`;
 
   updateDisplay();
   drawCanvas();
 }
+
 
 function capitalize(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
@@ -103,7 +104,6 @@ function updateDisplay() {
 }
 //begin simulation
 async function startSimulation() {
-  if (!pyodide) await loadPyodideAndPackages();
   if (simulationRunning) return;
 
   // Get input values
@@ -122,6 +122,16 @@ async function startSimulation() {
   updateDisplay();
   drawCanvas();
   loop();
+  elapsedTime = 0;
+updateTimerDisplay();
+
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    if (!simulationPaused && simulationRunning) {
+      elapsedTime += 1;
+      updateTimerDisplay();
+    }
+  }, 1000); // every second
 }
 
 function pauseSimulation() {
@@ -137,12 +147,18 @@ function stopSimulation() {
   clearInterval(simulationLoopId);
   simulationLoopId = null;
 
+  elapsedTime = 0;
+  clearInterval(timerInterval);
+  updateTimerDisplay();
+
+
   ctx.clearRect(0, 0, 600, 400);
   document.getElementById("prey-count").textContent = "Prey: 0";
   document.getElementById("predator-count").textContent = "Predator: 0";
 
   const pauseButton = document.querySelector("button[onclick='pauseSimulation()']");
   pauseButton.textContent = "Pause";
+
 }
 
 function loop() {
@@ -151,12 +167,12 @@ function loop() {
   simulationLoopId = setInterval(async () => {
     if (!simulationRunning || simulationPaused) return;
 
-    const [newPrey, newPredators] = await runPythonStep(preyCount, predatorCount);
+    const [newPrey, newPredators] = simulateStep(preyCount, predatorCount);
     preyCount = Math.max(0, newPrey);
     predatorCount = Math.max(0, newPredators);
     updateDisplay();
     drawCanvas();
-  }, 750);
+  }, 1000);
 }//the 1000 indicates it runs every 1000 ms = 1second
 
 
@@ -178,6 +194,23 @@ function drawCanvas() {
     ctx.drawImage(predatorImg, Math.random() * 550, Math.random() * 350, 60, 60);
   }
 }
+
+function updateTimerDisplay() {
+  const timer = document.getElementById("timer-display");
+  if (timer) timer.textContent = `Day: ${elapsedTime}`;
+}
+
+
+
+function simulateStep(prey, predator) {
+  // Lotka-Volterra-style model
+  const db = prey * 0.1 - 0.01 * prey * predator;
+  const dp = -predator * 0.1 + 0.005 * prey * predator;
+
+  // Euler update
+  return [prey + db, predator + dp];
+}
+
 // Initial display when page loads
 document.addEventListener("DOMContentLoaded", () => {
   // Set initial counts
