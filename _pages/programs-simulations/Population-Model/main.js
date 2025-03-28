@@ -10,6 +10,12 @@ const animalImages = {
 let elapsedTime = 0;
 let timerInterval = null;
 
+let alpha = 0.1;
+let beta = 0.01;
+let gamma = 0.1;
+let delta = 0.005;
+
+
 animalImages.bunny.src = "bunny.png";
 animalImages.deer.src = "deer.png";
 animalImages.wolf.src = "wolf.png";
@@ -144,15 +150,6 @@ function handlePredatorChange() {
 
   const emoji = getEmoji(currentPredator);
 
-  // Update label (if used) — optional
-  // const predatorLabel = document.getElementById("predator-label");
-  // if (predatorLabel) {
-  //   predatorLabel.innerHTML = `
-  //     ${emoji} ${capitalize(currentPredator)}:
-  //     <input id="predator-input" type="text" value="${predatorCount}" />
-  //   `;
-  // }
-
   // ✅ Update the preview image beside dropdown
   document.getElementById("predator-image").src = `${currentPredator}.png`;
 
@@ -182,7 +179,8 @@ async function startSimulation() {
   // Get input values
   preyCount = parseInt(document.getElementById("prey-input").value);
   predatorCount = parseInt(document.getElementById("predator-input").value);
-
+  document.getElementById("prey-input").disabled = true;
+  document.getElementById("predator-input").disabled = true;
 
   if (isNaN(preyCount) || preyCount < 0) preyCount = 0;
   if (isNaN(predatorCount) || predatorCount < 0) predatorCount = 0;
@@ -196,7 +194,7 @@ async function startSimulation() {
   drawCanvas();
   loop();
   elapsedTime = 0;
-updateTimerDisplay();
+  updateTimerDisplay();
 
   if (timerInterval) clearInterval(timerInterval);
   timerInterval = setInterval(() => {
@@ -223,26 +221,28 @@ function stopSimulation() {
   clearInterval(simulationLoopId);
   simulationLoopId = null;
 
+  ctx.clearRect(0, 0, 600, 400);
+  document.getElementById("prey-count").textContent = "Prey: 0";
+  document.getElementById("predator-count").textContent = "Predator: 0";
+  document.getElementById("control-button").textContent = "Start Simulation";
+
+  // Re-enable inputs
+  const preyInput = document.getElementById("prey-input");
+  const predatorInput = document.getElementById("predator-input");
+  if (preyInput && predatorInput) {
+    preyInput.disabled = false;
+    predatorInput.disabled = false;
+  }
+
+  // Reset timer + graph (optional)
   elapsedTime = 0;
   clearInterval(timerInterval);
   updateTimerDisplay();
 
-
-  ctx.clearRect(0, 0, 600, 400);
-  document.getElementById("prey-count").textContent = "Prey: 0";
-  document.getElementById("predator-count").textContent = "Predator: 0";
-
-  const pauseButton = document.querySelector("button[onclick='pauseSimulation()']");
-  pauseButton.textContent = "Pause";
   if (graphChart) {
     graphData.datasets[0].data = [];
     graphChart.update();
   }
-  
-  document.getElementById("control-button").textContent = "Start Simulation";
-  document.getElementById("prey-input").disabled = false;
-  document.getElementById("predator-input").disabled = false;
-
 }
 
 function loop() {
@@ -289,19 +289,18 @@ function drawCanvas() {
 
 function updateTimerDisplay() {
   const timer = document.getElementById("timer-display");
-  if (timer) timer.textContent = `Day: ${elapsedTime}`;
+  if (timer) timer.textContent = `Month: ${elapsedTime}`;
 }
 
 
 
 function simulateStep(prey, predator) {
-  // Lotka-Volterra-style model
-  const db = prey * 0.1 - 0.01 * prey * predator;
-  const dp = -predator * 0.1 + 0.005 * prey * predator;
+  const db = alpha * prey - beta * prey * predator;
+  const dp = delta * prey * predator - gamma * predator;
 
-  // Euler update
   return [prey + db, predator + dp];
 }
+
 
 // Initial display when page loads
 document.addEventListener("DOMContentLoaded", () => {
@@ -321,4 +320,19 @@ document.addEventListener("DOMContentLoaded", () => {
   updateDisplay();
   drawCanvas();
   initGraph();
+  const sliders = ["alpha", "beta", "gamma", "delta"];
+  sliders.forEach(id => {
+    const slider = document.getElementById(id);
+    const label = document.getElementById(`${id}-value`);
+
+    slider.addEventListener("input", () => {
+      const val = parseFloat(slider.value);
+      label.textContent = val;
+      if (id === "alpha") alpha = val;
+      if (id === "beta") beta = val;
+      if (id === "gamma") gamma = val;
+      if (id === "delta") delta = val;
+    });
+  });
+
 });
