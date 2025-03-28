@@ -9,11 +9,11 @@ main:
   - title: "Notes"
     url: /notes/    
 
-  - title: "Expositions"
-    url: /expositions/    
-    
   - title: "Programs and Simulations"
     url: /programs-simulations/
+
+  - title: "Expositions"
+    url: /expositions/    
     
   - title: "CV"
     url: /cv/
