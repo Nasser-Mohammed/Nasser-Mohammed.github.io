@@ -1,106 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Competitive Population Simulation</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Double Pendulum Chaos</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+    }
+    canvas {
+      display: block;
+      margin: 0 auto;
+      background: #fff;
+    }
+  </style>
 </head>
 <body>
-  <p>In memory of Kodie</p>
-  <img src="kodie.png" alt="Kodie" width="150" height="150">
-  <div class="wrapper">
-    <h1>Competitive Population Simulation</h1>
-    <h2>The Lotka-Volterra Differential Equations</h2>
-    <h4>Solutions approximated by Euler's method</h4>
-    <div class="selector-container">
-      <div class="selector-row">
-        <label for="prey-select">Choose a prey:</label>
-        <select id="prey-select" onchange="handlePreyChange()">
-          <option value="bunny">Bunny</option>
-          <option value="deer">Deer</option>
-        </select>
-        <img id="prey-image" src="bunny.png" width="50" height="50" />
-      </div>
-    
-      <div class="selector-row">
-        <label for="predator-select">Choose a predator:</label>
-        <select id="predator-select" onchange="handlePredatorChange()">
-          <option value="wolf">Wolf</option>
-          <option value="fox">Fox</option>
-        </select>
-        <img id="predator-image" src="wolf.png" width="50" height="50" />
-      </div>
-    </div>
-    <div id="inputs">
-      <p><strong>Input starting population for each:</strong></p>
-    
-      <div class="input-row">
-        <img id="prey-input-image" src="bunny.png" class="input-image" />
-        <input id="prey-input" type="text" value="40" />
-      </div>
-    
-      <div class="input-row">
-        <img id="predator-input-image" src="wolf.png" class="input-image" />
-        <input id="predator-input" type="text" value="9" />
-      </div>
-    </div>
-    
-
-    <div id="counters">
-      <img id="prey-icon" src="bunny.png" class="icon">
-      <span id="prey-count"></span>
-      <img id="predator-icon" src="wolf.png" class="icon">
-      <span id="predator-count"></span>
-    </div>
-
-    <div id="timer-display">Month: 0</div>
-    <div class="sim-layout">
-  <canvas id="simCanvas" width="600" height="400"></canvas>
-
-    <div id="parameters">
-      <h3>Simulation Parameters</h3>
-
-      <div class="parameter-group">
-        <label>Prey Birth Rate (α): <span id="alpha-value">0.1</span></label>
-        <input type="range" id="alpha" min="0.01" max="1" step="0.01" value="0.1">
-      </div>
-
-      <div class="parameter-group">
-        <label>Predator Consumption Rate (β): <span id="beta-value">0.01</span></label>
-        <input type="range" id="beta" min="0.001" max="0.1" step="0.001" value="0.01">
-      </div>
-
-      <div class="parameter-group">
-        <label>Predator Death Rate (γ): <span id="gamma-value">0.1</span></label>
-        <input type="range" id="gamma" min="0.01" max="1" step="0.01" value="0.1">
-      </div>
-
-      <div class="parameter-group">
-        <label>Predator Birth Rate (δ): <span id="delta-value">0.005</span></label>
-        <input type="range" id="delta" min="0.001" max="0.1" step="0.001" value="0.005">
-      </div>
-    </div>
-  </div>
-
-    
-    
-    <div id="controls">
-      <button id="control-button" onclick="handleControlClick()">Start Simulation</button>
-      <button onclick="stopSimulation()">Reset</button>
-    </div>
-  </div>
-
-  <br/>
-  <br/>
-  <div class="graph-container">
-    <canvas id="timeGraph" width="600" height="300"></canvas>
-  </div>
-  
-  <div class="graph-container">
-    <canvas id="popGraph" width="600" height="300"></canvas>
-  </div>
-  <script src="main.js?v=2"></script>
+  <canvas id="pendulumCanvas" width="800" height="800"></canvas>
+  <script src="main.js"></script>
 </body>
 </html>
-
