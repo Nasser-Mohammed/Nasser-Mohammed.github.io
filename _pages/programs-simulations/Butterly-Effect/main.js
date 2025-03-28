@@ -64,7 +64,7 @@ function updateTimeDisplay() {
     if (frameCount % 2 !== 0) return; // optional slowdown
   
     point = lorenzStep(point, dt);
-    simulationTime += dt;
+    simulationTime += 2*dt;
     updateTimeDisplay();
     drawLorenzPoint(point); // 2D canvas
 
