@@ -91,6 +91,7 @@ body {
     background-color: #059669;
   }
   #preset-container {
+    margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
   }
@@ -99,4 +100,21 @@ body {
     padding: 6px 12px;
     font-size: 1em;
     border-radius: 6px;
+    margin-left : 70px;
+  }
+
+  #double-launch{
+    margin-top: 12px;
+    padding: 8px 16px;
+    font-size: 1em;
+    border: none;
+    border-radius: 6px;
+    background-color: #ec1505;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #double-launch:hover {
+    background-color: #ec1505;
   }

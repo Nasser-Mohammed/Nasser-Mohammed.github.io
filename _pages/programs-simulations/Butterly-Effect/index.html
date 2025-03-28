@@ -38,6 +38,16 @@
       
         <!-- Optional: Preview image -->
         <img id="sprite-preview" src="bunny.png" width="50" height="50" style="margin-left: 5px;" />
+        <div id="preset-container">
+          <label for="preset-select"></label>
+          <select id="preset-select">
+            <option value="">— Choose a preset (optional) —</option>
+            <option value="classic">🦋 Classic Butterfly</option>
+            <option value="spiral">🌪️ Chaotic Spiral</option>
+            <option value="collapse">💧 Collapse</option>
+            <option value="explode">🚀 Escape</option>
+          </select>
+        </div>
       </div>
 
       <div id="controls">
@@ -56,17 +66,10 @@
         <button id="reset-params">Reset Parameters</button>
       </div>
       <button id="reset-trajectory">Reset Trajectory</button>
-      <div id="preset-container">
-        <label for="preset-select">Presets:</label>
-        <select id="preset-select">
-          <option value="">— Choose a preset —</option>
-          <option value="classic">🦋 Classic Butterfly</option>
-          <option value="spiral">🌪️ Chaotic Spiral</option>
-          <option value="collapse">💧 Collapse</option>
-          <option value="explode">🚀 Escape</option>
-        </select>
-      </div>
+      <br/>
+      <br/>
 
+    <button id = "double-launch">Click to launch two trajectories with similar initial conditions</button>
     <div id="time-display">Time: 0.00s</div>
     <div class="canvas-container">
         <canvas id="simCanvas" width="1000" height="800"></canvas>
