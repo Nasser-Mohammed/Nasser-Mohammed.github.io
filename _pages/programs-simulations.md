@@ -8,3 +8,4 @@ Below are links to some programs and simulations I have built. I used JavaScript
 - [Competitive Population Simulation](/programs-simulations/Population-Model/index.html)
 - [The Butterly Effect (Lorenz System)](/programs-simulations/Butterly-Effect/index.html)
 - [The Chaotic Pendulum](/programs-simulations/Chaotic-Pendulum/index.html)
+- [The n-Body Problem](/programs-simulations/n-Body-Simulation/index.html)
