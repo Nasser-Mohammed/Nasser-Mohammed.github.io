@@ -72,13 +72,13 @@ function handlePredatorChange() {
   const emoji = getEmoji(currentPredator);
 
   // Update label (if used) — optional
-  const predatorLabel = document.getElementById("predator-label");
-  if (predatorLabel) {
-    predatorLabel.innerHTML = `
-      ${emoji} ${capitalize(currentPredator)}:
-      <input id="predator-input" type="text" value="${predatorCount}" />
-    `;
-  }
+  // const predatorLabel = document.getElementById("predator-label");
+  // if (predatorLabel) {
+  //   predatorLabel.innerHTML = `
+  //     ${emoji} ${capitalize(currentPredator)}:
+  //     <input id="predator-input" type="text" value="${predatorCount}" />
+  //   `;
+  // }
 
   // ✅ Update the preview image beside dropdown
   document.getElementById("predator-image").src = `${currentPredator}.png`;
