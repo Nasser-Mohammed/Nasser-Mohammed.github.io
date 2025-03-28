@@ -26,6 +26,62 @@ let simulationRunning = false;
 let simulationPaused = false;
 let simulationLoopId = null;
 
+let graphChart = null;
+let graphData = {
+  datasets: [{
+    label: "Prey vs Predator",
+    data: [],
+    borderColor: "rgba(75,192,192,1)",
+    backgroundColor: "rgba(75,192,192,0.4)",
+    pointRadius: 3,
+    showLine: true
+  }]
+};
+
+function initGraph() {
+  const ctx = document.getElementById("popGraph").getContext("2d");
+  graphChart = new Chart(ctx, {
+    type: "scatter",
+    data: graphData,
+    options: {
+      responsive: true,
+      interaction: {
+        mode: 'none'  // 👈 Prevents clicking/zoom effects
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false },
+        title: {
+          display: true,
+          text: 'Prey vs Predator Graph',
+          font: {
+            size: 18
+          }
+        }
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Prey',
+            font: { size: 16 }
+          },
+          type: 'linear',
+          min: 0
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Predator',
+            font: { size: 16 }
+          },
+          min: 0
+        }
+      }
+    }
+  });
+}
+
 
 function getPreyImage() {
   return currentPrey === "deer" ? deerImg : bunnyImg;
@@ -46,6 +102,23 @@ function getEmoji(animal) {
   };
   return emojiMap[animal] || "";
 }
+
+
+function handleControlClick() {
+  const button = document.getElementById("control-button");
+
+  if (!simulationRunning) {
+    startSimulation();
+    button.textContent = "Pause";
+  } else if (!simulationPaused) {
+    pauseSimulation();
+    button.textContent = "Resume";
+  } else {
+    pauseSimulation();
+    button.textContent = "Pause";
+  }
+}
+
 
 function handlePreyChange() {
   const select = document.getElementById("prey-select");
@@ -132,12 +205,15 @@ updateTimerDisplay();
       updateTimerDisplay();
     }
   }, 1000); // every second
+
+  document.getElementById("prey-input").disabled = true;
+  document.getElementById("predator-input").disabled = true;
+
+
 }
 
 function pauseSimulation() {
   simulationPaused = !simulationPaused;
-  const pauseButton = document.querySelector("button[onclick='pauseSimulation()']");
-  pauseButton.textContent = simulationPaused ? "Resume" : "Pause";
 }
 
 function stopSimulation() {
@@ -158,6 +234,14 @@ function stopSimulation() {
 
   const pauseButton = document.querySelector("button[onclick='pauseSimulation()']");
   pauseButton.textContent = "Pause";
+  if (graphChart) {
+    graphData.datasets[0].data = [];
+    graphChart.update();
+  }
+  
+  document.getElementById("control-button").textContent = "Start Simulation";
+  document.getElementById("prey-input").disabled = false;
+  document.getElementById("predator-input").disabled = false;
 
 }
 
@@ -172,6 +256,14 @@ function loop() {
     predatorCount = Math.max(0, newPredators);
     updateDisplay();
     drawCanvas();
+    if (graphChart) {
+      graphData.datasets[0].data.push({
+        x: Math.floor(preyCount),
+        y: Math.floor(predatorCount)
+      });
+      graphChart.update();
+    }
+    
   }, 1000);
 }//the 1000 indicates it runs every 1000 ms = 1second
 
@@ -228,4 +320,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateDisplay();
   drawCanvas();
+  initGraph();
 });

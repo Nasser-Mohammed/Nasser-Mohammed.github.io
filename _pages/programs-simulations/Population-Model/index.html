@@ -8,7 +8,7 @@
 </head>
 <body>
   <p>In memory of the best dog ever, Kodie</p>
-  <img src="kodie.png" alt="Kodie" width="100" height="100">
+  <img src="kodie.png" alt="Kodie" width="150" height="150">
   <div class="wrapper">
     <h1>Competitive Population Simulation</h1>
     <div class="selector-container">
@@ -57,14 +57,16 @@
     <canvas id="simCanvas" width="600" height="400"></canvas>
 
     <div id="controls">
-      <button onclick="startSimulation()">Start Simulation</button>
-      <button onclick="pauseSimulation()">Pause</button>
+      <button id="control-button" onclick="handleControlClick()">Start Simulation</button>
       <button onclick="stopSimulation()">Reset</button>
     </div>
   </div>
 
-  
+  <br/>
 
+  <div class="graph-container">
+    <canvas id="popGraph" width="600" height="300"></canvas>
+  </div>
   <script src="main.js?v=2"></script>
 </body>
 </html>

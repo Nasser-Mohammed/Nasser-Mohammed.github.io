@@ -142,3 +142,41 @@ body {
     font-size: 1.2em;
     margin-bottom: 20px;
   }
+
+  .graph-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  #controls button {
+    background-color: #6366F1;  /* 👈 Choose your new base color */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    margin: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #controls button:hover {
+    background-color: #4F46E5;  /* 👈 Hover color */
+    transform: translateY(-2px);
+  }
+  
+  
+  #controls button:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  #controls {
+    margin-top: 20px;
+  }
+  input:disabled {
+    background-color: #e5e7eb;
+    cursor: not-allowed;
+  }
+  
