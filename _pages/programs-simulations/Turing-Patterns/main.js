@@ -23,13 +23,30 @@ let elapsedTime = 0;
 let isRunning = false;
 let reset = false;
 let paused = false;
+let arr = [];
 
 
 function initalizeSimulation(){
+
+  for(let i = 0; i < n; i++){
+    row = [];
+    for(let j = 0; j < n; j++){
+      tmp = Math.round(Math.random());
+      row[j] = tmp;
+    }
+    arr.push(row)
+  }
+
   for (let i = 0; i < n; i++){
     for (let j = 0; j < n; j++){
-      u[i][j] = 1.0 + Math.random()*(.03 + 0.03) - 0.03;
-      v[i][j] = 1.0 + Math.random()*(.03 + 0.03) - 0.03;
+      if(arr[i][j] == 1){
+        u[i][j] = 1.0 + Math.random()*(0.003 + 0.003) - 0.003;
+        v[i][j] = 1.0 + Math.random()*(0.003 + 0.003) - 0.003;
+      }
+      else{
+        u[i][j] = 0;
+        v[i][j] = 0;
+      }
     }
   }
 
@@ -43,7 +60,7 @@ function drawGrid(u, v, ctx){
     for (let j = 0; j < cols - 2; j = j+2){
       const uVal = u[i][j];
       const vVal = v[i][j];
-      red = Math.min(Math.max(0, uVal), 255);;
+      red = Math.min(Math.max(0, uVal), 255);
       green = 0;
       blue = Math.min(Math.max(0, vVal), 255);
 
@@ -78,7 +95,7 @@ function updateCanvas(u, v, ctx) {
 
 function update(){
   epsilon = 0.00001;
-  for(let step = 0; step < 20; step++){
+  for(let step = 0; step < 10; step++){
   for (let i = 1; i < n-1; i++){
     for (let j = 1; j < n-1; j++){
       nextu[i][j] = u[i][j] + Dt*(sigma_u*((u[i+1][j] - 2*u[i][j] + u[i-1][j])/(Dx**2+epsilon) + (u[i][j+1] - 2*u[i][j] + u[i][j-1])/(Dy**2+epsilon)) + alpha*(u[i][j] - h) + beta*(v[i][j] - k));
@@ -127,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById('resetButton').addEventListener('click', function() {
-    if (isRunning){
       clearInterval(intervalId);
       console.log('Reset');
       reset = true;
@@ -139,7 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
       reset = false;
       document.getElementById('startButton').textContent = "Start Simulation";
       
-    }
 });
   
 
