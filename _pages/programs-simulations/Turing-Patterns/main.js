@@ -1,7 +1,7 @@
 
 
 
-let n = 800;
+let n = 400;
 let Dx = 1./n;
 let Dy = 1./n;
 let Dt = 0.02;
@@ -20,6 +20,7 @@ let nextv = Array.from({ length: n }, () => Array(n).fill(0));
 let ctx;
 let intervalId;
 let elapsedTime = 0;
+let isRunning = false;
 
 
 function initalizeSimulation(){
@@ -36,20 +37,31 @@ function drawGrid(u, v, ctx){
   const rows = u.length;
   const cols = u[0].length;
 
-  for (let i = 0; i < rows-5; i++){
-    for (let j = 0; j < cols-5; j++){
+  for (let i = 0; i < rows-6; i++){
+    for (let j = 0; j < cols-6; j++){
       const uVal = u[i][j];
       const vVal = v[i][j];
 
-      const avg = (uVal + vVal)/2;
-
-      const red = uVal;
-      const green = 0;
-      const blue = vVal;
-      
+      //const avg = (uVal + vVal)/2;
+      red = 0;
+      green = 0;
+      blue = 0;
+      if (uVal > vVal){
+        red = 255;
+        green = 128;
+        blue = 80;
+      }
+      else{
+        red = 0;
+        green = 128;
+        blue = 128;
+      }
+      //const red = max; //uVal;
+      //const green = 0;
+      //const blue = 0// vVal;
       const blended = `rgb(${red}, ${green}, ${blue})`; 
       ctx.fillStyle = blended;
-      ctx.fillRect(j*5, i*5, 5, 5);
+      ctx.fillRect(j*3, i*3, 3, 3);
     }
   }
 }
@@ -82,6 +94,7 @@ function update(){
     }
   }
   updateCanvas(u, v, ctx);
+  updateTimer();
 }
 
 
@@ -93,10 +106,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
       
     document.getElementById('startButton').addEventListener('click', function() {
-      console.log('Started');
-      initalizeSimulation();
-      intervalId = setInterval(update, 100);
-      setInterval(updateTimer, 1000);
+      if (isRunning){
+        clearInterval(intervalId);
+        this.textContent = "Resume Simulation";
+        console.log('Paused');
+      }
+      else{
+        initalizeSimulation();
+        intervalId = setInterval(update, 1000);
+        console.log('Started');
+        this.textContent = "Pause Simulation";
+      }
+      isRunning = !isRunning;
   });
+  initalizeSimulation();
 
 });
