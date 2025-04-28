@@ -25,8 +25,8 @@ let elapsedTime = 0;
 function initalizeSimulation(){
   for (let i = 0; i < n; i++){
     for (let j = 0; j < n; j++){
-      u[i][j] = 1.0 + Math.random()*(.33 + 0.33) - 0.33;
-      v[i][j] = 1.0 + Math.random()*(.33 + 0.33) - 0.33;
+      u[i][j] = 1.0 + Math.random()*(.03 + 0.03) - 0.03;
+      v[i][j] = 1.0 + Math.random()*(.03 + 0.03) - 0.03;
     }
   }
 
@@ -44,12 +44,12 @@ function drawGrid(u, v, ctx){
       const avg = (uVal + vVal)/2;
 
       const red = uVal;
-      const green = vVal;
-      const blue = 0;
+      const green = 0;
+      const blue = vVal;
       
       const blended = `rgb(${red}, ${green}, ${blue})`; 
       ctx.fillStyle = blended;
-      ctx.fillRect(j*2, i*2, 2, 2);
+      ctx.fillRect(j*5, i*5, 5, 5);
     }
   }
 }
