@@ -28,8 +28,8 @@ let paused = false;
 function initalizeSimulation(){
   for (let i = 0; i < n; i++){
     for (let j = 0; j < n; j++){
-      u[i][j] = 1.0 + Math.random()*(.5 + 0.5) - 0.5;
-      v[i][j] = 1.0 + Math.random()*(.5 + 0.5) - 0.5;
+      u[i][j] = 1.0 + Math.random()*(.03 + 0.03) - 0.03;
+      v[i][j] = 1.0 + Math.random()*(.03 + 0.03) - 0.03;
     }
   }
 
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
           updateCanvas(u,v,ctx);
           started = true;
         }
-        intervalId = setInterval(update, 60);
+        intervalId = setInterval(update, 50);
         console.log('Started');
         this.textContent = "Pause Simulation";
         puased = false;
