@@ -5,5 +5,6 @@ permalink: /expositions/Fisher-KPP-eq/
 author_profile: false
 ---
 <hr style="border: 2px solid black;">
-\\[i\hbar \frac{\partial \psi(x, t)}{\partial t} = \hat{H} \psi(x, t)\\]
-The (time dependent) Schrödinger equation describes a function \\(\psi(x,t)\\), which encodes all of the physical information about the quantum state of a quantum particle (in our case this will be the Hydrogen atom). As mentioned, we will discuss the Schrödinger Equation for the Hydrogen atom. To be continued.
+\\[\frac{\partial u}{\partial t} = \alpha \nabla^2 u + ru(1-\frac{u}{K})\\]
+The Fisher-KPP equation is a very intuitive reaction diffusion equation, as it combines the concept of diffusion and logistic growth (the reaction term in this case). We can visualize this equation relatively easily. Think of an empty grid (2D plane), now we drop a concrentation of something (representing \\(u\)). Now, we know this 
+
