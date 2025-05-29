@@ -12,4 +12,4 @@ The Fisher-KPP equation is a very intuitive reaction diffusion equation, as it c
 
 ![alt text][logo]
 
-[logo]: "fisher_kpp_2d.gif" "Simulation"
+[logo]: fisher_kpp_2d.gif "Simulation"
