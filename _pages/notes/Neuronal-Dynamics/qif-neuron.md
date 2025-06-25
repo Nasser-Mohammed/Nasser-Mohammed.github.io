@@ -6,4 +6,11 @@ author_profile: false
 --- 
 <hr style="border: 2px solid black;">
 
-The Hodgkin-Huxley model can be simplified into various 1-D systems (and 2-D and 3-D, as it is a 4-D system). However, even in the 1-D
+The Hodgkin-Huxley model can be simplified into various 1-D systems (and 2-D and 3-D, as it is a 4-D system). Even in the 1-D case, we can identify four fundamental models: one for each combination of activation vs. inactivation gating and inward vs. outward current. The typical choice for preliminary analysis is the so called **Leak + Instantaneous Sodium Model**, usually referred to as the **persistent sodium model**. In this model we consider \\(p\\) as an activation gate variable and our only one (as opposed to the 4-D Hodgkin-Huxley model with 3 gating variables). Essentially, this captures the voltage dynamics for a neuron with only one type of channel (sodium channel) and with only 1 activation gate. The model, as mentioned, also has a leaky outward current (typically representing the leaky nature of potassium \\(K^{+}\\)). As for our sodium current, the current is what's referred to as **persistent**. This means that once it is activated, it has no inactivation mechanisms,  resulting in the current continuing to flow. The following is the described system, however, it is not 1 dimensional yet but we will make some assumptions to reduce it to 1-D.
+\\[C\dot{V} = I - g_L(V-E_L)-gp(V-E)\\]
+\\[\cdot{p} = \frac{(p_{\infty}(V) - p)}{\tau(V)}\\]
+Now, to simplify we make the claim that the dynamics of the gating variable \\(p\\) occur very fast, much faster than the voltage dynamics. From this, we regard the gating process (think of the process of the gates physically opening) as instantaneous. So instead of the reality of the gating process taking some time (even if it's very small), we just assume that they respond instantly to the voltage. With this, we can replace \\(p\\) with its stead state asymptotic value. Therefore, we have that 
+\\[p = p_{\infty}(V)\\]
+The function above is derived experimentally. Now our equation reduces to,
+\\[C\dot{V} = I - g_L(V-E_L)-gp_{\infty}(V)(V-E)\\]
+This is now a 1-D system.
