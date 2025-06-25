@@ -16,6 +16,8 @@ The function above is derived experimentally. Now our equation reduces to,
 This is now a 1-D system. As mentioned, we want to consider the sodium channels. The model above is generalized for any ensemble of identical channels with 1 instantaneous gating variable. We rewrite the equation with sodium in mind to get,
 \\[C\dot{V} = I - g_L(V-E_L)-g_{Na}m_{\infty}(V)(V-E_{Na})\\]
 We replace \\(p\\) with \\(m\\) because we are considering sodium channels that only use activation gates (most channels have both inactivation and activation, but this is for initial simplicity). Now below are the experimentally derived constants and functions.
-\\[m_{\infty}(V) = \frac{1}{1+e^{\frac{V_{1/2}-V}{k}}\\]
+\\[m_{\infty}(V) = \frac{1}{1+e^{\frac{V_{1/2}-V}{k}}}\\]
 \\[C = 10\mu F, I = 0 pA, g_L = 19mS, E_L = -67mV\\]
 \\[g_{Na} = 74mS, V_{1/2} = 1.5mV, k = 16mV, E_{Na} = 60mV\\]
+Plugging these in our equations becomes,
+\\[10\dot{V} = -19(V+67)-74m\left(\frac{1}{1+e^{\frac{1.5-V}{16}}}\right)\left(V-60\right)\\]
