@@ -19,13 +19,15 @@ We replace \\(p\\) with \\(m\\) because we are considering sodium channels that 
 \\[m_{\infty}(V) = \frac{1}{1+e^{\frac{V_{1/2}-V}{k}}}\\]
 \\[C = 10\mu F, I = 0 \text{pA}, g_L = 19 \ mS, E_L = -67 \ mV\\]
 \\[g_{Na} = 74 \ mS, V_{1/2} = 1.5 \ mV, k = 16 \ mV, E_{Na} = 60 \ mV\\]
-Plugging these into our equation we get,
+Plugging these into our equation, we get
 \\[10\dot{V} = -19(V+67)-74\left(\frac{1}{1+e^{\frac{1.5-V}{16}}}\right)\left(V-60\right)\\]
 Now the goal is to determine the qualitative nature of this differential equation. Analytically no solution exists (I believe). Therefore, we need to use the tools of nonlinear dynamics to understand this model. The first part of this process is **fixed point analysis**. \\
 ## Fixed Point Analysis
 <hr style="border: 2px solid black;">
 The first step in understanding the aforementioned dynamics, is to find the fixed points (also known as equilibrium points). This is done by setting \\(\dot{V} = 0\\) and solving for \\(V\\). 
 \\[-19(V+67)-74\left(\frac{1}{1+e^{\frac{1.5-V}{16}}}\right)\left(V-60\right) = 0\\]
-We cannot solve this analytically because it's a messy implicit equation. Instead we can numerically compute the zeros of the equation. Doing this gives us three fixed points: \\(x_1 \approx -52.51, \ x_2 \approx -41.5148, \ x_3 = 30.9528\\). Sketching the graph gives us:
-![DE Graph](neuron-sodium-graph.PNG)
+We cannot solve this analytically because it's a messy implicit equation. Instead we can numerically compute the zeros of the equation. Doing this gives us three fixed points: \\(x_1 \approx -52.51, \ x_2 \approx -41.5148, \ x_3 \approx 30.9528\\). Sketching the graph gives us:
+\\
+![Alt text](neuron-sodium-graph.PNG)
+Where the x-axis represents voltage, and the y-axis is the derivative of voltage. The analysis now is straight forward. For the leftmost region (\\(V < -52.51\\)), the function is positive. This means that any starting voltage less than roughly \\(-52.52\\) will increase until it gets to the point \\(-52.51\\), at which it will stay forever (unless there are some external perturbations). This is considered a stable equilibrium (and is also called an attractor), since all nearby initial conditions will converge to that equilibrium point. Now to further demonstrate that stability, consider the region between the two leftmost fixed points, that is \\(-52.51 < V < -41.5148 \\). The function here is negative, meaning that any initial voltage in this range will be pushed to the left, towards \\(-52.51\\), and stay there forever (unless there are some external perturbations).
 
