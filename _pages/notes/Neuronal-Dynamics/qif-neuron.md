@@ -40,7 +40,7 @@ This part of the analysis focuses on how a parameter of our differential equatio
 This bifurcation is what's called a **saddle-node bifurcation**. Again, without going into much detail, there are usually what's called a **topological normal form** for certain bifurcations. Often it is easier to analytically consider the normal form, since the qualitative behavior of the normal form (usually, under conditions) corresponds to the same behavior as the system with the same type of bifurcation.
 
 ## Hartman-Grobman Theorem
-If we cannot find a globally topologically equivalent system to make our analysis simpler, we can consider local topological equivalence. We essentially consider small neighborhoods around a fixed point. The **Hartman-Grobman Theorem** tells us that a non-linear 1-D system 
+If we cannot find a global topologically equivalent system to make our analysis simpler, we can consider local topological equivalence. We essentially consider small neighborhoods around a fixed point. The **Hartman-Grobman Theorem** tells us that a non-linear 1-D system 
 \\[\dot{V} = F(V)\\]
 close enough to a fixed point, say \\(V_{eq}\\), is locally topologically equivalent to the linear system
 \\[\dot{V} = \lambda\left(V-V_{eq}\right)\\]
