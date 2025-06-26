@@ -84,6 +84,15 @@ Finally, this simulation below exhibits its characteristic spike, but resets to 
 \\
 For zero current ((\\I = 0\\)), the other possible behaviors of this system are dictated by the initial voltage. Above we demonstrated an initial voltage high enough to initiate an action potential. If we set the initial voltage to \\(0\\), the system will stay at \\(0\\) forever. If we set the initial voltage to a negative value (\\(< 0\\)), then we won't get any action potentials, and the voltage will increase towards \\(0\\), and then rest once it gets there indefinitely.
 
+### I > 0
+As mentioned, this system has no equilibria due to the bifurcation that occured at \\(I = 0\\). Due to \\(V^2 \geq 0\\) and now \\(I > 0\\), we know the change in voltage will always be positive and therefore will go towards infinity. Therefore, any initial condition will cause an action potential, and any reset value will cause an action potential (granted it's not set above the max voltage). Therefore, the only possible dynamics of this system is tonic spiking (granted we are resetting each spike). 
+
+
+The phase of these spikes is dictated by the difference between the reset value and the max voltage value. The further apart they are, the greater the phase will be, with one caveat. An extremely negative reset value will cause an almost instaneous exceedance of the maximum voltage value (since the value is squared and therefore positive and very large), therefore causing the program to reset it back to its reset, and the process repeats. In summary, it would cause it to look like the voltage plateaus at the reset value after the spike, but really the growth is just so fast that it never even gets to be considered, since it immediately is above the max value. So, to combat this, we increase the max value, while keeping the reset value very small in absolute value (i.e. near \\(0\\)). For simplicity I just choose \\(0\\). As you can see below, the phase is roughly 1 spike every 2 seconds, whereas above it was closer to 3 spikes every two seconds.
+
+
+
+This covers the majority of the dynamical properties of the Quadratic Fire-and-Integrate Neuron. 
 
 
 
