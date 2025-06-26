@@ -17,7 +17,14 @@ This is now a 1-D system. As mentioned, we want to consider the sodium channels.
 \\[C\dot{V} = I - g_L(V-E_L)-g_{Na}m_{\infty}(V)(V-E_{Na})\\]
 We replace \\(p\\) with \\(m\\) because we are considering sodium channels that only use activation gates (most channels have both inactivation and activation, but this is for initial simplicity). Now below are the experimentally derived constants and functions.
 \\[m_{\infty}(V) = \frac{1}{1+e^{\frac{V_{1/2}-V}{k}}}\\]
-\\[C = 10\mu F, I = 0 pA, g_L = 19mS, E_L = -67mV\\]
-\\[g_{Na} = 74mS, V_{1/2} = 1.5mV, k = 16mV, E_{Na} = 60mV\\]
-Plugging these in our equations becomes,
-\\[10\dot{V} = -19(V+67)-74m\left(\frac{1}{1+e^{\frac{1.5-V}{16}}}\right)\left(V-60\right)\\]
+\\[C = 10\mu F, I = 0 \text{pA}, g_L = 19 \ mS, E_L = -67 \ mV\\]
+\\[g_{Na} = 74 \ mS, V_{1/2} = 1.5 \ mV, k = 16 \ mV, E_{Na} = 60 \ mV\\]
+Plugging these into our equation we get,
+\\[10\dot{V} = -19(V+67)-74\left(\frac{1}{1+e^{\frac{1.5-V}{16}}}\right)\left(V-60\right)\\]
+Now the goal is to determine the qualitative nature of this differential equation. Analytically no solution exists (I believe). Therefore, we need to use the tools of nonlinear dynamics to understand this model. The first part of this process is **fixed point analysis**. \\
+## Fixed Point Analysis
+<hr style="border: 2px solid black;">
+The first step in understanding the aforementioned dynamics, is to find the fixed points (also known as equilibrium points). This is done by setting \\(\dot{V} = 0\\) and solving for \\(V\\). 
+\\[-19(V+67)-74\left(\frac{1}{1+e^{\frac{1.5-V}{16}}}\right)\left(V-60\right) = 0\\]
+We cannot solve this analytically because it's a messy implicit equation. Instead we can numerically compute the zeros of the equation. Doing this gives us three fixed points: \\(x_1 \approx -52.51, \ x_2 \approx -41.5148, \ x_3 = 30.9528\\). Sketching the graph gives us:
+
