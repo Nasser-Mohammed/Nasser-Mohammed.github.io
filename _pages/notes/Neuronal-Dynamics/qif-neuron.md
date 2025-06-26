@@ -46,7 +46,7 @@ close enough to a fixed point, say \\(V_{eq}\\), is locally topologically equiva
 \\[\dot{V} = \lambda\left(V-V_{eq}\right)\\]
 if the eigenvalue
 \\[\lambda = F'(V_{eq})\\]
-Is non-zero. From this, we know the solution to a 1-D linear system, and can therefore analyze the behavior of the non-linear system via the solution to the linear one. Exponential growth implies instability, whereas exponential decay corresponds to stability. If our eigenvalue is \\(0\\), then we cannot use this method. Fixed points that have this property are called **hyperbolic equilibrium**. 
+Is non-zero. From this, we know the solution to a 1-D linear system, and can therefore analyze the behavior of the non-linear system via the solution to the linear one. Exponential growth implies instability, whereas exponential decay corresponds to stability. If our eigenvalue is \\(0\\), then we cannot use this method. Fixed points that have this property are called **hyperbolic equilibria**. 
 
 ## Topological Normal Form for Saddle-Node Bifurcation
 As mentioned, we can consider the normal form for dynamics that contain the same bifurcations. In this case the normal form is
