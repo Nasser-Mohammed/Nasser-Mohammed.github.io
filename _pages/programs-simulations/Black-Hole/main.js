@@ -92,7 +92,7 @@ function polynomial(x,y){
   const dt = 0.001;
   const dx = dt*(-(x*x) + 3*y*y + x*y -2*x + 5*y);
   const dy = dt*(x*x + 2*y*y - x*y - 4*y);
-  return [dx, dy];
+  return [dx/15, dy/15];
 }
 
 function decider(x,y, choice){
@@ -170,7 +170,7 @@ function simulationLoop() {
 
   // Outer glow ring
   ctx.strokeStyle = "rgba(255, 200, 0, 0.3)";
-  ctx.lineWidth = 8;
+  ctx.lineWidth = 6;
   ctx.shadowColor = "rgba(255, 200, 0, 0.7)";
   ctx.shadowBlur = 20;
   ctx.beginPath();
