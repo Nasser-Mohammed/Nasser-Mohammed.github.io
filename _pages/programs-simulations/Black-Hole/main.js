@@ -28,7 +28,9 @@ const systemMap = {
   foci: 1,
   vanderPol: 2,
   radial: 3,
-  polynomial: 4
+  polynomial: 4,
+  node: 5,
+  saddleNode: 6
 }
 
 
@@ -95,6 +97,20 @@ function polynomial(x,y){
   return [dx/15, dy/15];
 }
 
+function node(x,y){
+  const dt = 0.001
+  const dx = dt*(-3*x);
+  const dy = dt*(-7*y);
+  return [dx/1.1, dy/1.1];
+}
+
+function saddleNode(x,y){
+  const strength = 1;
+  const dx = strength * (x*x - y*y);
+  const dy = 2 * strength * x * y;
+  return [dx * 0.001, dy * 0.001];
+}
+
 function decider(x,y, choice){
   if (choice === 1) {
     return foci(x,y);
@@ -106,6 +122,12 @@ function decider(x,y, choice){
   }
   else if (choice === 4) {
     return polynomial(x,y);
+  }
+  else if (choice === 5) {
+    return node(x,y);
+  }
+  else if (choice === 6) {
+    return saddleNode(x,y);
   }
 }
 
