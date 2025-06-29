@@ -14,6 +14,15 @@ let choice = 1;
 
 let centerX = 500;
 let centerY = 400;
+let width = 1000;
+let height = 800;
+
+let mouseX = 0;
+let mouseY = 0;
+
+
+let showInstructions = true;
+
 
 const systemMap = {
   foci: 1,
@@ -21,16 +30,48 @@ const systemMap = {
   radial: 3
 }
 
+
+
+const stars = [];
+const numStars = 100;
+
+function initStars() {
+  for (let i = 0; i < numStars; i++) {
+    stars.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 1.2,
+      baseX: 0, // for parallax offset later
+      baseY: 0
+    });
+  }
+}
+
+initStars();
+
+function drawStars() {
+  ctx.fillStyle = "white";
+  for (const star of stars) {
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+}
+
+
+
+
+
 function foci(x,y){
-  const dt = 0.0025;
+  const dt = 0.001;
   const dx = dt*(-x - 5*y);
   const dy = dt*(5*x - y);
   return [dx, dy];
 }
 
 function vanderPol(x,y){
-  const dt = 0.01
-  const mu = 0.5;
+  const dt = 0.0025
+  const mu = 0.75;
   const dx = dt*y;
   const dy = dt*(mu * (1-(x*x + y*y))*y - x);
   return [dx, dy];
@@ -97,33 +138,65 @@ class Particle {
 
 // Simulation loop using requestAnimationFrame
 function simulationLoop() {
-  if (!simRunning) return;
+  requestAnimationFrame(simulationLoop); // always keep the loop going
 
-  requestAnimationFrame(simulationLoop); // 👈 move this to the top
+  // Fading trail clear
+  ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-  // Then check again to avoid running the body if sim has stopped
-  if (!simRunning) return;
+  drawStars(mouseX, mouseY);
 
-  // New fading trail clear
-    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";  // Adjust alpha (0.05–0.2) for trail length
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  const centerX = ctx.canvas.width / 2;
+  const centerY = ctx.canvas.height / 2;
+  const radius = 50;
+  const ringWidth = 1;
+
+  const gradient = ctx.createRadialGradient(
+    centerX, centerY, radius - ringWidth,
+    centerX, centerY, radius + ringWidth
+  );
+
+  // Yellow-orange glow
+  gradient.addColorStop(0, "rgba(255, 200, 0, 0)");
+  gradient.addColorStop(0.5, "rgba(255, 200, 0, 0.8)");
+  gradient.addColorStop(1, "rgba(255, 200, 0, 0)");
+
+  ctx.strokeStyle = gradient;
+  ctx.lineWidth = ringWidth;
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+  ctx.stroke();
 
 
-  particles = particles.filter(p => p.timeNearOrigin < 1); // remove if > 1 sec near origin
 
-  for (let p of particles) {
-    p.update(dt);
-    p.draw(ctx);
+
+  if (simRunning) {
+    particles = particles.filter(p => p.timeNearOrigin < 1);
+
+    for (let p of particles) {
+      p.update(dt);
+      p.draw(ctx);
+    }
+
+    simulationTime += dt;
+    updateTimeDisplay();
   }
 
-  simulationTime += dt;
-  updateTimeDisplay();
+  // Always draw instructions if flag is true
+  if (showInstructions) {
+    ctx.font = "18px Arial";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText("Click or drag to spawn debris", ctx.canvas.width / 2, 30);
+  }
 }
+
 
 
 function startSimulation() {
   if (simRunning) return;
   simRunning = true;
+  showInstructions = false; 
   simulationLoop();
 }
 
@@ -140,15 +213,16 @@ function updateTimeDisplay() {
 }
 
 function resetSimulation() {
-  stopSimulation();           // Stop the animation loop
-  particles = [];             // Clear all particles
-  simulationTime = 0;         // Reset simulation time
-  updateTimeDisplay();        // Update UI display
+  stopSimulation();
+  particles = [];
+  simulationTime = 0;
+  showInstructions = true;  // Show again
+  updateTimeDisplay();
 
-  // Clear the canvas completely
-  ctx.fillStyle = "black";   
+  ctx.fillStyle = "black";
   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
+
 
 
 
@@ -159,6 +233,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  simulationLoop();
 
   const select = document.getElementById("blackhole");
   choice = systemMap[select.value];
@@ -172,21 +248,29 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   canvas.addEventListener("mousedown", (event) => {
-  isDragging = true;
-  dragCount = 0;
+    isDragging = true;
+    dragCount = 0;
 
-  spawnParticle(event); // ✅ always spawn one immediately
-  startSimulation();
-  });
+    spawnParticle(event); // spawn one immediately
+    startSimulation();
+  
+});
 
-  canvas.addEventListener("mousemove", (event) => {
+
+    canvas.addEventListener("mousemove", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left - canvas.width / 2;
+    mouseY = e.clientY - rect.top - canvas.height / 2;
+
     if (!isDragging) return;
 
     dragCount++;
     if (dragCount % 5 === 0) {
-      spawnParticle(event); // ✅ spawn only every 5th move
+      spawnParticle(e);
     }
   });
+
+
 
   canvas.addEventListener("mouseup", () => {
     isDragging = false;
@@ -207,7 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cx = event.clientX - rect.left;
     const cy = event.clientY - rect.top;
 
-    const centerX = 400;
+    const centerX = 500;
     const centerY = 400;
     const scale = 50;
 
