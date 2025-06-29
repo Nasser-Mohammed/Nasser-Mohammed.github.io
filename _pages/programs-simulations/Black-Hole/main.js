@@ -27,7 +27,8 @@ let showInstructions = true;
 const systemMap = {
   foci: 1,
   vanderPol: 2,
-  radial: 3
+  radial: 3,
+  polynomial: 4
 }
 
 
@@ -59,9 +60,6 @@ function drawStars() {
 }
 
 
-
-
-
 function foci(x,y){
   const dt = 0.001;
   const dx = dt*(-x - 5*y);
@@ -89,6 +87,14 @@ function radial(x,y){
     return [dx, dy];
   }
 
+function polynomial(x,y){
+  // Example polynomial flow: dx = x^2 - y, dy = y^2 - x
+  const dt = 0.001;
+  const dx = dt*(-(x*x) + 3*y*y + x*y -2*x + 5*y);
+  const dy = dt*(x*x + 2*y*y - x*y - 4*y);
+  return [dx, dy];
+}
+
 function decider(x,y, choice){
   if (choice === 1) {
     return foci(x,y);
@@ -97,6 +103,9 @@ function decider(x,y, choice){
   }
   else if (choice === 3) {
     return radial(x,y);
+  }
+  else if (choice === 4) {
+    return polynomial(x,y);
   }
 }
 
@@ -128,11 +137,19 @@ class Particle {
   const centerX = 500;
   const centerY = 400;
 
+  ctx.shadowColor = this.color;
+  ctx.shadowBlur = 10;  // Adjust for glow radius
+
   ctx.fillStyle = this.color;
   ctx.beginPath();
   ctx.arc(centerX + this.x * scale, centerY + this.y * scale, 2, 0, 2 * Math.PI);
   ctx.fill();
+
+  // Reset shadows to avoid affecting other drawings
+  ctx.shadowBlur = 0;
+  ctx.shadowColor = "transparent";
 }
+
 
 }
 
@@ -151,12 +168,24 @@ function simulationLoop() {
   const radius = 50;
   const ringWidth = 1;
 
+  // Outer glow ring
+  ctx.strokeStyle = "rgba(255, 200, 0, 0.3)";
+  ctx.lineWidth = 8;
+  ctx.shadowColor = "rgba(255, 200, 0, 0.7)";
+  ctx.shadowBlur = 20;
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+  ctx.stroke();
+
+  // Inner normal ring on top (the one with your gradient)
+  ctx.shadowBlur = 0;
+  ctx.shadowColor = "transparent";
+
   const gradient = ctx.createRadialGradient(
     centerX, centerY, radius - ringWidth,
     centerX, centerY, radius + ringWidth
   );
 
-  // Yellow-orange glow
   gradient.addColorStop(0, "rgba(255, 200, 0, 0)");
   gradient.addColorStop(0.5, "rgba(255, 200, 0, 0.8)");
   gradient.addColorStop(1, "rgba(255, 200, 0, 0)");
@@ -166,6 +195,7 @@ function simulationLoop() {
   ctx.beginPath();
   ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
   ctx.stroke();
+
 
 
 
@@ -265,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isDragging) return;
 
     dragCount++;
-    if (dragCount % 5 === 0) {
+    if (dragCount % 3 === 0) {
       spawnParticle(e);
     }
   });
