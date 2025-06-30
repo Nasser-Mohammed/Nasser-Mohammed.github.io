@@ -54,7 +54,7 @@ initStars();
 function drawStars() {
   for (const star of stars) {
     star.alpha += (Math.random() - 0.5) * star.flicker;
-    star.alpha = Math.max(0.4, Math.min(1.2, star.alpha));
+    star.alpha = Math.max(0.2, Math.min(1, star.alpha));
     ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
     ctx.beginPath();
     ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
@@ -169,49 +169,64 @@ class Particle {
   }
 }
 
-let trajectoryPaths = [];
+const trajectoryPaths = [];
 
 function generateTrajectories() {
-  trajectoryPaths = [];
-  const sections = 7;
-  const sideSpacingX = width / scale / sections;
-  const sideSpacingY = height / scale / sections;
+  trajectoryPaths.length = 0;
+  const steps = 7;
+  const spacing = height / steps;
 
-  for (let i = 0; i < sections; i++) {
-    const y = (i - sections / 2) * sideSpacingY;
-    for (const x of [-width / (2 * scale), width / (2 * scale)]) {
-      trajectoryPaths.push(integratePath(x, y));
+  for (let i = 0; i <= steps; i++) {
+    const y = (i / steps) * 2 - 1;
+    const xLeft = -width / (2 * scale);
+    const xRight = width / (2 * scale);
+
+    for (const x of [xLeft, xRight]) {
+      const path = [];
+      let px = x;
+      let py = y * (height / (2 * scale));
+
+      for (let j = 0; j < 200; j++) {
+        const [dx, dy] = decider(px, py, choice);
+        px += dx;
+        py += dy;
+        path.push([px, py]);
+      }
+
+      trajectoryPaths.push(path);
     }
   }
 
-  for (let i = 0; i < sections; i++) {
-    const x = (i - sections / 2) * sideSpacingX;
-    for (const y of [-height / (2 * scale), height / (2 * scale)]) {
-      trajectoryPaths.push(integratePath(x, y));
-    }
-  }
+  const radiusSamples = 8;
+  const outerRadius = 3;
+  const innerRadius = 0.5;
+  for (let i = 0; i < radiusSamples; i++) {
+    const angle = (i / radiusSamples) * 2 * Math.PI;
 
-  // Small box near origin
-  const radius = 0.5;
-  for (let i = -1; i <= 1; i++) {
-    for (let j = -1; j <= 1; j++) {
-      const x = i * radius / 2;
-      const y = j * radius / 2;
-      trajectoryPaths.push(integratePath(x, y));
+    // Outer circle
+    let px = outerRadius * Math.cos(angle);
+    let py = outerRadius * Math.sin(angle);
+    const outerPath = [];
+    for (let j = 0; j < 200; j++) {
+      const [dx, dy] = decider(px, py, choice);
+      px += dx;
+      py += dy;
+      outerPath.push([px, py]);
     }
-  }
-}
+    trajectoryPaths.push(outerPath);
 
-function integratePath(x, y) {
-  const steps = 200;
-  const path = [];
-  for (let i = 0; i < steps; i++) {
-    const [dx, dy] = decider(x, y, choice);
-    x += dx;
-    y += dy;
-    path.push([x, y]);
+    // Inner circle
+    px = innerRadius * Math.cos(angle);
+    py = innerRadius * Math.sin(angle);
+    const innerPath = [];
+    for (let j = 0; j < 200; j++) {
+      const [dx, dy] = decider(px, py, choice);
+      px += dx;
+      py += dy;
+      innerPath.push([px, py]);
+    }
+    trajectoryPaths.push(innerPath);
   }
-  return path;
 }
 
 function drawTrajectories() {
@@ -319,6 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ctx = canvas.getContext("2d");
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+  generateTrajectories();
   simulationLoop();
 
   const select = document.getElementById("blackhole");
@@ -370,6 +386,4 @@ document.addEventListener("DOMContentLoaded", () => {
     const y = (cy - centerY) / scale;
     particles.push(new Particle(x, y));
   }
-
-  generateTrajectories();
 });
