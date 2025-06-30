@@ -171,7 +171,7 @@ class Particle {
 
 const trajectoryPaths = [];
 
-function generateTrajectoriesGrid(gridSize = 20, steps = 150) {
+function generateTrajectoriesGrid(gridSize = 10, steps = 150) {
   trajectoryPaths.length = 0; // clear old paths
   const xMin = -width / (2 * scale);
   const xMax = width / (2 * scale);
