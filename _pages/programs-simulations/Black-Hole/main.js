@@ -171,87 +171,67 @@ class Particle {
 
 const trajectoryPaths = [];
 
-function generateTrajectories() {
-  trajectoryPaths.length = 0;
-  const steps = 7;
-  const spacing = height / steps;
+function generateTrajectoriesGrid(gridSize = 20, steps = 150) {
+  trajectoryPaths.length = 0; // clear old paths
+  const xMin = -width / (2 * scale);
+  const xMax = width / (2 * scale);
+  const yMin = -height / (2 * scale);
+  const yMax = height / (2 * scale);
 
-  for (let i = 0; i <= steps; i++) {
-    const y = (i / steps) * 2 - 1;
-    const xLeft = -width / (2 * scale);
-    const xRight = width / (2 * scale);
+  for (let i = 0; i <= gridSize; i++) {
+    for (let j = 0; j <= gridSize; j++) {
+      let px = xMin + (i / gridSize) * (xMax - xMin);
+      let py = yMin + (j / gridSize) * (yMax - yMin);
 
-    for (const x of [xLeft, xRight]) {
       const path = [];
-      let px = x;
-      let py = y * (height / (2 * scale));
-
-      for (let j = 0; j < 200; j++) {
+      for (let k = 0; k < steps; k++) {
         const [dx, dy] = decider(px, py, choice);
         px += dx;
         py += dy;
         path.push([px, py]);
       }
-
       trajectoryPaths.push(path);
     }
   }
-
-  const radiusSamples = 8;
-  const outerRadius = 3;
-  const innerRadius = 0.5;
-  for (let i = 0; i < radiusSamples; i++) {
-    const angle = (i / radiusSamples) * 2 * Math.PI;
-
-    // Outer circle
-    let px = outerRadius * Math.cos(angle);
-    let py = outerRadius * Math.sin(angle);
-    const outerPath = [];
-    for (let j = 0; j < 200; j++) {
-      const [dx, dy] = decider(px, py, choice);
-      px += dx;
-      py += dy;
-      outerPath.push([px, py]);
-    }
-    trajectoryPaths.push(outerPath);
-
-    // Inner circle
-    px = innerRadius * Math.cos(angle);
-    py = innerRadius * Math.sin(angle);
-    const innerPath = [];
-    for (let j = 0; j < 200; j++) {
-      const [dx, dy] = decider(px, py, choice);
-      px += dx;
-      py += dy;
-      innerPath.push([px, py]);
-    }
-    trajectoryPaths.push(innerPath);
-  }
 }
 
-function drawTrajectories() {
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
-  ctx.lineWidth = 1;
+let trajCanvas, trajCtx;
+
+function createTrajectoryCanvas() {
+  trajCanvas = document.createElement("canvas");
+  trajCanvas.width = width;
+  trajCanvas.height = height;
+  trajCtx = trajCanvas.getContext("2d");
+}
+
+function drawTrajectoriesToCanvas() {
+  trajCtx.clearRect(0, 0, trajCanvas.width, trajCanvas.height);
+  trajCtx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+  trajCtx.lineWidth = 1;
+
   for (const path of trajectoryPaths) {
-    ctx.beginPath();
+    trajCtx.beginPath();
     for (let i = 0; i < path.length; i++) {
       const [x, y] = path[i];
       const px = centerX + x * scale;
       const py = centerY + y * scale;
-      if (i === 0) ctx.moveTo(px, py);
-      else ctx.lineTo(px, py);
+      if (i === 0) trajCtx.moveTo(px, py);
+      else trajCtx.lineTo(px, py);
     }
-    ctx.stroke();
+    trajCtx.stroke();
   }
 }
 
 function simulationLoop() {
   requestAnimationFrame(simulationLoop);
+
   ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
   drawStars(mouseX, mouseY);
-  drawTrajectories();
+
+  // Draw cached trajectories from offscreen canvas:
+  ctx.drawImage(trajCanvas, 0, 0);
 
   const radius = 50;
   const ringWidth = 1;
@@ -326,7 +306,8 @@ function resetSimulation() {
   updateTimeDisplay();
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  generateTrajectories();
+  generateTrajectoriesGrid();
+  drawTrajectoriesToCanvas();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -334,7 +315,11 @@ document.addEventListener("DOMContentLoaded", () => {
   ctx = canvas.getContext("2d");
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  generateTrajectories();
+
+  createTrajectoryCanvas();
+  generateTrajectoriesGrid();
+  drawTrajectoriesToCanvas();
+
   simulationLoop();
 
   const select = document.getElementById("blackhole");
