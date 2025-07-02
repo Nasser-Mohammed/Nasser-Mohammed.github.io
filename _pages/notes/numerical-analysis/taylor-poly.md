@@ -33,5 +33,5 @@ We can now start to see a pattern. So we can start to rewrite our function as
 \\[f(x) = f(0) + f'(0)x + \frac{f^{\'\'}(0)}{2}x^2 + ....... + \frac{f^{(n)}(0)}{n!}x^n + ......... +\\]
 Or more generally
 \\[f(x) = \sum_{n=0}^{\infty}\frac{f^{(n)}(0)}{n!}x^n\\]
-Why does this differ from the first formula? Well, we made an implicit assumption during this derivation. We assumed that we were "fine" with our function being \\(a\\) at \\(x=0\\). But what if we want our function to be translated back to the origin? Then we'd want our \\(x\\) terms to cancel out at \\(x = a \implies x - a = 0\\). So, we can replace this in the original equation to get
+Why does this differ from the first formula? Well, we made an implicit assumption during this derivation. We assumed that we were "fine" with our function being \\(a\\) at \\(x=0\\). In other words, our polynomial would be centered at \\(x=0\\). To capture a polynomial centered at an arbitrary point, say \\(a\\), then we'd want \\(x-a = 0\\) for cancellation in our series. So, we can replace this in the original equation to get
 \\[\sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n\\]
