@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Black Hole Simulation</title>
+  <title>Fourier Series Simulation</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -13,88 +13,44 @@
 <!-- Place this somewhere in your HTML -->
 
   <div class="wrapper">
-    <h1>Black Hole Simulation</h1>
-    <h4>Solutions approximated by Euler's method</h4>
-    The "black holes" below are simulated using different planar dynamical systems. These obviously do not take into account things like
-    time dilation, 3D coordinates, or the curvature of space-time. However, they are much faster to simulate, and capture the attracting and spiral nature of a black hole.
-    We can change the system's parameters to get differently behaving "black holes". But how do we go about determining which ODEs to use? If you are interested in how I derived these equations to exhibit specific behavior, check under the simulation for an explanation. For now, consider the generalized planar system:
-    <h2><u>General Planar System</u></h2>
+    <h1>Fourier Series Simulation</h1>
+    <h4>Integrals computed with Trapezoidal Rule</h4>
+    
+    <h2><u>Fourier Series</u></h2>
     <div>
         \[
         \begin{aligned}
-          \frac{dx}{dt} &= f(x,y)\\
+          &f(t) = a_0 + \sum_{n=1}^{\infty}\left[ a_n \cos(\omega nt) + b_n \sin(\omega n t)\right]\\
           \\
-          \frac{dy}{dt} &= g(x,y)\\
-        \end{aligned}
-        \]
+          &a_0 = \frac{1}{T} \int_{-T/2}^{T/2} f(t)dt\\
+          \\
+          &a_n = \frac{2}{T}\int_{-\infty}^{\infty}f(t)\cos(2 \pi n t)\\
+          \\
+          &b_n = \frac{2}{T}\int_{-\infty}^{\infty}f(t)\sin(2 \pi n t)\\
+          \\
+          &\omega = \frac{2\pi}{T}, \text{ called the fundamental frequency}\\
+          \\
+          & \text{Where } T \text{ is the period of our function. The value such that } f(t) = f(t + T) \ \forall t \\
+         \end{aligned}
+          \]
       </div>
       <hr>
-      <div id="blackhole-container">
-      <label for="blackhole">Pick Blackhole type:</label>
-      <select name="blackhole" id="blackhole">
-        <option value="foci">Foci</option>
-        <option value="vanderPol">Van der Pol</option>
-        <option value="radial">Radial</option>
-        <option value="polynomial">Polynomial</option>
-        <option value="node">Node</option>
-        <option value="saddleNode">Saddle Node</option>
-        <option value="vanderPol2">Van der Pol 2</option>
-      </select>
-    </div>
+      <div id="buttonRow">
+        <button id="start-simulation">Start Fourier Simulation</button>
+        <button id="clear-canvas">Clear Canvas</button>
+    <label for="accuracyRange">Degree of Accuracy (Fourier Terms): </label>
+      <input type="range" id="accuracyRange" min="5" max="50" value="10" step="1">
+    <span id="accuracyValue">10</span>
 
-      <button id="reset-simulation">Reset Simulation</button>
+    </div>
       <br/>
       <br/>
-    <div id="time-display">Time: 0.00s</div>
+    <div id="fourier-series"></div>
     <div class="canvas-container">
         <canvas id="simCanvas" width="1000" height="800"></canvas>
       </div>
     <script src="main.js?v=2"></script>
 
-    <h2><u>How to Derive a System</u></h2>
-      The goal is to obviously have a stable equilibrium, or possibly even two. I want to have several different types of "black holes". For example, one that attracts things in a somewhat straight line to the origin,
-       one with a spiraling to the center, and one with a psuedo event horizon. The first should be easily done with a system whose linearized version has negative real eigenvalues.
-       The second one can be done if the linearized version has complex conjugate eigenvalues with negative real parts. The final one will be the most difficult, we will use a limit cycle around
-       an equilibrium to generate the sort of event horizon effect. We do not have to worry about equilibria that are not hyperbolic right now, as we can force the eigenvalue to be non-zero. To get started, the Jacobian matrix is:
-      <div>
-        \[
-        \begin{pmatrix} \frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} \\ \frac{\partial g}{\partial x} & \frac{\partial g}{\partial y} \end{pmatrix}
-        \]
-      </div>
-      With characteristic polynomial:
-      \[\lambda^2 - \tau \lambda + \Delta = 0\]
-      where \(\tau = \frac{\partial f}{\partial x} + \frac{\partial g}{\partial y}\) and \(\Delta = \frac{\partial f}{\partial x} \cdot \frac{\partial g}{\partial y} - \frac{\partial f}{\partial y} \cdot \frac{\partial g}{\partial x}\)
-      <br>
-      If we just want to consider real roots, then a sufficient condition for an attracting equilibrium is that 
-      \[\tau < 0 \text{ and } \Delta > 0\]
-      This corresponds to 
-      \[\frac{\partial f}{\partial x} < -\frac{\partial g}{\partial y} \text{ and } \frac{\partial f}{\partial x} \frac{\partial g}{\partial y} > \frac{\partial f}{\partial y} \frac{\partial g}{\partial x}\]
-      At the equilibrium. For easy initial analysis, let's try to make the equilibrium the origin. Then any mixed polynomial with no constant term will have a root at the origin.
-      \[f(x,y) = \alpha x^2 + \beta y^2 + \gamma xy + \omega x + \eta y\]
-      \[g(x,y) = \delta x^2 + \chi y^2 + \xi xy + \theta x + \sigma y\]
-      Where all the greek letters are real valued parameters. Then,
-      \[\frac{\partial f}{\partial x} = 2\alpha x + \gamma y + \omega\]
-      \[\frac{\partial f}{\partial y} = 2\beta y + \gamma x + \eta\]
-      \[\frac{\partial g}{\partial x} = 2\delta x + \xi y + \theta\]
-      \[\frac{\partial g}{\partial y} = 2\chi y + \xi x + \sigma\]
-      Evaluated at \((0,0)\) gives:
-      \[\frac{\partial f}{\partial x} = \omega\]
-      \[\frac{\partial f}{\partial y} = \eta\]
-      \[\frac{\partial g}{\partial x} = \theta\]
-      \[\frac{\partial g}{\partial y} = \sigma\]
-      So we need:
-      \[\omega < -\theta\]
-      and
-      \[\omega \sigma > \eta \theta\]
-      Using this criteria, we can generate different systems with slightly different behaviors. For simplicity, let \(\theta = 0\). This causes \(\omega\) and \(\sigma\) to be negative, since we need \(\omega \sigma > 0\).
-    <h2><u>Example</u></h2>
-    <div>
-      \[\begin{aligned}
-        \frac{dx}{dt} &= -x^2 + 3y^2 + xy - 2x + 5y
-        \\
-        \frac{dy}{dt} &= x^2 + 2y^2 - xy - 4y
-      \end{aligned}\]
-    </div>
 
   </body>
 </html>
