@@ -322,7 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dualMode = false;
         dualPaused = false;
         dualStarted = false;
-        document.getElementById("double-launch").textContent = "Click to launch two trajectories with similar initial conditions";
+        document.getElementById("double-launch").textContent = "Click to launch three trajectories with similar initial conditions";
 
       });
     
