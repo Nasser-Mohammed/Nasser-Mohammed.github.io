@@ -213,7 +213,7 @@ function simulationLoop(timestamp) {
   ctx.font = "18px Arial";
   ctx.fillStyle = "black";
   ctx.textAlign = "center";
-  ctx.fillText("Frequency n = " + currentN, ctx.canvas.width / 2, 30);
+  ctx.fillText("Frequency resolution n = " + currentN, ctx.canvas.width / 2, 30);
 
   // Draw Fourier partial sum for currentN
   updateSimulation(currentN, elapsed);
