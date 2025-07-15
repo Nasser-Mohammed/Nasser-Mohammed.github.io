@@ -12,13 +12,11 @@ body {
     padding: 0;
     height: 100%;
     position: relative;
-    min-height: 100vh;
     background-image: url('images/butterfly21.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     color: white; /* text color */
-    padding-bottom: 80px;
 }
 
 main {
