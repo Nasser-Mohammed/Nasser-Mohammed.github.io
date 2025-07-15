@@ -1,0 +1,136 @@
+body {
+    font-family: sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+  }
+  .back-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #ccc;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #aaa;
+}
+
+  
+  /* This wrapper keeps everything nicely aligned */
+  .wrapper {
+    width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  .sprite-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  canvas {
+    display: block;
+    margin: 0 auto 20px auto; /* top, right/left, bottom */
+  }
+  .canvas-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* full screen height */
+  }
+  .canvas-container {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+  }
+  #time-display {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  #controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: sans-serif;
+    font-size: 1em;
+  }
+  
+  #controls label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  #controls input[type="range"] {
+    width: 300px;
+  }
+  
+  #reset-params {
+    margin-top: 12px;
+    padding: 8px 16px;
+    font-size: 1em;
+    border: none;
+    border-radius: 6px;
+    background-color: #6366F1;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #reset-params:hover {
+    background-color: #4F46E5;
+  }
+  #reset-trajectory {
+    margin-top: 12px;
+    padding: 8px 16px;
+    font-size: 1em;
+    border: none;
+    border-radius: 6px;
+    background-color: #10b981;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #reset-trajectory:hover {
+    background-color: #059669;
+  }
+  #preset-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  #preset-select {
+    padding: 6px 12px;
+    font-size: 1em;
+    border-radius: 6px;
+    margin-left : 70px;
+  }
+
+  #double-launch{
+    margin-top: 12px;
+    padding: 8px 16px;
+    font-size: 1em;
+    border: none;
+    border-radius: 6px;
+    background-color: #ec1505;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #double-launch:hover {
+    background-color: #ec1505;
+  }

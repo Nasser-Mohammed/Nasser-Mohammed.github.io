@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Butterfly Effect Simulation</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <button onclick="history.back()" class="back-button">← Back</button>
+  <br>
+  <p>In memory of Kodie</p>
+  <img src="kodie.png" alt="Kodie" width="150" height="150">
+  <div class="wrapper">
+    <h1>Butterfly Effect Simulation</h1>
+    <h4>Solutions approximated by Euler's method</h4>
+    <h2><u>The Lorenz System</u></h2>
+    <div>
+        \[
+        \begin{aligned}
+          \frac{dx}{dt} &= \sigma (y - x) \\
+          \\
+          \frac{dy}{dt} &= x (\rho - z) - y \\
+          \\
+          \frac{dz}{dt} &= xy - \beta z
+        \end{aligned}
+        \]
+      </div>
+      <hr>
+      <div class="sprite-selector">
+        <label for="sprite-select">Choose a sprite:</label>
+        <select id="sprite-select" onchange="handleSpriteChange()">
+          <option value="bunny">Bunny</option>
+          <option value="deer">Deer</option>
+          <option value="fox">Fox</option>
+          <option value="kodie">Kodie</option>
+          <option value = "wolf">Wolf</option>
+        </select>
+      
+        <!-- Optional: Preview image -->
+        <img id="sprite-preview" src="bunny.png" width="50" height="50" style="margin-left: 5px;" />
+        <div id="preset-container">
+          <label for="preset-select"></label>
+          <select id="preset-select">
+            <option value="">— Choose a preset (optional) —</option>
+            <option value="classic">🦋 Classic Butterfly</option>
+            <option value="spiral">🌪️ Chaotic Spiral</option>
+            <option value="collapse">💧 Collapse</option>
+            <option value="explode">🚀 Escape</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="controls">
+        <div>
+          <label>σ (sigma): <span id="sigma-val">10</span></label>
+          <input type="range" id="sigma" min="0" max="30" step="0.1" value="10">
+        </div>
+        <div>
+          <label>ρ (rho): <span id="rho-val">28</span></label>
+          <input type="range" id="rho" min="0" max="100" step="0.1" value="28">
+        </div>
+        <div>
+          <label>β (beta): <span id="beta-val">2.6667</span></label>
+          <input type="range" id="beta" min="0" max="10" step="0.01" value="2.6667">
+        </div>
+        <button id="reset-params">Reset Parameters</button>
+      </div>
+      <button id="reset-trajectory">Reset Trajectory</button>
+      <br/>
+      <br/>
+
+    <button id = "double-launch">Click to launch three trajectories with similar initial conditions</button>
+    <div id="time-display">Time: 0.00s</div>
+    <div class="canvas-container">
+        <canvas id="simCanvas" width="1000" height="800"></canvas>
+      </div>
+
+      
+    <script src="main.js?v=2"></script>
+</body>
+</html>

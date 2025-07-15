@@ -1,0 +1,62 @@
+
+a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+body {
+    font-family: Georgia, serif;
+    margin: 0;
+    padding: 0;
+}
+header, nav, main, footer {
+    padding: 1rem;
+}
+header {
+    background-color: #333;
+    color: white;
+}
+nav {
+    background-color: #eee;
+}
+footer {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+ul.styled-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1rem;
+  gap: 1rem;
+}
+
+ul.styled-list li {
+  background-color: #333;       /* dark gray box */
+  color: white;                 /* white text */
+  border: 1px solid #555;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+ul.styled-list li:hover {
+  background-color: #1100ff;
+}
+ul.styled-list li a {
+  text-decoration: none;
+  color: inherit;           /* inherits the li text color */
+  display: block;           /* makes the whole box clickable */
+  width: 100%;
+  height: 100%;
+}
+
+ul.styled-list li a:hover {
+  text-decoration: underline;
+}
+
+

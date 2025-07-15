@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reaction Diffusion Equations</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <button onclick="history.back()" class="back-button">← Back</button>
+  <div class="wrapper">
+    <h1>Turing Pattern Simulations</h1>
+    <h4>Solutions Approximated by Explicit Forward Euler + Finite Differences</h4>
+    <h2>General System of Reaction Diffusion Equations</h2>
+    <div>
+        \[
+        \begin{aligned}
+          \frac{\partial u_1}{\partial t} &= \sigma_1 \cdot \nabla^2 u_1 + R_1(u_1, u_2, .... , u_n)\\
+          \\
+          \frac{\partial u_2}{\partial t} &= \sigma_2 \cdot \nabla^2 u_2 + R_2(u_1, u_2, .... , u_n)\\
+          \\
+          \vdots \\
+          \\
+          \frac{\partial u_n}{\partial t} &= \sigma_n \cdot \nabla^2 u_n + R_n(u_1, u_2, .... , u_n)\\
+        \end{aligned}
+        \]
+        Here is a brief summary of the variables used in the equations: <br>
+        <br>
+          \(u_n\): The concentration of the i-th species/chemical/etc. <br>
+          <br>
+          \(t\): Time variable. <br>
+            <br>
+          \(\sigma_i\): Diffusivity constant of the i-th species/chemical/etc.<br>
+          <br>
+          \(\nabla^2\): Laplacian operator, representing diffusion in space. <br>
+          <br>
+          \(R_i\): Reaction term for the i-th species/chemical/etc., which describes how the concentration changes due to reactions with other species/chemicals/etc.
+      </div>
+      <br>
+      <h2>Turing Pattern System</h2>
+      <div>
+        \[
+        \begin{aligned}
+          \frac{\partial u}{\partial t} &= \sigma_u \cdot \nabla^2 u + \alpha(u-h) + \beta(v-k)\\
+          \\
+          \frac{\partial v}{\partial t} &= \sigma_v \cdot \nabla^2 v + \omega(u-h) + \lambda(v-k)
+            \end{aligned}
+            \]
+      </div>
+      Here we have two chemical concentrations, \(u\) and \(v\), which are governed by the reaction-diffusion equations. The parameters \(\sigma_u\), \(\sigma_v\), \(\alpha\), \(\beta\), \(\omega\), and \(\lambda\) control the diffusion and reaction rates of the chemicals. The constants \(h\) and \(k\) represent the threshold concentrations for the chemicals to react. <br>
+      <br>
+      Red represents the concrentration of \(u\) and blue represents the concentration of \(v\). I represent the higher concentration as the pixel color of the corresponding chemical color.<br>
+      <hr>
+    <button id="startButton">Start Simulation</button>
+    <button id="resetButton">Reset Simulation</button>
+    <div id="timer">Time: 0s</div>
+    <div class="canvas-container">
+        <canvas id="simCanvas" width="800" height="800"></canvas>
+      </div>
+
+      
+    <script src="main.js?v=2"></script>
+</body>
+</html>

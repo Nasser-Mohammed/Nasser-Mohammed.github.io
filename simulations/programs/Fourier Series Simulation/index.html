@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fourier Series Simulation</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <button onclick="history.back()" class="back-button">← Back</button>
+
+  <div class="wrapper">
+    <h1>Fourier Series Simulation</h1>
+    <h4>Integrals computed with Trapezoidal Rule</h4>
+    
+    <h2><u>Fourier Series</u></h2>
+    <div>
+        \[
+        \begin{aligned}
+          &f(t) = a_0 + \sum_{n=1}^{\infty}\left[ a_n \cos(\omega nt) + b_n \sin(\omega n t)\right]\\
+          \\
+          &a_0 = \frac{1}{T} \int_{-T/2}^{T/2} f(t)dt\\
+          \\
+          &a_n = \frac{2}{T}\int_{0}^{T}f(t)\cos(2 \pi n t)\\
+          \\
+          &b_n = \frac{2}{T}\int_{0}^{T}f(t)\sin(2 \pi n t)\\
+          \\
+          &\omega = \frac{2\pi}{T}, \text{ called the fundamental frequency}\\
+          \\
+          & \text{Where } T \text{ is the period of our function. The value such that } f(t) = f(t + T) \ \forall t \\
+         \end{aligned}
+          \]
+      </div>
+      <hr>
+      <div id="buttonRow">
+        <button id="start-simulation">Start Fourier Simulation</button>
+        <button id="clear-canvas">Clear Canvas</button>
+    <label for="accuracyRange">Degree of Accuracy (Fourier Terms): </label>
+      <input type="range" id="accuracyRange" min="5" max="50" value="10" step="1">
+    <span id="accuracyValue">10</span>
+
+    </div>
+      <br/>
+      <br/>
+    <div id="fourier-series"></div>
+      <div class="canvas-container">
+          <canvas id="simCanvas" width="1400" height="800"></canvas>
+        </div>
+    <script src="main.js?v=2"></script>
+
+
+  </body>
+</html>
