@@ -16,4 +16,4 @@ My general interests lie in differential equations (ordinary and partial), numer
 Butterfly Effect
 ======
 The butterfly effect is inspired by the chaotic geometry of the Lorenz system resembling a butterfly (and the notion of a butterfly's wing in Brazil causing a hurricane in India), the first concrete example of chaos in a deterministic system.
-![alt text](butterfly.png "Butterfly Effect")
+![alt text](butterfly.png)
