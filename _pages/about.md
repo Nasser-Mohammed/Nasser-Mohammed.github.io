@@ -11,9 +11,3 @@ I am currently a master's student in mathematics at LSU. I completed my undergra
 Research Interests
 ======
 My general interests lie in differential equations (ordinary and partial), numerical analysis, and probability theory. More specifically, I am interested in dynamical systems and control theory, and their applications.
-
-
-Butterfly Effect
-======
-The butterfly effect is inspired by the chaotic geometry of the Lorenz system resembling a butterfly (and the notion that the flap of a butterfly's wing in Brazil could cause a tornado in Texas), the first concrete example of chaos in a (deterministic) dynamical system.
-![alt text](butterfly3.png)
