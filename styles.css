@@ -35,12 +35,6 @@ body::before {
   z-index: -1;  /* behind content */
 }
 
-html {
-  height: 100%;
-  margin: 0;
-}
-
-
 header, nav, main, footer {
     padding: 1rem;
 }
