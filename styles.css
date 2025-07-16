@@ -65,3 +65,25 @@ footer {
 .black-text {
   color: black;
 }
+
+
+.top-right-image {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 110px;
+  width: auto;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+/* Responsive: smaller image on small screens */
+@media (max-width: 600px) {
+  .top-right-image {
+    width: 40px;
+  }
+}
