@@ -13,20 +13,33 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
-  background-image: url('images/butterfly21.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: scroll;
   font-family: Georgia, serif;
   color: white;
   position: relative;
   z-index: 0;
 }
 
+
 main {
-  flex: 1 0 auto;
+  background-color: black;
+  color: white;
+  padding-bottom: 80px;
 }
+
+.background-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.background-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  opacity: 1;
+}
+
 
 body::before {
   content: "";
