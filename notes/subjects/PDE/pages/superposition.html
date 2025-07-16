@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
+  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>The Law of Superposition Notes</title>
+</head>
+<body>
+  <header>
+    <button onclick="history.back()" class="back-button">← Back</button>
+    <h1>The Law of Superposition</h1>
+  </header>
+<hr style="border: 2px solid black;">
+It is well known that the solutions to a homogenous linear differential equation form a vector space. What this means, is that **any** linear combination of solutions is also a solution to the differential equation. The Law of Superposition is simply the statement that these solutions do form a vector space. But what does the word superposition have to do with this? I had trouble with the concept at first, however, it makes sense when you understand why we consider the linear combination of solutions. If all we have is a general solution to a differential equation, then every linear combination also solves our differential equation. That is, if \(\phi(x,t)\) solves our PDE and \(\psi(x,t)\) does as well, then so does 
+\[\sum_{n=1}^{\infty}c_1 \cdot \phi(x,t) + c_2\cdot \psi(x,t)\]
+Now, we can't deduce much from this, so we usually impose an initial condition. The initial condition tells us exactly what configuration of this sum satisfies our problem. In other words, the particular solution to our problem lies in a superposition of every possible solution (in the form above). Only when we solve for the necessary configuration of this combination, do we get our particular solution. This can be thought of as Schrödinger's wave function collapsing when observed. In the context of a quantum system, the state of the system (determined by Schrödinger's equation) is in several different states simultaneously, it is not until measured (/observed) that the states collapse into 1 (the observed state). Much like the quantum analog, our solution exists in many different states, more specifically, it exists in all possible states. Once we impose an initial condition on it, it collapses into a specific solution to our problem. Therefore, like the quantum system, the possibility of our solution being **any** linear combination of solutions, collapses into a single solution. This is why it's called superposition.
+  </main>
+</body>
+</html>

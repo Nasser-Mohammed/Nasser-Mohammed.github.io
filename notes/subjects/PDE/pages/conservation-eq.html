@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
+  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>Conservation Equation Notes</title>
+</head>
+<body>
+  <header>
+    <button onclick="history.back()" class="back-button">← Back</button>
+    <h1>Conservation Equations</h1>
+  </header>
+<hr style="border: 2px solid black;">
+\[u_t + g(u)u_x = 0\]
+Also known as conservation equations, this is a first order **non-linear** PDE (in one dimension). This equation can model many things, a common example is the flow of traffic. It is sometimes written as 
+\[u_t + f_x = 0\]
+Where \(f_x\) is the **flux** of whatever quantity \(u\) is describing. In the traffic scenario, that would be the flux of cars, i.e. the amount of cars moving through the boundary at a given moment. Typically, \(f_x\) is found experimentally or given (by some assumption possibly), once we have that, we can begin to solve the PDE. First we will see where this \(f_x\) term even comes from. If we use the chain rule, then 
+\[f_x = \frac{\partial f}{\partial u}\frac{\partial u}{\partial x}\]
+This simplifies to 
+\[f_x = \frac{\partial f}{\partial u}u_x\]
+So in our original equation 
+\[u_t + g(u)u_x = 0\]
+We replace \(g(u)u_x\) with \(f_x\) since \(g(u)u_x = \frac{\partial f}{\partial u}u_x\) \
+\
+Now we use characteristic curves to solve this PDE. We pick an initial point that represents some subdomain of the domain. That is, if the initial value of the function \(u\) has different equations representing different intervals, then we pick a point from each of those intervals, and then do the following. **Note:** Here you can find theory behind [The Method of Characteristics](method-of-characteristics.md) \
+\
+Now since I go into the theory behind the method of characteristics on the mentioned page. We find that the implicit solution to this PDE is given by
+\[u = \phi\[x-g(u)t\]\]
+Where \(\phi\) is our initial condition.
+
+  </main>
+</body>
+</html>
