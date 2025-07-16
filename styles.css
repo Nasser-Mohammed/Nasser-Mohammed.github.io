@@ -42,10 +42,6 @@ body::before {
 header, nav, main, footer {
     padding: 1rem;
 }
-header {
-    background-color: #333;
-    color: white;
-}
 nav {
     background-color: #eee;
 }
@@ -67,18 +63,37 @@ footer {
 }
 
 
-.top-right-image {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 110px;
-  width: auto;
-  z-index: 10;
-  margin: 0;
-  padding: 0;
+header {
+  position: relative;
+  background-color: #333;
+  color: white;
+  height: 185px; /* Or whatever height you need */
+  display: flex;
+  align-items: center;
+  padding: 0 1rem; /* Keep left/right padding, remove vertical */
 }
 
 
+.top-right-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 185px;
+  padding: 0;
+  margin: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-right-container img {
+  height: 100%;
+  width: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
 
 
 /* Responsive: smaller image on small screens */
