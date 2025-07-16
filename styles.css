@@ -80,11 +80,12 @@ header {
 /* Remove default h1 spacing */
 header h1 {
   margin: 0;
-  padding: 0;
+  padding-left: 1rem;  /* or try 2rem for more space */
   line-height: 1;
   display: flex;
   align-items: center;
 }
+
 
 
 /* Container for top-right image */
@@ -127,6 +128,6 @@ header h1 {
   }
 
   .top-right-container img {
-    max-height: 60px;
+    max-height: 100px;
   }
 }
