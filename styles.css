@@ -38,14 +38,33 @@ main {
   height: auto;
   display: block;
   opacity: 1;
-  transition: filter 0.2s ease;
-  filter: drop-shadow(0 0 0 rgba(0, 255, 255, 0)); /* default: off */
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2))
+          drop-shadow(0 0 8px rgba(255, 165, 0, 0.3))
+          drop-shadow(0 0 12px rgba(255, 69, 0, 0.25));
+  transition: filter 0.3s ease;
 }
 
 .background-image:hover {
-  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4)) 
-          drop-shadow(0 0 18px rgba(0, 255, 255, 0.4));
+  animation: glowPulse 2.5s ease-in-out infinite;
 }
+@keyframes glowPulse {
+  0% {
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2))
+            drop-shadow(0 0 8px rgba(255, 165, 0, 0.3))
+            drop-shadow(0 0 12px rgba(255, 69, 0, 0.25));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3))
+            drop-shadow(0 0 18px rgba(255, 165, 0, 0.6))
+            drop-shadow(0 0 24px rgba(255, 69, 0, 0.5));
+  }
+  100% {
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2))
+            drop-shadow(0 0 8px rgba(255, 165, 0, 0.3))
+            drop-shadow(0 0 12px rgba(255, 69, 0, 0.25));
+  }
+}
+
 
 body::before {
   content: "";
