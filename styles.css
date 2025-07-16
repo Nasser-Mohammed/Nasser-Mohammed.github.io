@@ -66,7 +66,7 @@ header {
   position: relative;
   background-color: #333;
   color: white;
-  height: 185px; /* fixed height */
+  height: 250px; /* fixed height */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
