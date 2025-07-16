@@ -1,0 +1,49 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
+  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>Vector Space Notes</title>
+</head>
+<body>
+  <header>
+    <h1>Vector Spaces</h1>
+  </header>
+<hr style="border: 2px solid black;">
+First we will start with a non-empty set \(V\) of arbitrary elements. Without going into detail, a vector space has a list of axioms, however, we can (almost always) check if a set is a vector space with two "tests". Before that, when we say that a set is "closed" under some operation, we mean that performing that operation on an element of the set results in something that is still in the set (and we can see that "closure" follows intuitively from the word). One more thing to note, is that a set being "over" some algebraic field \(K\), means that multiplication of elements of our set \\(V\\) by elements of the field \\(K\\) is defined (as in we have some way to assign something to the product) and when we say "scalar" multiplication, it refers to multiplication of an element of our set with an element of the field. The most typically used fields are the field of complex numbers \\(\mathbb{C}\\) and the field of real numbers \\(\mathbb{R}\\) (although you can define your own field, where a field is simply an algebraic commutative ring with a non-zero multiplicative inverse for every non-zero element). Now that we have that, we can see what makes certain sets vector fields. For simplicity, consider that \\(V\\) is over \\(\mathbb{R}\\), then \\(V\\) is a vector space if it is closed under scalar multiplication and element addition. Element addition is just the sum of any two elements of our set. Again, closure means that both of these operations produce something that is still in our set \\(V\\). Elements of a vector space are called vectors. We can have vector spaces of several things, like spaces of numbers, functions, sequences, etc.
+
+## Subspaces
+A subspace of a vector space, is a subset that satisfies the definition of a vector space. This definition might seem circular, however, a subspace is simply a vector space contained in another vector space. 
+
+## Span
+The span of a set of vectors \\(T\\), is the set of all linear combinations of vectors from \\(T\\). For example, let \\(T =\\){\\(v_1, v_2, v_3\\)}, then the span of this set, are all elements of the form
+\\[\sum_{n =1}^{3}c_nv_n\\]
+Where \\(c_n\\) can be any constant. It follows directly that the sum of any element of \\(T\\) is in the span, and so is any scalar multiple of an element from \\(T\\). Therefore, the span of any set of vectors forms a vector space itself and is therefore a subspace of the vector space that \\(T\\) is in. But what if one of the elements of \\(T\\) is some linear combination of the other two? That is, what if (for simplicity) \\(v_3 = v_1 + v_2\\)? Then it would be redundant to include \\(v_3\\) when considering our linear combination, since it is described by
+\\[\sum_{n=1}^{2}c_nv_n\\]
+and by definition in the spanning set of {\\{v_1, v_2\\)}. We can see that, the span of \\(T\\) is the same as the span of {\\(v_1, v_2\\)}, and therefore, sometimes considering more vectors will not make the span larger. We then may ask, what is the smallest set of vectors that spans a certain vector space? For this, we must first consider the concept of linear independence.
+
+## Linear Independence
+A set of vectors \\(T =\\){\\(v_1, v_2, .... , v_n\\)} are considered **linearly independent**, if the only solution to the equation
+\\[c_1v_1 + c_2v_2 + .... + c_nv_n = 0\\]
+Is the trivial solution where \\(c_k = 0 \ \ \forall k\\). Otherwise, the set is considered **linearly dependent**. What this equation is telling us, is that a set of vectors is linearly **independent** if no vector in the set can be written as the linear combination of let {\\(v_1, v_2, .... , v_n\\)} be a set of vectors, and assume that there exists non-zero solutions for
+\\[c_1v_1 + c_2v_2 + .... + c_nv_n = 0\\]
+Then any vector, say \\(v_1\\) could be written as \\(v_1 = -\frac{c_2v_2 + c_3v_3 + ... + c_nv_n}{c_1}\\) and in other words, is a part of the span of the other vectors. Therefore, disregarding it will not change our span and at least 1 element of the set is "redundant" in the sense that it isn't necessary for our span.
+
+## Minimal Spanning Set
+The minimal spanning set of a vector space, is the smallest set of vectors that produces that vector space. In other words, it is the set of vectors whose span is the vector space we are considering. We can also say that this is a linearly independent spanning set since we want no redundancies in our set.
+
+## Basis of Vector Spaces
+Without arguing the axiom of choice, we can say that **every** vector space has a basis. For a finite dimensional vector space, the number of basis elements is equal to the dimension of the space. A basis of a finite dimensional vector space is a set of vectors such that every vector in the vector space can be written as a linear combination (which is just a finite sum) of vectors from the basis and no element of the basis can be written as a linear combination of the other elements in the basis. In the infinite dimensional case, we might have to consider infinite sums which then require the concept of convergence which is a topological property, I cover topological vector spaces in my functional analysis section of notes. If this seems familiar, that is because this is just a minimal spanning set of our vector space. A set of linearly independent vectors that span our vector space.
+
+  </main>
+</body>
+</html>
+
+
+<hr style="border: 2px solid black;">
