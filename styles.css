@@ -96,9 +96,3 @@ header {
 }
 
 
-/* Responsive: smaller image on small screens */
-@media (max-width: 600px) {
-  .top-right-image {
-    width: 40px;
-  }
-}
