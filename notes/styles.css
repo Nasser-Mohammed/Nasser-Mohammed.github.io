@@ -59,4 +59,10 @@ ul.styled-list li a:hover {
   text-decoration: underline;
 }
 
-
+.list-icon {
+  width: 60px;
+  height: 60px;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-left: 10px;
+}
