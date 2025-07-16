@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
+  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <title>Series Tests Notes</title>
+</head>
+<body>
+  <header>
+    <button onclick="history.back()" class="back-button">← Back</button>
+    <h1>Cauchy Product of Two Series Converges to Product of Sums</h1>
+  </header>
+<hr style="border: 2px solid black;">
+There are various tests/comparisons for determining if a series converges or not. Knowing the main ones is crucial for the study of Fourier Analysis, so I will cover the most used ones.
+
+<h2>Comparison Test</h2>
+If we have that,
+\[0 \leq |a_n| \leq b_n \ \ \forall n \text{ sufficiently large and } \sum b_n \ \text{ converges, then } \implies \sum a_n \ \text{converges}\]
+
+<h2>Limit Comparison Test</h2>
+For two series
+\[\sum a_n, \ \ \sum b_n\]
+If
+\[\lim_{n \to \infty} \frac{|a_n|}{b_n} = c,  \ \ \ 0 < c < \infty\]
+Then both series either converge or diverge together. What this means, is that if we know the behavior of one of the series, we can conclude the behavior of the other by this limit comparison test.
+
+<h2>Ratio Test</h2>
+\[\lim \sup_{n \to \infty} |\frac{a_{n+1}}{a_n}| < 1 \implies \sum a_n \ \text{ converges absolutely}\]
+
+<h2>Cauchy Criterion</h2>
+A series
+\[\sum a_n\] 
+Converges if and only if 
+\[\forall \epsilon > 0, \ \exists N \in \mathbb{N} \ \text{ such that } \ \forall m,n \geq N\]
+\[\implies |\sum_{k = m}^{n}a_k| < \epsilon\]
+What this says, is that the tail end of a convergent series will be arbitrarily small.
+
+<h2>Weierstrass M-Test (Uniform Convergence)</h2>
+If \(|f_n(x)| \leq M_n \ \forall x\) and \(\sum M_n\) converges, then
+\[\sum f_n(x) \ \ \text{converges uniformly}\]
+Furthermore, this convergence is absolute.
+  </main>
+</body>
+</html>
