@@ -38,8 +38,14 @@ main {
   height: auto;
   display: block;
   opacity: 1;
+  transition: filter 0.2s ease;
+  filter: drop-shadow(0 0 0 rgba(0, 255, 255, 0)); /* default: off */
 }
 
+.background-image:hover {
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4)) 
+          drop-shadow(0 0 18px rgba(0, 255, 255, 0.4));
+}
 
 body::before {
   content: "";
