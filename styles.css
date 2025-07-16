@@ -169,3 +169,8 @@ header h1 {
     max-height: 100px;
   }
 }
+
+p {
+  font-size: 1.2rem; /* or try 18px, 20px, etc. */
+  line-height: 1.6;  /* optional: improves readability */
+}
