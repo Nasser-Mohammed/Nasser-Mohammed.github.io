@@ -7,7 +7,7 @@
 //1/2*l*(theta'_1)^2*sin(theta_1-theta_2) + 1/2*g*sin(theta_2) = 0
 
 let p1 = {length: 185, mass: 15, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
-let p2 = {length: 125, mass: 20, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
+let p2 = {length: 135, mass: 7, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
 let midLineHeight;
 let midLineWidth;
 
@@ -21,7 +21,7 @@ let isRunning = false;
 let trail = [];
 const maxTrailLength = 1000;
 let trail2 = [];
-const MAX_TRAIL_LENGTH = 2000;
+const MAX_TRAIL_LENGTH = 10000;
 
 
 //this means it will rotate within a circle of radius 310
@@ -33,7 +33,11 @@ let initial_y1;
 let initial_x2;
 let initial_y2;
 
-const dt = 0.05;
+const fixedDt = 0.005;
+
+let accumulatedTime = 0;
+const SIMULATION_SPEED = 5;
+let speedMultiplier = 10;
 
 let canvas;
 let ctx;
@@ -43,7 +47,7 @@ let width;
 let animationId;
 let lastTime = null
 
-function timeStep() {
+function timeStep(dt) {
   let m1 = p1.mass, m2 = p2.mass;
   let l1 = p1.length, l2 = p2.length;
   let g = 9.81;
@@ -154,15 +158,25 @@ function draw(){
 }
 
 
-function animate(currentTime){
-    if (!lastTime) lastTime = currentTime;
-    const deltaTime = (currentTime - lastTime)/1000;
-    lastTime = currentTime;
 
-    timeStep(); //can input a variable dt here
-    draw();
-    //console.log("simulation...........")
-    animationId = requestAnimationFrame(animate);
+function animate(currentTime) {
+  if (!lastTime) lastTime = currentTime;
+  let delta = (currentTime - lastTime) / 1000;
+  lastTime = currentTime;
+
+  accumulatedTime += delta;
+
+  // Scale steps based on speedMultiplier (e.g., 1–100)
+  let steps = Math.floor((accumulatedTime / fixedDt) * speedMultiplier);
+  for (let i = 0; i < steps; i++) {
+    timeStep(fixedDt);
+  }
+
+  // Subtract actual simulated time (account for speed multiplier)
+  accumulatedTime -= (steps / speedMultiplier) * fixedDt;
+
+  draw();
+  animationId = requestAnimationFrame(animate);
 }
 
 
@@ -255,6 +269,7 @@ function startSimulation(){
 
 function resetSimulation(){
   cancelAnimationFrame(animationId);
+  lastTime = null;
   console.log("Reset simulation");
   ctx.fillStyle = "black";
   ctx.fillRect(0,0, width, height);
@@ -269,6 +284,11 @@ function resetSimulation(){
   p2.acceleration = 0;
   p2.velocity = 0;
   trail2 = [];
+  const slider = document.getElementById("speedSlider");
+  const label = document.getElementById("speedValue");
+  slider.value = 10;
+  label.textContent = "10";
+  speedMultiplier = 10;
   initCanvas();
 }
 
@@ -288,9 +308,16 @@ document.addEventListener("DOMContentLoaded", () => {
   midLineHeight = Math.floor((1/2.25)*height);
   midLineWidth = width;
   initCanvas();
+  const speedSlider = document.getElementById("speedSlider");
+  const speedValueDisplay = document.getElementById("speedValue");
 
   const stopBtn = document.getElementById("stopBtn");
   const startBtn = document.getElementById("startBtn");
+
+  speedSlider.addEventListener("input", () => {
+    speedMultiplier = parseInt(speedSlider.value);
+    speedValueDisplay.textContent = speedMultiplier;
+});
 
   startBtn.addEventListener("click", () => {
     
@@ -301,6 +328,7 @@ document.addEventListener("DOMContentLoaded", () => {
     isRunning = true;
   } else {
     cancelAnimationFrame(animationId);
+    lastTime = null;
     startBtn.textContent = "Start";
     startBtn.style.backgroundColor = "#28a745"; // green
     isRunning = false;

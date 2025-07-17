@@ -17,7 +17,7 @@
         \[
         \begin{align}
           \ddot{\theta_1} &= \frac{-g(2m_1 + m2)\sin(\theta_1) - m_2g\sin(\theta_1-2\theta_2)
-          -2\sin(\theta_1-\theta_2)\cdot m_2(l_2\dot{\theta_{2}^2} + l_1 \dot{\theta_1^2}(\cos(\theta_1-\theta_2))}
+          -2\sin(\theta_1-\theta_2)\cdot m_2(l_2\dot{\theta_{2}^2} + l_1 \dot{\theta_1^2}(\cos(\theta_1-\theta_2)))}
           {l_1(2m_1+m_2 - m_2\cos(2(\theta_1-\theta_2)))}
           \\
           \ddot{\theta_2} &= \frac{2\sin(\theta_1-\theta_2)(l_1(m_1+m_2)\dot{\theta_1^2})
@@ -32,6 +32,10 @@
       </div>
   <button type="button" id="startBtn">Click to start</button>
   <button type="button" id="stopBtn">Click to reset</button>
+  <label for="speedSlider">Speed:</label>
+  <input type="range" id="speedSlider" min="1" max="60" value="10">
+  <span id="speedValue">10</span>
+
   <canvas id="pendulumCanvas" width="1000" height="750"></canvas>
   </div>
 
