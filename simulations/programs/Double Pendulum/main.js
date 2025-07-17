@@ -6,8 +6,8 @@
 //1/3*l*theta''_2 + 1/2*l*theta''_1*cos(theta_1-theta_2) -
 //1/2*l*(theta'_1)^2*sin(theta_1-theta_2) + 1/2*g*sin(theta_2) = 0
 
-let p1 = {length: 185, mass: 15, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
-let p2 = {length: 135, mass: 7, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
+let p1 = {length: 185, mass: 11, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
+let p2 = {length: 135, mass: 15, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
 let midLineHeight;
 let midLineWidth;
 
