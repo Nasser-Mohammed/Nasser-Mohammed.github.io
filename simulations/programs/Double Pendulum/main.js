@@ -11,6 +11,9 @@ let p2 = {length: 135, mass: 7, theta: 0, velocity: 0, acceleration: 0, x: 0, y:
 let midLineHeight;
 let midLineWidth;
 
+let bolt1Radius = 20;
+let bolt2Radius = 25;
+
 const pi = Math.PI;
 const g = 9.81;
 console.log("constants are: pi: ", pi, " and g: ", g);
@@ -144,10 +147,7 @@ function draw(){
   ctx.beginPath();
   ctx.strokeStyle = 'rgba(0, 255, 255, 0.7)';
   ctx.lineWidth = 2;
-  drawTrail(trail2); // Yellow-ish trail from pendulum 2
-
-
-
+  drawTrail(trail2);
 
   ctx.lineWidth = 15;
   ctx.strokeStyle = 'red';
@@ -163,8 +163,8 @@ function draw(){
   ctx.lineTo(p2.x, p2.y);
   ctx.stroke();
 
-  drawBolt(Math.floor(p1.x), Math.floor(p1.y), 15);
-  drawBolt(Math.floor(width/2), Math.floor(midLineHeight), 15);
+  drawBolt(Math.floor(p1.x), Math.floor(p1.y), bolt2Radius);
+  drawBolt(Math.floor(width/2), Math.floor(midLineHeight), bolt1Radius);
 }
 
 
@@ -252,8 +252,8 @@ function initializePendulums(){
   ctx.lineTo(p2.x, p2.y);
   ctx.stroke();
 
-  drawBolt(p1.x, p1.y, 15);
-  drawBolt(Math.floor(width/2), midLineHeight, 15);
+  drawBolt(p1.x, p1.y, bolt2Radius);
+  drawBolt(Math.floor(width/2), midLineHeight, bolt1Radius);
 
   p1.acceleration = 0;
   p1.velocity = 0;
