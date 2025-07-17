@@ -47,6 +47,10 @@ let width;
 let animationId;
 let lastTime = null
 
+let dampingEnabled = false;
+const dampingFactor = 0.00004;
+
+
 function timeStep(dt) {
   let m1 = p1.mass, m2 = p2.mass;
   let l1 = p1.length, l2 = p2.length;
@@ -86,6 +90,12 @@ function timeStep(dt) {
   p1.velocity = newState[1];
   p2.theta = newState[2];
   p2.velocity = newState[3];
+
+  if (dampingEnabled) {
+  p1.velocity *= (1 - dampingFactor);
+  p2.velocity *= (1 - dampingFactor);
+}
+
 
   // Convert angles to Cartesian
   let x1 = l1 * Math.sin(p1.theta);
@@ -290,6 +300,9 @@ function resetSimulation(){
   label.textContent = "10";
   speedMultiplier = 10;
   initCanvas();
+  dampingEnabled = false;
+  dampenBtn.style.display = "inline-block";
+
 }
 
 function initCanvas(){
@@ -313,6 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const stopBtn = document.getElementById("stopBtn");
   const startBtn = document.getElementById("startBtn");
+  const dampenBtn = document.getElementById("dampenBtn");
 
   speedSlider.addEventListener("input", () => {
     speedMultiplier = parseInt(speedSlider.value);
@@ -342,5 +356,10 @@ document.addEventListener("DOMContentLoaded", () => {
       startBtn.style.backgroundColor = "#28a745";
       isRunning = false;
   })
+
+  dampenBtn.addEventListener("click", () => {
+  dampingEnabled = true;
+  dampenBtn.style.display = "none";
+});
 
 });
