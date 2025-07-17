@@ -1,0 +1,73 @@
+body, html {
+  margin: 0; padding: 0; height: 100%;
+  font-family: Georgia, serif;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  min-height: 100vh; /* allows content to grow beyond the screen */
+}
+
+.TextBody {
+  max-width: 90vw;            /* max width relative to viewport */
+  text-align: center;
+}
+
+canvas {
+  max-width: 90vw;            /* make canvas responsive */
+  height: auto;
+  border: 1px solid #ccc;
+}
+  .back-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #ccc;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #aaa;
+}
+
+#startBtn, #stopBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'Segoe UI', sans-serif;
+  border: none;
+  border-radius: 8px;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Start button style */
+#startBtn {
+  background-color: #28a745;
+  color: white;
+}
+
+#startBtn:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+/* Stop button style */
+#stopBtn {
+  background-color: #dc3545;
+  color: white;
+}
+
+#stopBtn:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
