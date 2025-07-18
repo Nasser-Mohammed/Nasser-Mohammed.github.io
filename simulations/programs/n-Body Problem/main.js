@@ -85,7 +85,7 @@ const trailColorMap = new Map([
   ["sun", "gold"],
   ["earth", "green"],
   ["mars", "red"],
-  ["jupiter", "brown"],
+  ["jupiter", "#a0522d"], // sienna (a more orangey brown)
   ["saturn", "khaki"],
   ["neptune", "blue"],
   ["moon", "rgba(211, 211, 211, 0.5)"]
@@ -335,7 +335,7 @@ function updateTrail(body) {
 function updateMoons(){
   for(let i = 0; i < moons.length; i++){
     const moon = moons[i];
-    moon.stateVector.theta += 1/280;
+    moon.stateVector.theta += 5/280;
     if (moon.stateVector.theta >= 2*Math.PI){
       moon.stateVector.theta = moon.stateVector.theta%(2*Math.PI);
     }
@@ -351,8 +351,8 @@ function updateMoons(){
     let shortestDist = moon.distance2Body;
     let closestPlanet = null;
     let newTheta = 0;
-    let tmpStability = 0;
-    for(let j = 0; j < planetsInSimulation.length && moon.stability === 0; j++){
+    let flag = false;
+    for(let j = 0; j < planetsInSimulation.length; j++){
       const tmpPlanet = planetsInSimulation[j];
       const dist = euclideanDistance(moonX, moonY, tmpPlanet.stateVector.x, tmpPlanet.stateVector.y).toFixed(4);
         if (tmpPlanet === moon.OrbitingPlanet){
@@ -363,13 +363,10 @@ function updateMoons(){
         closestPlanet = tmpPlanet;
         shortestDist = dist;
         newTheta = Math.atan2(moonY - tmpPlanet.stateVector.y, moonX - tmpPlanet.stateVector.x);
-        tmpStability = 1; //we are about to enter a new orbit
+        flag = true; //we are about to enter a new orbit
       }
     }
-    if (tmpStability ===1){
-      moon.stability = 1;
-    }
-    if(moon.stability === 1){
+    if(flag){
       moon.distance2Body = shortestDist;
       moon.orbitingPlanet = closestPlanet;
       moon.stateVector.theta = newTheta;
@@ -518,6 +515,9 @@ function resetSimulation() {
   sun.stateVector.Yacceleration = 0;
   sun.stateVector.Xvelocity = 0;
   sun.stateVector.Yvelocity = 0;
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, width, height);
+  console.log('rewrote canvas');
   addPlanetToSimulation(sun, sun.stateVector.x, sun.stateVector.y, true);
   document.getElementById("modeSelect").disabled = false;
   cnt = 0;
@@ -611,8 +611,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("reset").addEventListener("click", () => {
-    const btn = document.getElementById("start-simulation");
-    btn.textContent = "Click to Start Simulation";
+    const btn = document.getElementById("reset");
     resetSimulation();
   });
 });
