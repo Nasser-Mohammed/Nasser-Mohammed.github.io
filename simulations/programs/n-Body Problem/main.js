@@ -1,7 +1,9 @@
 // Three-body simulation with simple Euler integration and collisions
 
 let ctx;
-const G = 1; // Gravitational constant scaled for visualization
+let G = 50; // Gravitational constant scaled for visualization
+//let's let user pick from 3 modes, slow, normal, and fast
+//slow can be 3, normal: 50, and fast 250
 const dt = 0.1;
 let frameCount = 0;
 let simulationTime = 0;
@@ -55,19 +57,18 @@ const planetMasses = {
   sun: 333000
 };
 */
-
-
 const celestialObjects = new Map();
+//0.0123/333
+//i scaled down masses from 333,000 to 1000 (max) so divided by 333
+celestialObjects.set('sun', {stateVector: {}, size: 225, mass: 1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/sun.png"})});
+celestialObjects.set('earth', {stateVector: {}, size: 50, mass: 1/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/earth.png"})});
+celestialObjects.set('moon', {stateVector: {}, size: 15, mass: 1e-7, gravitationalBoost: 100, inSimulation: false, image: Object.assign(new Image(), {src: "images/moon.png"})});
+celestialObjects.set('mars', {sateVector: {}, size: 27, mass: 0.107/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/mars.png"})});
+celestialObjects.set('jupiter', {stateVector: {}, size: 87, mass: 317.8/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/jupiter.png"})});
+celestialObjects.set('saturn', {sateVector: {}, size: 110, mass: 95.2/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/saturn.png"})});
+celestialObjects.set('neptune', {stateVector: {}, size: 65, mass: 17.1/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/neptune.png"})});
 
-celestialObjects.set('sun', {stateVector: {}, size: 250, mass: 333000, inSimulation: false, image: Object.assign(new Image(), {src: "images/sun.png"})});
-celestialObjects.set('earth', {stateVector: {}, size: 60, mass: 1, inSimulation: false, image: Object.assign(new Image(), {src: "images/earth.png"})});
-celestialObjects.set('moon', {stateVector: {}, size: 30, mass: 0.0123, inSimulation: false, image: Object.assign(new Image(), {src: "images/moon.png"})});
-celestialObjects.set('mars', {sateVector: {}, size: 40, mass: 0.107, inSimulation: false, image: Object.assign(new Image(), {src: "images/mars.png"})});
-celestialObjects.set('jupiter', {stateVector: {}, size: 110, mass: 317.8, inSimulation: false, image: Object.assign(new Image(), {src: "images/jupiter.png"})});
-celestialObjects.set('saturn', {sateVector: {}, size: 135, mass: 95.2, inSimulation: false, image: Object.assign(new Image(), {src: "images/saturn.png"})});
-celestialObjects.set('neptune', {stateVector: {},  size: 80, mass: 17.1, inSimulation: false, image: Object.assign(new Image(), {src: "images/neptune.png"})});
-
-let sun = {stateVector: {}, size: 250, mass: 333000, inSimulation: false, image: Object.assign(new Image(), {src: "images/sun.png"})};
+let sun = {stateVector: {}, size: 225, mass: 1000, inSimulation: true, image: Object.assign(new Image(), {src: "images/sun.png"})};
 /*equations of motion:
 For n-bodies, we have n-second order vector differential equations. Usually, vectors for 3D,
 but I am simplifying and only considering planar trajectories so no z-dimension or forces.
@@ -77,6 +78,8 @@ Each body has 2 ODEs, and both are second order so can be broken into 2 ODE in p
 So we have 4 ODEs per body. Each ODE depends on the state of every other body.
 
 */
+let cnt = 0;
+let multiplier = 1;
 
 
 function computeAcceleration(x, y, selfIndex) {
@@ -92,6 +95,9 @@ function computeAcceleration(x, y, selfIndex) {
     const softening = 1; 
     const distSq = dx * dx + dy * dy + softening * softening;
     const dist = Math.sqrt(distSq);
+
+
+
     const force = G * other.mass / (distSq * dist); // equivalent to Gm / r^3
 
     ax += force * dx;
@@ -198,6 +204,12 @@ function updatePlanets(){
 }
 
 function animate(){
+  cnt++;
+  if (cnt%360 === 0){
+    cnt = 0;
+    multiplier++;
+    document.getElementById("time-display").textContent = "Month: " + (Math.floor(multiplier)).toString();
+  }
   updatePlanetsRK4();
   drawPlanets();
   //console.log("running......");
@@ -239,23 +251,49 @@ function addPlanetToSimulation(celestialBody, xCoord, yCoord, isSun) {
 
   if (!isSun){
     console.log("adding non-sun");
-  const body = createCelestialInstance(celestialBody); 
+    const body = createCelestialInstance(celestialBody); 
 
-  //convert canvas coords to x,y cartesian coords
-  //we want x = 0 to correspond to width/2 (the middle, so our graph is centered in the middle of the canvas)
-  const dx = xCoord - width/2;
-  const dy = -yCoord + height/2;
-  const r = Math.sqrt(dx * dx + dy * dy);
+    //convert canvas coords to x,y cartesian coords
+    //we want x = 0 to correspond to width/2 (the middle, so our graph is centered in the middle of the canvas)
 
-  const vMag = Math.sqrt(G * sun.mass / r);
+    let newX = xCoord - width/2;
+    let newY = -yCoord + height/2;
 
-  // Tangent to radius (rotate by 90 degrees)
-  const vx = -vMag * (dy / r);
-  const vy =  vMag * (dx / r);
+    let x2 = sun.stateVector.x;
+    let y2 = sun.stateVector.y;
 
-  let newX = xCoord - width/2;
-  let newY = -yCoord + height/2;
-  const fixedBody = {stateVector: {x: newX, y: newY, Xacceleration: 0, Yacceleration:0, Xvelocity: vx, Yvelocity: vy}, size: body.size, mass: body.mass, inSimulation: true, image: Object.assign(new Image(), {src: body.image.src})};
+    const dx = newX - x2;
+    const dy = newY - y2;
+    const r = Math.sqrt(dx * dx + dy * dy);
+
+
+    // Compute perpendicular orbital velocity
+    const vMag = Math.sqrt(G * sun.mass / r);
+    const vx = -vMag * (dy / r);
+    const vy =  vMag * (dx / r);
+
+
+    // Store for future recomputation
+    const fixedBody = {
+      stateVector: {
+        x: newX,
+        y: newY,
+        Xacceleration: 0,
+        Yacceleration: 0,
+        Xvelocity: vx,
+        Yvelocity: vy
+      },
+      initialOrbit: {
+        centralMass: sun.mass,
+        dx: dx,
+        dy: dy,
+        radius: r
+      },
+      size: body.size,
+      mass: body.mass,
+      inSimulation: true,
+      image: Object.assign(new Image(), { src: body.image.src })
+    };
     // Wait for image to load before drawing
     console.log("adding: ", fixedBody);
     fixedBody.image.onload = () => {
@@ -296,6 +334,13 @@ function resetSimulation() {
   sun.stateVector.Xvelocity = 0;
   sun.stateVector.Yvelocity = 0;
   addPlanetToSimulation(sun, sun.stateVector.x, sun.stateVector.y, true);
+  document.getElementById("modeSelect").disabled = false;
+  cnt = 0;
+  multiplier = 1;
+  document.getElementById("time-display").textContent = "Month: 1";
+  document.getElementById("modeSelect").value = "50";
+  G = 50;
+
   //drawPlanets()
   document.getElementById("start-simulation").textContent = "Click to Start Simulation";
 }
@@ -315,6 +360,12 @@ document.addEventListener("DOMContentLoaded", () => {
   sun.stateVector.Xvelocity = 0;
   sun.stateVector.Yvelocity = 0;
   addPlanetToSimulation(sun, sun.stateVector.x, sun.stateVector.y, true);
+
+  document.getElementById("modeSelect").addEventListener("change", function (e) {
+  G = parseFloat(e.target.value);
+});
+
+
 
   document.querySelectorAll('#planet-palette img').forEach(img => {
   img.addEventListener('dragstart', (e) => {
@@ -336,6 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const y = e.clientY - rect.top;
 
     console.log('Dropped:', name, " at: ", x, ",", y);
+    document.getElementById("modeSelect").disabled = true;
     addPlanetToSimulation(name, x, y, false);
 });
   document.getElementById("simCanvas").addEventListener("mousedown", () =>{

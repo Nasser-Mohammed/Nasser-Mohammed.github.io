@@ -26,7 +26,9 @@
         \]
       </div>
       <hr>
-      
+      <span>Click and drag planets onto the canvas, and click start to begin the simulation. You must
+        select a simulation speed before running. Reset the simulation to change it.
+      </span>
       <div id="planet-palette">
         <img src="images/sun.png" alt="Sun" draggable="true" class="planet-icon" data-planet="sun">
         <img src="images/earth.png" alt="Earth" draggable="true" class="planet-icon" data-planet="earth">
@@ -36,10 +38,18 @@
         <img src="images/jupiter.png" alt="Jupiter" draggable="true" class="planet-icon" data-planet="jupiter">
         <img src="images/neptune.png" alt="Neptune" draggable="true" class="planet-icon" data-planet="neptune">
       </div>
+      <label for="modeSelect">Simulation speed</label>
+      <select id="modeSelect">
+        <option value="3">Slow</option>
+        <option value="50" selected>Normal</option>
+        <option value="250">Fast</option>
+      </select>
+
+
     <button id = "start-simulation">Click to start simulation</button>
     <button id = "reset">Reset Simulation</button>
     </br>
-    <div id="time-display">Day: 0</div>
+    <div id="time-display">Month: 1</div>
     <div class="canvas-container">
         <canvas id="simCanvas" width="1500" height="1000"></canvas>
       </div>
