@@ -241,11 +241,6 @@ function animate(){
       }
     }
   }
-    // Update moon absolute positions
-    for (const moon of moons) {
-      moon.stateVector.x = moon.distance2Body * Math.cos(moon.stateVector.theta) + moon.orbitingPlanet.stateVector.x;
-      moon.stateVector.y = moon.distance2Body * Math.sin(moon.stateVector.theta) + moon.orbitingPlanet.stateVector.y;
-    }
 
     updatePlanetsRK4();
     updateMoons();
@@ -306,11 +301,8 @@ function drawPlanets(){
   for (let i = 0; i < moons.length; i++){
     const moon = moons[i];
     const orbitingBody = moon.orbitingPlanet;
-    let moonX = moon.distance2Body*Math.cos(moon.stateVector.theta);
-    let moonY = moon.distance2Body*Math.sin(moon.stateVector.theta);
-
-    moonX = moonX + orbitingBody.stateVector.x;
-    moonY = moonY + orbitingBody.stateVector.y;
+    let moonX = moon.stateVector.x;
+    let moonY = moon.stateVector.y;
 
     ctx.drawImage(
       moon.image, 
@@ -339,24 +331,21 @@ function updateMoons(){
     if (moon.stateVector.theta >= 2*Math.PI){
       moon.stateVector.theta = moon.stateVector.theta%(2*Math.PI);
     }
-    if(moon.stability >= 1){
-      //reorbited, start inhibitory period
-      moon.stability++;
-    }
     let moonX = moon.distance2Body*Math.cos(moon.stateVector.theta);
     let moonY = moon.distance2Body*Math.sin(moon.stateVector.theta);
 
     moonX = moonX + moon.orbitingPlanet.stateVector.x;
     moonY = moonY + moon.orbitingPlanet.stateVector.y;
+
     let shortestDist = moon.distance2Body;
-    let closestPlanet = null;
+    let closestPlanet = moon.orbitingPlanet;
     let newTheta = 0;
     let flag = false;
     for(let j = 0; j < planetsInSimulation.length; j++){
       const tmpPlanet = planetsInSimulation[j];
       const dist = euclideanDistance(moonX, moonY, tmpPlanet.stateVector.x, tmpPlanet.stateVector.y).toFixed(4);
-        if (tmpPlanet === moon.OrbitingPlanet){
-          console.log("skipping current planet");
+        if (tmpPlanet === moon.orbitingPlanet){
+         continue;
         }
       if(dist < shortestDist){
         console.log("a new planet has stolen moon's orbit");
@@ -370,13 +359,16 @@ function updateMoons(){
       moon.distance2Body = shortestDist;
       moon.orbitingPlanet = closestPlanet;
       moon.stateVector.theta = newTheta;
+            // Recompute moonX, moonY using the new orbit
+      moonX = moon.distance2Body * Math.cos(moon.stateVector.theta);
+      moonY = moon.distance2Body * Math.sin(moon.stateVector.theta);
+      moonX += moon.orbitingPlanet.stateVector.x;
+      moonY += moon.orbitingPlanet.stateVector.y;
     }
+    moon.stateVector.x = moonX;
+    moon.stateVector.y = moonY;
 
-    if(moon.stability >= 280){
-      //eligible for reorbit now
-      console.log("moon can enter new orbits now");
-      moon.stability = 0;
-    }
+
   }
 }
 
