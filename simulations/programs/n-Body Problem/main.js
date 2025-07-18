@@ -60,15 +60,15 @@ const planetMasses = {
 const celestialObjects = new Map();
 //0.0123/333
 //i scaled down masses from 333,000 to 1000 (max) so divided by 333
-celestialObjects.set('sun', {stateVector: {}, size: 225, mass: 1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/sun.png"})});
-celestialObjects.set('earth', {stateVector: {}, size: 50, mass: 1/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/earth.png"})});
-celestialObjects.set('moon', {stateVector: {}, size: 15, mass: 1e-7, gravitationalBoost: 100, inSimulation: false, image: Object.assign(new Image(), {src: "images/moon.png"})});
-celestialObjects.set('mars', {sateVector: {}, size: 27, mass: 0.107/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/mars.png"})});
-celestialObjects.set('jupiter', {stateVector: {}, size: 87, mass: 317.8/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/jupiter.png"})});
-celestialObjects.set('saturn', {sateVector: {}, size: 110, mass: 95.2/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/saturn.png"})});
-celestialObjects.set('neptune', {stateVector: {}, size: 65, mass: 17.1/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/neptune.png"})});
+celestialObjects.set('sun', {name: 'sun', stateVector: {}, size: 185, mass: 1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/sun.png"})});
+celestialObjects.set('earth', {name: 'earth', stateVector: {}, size: 35, mass: 1/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/earth.png"})});
+celestialObjects.set('moon', {name: 'moon', stateVector: {}, size: 10, mass: 1e-7, orbitingPlanet: null, inSimulation: false, image: Object.assign(new Image(), {src: "images/moon.png"})});
+celestialObjects.set('mars', {name: 'mars', sateVector: {}, size: 16, mass: 0.107/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/mars.png"})});
+celestialObjects.set('jupiter', {name: 'jupiter', stateVector: {}, size: 70, mass: 317.8/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/jupiter.png"})});
+celestialObjects.set('saturn', {name: 'saturn', sateVector: {}, size: 95, mass: 95.2/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/saturn.png"})});
+celestialObjects.set('neptune', {name: 'neptune', stateVector: {}, size: 55, mass: 17.1/1000, inSimulation: false, image: Object.assign(new Image(), {src: "images/neptune.png"})});
 
-let sun = {stateVector: {}, size: 225, mass: 1000, inSimulation: true, image: Object.assign(new Image(), {src: "images/sun.png"})};
+let sun = {name: 'sun', stateVector: {}, size: 185, mass: 1000, inSimulation: true, image: Object.assign(new Image(), {src: "images/sun.png"})};
 /*equations of motion:
 For n-bodies, we have n-second order vector differential equations. Usually, vectors for 3D,
 but I am simplifying and only considering planar trajectories so no z-dimension or forces.
@@ -80,6 +80,16 @@ So we have 4 ODEs per body. Each ODE depends on the state of every other body.
 */
 let cnt = 0;
 let multiplier = 1;
+let moons = [];
+const trailColorMap = new Map([
+  ["sun", "gold"],
+  ["earth", "green"],
+  ["mars", "red"],
+  ["jupiter", "brown"],
+  ["saturn", "khaki"],
+  ["neptune", "blue"],
+  ["moon", "rgba(211, 211, 211, 0.5)"]
+]);
 
 
 function computeAcceleration(x, y, selfIndex) {
@@ -146,7 +156,7 @@ function updatePlanetsRK4() {
     p.stateVector.Xvelocity += (k1vx + 2 * k2vx + 2 * k3vx + k4vx) / 6;
     p.stateVector.Yvelocity += (k1vy + 2 * k2vy + 2 * k3vy + k4vy) / 6;
 
-    console.log("new state: ", p.stateVector.x, ", ", p.stateVector.y);
+    //console.log("new state: ", p.stateVector.x, ", ", p.stateVector.y);
   }
 }
 
@@ -198,24 +208,74 @@ function updatePlanets(){
     //position update
     bodyI.stateVector.x = bodyI.stateVector.x + bodyI.stateVector.Xvelocity*dt;
     bodyI.stateVector.y = bodyI.stateVector.y + bodyI.stateVector.Yvelocity*dt;
-    console.log("new state: ", bodyI.stateVector);
+    //console.log("new state: ", bodyI.stateVector);
   }
 
 }
 
 function animate(){
   cnt++;
-  if (cnt%360 === 0){
+  if (cnt%280 === 0 || cnt >= 280){
+    console.log("one month cycle");
     cnt = 0;
     multiplier++;
+    if (multiplier < 12){
     document.getElementById("time-display").textContent = "Month: " + (Math.floor(multiplier)).toString();
+    }
+    else{
+      if(Math.floor(multiplier/12) === 1){
+        if (multiplier%12 === 1){
+        document.getElementById("time-display").textContent = (Math.floor(multiplier/12)).toString() + " year and " + ((multiplier%12).toFixed()).toString() + " month";
+        }
+        else{
+          document.getElementById("time-display").textContent = (Math.floor(multiplier/12)).toString() + " year and " + ((multiplier%12).toFixed()).toString() + " months";
+        }
+      }
+      else{
+        if (multiplier%12 ===1){
+          document.getElementById("time-display").textContent = (Math.floor(multiplier/12)).toString() + " years and " + ((multiplier%12).toFixed()).toString() + " month";
+        }
+        else{
+          document.getElementById("time-display").textContent = (Math.floor(multiplier/12)).toString() + " years and " + ((multiplier%12).toFixed()).toString() + " months";
+        }
+      }
+    }
   }
-  updatePlanetsRK4();
+    // Update moon absolute positions
+    for (const moon of moons) {
+      moon.stateVector.x = moon.distance2Body * Math.cos(moon.stateVector.theta) + moon.orbitingPlanet.stateVector.x;
+      moon.stateVector.y = moon.distance2Body * Math.sin(moon.stateVector.theta) + moon.orbitingPlanet.stateVector.y;
+    }
+
+    updatePlanetsRK4();
+    updateMoons();
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, width, height);
+    for (const body of planetsInSimulation.concat(moons)) {
+    updateTrail(body);
+    drawTrail(ctx, body, body.trailColor);
+  }
+
+
   drawPlanets();
   //console.log("running......");
   animationId = requestAnimationFrame(animate);
 }
 
+
+function drawTrail(ctx, body, color) {
+  ctx.beginPath();
+  for (let i = 0; i < body.trail.length - 1; i++) {
+    const p1 = body.trail[i];
+    const p2 = body.trail[i + 1];
+
+    ctx.moveTo(p1.x + width / 2, -p1.y + height / 2);
+    ctx.lineTo(p2.x + width / 2, -p2.y + height / 2);
+  }
+  ctx.strokeStyle = color;
+  ctx.lineWidth = (body.name.toLowerCase() === "moon") ? 0.5 : 1.5;
+  ctx.stroke();
+}
 
 
 
@@ -230,9 +290,6 @@ function createCelestialInstance(name) {
 }
 
 function drawPlanets(){
-
-  ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, width, height);
   for(let i = 0; i < planetsInSimulation.length; i++){
     const planet = planetsInSimulation[i];
     //console.log(planet.image.src);
@@ -245,12 +302,90 @@ function drawPlanets(){
     );
 
   }
+
+  for (let i = 0; i < moons.length; i++){
+    const moon = moons[i];
+    const orbitingBody = moon.orbitingPlanet;
+    let moonX = moon.distance2Body*Math.cos(moon.stateVector.theta);
+    let moonY = moon.distance2Body*Math.sin(moon.stateVector.theta);
+
+    moonX = moonX + orbitingBody.stateVector.x;
+    moonY = moonY + orbitingBody.stateVector.y;
+
+    ctx.drawImage(
+      moon.image, 
+      moonX + width/2 - Math.floor(moon.size/2),
+      -moonY + height/2 - Math.floor(moon.size/2),
+      moon.size,
+      moon.size
+    )
+  }
+}
+
+function updateTrail(body) {
+  const maxTrailLength = 15000; // adjust for performance/appearance
+  body.trail.push({ x: body.stateVector.x, y: body.stateVector.y });
+
+  if (body.trail.length > maxTrailLength) {
+    body.trail.shift();
+  }
+}
+
+
+function updateMoons(){
+  for(let i = 0; i < moons.length; i++){
+    const moon = moons[i];
+    moon.stateVector.theta += 1/280;
+    if (moon.stateVector.theta >= 2*Math.PI){
+      moon.stateVector.theta = moon.stateVector.theta%(2*Math.PI);
+    }
+    if(moon.stability >= 1){
+      //reorbited, start inhibitory period
+      moon.stability++;
+    }
+    let moonX = moon.distance2Body*Math.cos(moon.stateVector.theta);
+    let moonY = moon.distance2Body*Math.sin(moon.stateVector.theta);
+
+    moonX = moonX + moon.orbitingPlanet.stateVector.x;
+    moonY = moonY + moon.orbitingPlanet.stateVector.y;
+    let shortestDist = moon.distance2Body;
+    let closestPlanet = null;
+    let newTheta = 0;
+    let tmpStability = 0;
+    for(let j = 0; j < planetsInSimulation.length && moon.stability === 0; j++){
+      const tmpPlanet = planetsInSimulation[j];
+      const dist = euclideanDistance(moonX, moonY, tmpPlanet.stateVector.x, tmpPlanet.stateVector.y).toFixed(4);
+        if (tmpPlanet === moon.OrbitingPlanet){
+          console.log("skipping current planet");
+        }
+      if(dist < shortestDist){
+        console.log("a new planet has stolen moon's orbit");
+        closestPlanet = tmpPlanet;
+        shortestDist = dist;
+        newTheta = Math.atan2(moonY - tmpPlanet.stateVector.y, moonX - tmpPlanet.stateVector.x);
+        tmpStability = 1; //we are about to enter a new orbit
+      }
+    }
+    if (tmpStability ===1){
+      moon.stability = 1;
+    }
+    if(moon.stability === 1){
+      moon.distance2Body = shortestDist;
+      moon.orbitingPlanet = closestPlanet;
+      moon.stateVector.theta = newTheta;
+    }
+
+    if(moon.stability >= 280){
+      //eligible for reorbit now
+      console.log("moon can enter new orbits now");
+      moon.stability = 0;
+    }
+  }
 }
 
 function addPlanetToSimulation(celestialBody, xCoord, yCoord, isSun) {
 
   if (!isSun){
-    console.log("adding non-sun");
     const body = createCelestialInstance(celestialBody); 
 
     //convert canvas coords to x,y cartesian coords
@@ -272,9 +407,8 @@ function addPlanetToSimulation(celestialBody, xCoord, yCoord, isSun) {
     const vx = -vMag * (dy / r);
     const vy =  vMag * (dx / r);
 
-
-    // Store for future recomputation
-    const fixedBody = {
+     // Store for future recomputation
+    const fixedBody = {name: celestialBody,
       stateVector: {
         x: newX,
         y: newY,
@@ -294,10 +428,60 @@ function addPlanetToSimulation(celestialBody, xCoord, yCoord, isSun) {
       inSimulation: true,
       image: Object.assign(new Image(), { src: body.image.src })
     };
+
+    if (celestialBody === 'moon'){
+      console.log("adding moon");
+      //calculate the closest planet
+      const sunDist = euclideanDistance(newX, newY, 0, 0).toFixed(4);
+      let shortestDist = sunDist;
+      for(let i = 0; i < planetsInSimulation.length; i++){
+        const tmpPlanet = planetsInSimulation[i];
+        const distance = euclideanDistance(newX, newY, tmpPlanet.stateVector.x, tmpPlanet.stateVector.y).toFixed(4);
+        if(distance < shortestDist){
+          shortestDist = distance;
+          fixedBody.orbitingPlanet = tmpPlanet;
+          fixedBody.distance2Body = distance;
+          fixedBody.stateVector.theta = Math.atan2(newY - tmpPlanet.stateVector.y, newX - tmpPlanet.stateVector.x);
+          fixedBody.stability = 0;
+        }
+        if (shortestDist === sunDist){
+          fixedBody.orbitingPlanet = sun;
+          fixedBody.distance2Body = sunDist;
+          fixedBody.stateVector.theta = Math.atan2(newY - sun.stateVector.y, newX - sun.stateVector.x)
+          fixedBody.stability = 0;
+        }
+      }
+      console.log("closest body to moon is: ", fixedBody.orbitingPlanet.name);
+    }
+    fixedBody.trail = [];
+    fixedBody.trailColor = trailColorMap.get(celestialBody.toLowerCase()) || "white";
+
+    // else{
+    //   //see if new planet is closer to each moon
+    //   console.log("adding planet");
+    //   let shortestDist = euclideanDistance(newX, newY, 0, 0);
+    //   for(let i = 0; i < moons.length; i++){
+    //     const tmpMoon = moons[i];
+    //     const distance = euclideanDistance(newX, newY, tmpMoon.stateVector.x, tmpMoon.stateVector.y);
+    //     if(distance <= shortestDist){
+    //       shortestDist = distance;
+    //       tmpMoon.orbitingPlanet = fixedBody;
+    //       tmpMoon.distance2Body = distance.toFixed(4);
+    //       tmpMoon.stateVector.theta = Math.acos((tmpMoon.stateVector.x - newX)/distance);
+    //       console.log("moon has switched to orbit: ", fixedBody.name);
+    //       console.log("this confirms that moon orbits: ", tmpMoon.orbitingPlanet.name);
+    //     }
+    //   }
+    // }
+    //need to calculate angle from moon to orbiting body
     // Wait for image to load before drawing
-    console.log("adding: ", fixedBody);
     fixedBody.image.onload = () => {
+      if(celestialBody !== 'moon'){
       planetsInSimulation.push(fixedBody);
+      }
+      else{
+        moons.push(fixedBody);
+      }
       drawPlanets();
     };
       // Optional: fallback in case image fails
@@ -327,6 +511,7 @@ function resetSimulation() {
   simulationTime = 0;
   frameCount = 0;
   planetsInSimulation = []
+  moons = [];
   sun.stateVector.x = 0;
   sun.stateVector.y = 0;
   sun.stateVector.Xacceleration = 0;
@@ -340,6 +525,7 @@ function resetSimulation() {
   document.getElementById("time-display").textContent = "Month: 1";
   document.getElementById("modeSelect").value = "50";
   G = 50;
+
 
   //drawPlanets()
   document.getElementById("start-simulation").textContent = "Click to Start Simulation";
@@ -359,6 +545,7 @@ document.addEventListener("DOMContentLoaded", () => {
   sun.stateVector.Yacceleration = 0;
   sun.stateVector.Xvelocity = 0;
   sun.stateVector.Yvelocity = 0;
+  sun.trail = [];
   addPlanetToSimulation(sun, sun.stateVector.x, sun.stateVector.y, true);
 
   document.getElementById("modeSelect").addEventListener("change", function (e) {
