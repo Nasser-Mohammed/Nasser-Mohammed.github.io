@@ -343,12 +343,13 @@ function updateMoons(){
     let flag = false;
     for(let j = 0; j < planetsInSimulation.length; j++){
       const tmpPlanet = planetsInSimulation[j];
-      const dist = euclideanDistance(moonX, moonY, tmpPlanet.stateVector.x, tmpPlanet.stateVector.y).toFixed(4);
+      const dist = parseFloat(euclideanDistance(moonX, moonY, tmpPlanet.stateVector.x, tmpPlanet.stateVector.y).toFixed(4));
         if (tmpPlanet === moon.orbitingPlanet){
          continue;
         }
       if(dist < shortestDist){
         console.log("a new planet has stolen moon's orbit");
+        
         closestPlanet = tmpPlanet;
         shortestDist = dist;
         newTheta = Math.atan2(moonY - tmpPlanet.stateVector.y, moonX - tmpPlanet.stateVector.x);
@@ -421,12 +422,17 @@ function addPlanetToSimulation(celestialBody, xCoord, yCoord, isSun) {
     if (celestialBody === 'moon'){
       console.log("adding moon");
       //calculate the closest planet
-      const sunDist = euclideanDistance(newX, newY, 0, 0).toFixed(4);
+      const sunDist = parseFloat(euclideanDistance(newX, newY, sun.stateVector.x, sun.stateVector.y).toFixed(4));
+      console.log("distance to sun: ", sunDist);
       let shortestDist = sunDist;
       for(let i = 0; i < planetsInSimulation.length; i++){
         const tmpPlanet = planetsInSimulation[i];
-        const distance = euclideanDistance(newX, newY, tmpPlanet.stateVector.x, tmpPlanet.stateVector.y).toFixed(4);
+        const distance = parseFloat(euclideanDistance(newX, newY, tmpPlanet.stateVector.x, tmpPlanet.stateVector.y).toFixed(4));
+        // console.log("Planet: ", tmpPlanet.name, " at ", tmpPlanet.stateVector.x, ", ", tmpPlanet.stateVector.y);
+        // console.log("distance of: ", distance);
+        // console.log("summary for planet: ", tmpPlanet.name, ": distance to moon: ", distance, " current shortest distance: ", shortestDist);
         if(distance < shortestDist){
+          //console.log("found a closer planet: ", tmpPlanet, " at distance: ", distance);
           shortestDist = distance;
           fixedBody.orbitingPlanet = tmpPlanet;
           fixedBody.distance2Body = distance;
@@ -440,7 +446,7 @@ function addPlanetToSimulation(celestialBody, xCoord, yCoord, isSun) {
           fixedBody.stability = 0;
         }
       }
-      console.log("closest body to moon is: ", fixedBody.orbitingPlanet.name);
+      console.log("closest body to added moon is: ", fixedBody.orbitingPlanet.name);
     }
     fixedBody.trail = [];
     fixedBody.trailColor = trailColorMap.get(celestialBody.toLowerCase()) || "white";
