@@ -531,6 +531,26 @@ function resetSimulation() {
   document.getElementById("start-simulation").textContent = "Click to Start Simulation";
 }
 
+function preloadAllPlanetImages(callback) {
+  const planetNames = ['sun', 'earth', 'moon', 'mars', 'jupiter', 'saturn', 'neptune'];
+  let loaded = 0;
+
+  for (const name of planetNames) {
+    const obj = celestialObjects.get(name);
+    const img = new Image();
+    img.src = obj.image.src;
+    img.onload = () => {
+      obj.image = img;
+      loaded++;
+      if (loaded === planetNames.length) {
+        callback(); // all images are ready
+      }
+    };
+    img.onerror = () => console.error(`Failed to load image for ${name}`);
+  }
+}
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("simCanvas");
@@ -546,7 +566,9 @@ document.addEventListener("DOMContentLoaded", () => {
   sun.stateVector.Xvelocity = 0;
   sun.stateVector.Yvelocity = 0;
   sun.trail = [];
-  addPlanetToSimulation(sun, sun.stateVector.x, sun.stateVector.y, true);
+  preloadAllPlanetImages(() => {
+    addPlanetToSimulation(sun, sun.stateVector.x, sun.stateVector.y, true);
+  });
 
   document.getElementById("modeSelect").addEventListener("change", function (e) {
   G = parseFloat(e.target.value);
