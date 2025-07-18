@@ -1,65 +1,119 @@
+/* Base styles */
 body {
-    font-family: sans-serif;
-    background: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  /* This wrapper keeps everything nicely aligned */
-  .wrapper {
-    width: 640px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  h1 {
-    margin-bottom: 20px;
-  }
-  .planet-selector {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  canvas {
-    display: block;
-    margin: auto, auto; /* top, right/left, bottom */
-  }
-  .canvas-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* full screen height */
-  }
-  .canvas-container {
-    margin: 20px auto;
-    display: flex;
-    justify-content: center;
-  }
-
-#start-simulation {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
+  color: #222;
+  margin: 0;
+  padding: 20px;
 }
 
+.wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+h2, h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: black;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+}
+
+.back-button:hover {
+  background-color: #333;
+}
+
+
+/* Canvas styles */
+.canvas-container {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+}
+
+canvas {
+  border: 2px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Planet palette */
 #planet-palette {
   display: flex;
-  justify-content: space-evenly; /* or try space-between or space-around */
-  align-items: center;           /* vertically center if needed */
-  padding: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
   background: #222;
-  width: 100%;                   /* make sure it stretches full width */
-  box-sizing: border-box;        /* include padding in width */
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
 }
 
 #planet-palette img {
   width: 50px;
   cursor: grab;
+  transition: transform 0.2s ease;
+}
+
+#planet-palette img:hover {
+  transform: scale(1.2);
+}
+
+/* Buttons and selects */
+button, select {
+  padding: 10px 16px;
+  margin: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button {
+  background-color: #007acc;
+  color: white;
+}
+
+button:hover {
+  background-color: #005f99;
+}
+#reset {
+  background-color: #d9534f;
+  color: white;
+}
+
+#reset:hover {
+  background-color: #c9302c;
 }
 
 
-#simulation-canvas {
-  border: 1px solid #ccc;
-  display: block;
-  margin-top: 10px;
+select {
+  background-color: #eee;
+}
+
+#time-display {
+  margin-top: 20px;
+  font-weight: bold;
 }

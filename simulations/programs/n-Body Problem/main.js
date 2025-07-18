@@ -81,6 +81,7 @@ So we have 4 ODEs per body. Each ODE depends on the state of every other body.
 let cnt = 0;
 let multiplier = 1;
 let moons = [];
+let orbitFactor = 5;
 const trailColorMap = new Map([
   ["sun", "gold"],
   ["earth", "green"],
@@ -327,7 +328,7 @@ function updateTrail(body) {
 function updateMoons(){
   for(let i = 0; i < moons.length; i++){
     const moon = moons[i];
-    moon.stateVector.theta += 5/280;
+    moon.stateVector.theta += (1/280)*orbitFactor;
     if (moon.stateVector.theta >= 2*Math.PI){
       moon.stateVector.theta = moon.stateVector.theta%(2*Math.PI);
     }
@@ -523,6 +524,7 @@ function resetSimulation() {
   document.getElementById("time-display").textContent = "Month: 1";
   document.getElementById("modeSelect").value = "50";
   G = 50;
+  orbitFactor = 5;
 
 
   //drawPlanets()
@@ -548,8 +550,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("modeSelect").addEventListener("change", function (e) {
   G = parseFloat(e.target.value);
+  if(G === 250){
+    orbitFactor = 11;
+  }
 });
-
 
 
   document.querySelectorAll('#planet-palette img').forEach(img => {
