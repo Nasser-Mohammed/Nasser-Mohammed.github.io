@@ -1,0 +1,65 @@
+body {
+    font-family: sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  /* This wrapper keeps everything nicely aligned */
+  .wrapper {
+    width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  .planet-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  canvas {
+    display: block;
+    margin: auto, auto; /* top, right/left, bottom */
+  }
+  .canvas-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* full screen height */
+  }
+  .canvas-container {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+  }
+
+#start-simulation {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#planet-palette {
+  display: flex;
+  justify-content: space-evenly; /* or try space-between or space-around */
+  align-items: center;           /* vertically center if needed */
+  padding: 10px;
+  background: #222;
+  width: 100%;                   /* make sure it stretches full width */
+  box-sizing: border-box;        /* include padding in width */
+}
+
+#planet-palette img {
+  width: 50px;
+  cursor: grab;
+}
+
+
+#simulation-canvas {
+  border: 1px solid #ccc;
+  display: block;
+  margin-top: 10px;
+}
