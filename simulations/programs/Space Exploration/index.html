@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulation of the n-Body Problem</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <a href="../../index.html" class="back-button">← Back</a>
+  <div class="wrapper">
+    <h1>The n-Body Problem Simulation</h1>
+    <h4>Solutions approximated with Runge-Kutta method and state augmentation</h4>
+    <h2><u>The 3-Body System</u></h2>
+    <div>
+        \[
+        \begin{aligned}
+          \ddot{\boldsymbol{r}}_1 &= -Gm_2\frac{\boldsymbol{r_1}-\boldsymbol{r_2}}{|\boldsymbol{r_1}-\boldsymbol{r_2}|^3} -Gm_3\frac{\boldsymbol{r_1}-\boldsymbol{r_3}}{|\boldsymbol{r_1}-\boldsymbol{r_3}|^3}\\
+          \\
+          \ddot{\boldsymbol{r}}_2 &= -Gm_1\frac{\boldsymbol{r_2}-\boldsymbol{r_1}}{|\boldsymbol{r_2}-\boldsymbol{r_1}|^3} -Gm_3\frac{\boldsymbol{r_2}-\boldsymbol{r_3}}{|\boldsymbol{r_2}-\boldsymbol{r_3}|^3}\\
+          \\
+          \ddot{\boldsymbol{r}}_3 &= -Gm_1\frac{\boldsymbol{r_3}-\boldsymbol{r_1}}{|\boldsymbol{r_3}-\boldsymbol{r_1}|^3} -Gm_2\frac{\boldsymbol{r_3}-\boldsymbol{r_2}}{|\boldsymbol{r_3}-\boldsymbol{r_2}|^3}
+        \end{aligned}
+        \]
+      </div>
+      <hr>
+      <span>Click and drag planets onto the canvas, and click start to begin the simulation. You must
+        select a simulation speed before running. Reset the simulation to change it.
+      </span>
+      <div id="planet-palette">
+        <img src="images/sun.png" alt="Sun" draggable="true" class="planet-icon" data-planet="sun">
+        <img src="images/earth.png" alt="Earth" draggable="true" class="planet-icon" data-planet="earth">
+        <img src="images/moon.png" alt="Jupiter" draggable="true" class="planet-icon" data-planet="moon">
+        <img src="images/mars.png" alt="Mars" draggable="true" class="planet-icon" data-planet="mars">
+        <img src="images/saturn.png" alt="Saturn" draggable="true" class="planet-icon" data-planet="saturn">
+        <img src="images/jupiter.png" alt="Jupiter" draggable="true" class="planet-icon" data-planet="jupiter">
+        <img src="images/neptune.png" alt="Neptune" draggable="true" class="planet-icon" data-planet="neptune">
+      </div>
+    <button id = "start-simulation">Click to start simulation</button>
+    <button id = "reset">Reset Simulation</button>
+    <button id="launchButton">Launch satellite</button>
+    <button id="rocketLaunch">Launch rocket</button>
+
+    </br>
+    <div id="time-display">Month: 1</div>
+    <div class="canvas-container">
+        <canvas id="simCanvas" width="2000" height="1500"></canvas>
+      </div>
+
+      
+    <script src="main.js?v=2"></script>
+</body>
+</html>
