@@ -358,7 +358,7 @@ function updateMoon(){
   if (moonObj.stateVector.theta >= 2*Math.PI){
       moonObj.stateVector.theta = moonObj.stateVector.theta%(2*Math.PI);
     }
-    console.log("updated moon theta: ", moonObj.stateVector.theta);
+    //console.log("updated moon theta: ", moonObj.stateVector.theta);
 }
 
 function updateSatellites(){
@@ -583,50 +583,6 @@ document.addEventListener("DOMContentLoaded", () => {
     launchRocket();
     console.log("launched");
   })
-
-
-  document.querySelectorAll('#planet-palette img').forEach(img => {
-  img.addEventListener('dragstart', (e) => {
-    
-    e.dataTransfer.setData('text/plain', e.target.dataset.planet);
-
-    e.dataTransfer.setDragImage(e.target, e.target.width/2, e.target.height/2);
-
-  });
-});
-  canvas.addEventListener('dragover', (e) => e.preventDefault());
-
-  canvas.addEventListener('drop', (e) => {
-    e.preventDefault();
-    const name = e.dataTransfer.getData('text/plain');
-
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    console.log('Dropped:', name, " at: ", x, ",", y);
-    document.getElementById("modeSelect").disabled = true;
-    addPlanetToSimulation(name, x, y, false);
-});
-  document.getElementById("simCanvas").addEventListener("mousedown", () =>{
-    if (isDragging){
-    }
-    else{
-      isDragging = true;
-    }
-  });
-
-  document.getElementById("simCanvas").addEventListener("mousemove", () => {
-      if (isDragging){
-        console.log("dragging on canvas");
-      }
-  });
-
-
-   document.getElementById("simCanvas").addEventListener("mouseup", () =>{
-    isDragging = false;
-  });
-
 
   document.getElementById("start-simulation").addEventListener("click", () => {
     const btn = document.getElementById("start-simulation");
