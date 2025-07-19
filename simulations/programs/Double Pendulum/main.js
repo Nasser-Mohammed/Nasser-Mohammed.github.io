@@ -6,8 +6,8 @@
 //1/3*l*theta''_2 + 1/2*l*theta''_1*cos(theta_1-theta_2) -
 //1/2*l*(theta'_1)^2*sin(theta_1-theta_2) + 1/2*g*sin(theta_2) = 0
 
-let p1 = {length: 185, mass: 11, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
-let p2 = {length: 135, mass: 15, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
+let p1 = {length: 250, mass: 11, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
+let p2 = {length: 120, mass: 15, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
 let midLineHeight;
 let midLineWidth;
 
@@ -22,9 +22,13 @@ let isRunning = false;
 
 
 let trail = [];
-const maxTrailLength = 1000;
+const maxTrailLength = 10000;
 let trail2 = [];
-const MAX_TRAIL_LENGTH = 10000;
+const MAX_TRAIL_LENGTH = 1000000;
+let fullTrail = [];
+let visibleTrail = [];
+let visitedPoints = new Set();
+
 
 
 //this means it will rotate within a circle of radius 310
@@ -111,30 +115,45 @@ function timeStep(dt) {
   [p1.x, p1.y] = convert_xy_2_coords(x1, y1);
 
   [p2.x, p2.y] = convert_xy_2_coords(x2, y2);
-  trail2.push([p2.x, p2.y]);
-  if (trail2.length > MAX_TRAIL_LENGTH) trail2.shift();
+  //fullTrail.push([p2.x, p2.y]);
+  fullTrail.push({ x: p2.x, y: p2.y });
+
+const gridSize = 2; // pixel quantization
+
+const key = `${Math.round(p2.x / gridSize)}_${Math.round(p2.y / gridSize)}`;
+
+if (!visitedPoints.has(key)) {
+  visitedPoints.add(key);
+  visibleTrail.push({ x: p2.x, y: p2.y });
+}
+
 
 }
 
-function drawTrail(trail) {
-  for (let i = 0; i < trail.length - 1; i++) {
-    const [x1, y1] = trail[i];
-    const [x2, y2] = trail[i + 1];
+function drawTrail() {
+  if (visibleTrail.length < 2) return;
 
-    // Color cycling — strong in cyan/magenta spectrum
-    const t = i / trail.length;
-    const r = Math.floor(100 + 155 * Math.sin(2 * Math.PI * t));
-    const g = Math.floor(200 + 55 * Math.cos(4 * Math.PI * t)); // green boost for cyan
-    const b = Math.floor(255 - 100 * Math.sin(2 * Math.PI * t + Math.PI / 3));
+  for (let i = 1; i < visibleTrail.length; i++) {
+    const pt1 = visibleTrail[i - 1];
+    const pt2 = visibleTrail[i];
 
-    ctx.strokeStyle = `rgb(${r}, ${g}, ${b})`; // full opacity
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
+    // Compute color based on progress through the trail
+    const t = i / visibleTrail.length; // goes from 0 to 1
+
+    const r = Math.floor(255 * t);     // red increases
+    const g = Math.floor(255 * (1 - t)); // green decreases
+    const b = 128;                     // fixed blue
+
+    ctx.strokeStyle = `rgb(${r}, ${g}, ${b})`;
     ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.moveTo(pt1.x, pt1.y);
+    ctx.lineTo(pt2.x, pt2.y);
     ctx.stroke();
   }
 }
+
 
 
 
@@ -147,7 +166,8 @@ function draw(){
   ctx.beginPath();
   ctx.strokeStyle = 'rgba(0, 255, 255, 0.7)';
   ctx.lineWidth = 2;
-  drawTrail(trail2);
+  drawTrail();
+
 
   ctx.lineWidth = 15;
   ctx.strokeStyle = 'red';
