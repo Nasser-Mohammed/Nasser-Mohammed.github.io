@@ -300,6 +300,9 @@ function startSimulation(){
 function resetSimulation(){
   cancelAnimationFrame(animationId);
   lastTime = null;
+  fullTrail = [];
+  visibleTrail = [];
+  visitedPoints = new Set();
   console.log("Reset simulation");
   ctx.fillStyle = "black";
   ctx.fillRect(0,0, width, height);
