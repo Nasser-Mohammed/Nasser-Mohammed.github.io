@@ -92,6 +92,11 @@ const trailColorMap = new Map([
   ["moon", "rgba(211, 211, 211, 0.5)"]
 ]);
 
+let explosions = []; // array of explosions, each is a list of particles
+
+const MAX_PARTICLE_LIFE = 80;
+const PARTICLES_PER_EXPLOSION = 50;
+
 
 function computeAcceleration(x, y, selfIndex) {
   let ax = 0;
@@ -214,6 +219,187 @@ function updatePlanets(){
 
 }
 
+function checkAndHandleCollisions() {
+  for (let i = 0; i < planetsInSimulation.length; i++) {
+    for (let j = i + 1; j < planetsInSimulation.length; j++) {
+      const a = planetsInSimulation[i];
+      const b = planetsInSimulation[j];
+
+      const dx = a.stateVector.x - b.stateVector.x;
+      const dy = a.stateVector.y - b.stateVector.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      const collisionThreshold = (a.size + b.size) / 2;
+
+      if (distance < collisionThreshold) {
+        console.log(`Collision detected between ${a.name} and ${b.name}`);
+
+        // Explosion at midpoint
+        const exParticles = [];
+        for (let k = 0; k < PARTICLES_PER_EXPLOSION; k++) {
+          const angle = Math.random() * 2 * Math.PI;
+          const speed = 2 + Math.random() * 3;
+          const vx = Math.cos(angle) * speed;
+          const vy = Math.sin(angle) * speed;
+
+          exParticles.push({
+            x: (a.stateVector.x + b.stateVector.x) / 2,
+            y: (a.stateVector.y + b.stateVector.y) / 2,
+            vx,
+            vy,
+            radius: 2 + Math.random() * 3,
+            life: 0,
+            maxLife: MAX_PARTICLE_LIFE,
+            color: `rgba(255, ${100 + Math.floor(Math.random() * 155)}, 0, 1)`
+          });
+        }
+
+        explosions.push(exParticles);
+
+
+        // Mass-weighted merge
+        const totalMass = a.mass + b.mass;
+
+        const merged = {
+          name: `${a.name}+${b.name}`,
+          stateVector: {
+            x: (a.stateVector.x * a.mass + b.stateVector.x * b.mass) / totalMass,
+            y: (a.stateVector.y * a.mass + b.stateVector.y * b.mass) / totalMass,
+            Xvelocity: (a.stateVector.Xvelocity * a.mass + b.stateVector.Xvelocity * b.mass) / totalMass,
+            Yvelocity: (a.stateVector.Yvelocity * a.mass + b.stateVector.Yvelocity * b.mass) / totalMass,
+            Xacceleration: 0,
+            Yacceleration: 0
+          },
+          size: Math.sqrt(a.size * a.size + b.size * b.size), // area-based size
+          mass: totalMass,
+          inSimulation: true,
+          image: a.mass >= b.mass ? a.image : b.image,
+          trail: [],
+          trailColor: a.trailColor || "white"
+        };
+
+        // Remove old bodies and add merged one
+        planetsInSimulation.splice(j, 1);
+        planetsInSimulation.splice(i, 1);
+        planetsInSimulation.push(merged);
+
+        return; // Exit early to avoid skipping entries after splice
+      }
+    }
+  }
+}
+
+function checkMoonCollisions() {
+  // Moons vs Planets
+  for (let i = 0; i < moons.length; i++) {
+    const moon = moons[i];
+    for (let j = 0; j < planetsInSimulation.length; j++) {
+      const planet = planetsInSimulation[j];
+
+      const dx = moon.stateVector.x - planet.stateVector.x;
+      const dy = moon.stateVector.y - planet.stateVector.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const threshold = (moon.size + planet.size) / 2;
+
+      if (distance < threshold) {
+        console.log(`Moon ${moon.name} hit planet ${planet.name}`);
+
+        spawnExplosion(moon.stateVector.x, moon.stateVector.y);
+        moons.splice(i, 1);
+        return;
+      }
+    }
+  }
+
+  // Moons vs Moons
+  for (let i = 0; i < moons.length; i++) {
+    for (let j = i + 1; j < moons.length; j++) {
+      const a = moons[i];
+      const b = moons[j];
+
+      const dx = a.stateVector.x - b.stateVector.x;
+      const dy = a.stateVector.y - b.stateVector.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const threshold = (a.size + b.size) / 2;
+
+      if (distance < threshold) {
+        console.log(`Moons ${a.name} and ${b.name} collided`);
+
+        const xMid = (a.stateVector.x + b.stateVector.x) / 2;
+        const yMid = (a.stateVector.y + b.stateVector.y) / 2;
+        spawnExplosion(xMid, yMid);
+
+        moons.splice(j, 1);
+        moons.splice(i, 1);
+        return;
+      }
+    }
+  }
+}
+
+function spawnExplosion(x, y) {
+  const exParticles = [];
+  for (let k = 0; k < PARTICLES_PER_EXPLOSION; k++) {
+    const angle = Math.random() * 2 * Math.PI;
+    const speed = 2 + Math.random() * 3;
+    const vx = Math.cos(angle) * speed;
+    const vy = Math.sin(angle) * speed;
+
+    exParticles.push({
+      x,
+      y,
+      vx,
+      vy,
+      radius: 2 + Math.random() * 3,
+      life: 0,
+      maxLife: MAX_PARTICLE_LIFE,
+      color: `rgba(255, ${100 + Math.floor(Math.random() * 155)}, 0, 1)`
+    });
+  }
+
+  explosions.push(exParticles);
+}
+
+
+function drawExplosions() {
+  for (let e = explosions.length - 1; e >= 0; e--) {
+    const particles = explosions[e];
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+
+      // update position
+      p.x += p.vx;
+      p.y += p.vy;
+
+      // fade and shrink
+      p.life++;
+      const alpha = 1 - p.life / p.maxLife;
+      const screenX = p.x + width / 2;
+      const screenY = -p.y + height / 2;
+
+      ctx.beginPath();
+      ctx.arc(screenX, screenY, p.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = p.color.replace(/[^,]+(?=\))/, alpha.toFixed(2)); // adjust alpha
+      ctx.fill();
+
+      if (p.life >= p.maxLife) {
+        particles.splice(i, 1);
+      }
+    }
+
+    if (particles.length === 0) {
+      explosions.splice(e, 1);
+    }
+  }
+}
+
+
+
+
+
+
+
 function animate(){
   cnt++;
   if (cnt%280 === 0 || cnt >= 280){
@@ -252,8 +438,10 @@ function animate(){
     drawTrail(ctx, body, body.trailColor);
   }
 
-
+  checkAndHandleCollisions();
+  checkMoonCollisions();
   drawPlanets();
+  drawExplosions();
   //console.log("running......");
   animationId = requestAnimationFrame(animate);
 }
@@ -508,6 +696,7 @@ function resetSimulation() {
   frameCount = 0;
   planetsInSimulation = []
   moons = [];
+  explosions = [];
   sun.stateVector.x = 0;
   sun.stateVector.y = 0;
   sun.stateVector.Xacceleration = 0;
