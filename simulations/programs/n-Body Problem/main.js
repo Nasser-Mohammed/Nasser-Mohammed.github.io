@@ -703,6 +703,7 @@ function resetSimulation() {
   sun.stateVector.Yacceleration = 0;
   sun.stateVector.Xvelocity = 0;
   sun.stateVector.Yvelocity = 0;
+  sun.trail = [];
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, width, height);
   console.log('rewrote canvas');
