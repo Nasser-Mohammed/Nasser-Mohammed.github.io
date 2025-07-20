@@ -353,17 +353,17 @@ function drawStructure(init){
   const y3 = y1;
   
   const [endX1, endY1, r1] = drawHook(x1,y1);
-  //const [endX2, endY2, r2] = drawHook(x2,y2);
+  const [endX2, endY2, r2] = drawHook(x2,y2);
   const [endX3, endY3, r3] = drawHook(x3,y3);
   drawClock(endX1, endY1, r1);
-  //drawClock(endX2, endY2, r2);
+  drawClock(endX2, endY2, r2);
   drawClock(endX3, endY3, r3);
   if (init) {
     const clock1 = new Clock((Math.random() - Math.PI/36) * Math.PI/36, 0, pendulumLength, pendulumMass, endX1, endY1);
-    //const clock2 = new Clock((Math.random() - Math.PI/72) * Math.PI/72, 0, pendulumLength, pendulumMass, endX2, endY2);
+    const clock2 = new Clock((Math.random() - Math.PI/36) * Math.PI/36, 0, pendulumLength, pendulumMass, endX2, endY2);
     const clock3 = new Clock((Math.random() - Math.PI/36) * Math.PI/36, 0, pendulumLength, pendulumMass, endX3, endY3);
     clocks.push(clock1);
-    //clocks.push(clock2);
+    clocks.push(clock2);
     clocks.push(clock3);
    }
   drawClockHands();
