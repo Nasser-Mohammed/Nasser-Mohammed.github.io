@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Huygen's Swinging Clock Synchronization Simulation</title>
+  <link rel="icon" type="image/png" href="images/clocks.png" sizes="48x48">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <a href="../../index.html" class="back-button">← Back</a>
+  <div class="wrapper">
+    <h1>Huygen's Swinging Clock Synchronization Simulation</h1>
+    <h4>Solutions approximated with Runge-Kutta method and state augmentation</h4>
+    <h2><u>Three Swinging Clocks System</u></h2>
+    <div>
+        \[
+        \begin{aligned}
+          \ddot{x} &= \frac{mL\sum_{i=1}^2(\omega_i^2\sin(\theta_i) + g\sin(\theta_i)\cos(\theta_i))}{M+2m+m\sum_{i=1}^2\cos^2(\theta_i)} \\
+          \\
+          \ddot{\theta_1} &= \frac{-g\sin(\theta_1) - \ddot{x}\cos(\theta_1)}{L}\\
+          \\
+          \ddot{\theta_2} &= \frac{-g\sin(\theta_2) - \ddot{x}\cos(\theta_2)}{L}\\
+          \end{aligned}
+        \]
+      </div>
+      <hr>
+    <br>
+    <button id = "start-simulation">Click to Start Simulation</button>
+    <button id = "reset">Reset Simulation</button>
+    </br>
+
+  <br>
+  <br>
+      <label for="speed-slider">Simulation Speed:</label>
+    <input type="range" id="speed-slider" min="1" max="10" value="5">
+    <span id="speed-value">5</span>
+    <br>
+
+    <div class="canvas-container">
+        <canvas id="simCanvas" width="1900" height="1300"></canvas>
+      </div>
+
+      
+    <script src="main.js?v=2"></script>
+</body>
+</html>
