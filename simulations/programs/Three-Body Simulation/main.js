@@ -17,7 +17,7 @@ let multiplier = 1;
 let zoomFactor = 1; // pixels per unit of distance
 let centerX;
 let centerY;
-let maxTrailLength = 1200;
+let maxTrailLength = 900;
 let stepsPerFrame = 500;
 let defaultSteps = 500;
 
@@ -44,7 +44,7 @@ let extratMass = defaultExtratMass;
 const name2Mass = new Map();
 name2Mass.set("earth", defaultEarthMass);
 name2Mass.set("neptune", defaultNeptuneMass);
-name2Mass.set("extrat", defaultExtratMass);
+name2Mass.set("extraterrestrial", defaultExtratMass);
 
 /*equations of motion:
 For n-bodies, we have n-second order vector differential equations. Usually, vectors for 3D,
@@ -302,9 +302,17 @@ function resetStates(){
     console.log("reset state for: ", body);
   }
   bodies = [];
-  body2Simulation('earth', width/2, height - (1/3.5)*height, true);
-  body2Simulation('neptune', (1/3.5)*width, (1/3.5)*height + 175, true);
-  body2Simulation('extraterrestrial', width - (1/3.5)*width, (1/3.5)*height, true);
+  let earthX = width/2 + Math.random()*120 - 60;
+  let earthY = height - (1/2.5)*height + Math.random()*120 - 60;
+  let neptuneX = (1/2.5)*width + Math.random()*120 - 60;
+  let neptuneY = (1/2.5)*height + Math.random()*120 - 60;
+  let alienX = width - (1/2.5)*width + Math.random()*120 - 60;
+  let alienY =  (1/2.5)*height + Math.random()*120 - 60;
+
+
+  body2Simulation('earth', earthX, earthY, true);
+  body2Simulation('neptune', neptuneX, neptuneY, true);
+  body2Simulation('extraterrestrial', alienX, alienY, true);
 }
 
 function resetSimulation() {
