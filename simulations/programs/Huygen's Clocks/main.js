@@ -31,8 +31,8 @@ let weightRadius = 50;
 let clocks = [];
 let xDot = 0;
 
-let M = 5;
 let m = 5;
+let M = 100*m;
 let L = pendulumLength;
 
 
