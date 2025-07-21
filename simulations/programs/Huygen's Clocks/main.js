@@ -32,7 +32,7 @@ let clocks = [];
 let xDot = 0;
 
 let m = 5;
-let M = 100*m;
+let M = m/2;
 let L = pendulumLength;
 
 
