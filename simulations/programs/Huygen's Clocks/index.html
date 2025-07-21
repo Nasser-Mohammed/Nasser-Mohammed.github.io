@@ -14,15 +14,17 @@
   <div class="wrapper">
     <h1>Huygen's Swinging Clock Synchronization Simulation</h1>
     <h4>Solutions approximated with Runge-Kutta method and state augmentation</h4>
-    <h2><u>Two Swinging Clocks System</u></h2>
+    <h2><u>Three Swinging Clocks System</u></h2>
     <div>
         \[
         \begin{aligned}
-          \ddot{x} &= \frac{mL\sum_{i=1}^2(\omega_i^2\sin(\theta_i) + g\sin(\theta_i)\cos(\theta_i))}{M+2m+m\sum_{i=1}^2\cos^2(\theta_i)} \\
+          \ddot{x} &= \frac{mL\sum_{i=1}^3(\omega_i^2\sin(\theta_i) + g\sin(\theta_i)\cos(\theta_i))}{M+3m+m\sum_{i=1}^3\cos^2(\theta_i)} \\
           \\
           \ddot{\theta_1} &= \frac{-g\sin(\theta_1) - \ddot{x}\cos(\theta_1)}{L}\\
           \\
           \ddot{\theta_2} &= \frac{-g\sin(\theta_2) - \ddot{x}\cos(\theta_2)}{L}\\
+          \\
+          \ddot{\theta_3} &= \frac{-g\sin(\theta_3) - \ddot{x}\cos(\theta_3)}{L}\\
           \end{aligned}
         \]
       </div>
