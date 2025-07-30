@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Phase Portrait</title>
+  <link rel="icon" type="image/png" href="images/neptune.png" sizes="48x48">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <a href="../../index.html" class="back-button">← Back</a>
+  <div class="wrapper">
+    <h1>n-Dimensional Systems of ODEs</h1>
+    <h4>Solutions approximated with Runge-Kutta method and state augmentation</h4>
+    <h2><u>n-Dimensional Systems</u></h2>
+
+    <div>
+      $$\dot{\textbf{x}} = A(t)\textbf{F}(\textbf{x})$$
+      <span>Where \(\textbf{x} \in \mathbb{R}^n\), \(A(t)\) is an \(m\)x\(n\) matrix,
+        and \(\textbf{F}: \mathbb{R}^n \to \mathbb{R}^n\)
+      </span>
+    </div>
+
+      <hr>
+
+    <label for="dimension-select">Select dimension:</label>
+    <select id="dimension-select">
+      <option value="2D">2D</option>
+    </select>
+
+    <!-- 2D system selector -->
+    <div id="twoD-container">
+      <label for="system-select-2d">Select 2D system:</label>
+      <select id="system-select-2d">
+        <option value="lotka">Lotka-Volterra</option>
+        <option value="vanDerPol">Van der Pol</option>
+        <option value="fitzHugh_Nagumo">FitzHugh-Nagumo</option>
+        <option value="spiral">Spiral</option>
+        <option value="saddle_node">Saddle-Node</option>
+        <option value="brusselator">Brusselator</option>
+        <option value="damped_pendulum">Damped and Forced Pendulum</option>
+        <option value="rayleigh">Rayleigh Oscillator</option>
+        <option value="hopf_normal">Hopf Normal Form</option>
+        <option value="relay">Relay</option>
+      </select>
+    </div>
+
+    <!-- 3D system selector -->
+    <div id="threeD-container" style="display: none;">
+      <label for="system-select-3d">Select 3D system:</label>
+      <select id="system-select-3d">
+        <option value="lorenz">Lorenz</option>
+        <option value="rossler">Rössler</option>
+      </select>
+    </div>
+
+    <br>
+    <br>
+    <button id="reset-btn">Reset</button>
+    </div>
+    <div class="canvas-container">
+      <canvas id="canvas2d" width="1800" height="1050" style="position:absolute; z-index:0;"></canvas>
+      <canvas id="canvas3d" width="1800" height="1050" style="position:absolute; z-index:1;"></canvas>
+      </div>
+      <div style="height: 500px;"></div>
+
+    <script type="module" src="main.js?v=2"></script>
+</body>
+</html>
