@@ -15,6 +15,11 @@ header, nav, main, footer {
 header {
     background-color: #333;
     color: white;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 nav {
     background-color: #eee;

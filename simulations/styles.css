@@ -15,7 +15,22 @@ header, nav, main, footer {
 header {
     background-color: #333;
     color: white;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
+
+.background-video {
+  width: 150px;
+  height: 150px;
+  margin-right:115px;
+  object-fit: cover;
+  display: block;
+}
+
+
 nav {
     background-color: #eee;
 }
