@@ -19,13 +19,13 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 40px;
 }
 
 .background-video {
   width: 150px;
   height: 150px;
-  margin-right:115px;
   object-fit: cover;
   display: block;
 }
