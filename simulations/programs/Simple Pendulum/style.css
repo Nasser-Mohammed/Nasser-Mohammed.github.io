@@ -1,0 +1,116 @@
+/* Base styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
+  color: #222;
+  margin: 0;
+  padding: 20px;
+}
+
+.wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+h2, h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: black;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+}
+
+.back-button:hover {
+  background-color: #333;
+}
+
+
+/* Canvas styles */
+.canvas-container {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+}
+
+canvas {
+  border: 2px solid #ccc;
+  border-radius: 6px;
+}
+
+#start-stop-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  padding-bottom: 20px;
+}
+
+#controls-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+
+
+
+/* Buttons and selects */
+button, select {
+  padding: 10px 16px;
+  margin: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button {
+  background-color: #0c3969;
+  color: white;
+}
+
+button:hover {
+  background-color: #005f99;
+}
+#reset {
+  background-color: #9e3c39;
+  color: white;
+}
+
+#reset:hover {
+  background-color: #9e3c39;
+}
+
+
+select {
+  background-color: #eee;
+}
