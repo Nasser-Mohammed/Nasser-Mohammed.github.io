@@ -1,0 +1,172 @@
+/* Base styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
+  color: #222;
+  margin: 0;
+  padding: 20px;
+}
+
+.wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+h2, h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: black;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+}
+
+.back-button:hover {
+  background-color: #333;
+}
+
+
+/* Canvas styles */
+.canvas-container {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+}
+
+canvas {
+  border: 2px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Planet palette */
+#planet-palette {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  background: #222;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+#planet-palette img {
+  width: 50px;
+  cursor: grab;
+  transition: transform 0.2s ease;
+}
+
+#planet-palette img:hover {
+  transform: scale(1.2);
+}
+
+/* Buttons and selects */
+button, select {
+  padding: 10px 16px;
+  margin: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button {
+  background-color: #0c3969;
+  color: white;
+}
+
+button:hover {
+  background-color: #005f99;
+}
+#reset {
+  background-color: #9e3c39;
+  color: white;
+}
+
+#reset:hover {
+  background-color: #9e3c39;
+}
+
+
+select {
+  background-color: #eee;
+}
+
+#time-display {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Mass control panel layout */
+#mass-controls {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 16px;
+  font-family: system-ui, sans-serif;
+  font-size: 15px;
+}
+
+/* Base label styling */
+#mass-controls label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Solid background colors for each planet */
+#earth-label {
+  background-color: #003b0e; /* green */
+}
+
+#neptune-label {
+  background-color: #0c3969; /* blue */
+}
+
+#alien-label {
+  background-color: #612c75; /* purple */
+}
+
+/* Input field styling */
+#mass-controls input[type="number"] {
+  width: 60px;
+  margin-top: 6px;
+  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #000;
+  font-size: 14px;
+  text-align: center;
+}
+
+#mass-controls input[type="number"]:focus {
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}

@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rocket Orbit</title>
+  <link rel="icon" type="image/png" href="images/earth.png" sizes="48x48">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <a href="../../index.html" class="back-button">← Back</a>
+  <div class="wrapper">
+    <h1>Figure-8 Rocket Orbit</h1>
+    <h4>Solutions approximated with Runge-Kutta method</h4>
+    <h2><u>Newton's Law of Gravitation</u></h2>
+    <div>
+        \[
+        \begin{aligned}
+          \ddot{\textbf{r}} = -GM_1\frac{\textbf{r}-\textbf{r}_1}{|\textbf{r} - \textbf{r}_1|^3} - GM_2\frac{\textbf{r}-\textbf{r}_2}{|\textbf{r} - \textbf{r}_2|^3}
+        \end{aligned}
+        \]
+      </div>
+      <hr>
+    <button id = "start-simulation">Click to Start Simulation</button>
+    <button id = "reset">Reset Simulation</button>
+    </br>
+      <label for="speed-slider">Simulation Speed:</label>
+    <input type="range" id="speed-slider" min="1" max="40" value="5">
+    <span id="speed-value">5</span>
+
+
+    <div id="time-display">Month: 1</div>
+
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="simCanvas" width="1500" height="850"></canvas>
+    </div>
+
+      
+    <script src="main.js?v=2"></script>
+</body>
+</html>
