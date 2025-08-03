@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3D Phase Space</title>
+  <link rel="icon" type="image/png" href="images/lorenzTransp.png" sizes="48x48">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <a href="../../index.html" class="back-button">← Back</a>
+  <div class="wrapper">
+    <h1>Phase Space Visualization</h1>
+    <h4>Solutions approximated with Runge-Kutta method</h4>
+    <div style="height: 2px; background-color: black; width: 100%;"></div>
+
+    <!-- 3D system selector -->
+    <div id="threeD-container">
+      <label for="system-select-3d">Select 3D system:</label>
+      <select id="system-select-3d">
+        <option value="lorenz">Lorenz System</option>
+        <option value="lu">Lü Attractor</option>
+        <option value="aizawa">Aizawa Attractor</option>
+        <option value="chen">Chen Attractor</option>
+        <option value="dadras">Dadras System</option>
+        <option value="halvorsen">Halvorsen System</option>
+        <option value="rossler">Rössler System</option>
+      </select>
+    </div>
+
+    <div id="equation-display-div">
+      <div id="equation-display">
+        <div id="equation-title">Lorenz System</div>
+        <div id="equation">
+          \[
+          \begin{align*}
+          \frac{dx}{dt} &= \sigma(y - x) \\
+          \\
+          \frac{dy}{dt} &= x(\rho - z) - y \\
+          \\
+          \frac{dz}{dt} &= xy - \beta z
+          \end{align*}
+          \]
+        </div>
+      </div>
+
+    </div>
+
+    <br>
+    <br>
+    <div id="mainControl">
+    <div id="controls">
+      <div id="color-div">
+        <label for="palette-select">Phase space color select:</label>
+          <select id="palette-select">
+            <option value="r">Red/Orange</option>
+            <option value="bg">Blue/Green</option>
+            <option value="rgb">Red/Green/Blue</option>
+          </select>
+      </div>
+
+      <div id="speed-div">
+        <label for="simulation-speed">Simulation speed</label>
+        <input type="range" id="simulation-speed" min="1" max="10" value="5">
+        <span id="simulation-speed-value">5</span>
+      </div>
+    </div>
+
+      <div id="params">
+        <!-- each system has parameters, let javascript map which ones and how many, to start just do Lorenz-->
+        <div id="title-row">
+          <span id="param-title">ODE Parameters</span>
+        </div>
+          <div id="param1-div">
+            <label for="param1" id="symb1">\(\sigma:\)</label>
+            <span id="param1-value">10</span>
+            <input type="range" id="param1" max="25" min="4" value="10" step="1">
+          </div>
+          <div id="param2-div">
+            <label for="param2" id="symb2">\(\rho:\)</label>
+            <span id="param2-value">28</span>
+            <input type="range" id="param2" max="80" min="23" value="28" step="1">
+          </div>
+          <div id="param3-div">
+            <label for="param3" id="symb3">\(\beta:\)</label>
+            <span id="param3-value">8/3</span>
+            <input type="range" id="param3" max="3.9" min="0.8" value="8/3" step="0.1">
+          </div>
+
+          <button id="resetParams-btn">Click to restore initial parameters</button>
+      </div>
+      </div>
+      <div id="play-reset-row">
+        <button id="pause-btn">Pause</button>
+        <button id="reset-btn">Reset trajectories</button>
+      </div>
+      <div id="bottom-row">
+        <button class="gridBtn" id="toggle-grid-btn1" style="background-color:rgb(40, 78, 57)">Hide XY Grid</button>
+        <button class="gridBtn" id="toggle-grid-btn2">Hide YZ Grid</button>
+        <button class="gridBtn" id="toggle-grid-btn3" style="background-color:rgb(102, 60, 60)">Show XZ Grid</button>
+      </div>
+      <span id="tip">TIP: Drag screen to move through 3D space</span>
+    </div> <!-- end of wrapper -->
+    <div class="canvas-container">
+      <canvas id="canvas3d" width="1500" height="900" style="position:relative"></canvas>
+    </div>
+    <div class="spacer"></div>
+
+
+      <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js"
+      }
+    }
+  </script>
+    <script type="module" src="main.js?v=2"></script>
+</body>
+</html>
