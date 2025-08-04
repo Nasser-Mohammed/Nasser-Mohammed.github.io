@@ -30,10 +30,10 @@ let moonRadius = 175;
 let earthRadius = 300;
 
 let earthImg = new Image();
-earthImg.src = "images/earth.png";
+earthImg.src = "images/earthReal.png";
 
 let moonImg = new Image();
-moonImg.src = "images/moon.png";
+moonImg.src = "images/moonReal.png";
 
 let rocketImg = new Image();
 rocketImg.src = "images/rocket.png";
@@ -417,8 +417,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   ctx.fillRect(0, 0, width, height);
   
   [earthImg, moonImg, rocketImg] = await Promise.all([
-    loadImage("images/earth.png"),
-    loadImage("images/moon.png"),
+    loadImage("images/earthReal.png"),
+    loadImage("images/moonReal.png"),
     loadImage("images/rocket.png"),
   ]);
   drawTrajectory();
