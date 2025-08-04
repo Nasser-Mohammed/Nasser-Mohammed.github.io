@@ -1,6 +1,7 @@
 
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/controls/OrbitControls.js';
+import { TrackballControls } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/controls/TrackballControls.js';
 let renderer3d, scene3d, camera3d;
 let ball1;
 let ball2;
@@ -451,8 +452,25 @@ document.addEventListener("DOMContentLoaded", () => {
   renderer3d = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true });
   renderer3d.setSize(width, height);
 
-  controls = new OrbitControls(camera3d, renderer3d.domElement);
-  controls.enableDamping = true;
+  // controls = new OrbitControls(camera3d, renderer3d.domElement);
+  // controls.enableDamping = true;
+  // controls.minPolarAngle = 0;
+  // controls.maxPolarAngle = Math.PI;
+  // controls.enablePan = true;
+  // controls.enableZoom = true;
+  // controls.rotateSpeed = 1.0;
+  // controls.dampingFactor = 0.05;
+  // controls.screenSpacePanning = true;
+  controls = new TrackballControls(camera3d, renderer3d.domElement);
+  controls.rotateSpeed = 2.2;
+  controls.zoomSpeed = 1;
+  controls.panSpeed = 0.8;
+  controls.dynamicDampingFactor = 0.3;
+  controls.noPan = false;
+  controls.minDistance = 0;
+  controls.maxDistance = 20;
+
+
 
   // Create sphere
   const geometry = new THREE.SphereGeometry(0.05, 16, 16);
