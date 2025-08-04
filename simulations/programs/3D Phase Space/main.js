@@ -5,6 +5,8 @@ let renderer3d, scene3d, camera3d;
 let ball1;
 let ball2;
 let ball3;
+let ball4;
+let ball5;
 const dt = 0.001;
 let frameCount = 0;
 let simulationTime = 0;
@@ -23,10 +25,12 @@ let showXZ = true;
 let showXY = false;
 let showYZ = true;
 
+let spheresVisible = true;
+
 const palettes = {
-  r: ["#ff2200", "#ffcb6b", "#9c3700"],       // reddish/orange/yellow
-  bg: ["#0057FF", "#009933", "#6A0DAD"],      // strong blue, strong green, strong purple
-  rgb: ["#8f0000", "#009723", "#0077FF"],     // red, brighter green, pure blue
+  r: ["#ff2200", "#cf7916", "#af6238", "#ffef5f", "#ff0000"],       // reddish/orange/yellow
+  bg: ["#0057FF", "#009933", "#6A0DAD", "#00ad0e", "#008cff"],      // strong blue, strong green, strong purple
+  rgb: ["#8f0000", "#009723", "#0077FF", "#a200a8", "#9c0000"],     // red, brighter green, pure blue
 };
 
 let initColors = palettes.r;
@@ -50,11 +54,23 @@ const trailGeometry3 = new THREE.BufferGeometry();
 const trailMaterial3 = new THREE.LineBasicMaterial({ color: initColors[2] }); // Blue
 const trailLine3 = new THREE.Line(trailGeometry3, trailMaterial3);
 
+const trailGeometry4 = new THREE.BufferGeometry();
+const trailMaterial4 = new THREE.LineBasicMaterial({ color: initColors[3] }); // Blue
+const trailLine4 = new THREE.Line(trailGeometry4, trailMaterial4);
+
+const trailGeometry5 = new THREE.BufferGeometry();
+const trailMaterial5 = new THREE.LineBasicMaterial({ color: initColors[4] }); // Blue
+const trailLine5 = new THREE.Line(trailGeometry5, trailMaterial5);
+
 const trailPositions3 = [];
+const trailPositions4 = [];
+const trailPositions5 = [];
 
 let x1 = 1, y1 = 1, z1 = 1;  // Initial Lorenz coordinates (must be non-zero)
 let x2 = 2, y2 = 3, z2 = 4; // Initial coordinates for second ball
 let x3 = 2.5, y3 = 2, z3 = 3; // Initial coordinates for third ball
+let x4 = 1.5, y4 = 0.5, z4 = 2;
+let x5 = 0.5, y5 = 0.9, z5 = 1.25;
 
 
 const nameMap = new Map();
@@ -143,7 +159,7 @@ class ThreeDimensionalSystems {
     ]);
 
     this.paramsRange = new Map([
-      ["lorenz", [[4, 25], [23, 80], [0.8, 3.9]]],
+      ["lorenz", [[8, 20], [23, 80], [2, 3]]],
       ["rossler", [[.1, 0.28], [.1, 1], [3, 9]]],
       ["fitzhughNagumo", [[.1, 1.2], [.1, 1.2], [0.5, 2]]],
       ["chua", []],
@@ -171,17 +187,17 @@ class ThreeDimensionalSystems {
     ]);
 
     this.initialConditions = new Map([
-      ["lorenz", [[1, 1, 1], [2, 3, 4], [2.5,2,3]]],
-      ["rossler", [[1, 1, 1], [2, 3, 4], [2.5, 2, 3]]],
+      ["lorenz", [[1, 1, 1], [2, 3, 4], [2.5,2,3], [1.5, 3, 0], [0.5, 0.9, 1.25]]],
+      ["rossler", [[1, 1, 1], [2, 3, 4], [2.5, 2, 3], [1.5, 3, 0], [0.5, 0.9, 1.25]]],
       ["fitzhughNagumo", [[-1, -0.5, 1], [-10, 4, 1], [5, 5, -1]]],
       ["chua", [[0, 0, 0], [0, 0, 0], [0,0,0]]],
-      ["aizawa", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0]]],
-      ["halvorsen", [[-0.5, 2, 1], [2, 3, 4], [2.5,2,3]]],
-      ["chen", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0]]],
+      ["aizawa", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 0.5, 1.1], [0.5, 0.9, 1.25]]],
+      ["halvorsen", [[-0.5, 2, 1], [2, 3, 4], [2.5,2,3], [1.5, 3, 0], [0.5, 0.9, 1.25]]],
+      ["chen", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 3, 0], [0.5, 0.9, 1.25]]],
       ["thomas", [[3, -2, 4], [2, 3, 4], [2.5,2,3]]],
       ["sprout", [[0, 0, 0], [0, 0, 0], [0,0,0]]],
-      ["dadras", [[0.1, 0, 0], [0.2, 0, 0], [0.3, 0, 0]]],
-      ["lu", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0]]]
+      ["dadras", [[0.1, 0, 0], [0.2, 0, 0], [0.3, 0, 0], [1.5, 3, 0], [0.5, 0.9, 1.25]]],
+      ["lu", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 3, 0], [0.5, 0.9, 1.25]]]
     ]);
 
     this.numParams = new Map([
@@ -339,10 +355,14 @@ function reset(){
   [x1, y1, z1] = system.initialConditions.get(system.choice)[0];
   [x2, y2, z2] = system.initialConditions.get(system.choice)[1];
   [x3, y3, z3] = system.initialConditions.get(system.choice)[2];
+  [x4, y4, z4] = system.initialConditions.get(system.choice)[3];
+  [x5, y5, z5] = system.initialConditions.get(system.choice)[4];
 
   clearTrail(trailPositions1, trailGeometry1);
   clearTrail(trailPositions2, trailGeometry2);
   clearTrail(trailPositions3, trailGeometry3);
+  clearTrail(trailPositions4, trailGeometry4);
+  clearTrail(trailPositions5, trailGeometry5);
   document.getElementById("simulation-speed").value = Math.floor(stepsPerFrame/2);
   document.getElementById("simulation-speed-value").textContent = Math.floor(stepsPerFrame/2);
   running = true;
@@ -362,17 +382,23 @@ function animate() {
       [x1, y1, z1] = system.eulerStep(x1, y1, z1);
       [x2, y2, z2] = system.eulerStep(x2, y2, z2);
       [x3, y3, z3] = system.eulerStep(x3, y3, z3);
+      [x4, y4, z4] = system.eulerStep(x4, y4, z4);
+      [x5, y5, z5] = system.eulerStep(x5, y5, z5);
 
       // Scale down for rendering
       const scale = system.renderScale.get(system.choice);
       ball1.position.set(x1 * scale, y1 * scale, z1 * scale);
       ball2.position.set(x2 * scale, y2 * scale, z2 * scale);
       ball3.position.set(x3 * scale, y3 * scale, z3 * scale);
+      ball4.position.set(x4 * scale, y4 * scale, z4 * scale);
+      ball5.position.set(x5 * scale, y5 * scale, z5 * scale);
 
       if (trailSkip++ % 3 === 0){
         updateTrail(ball1.position, trailPositions1, trailGeometry1);
         updateTrail(ball2.position, trailPositions2, trailGeometry2);
         updateTrail(ball3.position, trailPositions3, trailGeometry3);
+        updateTrail(ball4.position, trailPositions4, trailGeometry4);
+        updateTrail(ball5.position, trailPositions5, trailGeometry5);
       }
     //updateTrail(ball3.position, trailPositions3, trailGeometry3);
     }
@@ -416,14 +442,23 @@ document.addEventListener("DOMContentLoaded", () => {
   ball2 = new THREE.Mesh(geometry, material2);
   const ball3Geometry = new THREE.SphereGeometry(0.05, 32, 32);
   const ball3Material = new THREE.MeshBasicMaterial({ color: initColors[2] }); // Blue
+  const ball4Geometry = new THREE.SphereGeometry(0.05, 32, 32);
+  const ball4Material = new THREE.MeshBasicMaterial({ color: initColors[3] });
+  const ball5Geometry = new THREE.SphereGeometry(0.05, 32, 32);
+  const ball5Material = new THREE.MeshBasicMaterial({ color: initColors[4] });
   ball3 = new THREE.Mesh(ball3Geometry, ball3Material);
+  ball4 = new THREE.Mesh(ball4Geometry, ball4Material);
+  ball5 = new THREE.Mesh(ball5Geometry, ball5Material);
   scene3d.add(ball1);
   scene3d.add(ball2);
   scene3d.add(ball3);
-  //scene3d.add(ball3);
+  scene3d.add(ball4);
+  scene3d.add(ball5);
   ball1.position.set(x1, y1, z1); // Initial position
   ball2.position.set(x2, y2, z2); // Initial position for second ball
   ball3.position.set(x3, y3, z3);
+  ball4.position.set(x4, y4, z4);
+  ball5.position.set(x5, y5, z5);
 
   //ball3.position.set(7.5, -2, 27); // Initial position for third ball
 
@@ -450,6 +485,8 @@ document.addEventListener("DOMContentLoaded", () => {
   scene3d.add(trailLine1);
   scene3d.add(trailLine2);
   scene3d.add(trailLine3);
+  scene3d.add(trailLine4);
+  scene3d.add(trailLine5);
 
   const systemSelect = document.getElementById("system-select-3d");
   const speedSlider = document.getElementById("simulation-speed");
@@ -478,9 +515,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const [p1, p2, p3] = equationParamMap.get(e.target.value);
     const latexStart = "\\(";
     const latexEnd = "\\)";
-    paramSymbol1.textContent = latexStart + p1 + ":" + latexEnd;
-    paramSymbol2.textContent = latexStart + p2 + ":" + latexEnd;
-    paramSymbol3.textContent = latexStart + p3 + ":" + latexEnd;
+    paramSymbol1.textContent = latexStart + p1 + ":\\," + latexEnd;
+    paramSymbol2.textContent = latexStart + p2 + ":\\," + latexEnd;
+    paramSymbol3.textContent = latexStart + p3 + ":\\," + latexEnd;
 
     const [p1Val, p2Val, p3Val] = system.initParams.get(system.choice);
 
@@ -629,10 +666,14 @@ document.addEventListener("DOMContentLoaded", () => {
       ball1.material.color.set(colors[0]);
       ball2.material.color.set(colors[1]);
       ball3.material.color.set(colors[2]);
+      ball4.material.color.set(colors[3]);
+      ball5.material.color.set(colors[4]);
 
       trailLine1.material.color.set(colors[0]);
       trailLine2.material.color.set(colors[1]);
       trailLine3.material.color.set(colors[2]);
+      trailLine4.material.color.set(colors[3]);
+      trailLine5.material.color.set(colors[4]);
     });
 
     const pauseBtn = document.getElementById("pause-btn");
@@ -650,9 +691,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
+  const spheresVisibility = document.getElementById("showSpheres");
+  
+  spheresVisibility.addEventListener("click", (e) => {
+    spheresVisible = !spheresVisible;
+    ball1.visible = spheresVisible;
+    ball2.visible = spheresVisible;
+    ball3.visible = spheresVisible;
+    ball4.visible = spheresVisible;
+    ball5.visible = spheresVisible;
+    spheresVisibility.textContent = spheresVisible ? "Hide Spheres" : "Show Spheres";
+  });
+
   [x1, y1, z1] = system.initialConditions.get(system.choice)[0];
   [x2, y2, z2] = system.initialConditions.get(system.choice)[1];
   [x3, y3, z3] = system.initialConditions.get(system.choice)[2];
+  [x4, y4, z4] = system.initialConditions.get(system.choice)[3];
+  [x5, y5, z5] = system.initialConditions.get(system.choice)[4];
 
   animate();
 });
