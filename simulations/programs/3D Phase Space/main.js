@@ -7,10 +7,11 @@ let ball2;
 let ball3;
 let ball4;
 let ball5;
-const dt = 0.001;
+let ball6;
+const dt = 0.0005;
 let frameCount = 0;
 let simulationTime = 0;
-let stepsPerFrame = 10;
+let stepsPerFrame = 25;
 const defaultSteps = stepsPerFrame;
 let animationId = null;
 let controls; 
@@ -28,9 +29,16 @@ let showYZ = true;
 let spheresVisible = true;
 
 const palettes = {
-  r: ["#ff2200", "#cf7916", "#af6238", "#ffef5f", "#ff0000"],       // reddish/orange/yellow
-  bg: ["#0057FF", "#009933", "#6A0DAD", "#00ad0e", "#008cff"],      // strong blue, strong green, strong purple
-  rgb: ["#8f0000", "#009723", "#0077FF", "#a200a8", "#9c0000"],     // red, brighter green, pure blue
+  r: ["#ff2200", "#cf7916", "#af6238", "#ffef5f", "#ff0000", "#fda32d"],       // reddish/orange/yellow
+  bg: ["#0057FF", "#009933", "#5638ff", "#00ad0e", "#008cff", "#73ff00"],      // strong blue, strong green, strong purple
+  rgb: ["#8f0000", "#009723", "#0077FF", "#0094d8", "#9c0000", "#5eff1f"],     // red, brighter green, pure blue
+  alien: ["#7D3C98", "#E75480", "#1ABC9C", "#B39CD0", "#D81B60","#2978B5"],
+  cyberpunk: ["#FF00FF", "#00FFFF", "#FF6C00", "#FF0055", "#00FF99", "#3300FF"],
+  sunset: ["#FF6F61", "#F7B733", "#FF9472", "#FF3E41", "#FFC857", "#5D576B"],
+  electric: ["#B0E0E6", "#FFB6C1", "#FFD700", "#9370DB", "#40E0D0", "#FF69B4"],
+  contrast: ["#D72631", "#F46036", "#2E294E", "#1B998B", "#E2C044", "#F2F4F3"],
+  forest: ["#014D4D", "#028090", "#00A896", "#fbffab", "#E94F37", "#53354A"]
+
 };
 
 let initColors = palettes.r;
@@ -62,15 +70,21 @@ const trailGeometry5 = new THREE.BufferGeometry();
 const trailMaterial5 = new THREE.LineBasicMaterial({ color: initColors[4] }); // Blue
 const trailLine5 = new THREE.Line(trailGeometry5, trailMaterial5);
 
+const trailGeometry6 = new THREE.BufferGeometry();
+const trailMaterial6 = new THREE.LineBasicMaterial({ color: initColors[5] }); // Blue
+const trailLine6 = new THREE.Line(trailGeometry6, trailMaterial6);
+
 const trailPositions3 = [];
 const trailPositions4 = [];
 const trailPositions5 = [];
+const trailPositions6 = [];
 
 let x1 = 1, y1 = 1, z1 = 1;  // Initial Lorenz coordinates (must be non-zero)
 let x2 = 2, y2 = 3, z2 = 4; // Initial coordinates for second ball
 let x3 = 2.5, y3 = 2, z3 = 3; // Initial coordinates for third ball
 let x4 = 1.5, y4 = 0.5, z4 = 2;
 let x5 = 0.5, y5 = 0.9, z5 = 1.25;
+let x6 = 5, y6 = 5, z6 = 2;
 
 
 const nameMap = new Map();
@@ -187,17 +201,17 @@ class ThreeDimensionalSystems {
     ]);
 
     this.initialConditions = new Map([
-      ["lorenz", [[1, 1, 1], [2, 3, 4], [2.5,2,3], [1.5, 3, 0], [0.5, 0.9, 1.25]]],
-      ["rossler", [[1, 1, 1], [2, 3, 4], [2.5, 2, 3], [1.5, 3, 0], [0.5, 0.9, 1.25]]],
+      ["lorenz", [[1, 1, 1], [2, 3, 4], [2.5,2,3], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]],
+      ["rossler", [[1, 1, 1], [2, 3, 4], [2.5, 2, 3], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]],
       ["fitzhughNagumo", [[-1, -0.5, 1], [-10, 4, 1], [5, 5, -1]]],
       ["chua", [[0, 0, 0], [0, 0, 0], [0,0,0]]],
-      ["aizawa", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 0.5, 1.1], [0.5, 0.9, 1.25]]],
-      ["halvorsen", [[-0.5, 2, 1], [2, 3, 4], [2.5,2,3], [1.5, 3, 0], [0.5, 0.9, 1.25]]],
-      ["chen", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 3, 0], [0.5, 0.9, 1.25]]],
+      ["aizawa", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 0.5, 1.1], [0.5, 0.9, 1.25], [0, 0.9, 0.75]]],
+      ["halvorsen", [[-0.5, 2, 1], [2, 3, 4], [2.5,2,3], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]],
+      ["chen", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]],
       ["thomas", [[3, -2, 4], [2, 3, 4], [2.5,2,3]]],
       ["sprout", [[0, 0, 0], [0, 0, 0], [0,0,0]]],
-      ["dadras", [[0.1, 0, 0], [0.2, 0, 0], [0.3, 0, 0], [1.5, 3, 0], [0.5, 0.9, 1.25]]],
-      ["lu", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 3, 0], [0.5, 0.9, 1.25]]]
+      ["dadras", [[0.1, 0, 0], [0.2, 0, 0], [0.3, 0, 0], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]],
+      ["lu", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]]
     ]);
 
     this.numParams = new Map([
@@ -357,14 +371,16 @@ function reset(){
   [x3, y3, z3] = system.initialConditions.get(system.choice)[2];
   [x4, y4, z4] = system.initialConditions.get(system.choice)[3];
   [x5, y5, z5] = system.initialConditions.get(system.choice)[4];
+  [x6, y6, z6] = system.initialConditions.get(system.choice)[5];
 
   clearTrail(trailPositions1, trailGeometry1);
   clearTrail(trailPositions2, trailGeometry2);
   clearTrail(trailPositions3, trailGeometry3);
   clearTrail(trailPositions4, trailGeometry4);
   clearTrail(trailPositions5, trailGeometry5);
-  document.getElementById("simulation-speed").value = Math.floor(stepsPerFrame/2);
-  document.getElementById("simulation-speed-value").textContent = Math.floor(stepsPerFrame/2);
+  clearTrail(trailPositions6, trailGeometry6);
+  document.getElementById("simulation-speed").value = Math.floor(stepsPerFrame/5);
+  document.getElementById("simulation-speed-value").textContent = Math.floor(stepsPerFrame/5);
   running = true;
   document.getElementById("pause-btn").textContent = "Pause";
 }
@@ -384,6 +400,7 @@ function animate() {
       [x3, y3, z3] = system.eulerStep(x3, y3, z3);
       [x4, y4, z4] = system.eulerStep(x4, y4, z4);
       [x5, y5, z5] = system.eulerStep(x5, y5, z5);
+      [x6, y6, z6] = system.eulerStep(x6, y6, z6);
 
       // Scale down for rendering
       const scale = system.renderScale.get(system.choice);
@@ -392,13 +409,15 @@ function animate() {
       ball3.position.set(x3 * scale, y3 * scale, z3 * scale);
       ball4.position.set(x4 * scale, y4 * scale, z4 * scale);
       ball5.position.set(x5 * scale, y5 * scale, z5 * scale);
+      ball6.position.set(x6 * scale, y6 * scale, z6 * scale);
 
-      if (trailSkip++ % 3 === 0){
+      if (trailSkip++ % 10 === 0){
         updateTrail(ball1.position, trailPositions1, trailGeometry1);
         updateTrail(ball2.position, trailPositions2, trailGeometry2);
         updateTrail(ball3.position, trailPositions3, trailGeometry3);
         updateTrail(ball4.position, trailPositions4, trailGeometry4);
         updateTrail(ball5.position, trailPositions5, trailGeometry5);
+        updateTrail(ball6.position, trailPositions6, trailGeometry6);
       }
     //updateTrail(ball3.position, trailPositions3, trailGeometry3);
     }
@@ -446,19 +465,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const ball4Material = new THREE.MeshBasicMaterial({ color: initColors[3] });
   const ball5Geometry = new THREE.SphereGeometry(0.05, 32, 32);
   const ball5Material = new THREE.MeshBasicMaterial({ color: initColors[4] });
+  const ball6Geometry = new THREE.SphereGeometry(0.05, 32, 32);
+  const ball6Material = new THREE.MeshBasicMaterial({ color: initColors[5] });
   ball3 = new THREE.Mesh(ball3Geometry, ball3Material);
   ball4 = new THREE.Mesh(ball4Geometry, ball4Material);
   ball5 = new THREE.Mesh(ball5Geometry, ball5Material);
+  ball6 = new THREE.Mesh(ball6Geometry, ball6Material);
   scene3d.add(ball1);
   scene3d.add(ball2);
   scene3d.add(ball3);
   scene3d.add(ball4);
   scene3d.add(ball5);
+  scene3d.add(ball6);
   ball1.position.set(x1, y1, z1); // Initial position
   ball2.position.set(x2, y2, z2); // Initial position for second ball
   ball3.position.set(x3, y3, z3);
   ball4.position.set(x4, y4, z4);
   ball5.position.set(x5, y5, z5);
+  ball6.position.set(x6, y6, z6);
 
   //ball3.position.set(7.5, -2, 27); // Initial position for third ball
 
@@ -487,6 +511,7 @@ document.addEventListener("DOMContentLoaded", () => {
   scene3d.add(trailLine3);
   scene3d.add(trailLine4);
   scene3d.add(trailLine5);
+  scene3d.add(trailLine6);
 
   const systemSelect = document.getElementById("system-select-3d");
   const speedSlider = document.getElementById("simulation-speed");
@@ -574,8 +599,13 @@ document.addEventListener("DOMContentLoaded", () => {
   speedSlider.addEventListener("input", (e) => {
     const speed = parseInt(e.target.value);
     speedValue.textContent = speed;
+    if (speed === 1){
+      stepsPerFrame = 1;
+    }
+    else{
     //input can be [1,5], 
-    stepsPerFrame = parseInt(speed*2);
+    stepsPerFrame = parseInt(speed*5);
+    }
   });
 
 
@@ -668,12 +698,14 @@ document.addEventListener("DOMContentLoaded", () => {
       ball3.material.color.set(colors[2]);
       ball4.material.color.set(colors[3]);
       ball5.material.color.set(colors[4]);
+      ball6.material.color.set(colors[5]);
 
       trailLine1.material.color.set(colors[0]);
       trailLine2.material.color.set(colors[1]);
       trailLine3.material.color.set(colors[2]);
       trailLine4.material.color.set(colors[3]);
       trailLine5.material.color.set(colors[4]);
+      trailLine6.material.color.set(colors[5]);
     });
 
     const pauseBtn = document.getElementById("pause-btn");
@@ -700,6 +732,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ball3.visible = spheresVisible;
     ball4.visible = spheresVisible;
     ball5.visible = spheresVisible;
+    ball6.visible = spheresVisible;
     spheresVisibility.textContent = spheresVisible ? "Hide Spheres" : "Show Spheres";
   });
 
@@ -708,6 +741,7 @@ document.addEventListener("DOMContentLoaded", () => {
   [x3, y3, z3] = system.initialConditions.get(system.choice)[2];
   [x4, y4, z4] = system.initialConditions.get(system.choice)[3];
   [x5, y5, z5] = system.initialConditions.get(system.choice)[4];
+  [x6, y6, z6] = system.initialConditions.get(system.choice)[5];
 
   animate();
 });
