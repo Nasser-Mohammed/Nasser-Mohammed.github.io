@@ -497,29 +497,29 @@ document.addEventListener("DOMContentLoaded", () => {
   animate(); // Start animation for 1D
 
   // Dropdown handler
-  const dimensionSelect = document.getElementById("dimension-select");
-  dimensionSelect.addEventListener("change", (e) => {
-    dimension = parseInt(e.target.value);
-    dimensionSystem = dimensionMap.get(dimension);
-    console.log("changed to dimension", dimension);
-    handleSystemOptions();
+  // const dimensionSelect = document.getElementById("dimension-select");
+  // dimensionSelect.addEventListener("change", (e) => {
+  //   dimension = parseInt(e.target.value);
+  //   dimensionSystem = dimensionMap.get(dimension);
+  //   console.log("changed to dimension", dimension);
+  //   handleSystemOptions();
 
-    if (dimension === 3) {
-      canvas2d.style.display = "none";
-      canvas3d.style.display = "block";
-    } else {
-      canvas2d.style.display = "block";
-      canvas3d.style.display = "none";
+  //   if (dimension === 3) {
+  //     canvas2d.style.display = "none";
+  //     canvas3d.style.display = "block";
+  //   } else {
+  //     canvas2d.style.display = "block";
+  //     canvas3d.style.display = "none";
 
-      dimensionSystem.initializePhasePlane();
-      cachedBackground = ctx2d.getImageData(0, 0, width, height);
-      frameCount = 0;
-      firstFrame = true;
-      animate();
+  //     dimensionSystem.initializePhasePlane();
+  //     cachedBackground = ctx2d.getImageData(0, 0, width, height);
+  //     frameCount = 0;
+  //     firstFrame = true;
+  //     animate();
 
-    }
+  //   }
 
-  });
+  // });
 
     document.getElementById("system-select-2d").addEventListener("change", (e) => {
     const selected = e.target.value;
