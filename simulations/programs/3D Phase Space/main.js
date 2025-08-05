@@ -1,6 +1,6 @@
 
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js';
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/controls/OrbitControls.js';
+//import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/controls/OrbitControls.js';
 import { TrackballControls } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/controls/TrackballControls.js';
 let renderer3d, scene3d, camera3d;
 let ball1;
@@ -39,8 +39,10 @@ const palettes = {
   electric: ["#B0E0E6", "#FFB6C1", "#FFD700", "#9370DB", "#40E0D0", "#FF69B4"],
   contrast: ["#D72631", "#F46036", "#2E294E", "#1B998B", "#E2C044", "#F2F4F3"],
   forest: ["#014D4D", "#028090", "#00A896", "#fbffab", "#E94F37", "#53354A"],
-  reyna: ["#a15fa3", "#8a50c0", "#80324c", "#ffa4a4", "#381c5e", "#491d3c"]
-
+  reyna: ["#a15fa3", "#8a50c0", "#80324c", "#ffa4a4", "#381c5e", "#491d3c"],
+  lavender: ["#5C2E7F", "#2C0B42", "#D3B1FC", "#473473", "#7A5A8C", "#B7A0E8"],
+  pinky: ["#52083C", "#9C437A", "#FCB1E9", "#E0C8DC", "#9E2973", "#F7D0EF"],
+  kodie: ["#070D4D", "#264491", "#636FC9", "#B4BCE0", "#250DBF", "#D0DAF7"]
 };
 
 let initColors = palettes.r;
