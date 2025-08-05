@@ -661,82 +661,11 @@ function toggleParams(x,y, divName){
 
 }
 
-function toggleRecording(renderer) {
-  const recordBtn = document.getElementById("recordBtn");
-
-  if (!isRecording) {
-    // START recording
-    const canvasStream = renderer.domElement.captureStream(60);
-    const options ={
-      mimeType:"video/webm; codecs=vp9",
-      videoBitsPerSecond: 15_000_000,
-    };
-    mediaRecorder = new MediaRecorder(canvasStream, options);
-
-    recordedChunks = [];
-
-    mediaRecorder.ondataavailable = (e) => {
-      if (e.data.size > 0) recordedChunks.push(e.data);
-    };
-
-    mediaRecorder.onstop = () => {
-      const blob = new Blob(recordedChunks, { type: 'video/webm' });
-      const url = URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "recording.webm";
-      a.click();
-
-      recordedChunks = [];
-    };
-
-    mediaRecorder.start();
-    isRecording = true;
-    recordBtn.textContent = "Stop Recording";
-
-    // ⏱️ Stop recording after 30 seconds automatically
-    maxRecordingTimeout = setTimeout(() => {
-      if (isRecording) {
-        mediaRecorder.stop();
-        isRecording = false;
-        recordBtn.textContent = "Start Recording";
-      }
-    }, 30000);
-
-  } else {
-    // STOP recording
-    mediaRecorder.stop();
-    isRecording = false;
-    recordBtn.textContent = "Start Recording (30s max)";
-
-    if (maxRecordingTimeout) {
-      clearTimeout(maxRecordingTimeout);
-      maxRecordingTimeout = null;
-    }
-  }
-}
-
-function resizeCanvasToDisplaySize(canvas) {
-  const width  = canvas.clientWidth;
-  const height = canvas.clientHeight;
-  const needResize = canvas.width !== width || canvas.height !== height;
-
-  if (needResize) {
-    canvas.width = width;
-    canvas.height = height;
-  }
-
-  return needResize;
-}
-
-
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas3d = document.getElementById("canvas3d");
-  canvas3d.width = 1650;
-  canvas3d.height = canvas3d.width*1/1.85;
+  canvas3d.width = 1500;
+  canvas3d.height = 900;
 
   const height = canvas3d.height;
   const width = canvas3d.width;
@@ -1083,14 +1012,6 @@ document.addEventListener("DOMContentLoaded", () => {
   link.href = image;
   link.click();
 });
-
-
-
-  const recordBtn = document.getElementById("recordBtn");
-  recordBtn.addEventListener("click", () => {
-    toggleRecording(renderer3d);
-    
-  });
 
 
 

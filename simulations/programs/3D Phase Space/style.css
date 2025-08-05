@@ -65,8 +65,8 @@ h2, h4 {
 }
 
 #canvas3d {
-  width: 1650;    /* screen size */
-  aspect-ratio: 1/1.85;
+  width: 1500;    /* screen size */
+  aspect-ratio: 900;
   display: block;
   padding-bottom: 150px;
 }
