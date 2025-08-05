@@ -4,8 +4,12 @@ body {
   background: #f9f9f9;
   color: #222;
   margin: 0;
-  padding: 20px;
-  min-height: 125vh;
+  padding: 0px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .wrapper {
@@ -55,11 +59,20 @@ h2, h4 {
 }
 
 
-/* Canvas styles */
 .canvas-container {
   display: flex;
   justify-content: center;
 }
+
+#canvas3d {
+  width: 1650;    /* screen size */
+  aspect-ratio: 1/1.85;
+  display: block;
+  padding-bottom: 150px;
+}
+
+
+
 
 
 
@@ -178,7 +191,7 @@ label[for="simulation-speed"]{
   margin-top: 5px;
 }
 
-#bottom-row{
+#display-row{
   display: flex;
   flex-direction: row;
   justify-content: center;

@@ -21,6 +21,11 @@ const trailPositions1 = [];
 const trailPositions2 = [];
 const numSteps = 1;
 
+let mediaRecorder = null;
+let recordedChunks = [];
+let isRecording = false;
+let maxRecordingTimeout = null;
+
 let running = true;
 
 let showXZ = true;
@@ -117,6 +122,7 @@ nameMap.set("newton", "Newton-Leipnik System");
 nameMap.set("shimizu", "Shimizu-Morioka System");
 nameMap.set("arneodo", "Arneodo-Coullet System");
 nameMap.set("threeScroll", "Three-Scroll Attractor");
+nameMap.set("dequanLi", "Dequan-Li Attractor");
 
 
 const equationMap = new Map();
@@ -139,6 +145,7 @@ equationMap.set("newton", "\\[\\begin{align*} \\frac{dx}{dt} &= -\\alpha x + y +
 equationMap.set("shimizu", "\\[\\begin{align*} \\frac{dx}{dt} &= y\\\\ \\\\ \\frac{dy}{dt} &= x(1-z)-\\alpha y\\\\ \\\\ \\frac{dz}{dt} &=  -\\beta z + x^2\\end{align*}\\]");
 equationMap.set("arneodo", "\\[\\begin{align*} \\frac{dx}{dt} &= y\\\\ \\\\ \\frac{dy}{dt} &= z\\\\ \\\\ \\frac{dz}{dt} &=  -\\alpha x - \\beta y - z + \\lambda x^3\\end{align*}\\]");
 equationMap.set("threeScroll", "\\[\\begin{align*} \\frac{dx}{dt} &= \\alpha(y-x)+ \\delta z\\\\ \\\\ \\frac{dy}{dt} &= \\beta x -xz + \\lambda y\\\\ \\\\ \\frac{dz}{dt} &=  xy-\\sigma z\\end{align*}\\]");
+equationMap.set("dequanLi", "\\[\\begin{align*} \\frac{dx}{dt} &= a(y-x)+cxz\\\\ \\\\ \\frac{dy}{dt} &= ex+fy-x*z\\\\ \\\\ \\frac{dz}{dt} &=  bz+xy-dx^2\\end{align*}\\]");
 
 
 
@@ -162,6 +169,7 @@ equationParamMap.set("newton", ["\\alpha", "\\beta", "\\lambda"]);
 equationParamMap.set("shimizu", ["\\alpha", "\\beta", "\\lambda"]);
 equationParamMap.set("arneodo", ["\\alpha", "\\beta", "\\lambda"]);
 equationParamMap.set("threeScroll", ["\\alpha", "\\beta", "\\lambda"]);
+equationParamMap.set("dequanLi", ["a", "b", "c"]);
 
  // smooth camera movement
 
@@ -188,7 +196,8 @@ class ThreeDimensionalSystems {
       ["newton", (x,y,z) => this.newton(x,y,z)],
       ["shimizu", (x,y,z) => this.shimizu(x,y,z)],
       ["arneodo", (x,y,z) => this.arneodo(x,y,z)],
-      ["threeScroll", (x,y,z) => this.threeScroll(x,y,z)]
+      ["threeScroll", (x,y,z) => this.threeScroll(x,y,z)],
+      ["dequanLi", (x,y,z) => this.dequanLi(x,y,z)]
 
     ]);
 
@@ -212,7 +221,8 @@ class ThreeDimensionalSystems {
       ["newton", 7],
       ["shimizu", 7],
       ["arneodo", 3],
-      ["threeScroll", 0.5]
+      ["threeScroll", 0.5],
+      ["dequanLi", 0.15]
     ]);
 
     this.initParams = new Map([
@@ -235,9 +245,9 @@ class ThreeDimensionalSystems {
       ["newton", [0.4, 0.175, 0]],
       ["shimizu", [0.75, 0.428, 0]],
       ["arneodo", [5.5, 3.5, 1]],
-      ["threeScroll", [40, 40, 20]]
+      ["threeScroll", [40, 40, 20]],
+      ["dequanLi", [40, 1.833, 0.16]]
 
-    
     ]);
 
     this.params = new Map([
@@ -260,7 +270,8 @@ class ThreeDimensionalSystems {
       ["newton", [0.4, 0.175, 0]],
       ["shimizu", [0.75, 0.428, 0]],
       ["arneodo", [5.5, 3.5, 1]],
-      ["threeScroll", [40, 40, 20]]
+      ["threeScroll", [40, 40, 20]],
+      ["dequanLi", [40, 1.833, 0.16]]
 
 
     ]);
@@ -285,7 +296,9 @@ class ThreeDimensionalSystems {
       ["newton", [[0, 18], [0.1, 0.5], [0, 0]]],
       ["shimizu", [[0.18, 1.2], [0.1, 1.8], [0, 0]]],
       ["arneodo", [[1, 6], [2.25, 4], [0.5, 5]]],
-      ["threeScroll", [[30, 60], [0, 70], [10, 26]]]
+      ["threeScroll", [[30, 60], [0, 70], [10, 26]]],
+      ["dequanLi", [[35, 60], [0.25, 3], [0.15, 0.165]]]
+
     ]);
 
     this.renderScale = new Map([
@@ -308,7 +321,8 @@ class ThreeDimensionalSystems {
       ["newton", 4],
       ["shimizu", 1],
       ["arneodo", 0.75],
-      ["threeScroll", 0.015]
+      ["threeScroll", 0.015],
+      ["dequanLi", 0.01]
     ]);
 
     this.initialConditions = new Map([
@@ -331,7 +345,8 @@ class ThreeDimensionalSystems {
       ["newton", [[0, 0.4,  0.1], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
       ["shimizu", [[0, 0.4,  0.1], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
       ["arneodo", [[0.5, 0.01, 0.2], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
-      ["threeScroll", [[0.5, 0.01, 0.2], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]]
+      ["threeScroll", [[0.5, 0.01, 0.2], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
+      ["dequanLi", [[0.5, 0.01, 0.2], [3, 0.4, 5], [1, 5, 0.15], [6, 5, 0.16], [5, 0.53, 3.6], [-0.2, 0.53, 1.7]]]
 
     
     ]);
@@ -488,7 +503,7 @@ class ThreeDimensionalSystems {
     const dx = alpha*(y-x-f(x));
     const dy = x - y + z;
     const dz = -beta*y;
-    return [dx, dy, dz]
+    return [dx, dy, dz];
   }
 
   newton(x,y,z){
@@ -496,7 +511,7 @@ class ThreeDimensionalSystems {
     const dx = -alpha*x +y+10*y*z;
     const dy = -x-0.4*y+5*x*z;
     const dz = beta*z-5*x*y;
-    return [dx, dy, dz]
+    return [dx, dy, dz];
     
   }
 
@@ -505,7 +520,7 @@ class ThreeDimensionalSystems {
     const dx = y;
     const dy = x*(1-z)-alpha*y;
     const dz = -beta*z + x**2;
-    return [dx, dy, dz]
+    return [dx, dy, dz];
   }
 
   arneodo(x,y,z){
@@ -513,7 +528,7 @@ class ThreeDimensionalSystems {
     const dx = y
     const dy = z;
     const dz = -alpha*x-beta*y-z+lambda*x**3;
-    return [dx, dy, dz]
+    return [dx, dy, dz];
   }
 
   threeScroll(x,y,z){
@@ -522,7 +537,16 @@ class ThreeDimensionalSystems {
     const dx = a*(y-x)+d*z;
     const dy = b*x -x*z + c*y;
     const dz = x*y - e*z;
-    return [dx, dy, dz]
+    return [dx, dy, dz];
+  }
+
+  dequanLi(x,y,z){
+    const [a, b, c] = this.params.get("dequanLi");
+    const d=0.65, e = 55, f = 20;
+    const dx = a*(y-x)+c*x*z;
+    const dy = e*x+f*y-x*z;
+    const dz = b*z+x*y-d*x**2;
+    return [dx, dy, dz];
   }
 
   eulerStep(x, y, z) {
@@ -588,6 +612,7 @@ function animate() {
   animationId = requestAnimationFrame(animate);
   if (frameCount++ % 1 !== 0) return;
 
+
   if(running){
     simulationTime += dt;
 
@@ -636,10 +661,85 @@ function toggleParams(x,y, divName){
 
 }
 
+function toggleRecording(renderer) {
+  const recordBtn = document.getElementById("recordBtn");
+
+  if (!isRecording) {
+    // START recording
+    const canvasStream = renderer.domElement.captureStream(60);
+    const options ={
+      mimeType:"video/webm; codecs=vp9",
+      videoBitsPerSecond: 15_000_000,
+    };
+    mediaRecorder = new MediaRecorder(canvasStream, options);
+
+    recordedChunks = [];
+
+    mediaRecorder.ondataavailable = (e) => {
+      if (e.data.size > 0) recordedChunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = () => {
+      const blob = new Blob(recordedChunks, { type: 'video/webm' });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "recording.webm";
+      a.click();
+
+      recordedChunks = [];
+    };
+
+    mediaRecorder.start();
+    isRecording = true;
+    recordBtn.textContent = "Stop Recording";
+
+    // ⏱️ Stop recording after 30 seconds automatically
+    maxRecordingTimeout = setTimeout(() => {
+      if (isRecording) {
+        mediaRecorder.stop();
+        isRecording = false;
+        recordBtn.textContent = "Start Recording";
+      }
+    }, 30000);
+
+  } else {
+    // STOP recording
+    mediaRecorder.stop();
+    isRecording = false;
+    recordBtn.textContent = "Start Recording (30s max)";
+
+    if (maxRecordingTimeout) {
+      clearTimeout(maxRecordingTimeout);
+      maxRecordingTimeout = null;
+    }
+  }
+}
+
+function resizeCanvasToDisplaySize(canvas) {
+  const width  = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  const needResize = canvas.width !== width || canvas.height !== height;
+
+  if (needResize) {
+    canvas.width = width;
+    canvas.height = height;
+  }
+
+  return needResize;
+}
+
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const canvas3d = document.getElementById("canvas3d");
-  const width = canvas3d.width = 1500;
-  const height = canvas3d.height = 900;
+  canvas3d.width = 1650;
+  canvas3d.height = canvas3d.width*1/1.85;
+
+  const height = canvas3d.height;
+  const width = canvas3d.width;
 
   scene3d = new THREE.Scene();
   camera3d = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
@@ -650,6 +750,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderer3d = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true });
   renderer3d.setSize(width, height);
+  renderer3d.setPixelRatio(window.devicePixelRatio);
+  document.body.appendChild(renderer3d.domElement);
+  
 
   // controls = new OrbitControls(camera3d, renderer3d.domElement);
   // controls.enableDamping = true;
@@ -970,6 +1073,26 @@ document.addEventListener("DOMContentLoaded", () => {
     controls.reset();  // full reset of rotation/quaternion
 
   });
+
+  document.getElementById('screenshotBtn').addEventListener('click', () => {
+  // Force a render just before screenshot
+  renderer3d.render(scene3d, camera3d);
+  const image = renderer3d.domElement.toDataURL('image/png');
+  const link = document.createElement('a');
+  link.download = 'phaseSpace-sc.png';
+  link.href = image;
+  link.click();
+});
+
+
+
+  const recordBtn = document.getElementById("recordBtn");
+  recordBtn.addEventListener("click", () => {
+    toggleRecording(renderer3d);
+    
+  });
+
+
 
   [x1, y1, z1] = system.initialConditions.get(system.choice)[0];
   [x2, y2, z2] = system.initialConditions.get(system.choice)[1];
