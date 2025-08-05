@@ -447,7 +447,8 @@ document.addEventListener("DOMContentLoaded", () => {
   scene3d = new THREE.Scene();
   camera3d = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
   camera3d.position.z = 4;
-  camera3d.position.set(2, 1, 4);
+  camera3d.position.set(0.25, 0.1, 4);
+  camera3d.lookAt(0, 0, 0);
 
   renderer3d = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true });
   renderer3d.setSize(width, height);
@@ -467,8 +468,10 @@ document.addEventListener("DOMContentLoaded", () => {
   controls.panSpeed = 0.8;
   controls.dynamicDampingFactor = 0.3;
   controls.noPan = false;
-  controls.minDistance = 0;
-  controls.maxDistance = 20;
+  controls.minDistance = 0.5;
+  controls.maxDistance = 11;
+  controls.target.set(0, 0, 0);
+  controls.update();
 
 
 
