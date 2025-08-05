@@ -661,21 +661,28 @@ function toggleParams(x,y, divName){
 
 }
 
-function resizeCanvasForHiDPI(renderer, camera, canvas) {
+function resizeCanvasToDisplaySize(canvas, renderer, camera) {
   const dpr = window.devicePixelRatio || 1;
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
 
-  // Set actual canvas pixel buffer size
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
+  const displayWidth = canvas.clientWidth;
+  const displayHeight = canvas.clientHeight;
 
-  // Update renderer and camera
-  renderer.setSize(width, height, false);
-  renderer.setPixelRatio(dpr);
-  camera.aspect = width / height;
-  camera.updateProjectionMatrix();
+  const needResize = canvas.width !== displayWidth * dpr || canvas.height !== displayHeight * dpr;
+
+  if (needResize) {
+    canvas.width = displayWidth * dpr;
+    canvas.height = displayHeight * dpr;
+
+    renderer.setSize(displayWidth, displayHeight, false);
+    renderer.setPixelRatio(dpr);  // ✅ Use this line (do NOT re-set it every frame)
+    camera.aspect = displayWidth / displayHeight;
+    camera.updateProjectionMatrix();
+  }
+
+  return needResize;
 }
+
+
 
 
 
@@ -696,7 +703,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderer3d = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true });
   renderer3d.setSize(width, height);
-  renderer3d.setPixelRatio(window.devicePixelRatio);
+  resizeCanvasToDisplaySize(canvas3d, renderer3d, camera3d);
+  renderer3d.setPixelRatio(3);  // experiment with 2 or 3
+
+
   document.body.appendChild(renderer3d.domElement);
   
 
