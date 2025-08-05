@@ -1044,11 +1044,6 @@ window.addEventListener('resize', () => {
   resizeCanvasForHiDPI(renderer3d, camera3d, canvas3d);
 });
 
-// Initial call after canvas is in DOM
-resizeCanvasForHiDPI(renderer3d, camera3d, canvas3d);
-
-console.log('Device Pixel Ratio:', window.devicePixelRatio);
-
 
 
   [x1, y1, z1] = system.initialConditions.get(system.choice)[0];
