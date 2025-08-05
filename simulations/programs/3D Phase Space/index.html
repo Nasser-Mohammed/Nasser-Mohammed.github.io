@@ -6,7 +6,6 @@
   <title>3D Phase Space</title>
   <link rel="icon" type="image/png" href="images/lorenzTransp.png" sizes="48x48">
   <link rel="stylesheet" href="style.css">
-  <meta name="description" content="3D Phase space simulation of various systems of ODEs such as Lorenz System, Rossler System, Aizawa, Chen, Lua, Halvorsen.">
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
@@ -21,12 +20,18 @@
       <label for="system-select-3d">Select 3D system:</label>
       <select id="system-select-3d">
         <option value="lorenz">Lorenz System</option>
-        <option value="lu">Lü Attractor</option>
+        <option value="chenLee">Chen-Lee Attractor</option>
         <option value="aizawa">Aizawa Attractor</option>
+        <option value="lu">Lü Attractor</option>
         <option value="chen">Chen Attractor</option>
         <option value="dadras">Dadras System</option>
         <option value="halvorsen">Halvorsen System</option>
         <option value="rossler">Rössler System</option>
+        <option value="thomas">Thomas System</option>
+        <option value="rabi">Rabinovich-Fabrikant Equations</option>
+        <option value="hoover">Nose-Hoover Equations</option>
+        <option value="burkShaw">Burk-Shaw Attractor</option>
+    
       </select>
     </div>
 
@@ -113,7 +118,10 @@
         <button class="gridBtn" id="toggle-grid-btn2">Hide YZ Grid</button>
         <button class="gridBtn" id="toggle-grid-btn3" style="background-color:rgb(102, 60, 60)">Show XZ Grid</button>
       </div>
-      <span id="tip">TIP: Drag screen to rotate around space. Right click mouse and drag to slide from side to side or up and down.</span>
+      <span id="tip">TIP: Drag screen to rotate around space. Right click mouse and drag to slide from side to side or up and down.
+        To zoom in, use the scroll wheel on the mouse. If there are any issues, just click the reset camera button.
+      </span>
+      
     </div> <!-- end of wrapper -->
     <div class="canvas-container">
       <canvas id="canvas3d" width="1500" height="900" style="position:relative"></canvas>

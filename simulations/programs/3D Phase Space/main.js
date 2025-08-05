@@ -98,12 +98,16 @@ nameMap.set("fitzhughNagumo", "FitzHugh-Nagumo Model");
 nameMap.set("chua", "Chua's Circuit");
 nameMap.set("aizawa", "Aizawa Attractor");
 nameMap.set("halvorsen", "Halvorsen System");
-nameMap.set("chen", "Chen System");
 nameMap.set("thomas", "Thomas System");
 nameMap.set("sprout", "Sprout System");
 nameMap.set("dadras", "Dadras System");
 nameMap.set("lu", "Lü Attractor");
 nameMap.set("chen", "Chen Attractor");
+nameMap.set("sprott", "Sprott System Variation");
+nameMap.set("rabi", "Rabinovich-Fabrikant Equations");
+nameMap.set("hoover", "Nose-Hoover Oscillator");
+nameMap.set("burkShaw", "Burk Shaw Attractor");
+nameMap.set("chenLee", "Chen-Lee Attractor");
 
 
 const equationMap = new Map();
@@ -116,6 +120,11 @@ equationMap.set("dadras", "\\[\\begin{align*} \\frac{dx}{dt} &= y-ax\\\\ \\\\ \\
 equationMap.set("lu", "\\[\\begin{align*} \\frac{dx}{dt} &= a(y-z)\\\\ \\\\ \\frac{dy}{dt} &= -xz + cy\\\\ \\\\ \\frac{dz}{dt} &= xy - bz \\end{align*}\\]");
 equationMap.set("aizawa", "\\[\\begin{align*} \\frac{dx}{dt} &= (z-b)x- yd\\\\ \\\\ \\frac{dy}{dt} &= -xd + (z-b)y\\\\ \\\\ \\frac{dz}{dt} &= c+ax-\\frac{z^3}{3} - (x^2+y^2)(1+ez)+fzx^3 \\end{align*}\\]");
 equationMap.set("chen", "\\[\\begin{align*} \\frac{dx}{dt} &= a(y-x)\\\\ \\\\ \\frac{dy}{dt} &= x(c-a) -xz + cy\\\\ \\\\ \\frac{dz}{dt} &= xy -bz \\end{align*}\\]");
+equationMap.set("sprott", "\\[\\begin{align*} \\frac{dx}{dt} &= y\\\\ \\\\ \\frac{dy}{dt} &= z\\\\ \\\\ \\frac{dz}{dt} &= -0.5z - y - x + x^2\\end{align*}\\]");
+equationMap.set("rabi", "\\[\\begin{align*} \\frac{dx}{dt} &= y(z-1+x^2) + \\gamma y\\\\ \\\\ \\frac{dy}{dt} &= x(3z+1-x^2)+\\gamma y\\\\ \\\\ \\frac{dz}{dt} &= -2z(\\alpha+xy)\\end{align*}\\]");
+equationMap.set("hoover", "\\[\\begin{align*} \\frac{dx}{dt} &= y\\\\ \\\\ \\frac{dy}{dt} &= -x-zy\\\\ \\\\ \\frac{dz}{dt} &= y^2-a\\end{align*}\\]");
+equationMap.set("burkShaw", "\\[\\begin{align*} \\frac{dx}{dt} &= -a(x+y)\\\\ \\\\ \\frac{dy}{dt} &= -y-axz\\\\ \\\\ \\frac{dz}{dt} &= axy+b\\end{align*}\\]");
+equationMap.set("chenLee", "\\[\\begin{align*} \\frac{dx}{dt} &= \\alpha x-yz\\\\ \\\\ \\frac{dy}{dt} &= \\beta y+xz\\\\ \\\\ \\frac{dz}{dt} &=  \\delta z + \\frac{xy}{3}\\end{align*}\\]");
 
 
 const equationParamMap = new Map();
@@ -128,6 +137,11 @@ equationParamMap.set("dadras", ["a", "b", "c"]);
 equationParamMap.set("lu", ["a", "b", "c"]);
 equationParamMap.set("aizawa", ["a", "b", "c"]);
 equationParamMap.set("chen", ["a", "b", "c"]);
+equationParamMap.set("sprott", ["a", "b", "c"]);
+equationParamMap.set("rabi", ["\\alpha", "\\gamma", "c"]);
+equationParamMap.set("hoover", ["a", "b", "c"]);
+equationParamMap.set("burkShaw", ["a", "b", "c"]);
+equationParamMap.set("chenLee", ["\\alpha", "\\beta", "\\delta"]);
 
  // smooth camera movement
 
@@ -143,9 +157,31 @@ class ThreeDimensionalSystems {
       ["halvorsen", (x, y, z) => this.halvorsen(x, y, z)],
       ["chen", (x, y, z) => this.chen(x, y, z)],
       ["thomas", (x, y, z) => this.thomas(x, y, z)],
-      ["sprout", (x, y, z) => this.sprout(x, y, z)],
+      ["sprott", (x, y, z) => this.sprott(x, y, z)],
       ["dadras", (x, y, z) => this.dadras(x, y, z)],
       ["lu", (x, y, z) => this.lu(x, y, z)],
+      ["rabi", (x, y, z) => this.rabi(x, y, z)],
+      ["hoover", (x, y, z) => this.hoover(x, y, z)],
+      ["burkShaw", (x, y, z) => this.burkShaw(x, y, z)],
+      ["chenLee", (x, y, z) => this.chenLee(x, y, z)]
+    ]);
+
+    this.timeScales = new Map([
+      ["lorenz", 1],
+      ["rossler", 1],
+      ["fitzhughNagumo", 1],
+      ["chua", 1],
+      ["aizawa", 1],
+      ["halvorsen", 1],
+      ["chen", 0.4],
+      ["thomas", 10],
+      ["sprott", .9],
+      ["dadras", 1],
+      ["lu", 1],
+      ["rabi", 1],
+      ["hoover", 2.5],
+      ["burkShaw", 0.75],
+      ["chenLee", 1]
     ]);
 
     this.initParams = new Map([
@@ -156,10 +192,14 @@ class ThreeDimensionalSystems {
       ["aizawa", [0.95, 0.7, 0.6]],
       ["halvorsen", [1.4, 0, 0]],
       ["chen", [35, 3, 28]],
-      ["thomas", [0, 0.18, 0.5]],
-      ["sprout", []],
+      ["thomas", [0, 0.208186, 0.5]],
+      ["sprott", [0, 0, 0]],
       ["dadras", [2, 0.5, 3]],
-      ["lu", [36, 3, 20]]
+      ["lu", [36, 3, 20]],
+      ["rabi", [1.1, 0.87, 0]],
+      ["hoover", [1, 0, 0]],
+      ["burkShaw", [10, 4.272, 0]],
+      ["chenLee", [5, -10, -0.38]]
     ]);
 
     this.params = new Map([
@@ -170,10 +210,14 @@ class ThreeDimensionalSystems {
       ["aizawa", [0.95, 0.7, 0.6]],
       ["halvorsen", [1.4, 0, 0]],
       ["chen", [35, 3, 28]],
-      ["thomas", [0, 0.208, .5]],
-      ["sprout", []],
+      ["thomas", [0, 0.208186, 0]],
+      ["sprott", [0, 0, 0]],
       ["dadras", [2, 0.5, 3]],
-      ["lu", [36, 3, 20]]
+      ["lu", [36, 3, 20]],
+      ["rabi", [1.1, 0.87, 0]],
+      ["hoover", [1, 0, 0]],
+      ["burkShaw", [10, 4.272, 0]],
+      ["chenLee", [5, -10, -0.38]]
     ]);
 
     this.paramsRange = new Map([
@@ -184,10 +228,14 @@ class ThreeDimensionalSystems {
       ["aizawa", [[0.8, 1.2], [0.5, 1], [0.4,0.7]]],
       ["halvorsen", [[1.3, 3.5], [0, 0], [0, 0]]],
       ["chen", [[32.5, 40], [2, 4], [20, 29]]],
-      ["thomas", [[0, 0], [-2, 2], [-3,5]]],
-      ["sprout", []],
+      ["thomas", [[0, 0], [0.1, 0.31], [0,0]]],
+      ["sprott", [[0,0], [0,0], [0,0]]],
       ["dadras", [[1.7, 2.5], [0.25, 1.5], [-0.5, 5]]],
-      ["lu", [[25, 60], [0.5, 15], [13, 25]]]
+      ["lu", [[25, 60], [0.5, 15], [13, 25]]],
+      ["rabi", [[0.14, 1.11], [0.1, 0.87], [0, 0]]],
+      ["hoover", [[0.05, 5], [0, 0], [0, 0]]],
+      ["burkShaw", [[1, 20], [0.25, 20], [0, 0]]],
+      ["chenLee", [[1, 5], [-40, -9.5], [-3, -0.15]]]
     ]);
 
     this.renderScale = new Map([
@@ -197,11 +245,15 @@ class ThreeDimensionalSystems {
       ["chua", 0.01],
       ["aizawa", 1.5],
       ["halvorsen", 0.2],
-      ["chen", 0.05],
-      ["thomas", 1.5],
-      ["sprout", 0.01],
+      ["chen", 0.048],
+      ["thomas", 0.6],
+      ["sprott", 3],
       ["dadras", 0.3],
-      ["lu", 0.075]
+      ["lu", 0.05],
+      ["rabi", .9],
+      ["hoover", 0.75],
+      ["burkShaw", 0.85],
+      ["chenLee", 0.04]
     ]);
 
     this.initialConditions = new Map([
@@ -212,10 +264,16 @@ class ThreeDimensionalSystems {
       ["aizawa", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 0.5, 1.1], [0.5, 0.9, 1.25], [0, 0.9, 0.75]]],
       ["halvorsen", [[-0.5, 2, 1], [2, 3, 4], [2.5,2,3], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]],
       ["chen", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]],
-      ["thomas", [[3, -2, 4], [2, 3, 4], [2.5,2,3]]],
-      ["sprout", [[0, 0, 0], [0, 0, 0], [0,0,0]]],
+      ["thomas", [[0, 1, 4], [2, 3, 4], [2.5,2,3], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]],
+      ["sprott", [[.1, .2, 0], [0.1, 0.13, 0.24], [-0.01, 0.2, 0.23], [-0.04, 0.04, 0.13], [0.15, 0.148, 0.126], [0, 0.15, 0.135]]],
       ["dadras", [[0.1, 0, 0], [0.2, 0, 0], [0.3, 0, 0], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]],
-      ["lu", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]]
+      ["lu", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]],
+      ["rabi", [[-1, 0, 0.5], [-1.5, 0.001, .85], [-2, 0, 0.5], [-1.02, 0, 0.501], [-1.05, 0, 0.5], [-1.5, 0.1, 0.12]]],
+      ["hoover", [[0, 0.4,  0.1], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
+      ["burkShaw", [[0, 0.4,  0.1], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
+      ["chenLee", [[0, 0.4,  0.1], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]]
+    
+    
     ]);
 
     this.numParams = new Map([
@@ -227,8 +285,9 @@ class ThreeDimensionalSystems {
       ["halvorsen", 3],
       ["chen", 3],
       ["thomas", 1],
-      ["sprout", 1],
-      ["dadras", 3]
+      ["sprott", 1],
+      ["dadras", 3],
+      ["rabi", 3]
     ]);
 
 
@@ -253,17 +312,17 @@ class ThreeDimensionalSystems {
 
   thomas(x, y, z) {
     const [a, b, k] = this.params.get("thomas");
-    const dx = k*Math.sin(y) - b*x;
-    const dy = k*Math.sin(z) - b*y;
-    const dz = k*Math.sin(x) - b*z;
+    const dx = Math.sin(y) - b*x;
+    const dy = Math.sin(z) - b*y;
+    const dz = Math.sin(x) - b*z;
     return [dx, dy, dz];
   }
 
-  sprout(x, y, z) {
-    const [a, b, c] = this.params.get("sprout");
+  sprott(x, y, z) {
+    const [a, b, c] = this.params.get("sprott");
     const dx = y;
     const dy = z;
-    const dz = -0.5*x - y - z + x**2;
+    const dz = -0.5 * x - y + x ** 2;
     return [dx, dy, dz];
   }
 
@@ -328,13 +387,45 @@ class ThreeDimensionalSystems {
     const dz = x*y - b*z;
 
     return [dx, dy, dz];
+  }
 
+  rabi(x,y,z){
+    const [a,b,c] = this.params.get("rabi");
+    const dx = y*(z-1+x**2) + b*x
+    const dy = x*(3*z+1-x**2) + b*y;
+    const dz = -2*z*(a + x*y);
+    return [dx, dy, dz]
+  }
+
+  hoover(x,y,z){
+    const [a,b,c] = this.params.get("hoover");
+    const dx = y
+    const dy = -x-z*y;
+    const dz = y**2 - a;
+    return [dx, dy, dz];
+  }
+
+  burkShaw(x,y,z){
+    const [a,b,c] = this.params.get("burkShaw");
+    const dx = -a*(x+y);
+    const dy = -y-a*x*z;
+    const dz = a*x*y+b;
+    return [dx, dy, dz];
+  }
+
+  chenLee(x,y,z){
+    const [a, b, c] = this.params.get("chenLee");
+    const dx = a*x -y*z;
+    const dy = b*y +x*z;
+    const dz = c*z + (x*y)/3;
+    return [dx, dy, dz];
   }
 
   eulerStep(x, y, z) {
     const fn = this.options.get(this.choice);
+    const scale = this.timeScales.get(this.choice);
     const [dx, dy, dz] = fn(x, y, z);
-    return [x + dx * dt, y + dy * dt, z + dz * dt];
+    return [x + dx * dt * scale, y + dy * dt * scale, z + dz * dt * scale];
   }
 }
 
@@ -415,7 +506,7 @@ function animate() {
       ball5.position.set(x5 * scale, y5 * scale, z5 * scale);
       ball6.position.set(x6 * scale, y6 * scale, z6 * scale);
 
-      if (trailSkip++ % 10 === 0){
+      if (trailSkip++ % 3 === 0){
         updateTrail(ball1.position, trailPositions1, trailGeometry1);
         updateTrail(ball2.position, trailPositions2, trailGeometry2);
         updateTrail(ball3.position, trailPositions3, trailGeometry3);
@@ -466,13 +557,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // controls.dampingFactor = 0.05;
   // controls.screenSpacePanning = true;
   controls = new TrackballControls(camera3d, renderer3d.domElement);
-  controls.rotateSpeed = 2;
+  controls.rotateSpeed = 2.1;
   controls.zoomSpeed = 1;
   controls.panSpeed = 0.8;
   controls.dynamicDampingFactor = 0.3;
   controls.noPan = false;
   controls.minDistance = 0.5;
-  controls.maxDistance = 11;
+  controls.maxDistance = 15;
   controls.target.set(0, 0, 0);
   controls.update();
 
