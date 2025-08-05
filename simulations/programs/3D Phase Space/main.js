@@ -661,29 +661,6 @@ function toggleParams(x,y, divName){
 
 }
 
-function resizeCanvasToDisplaySize(canvas, renderer, camera) {
-  const dpr = window.devicePixelRatio || 1;
-
-  const displayWidth = canvas.clientWidth;
-  const displayHeight = canvas.clientHeight;
-
-  const needResize = canvas.width !== displayWidth * dpr || canvas.height !== displayHeight * dpr;
-
-  if (needResize) {
-    canvas.width = displayWidth * dpr;
-    canvas.height = displayHeight * dpr;
-
-    renderer.setSize(displayWidth, displayHeight, false);
-    renderer.setPixelRatio(dpr);  // ✅ Use this line (do NOT re-set it every frame)
-    camera.aspect = displayWidth / displayHeight;
-    camera.updateProjectionMatrix();
-  }
-
-  return needResize;
-}
-
-
-
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -703,8 +680,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderer3d = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true });
   renderer3d.setSize(width, height);
-  resizeCanvasToDisplaySize(canvas3d, renderer3d, camera3d);
-  renderer3d.setPixelRatio(3);  // experiment with 2 or 3
+  //resizeCanvasToDisplaySize(canvas3d, renderer3d, camera3d);
 
 
   document.body.appendChild(renderer3d.domElement);
@@ -1038,10 +1014,6 @@ document.addEventListener("DOMContentLoaded", () => {
   link.download = 'phaseSpace-sc.png';
   link.href = image;
   link.click();
-});
-
-window.addEventListener('resize', () => {
-  resizeCanvasForHiDPI(renderer3d, camera3d, canvas3d);
 });
 
 
