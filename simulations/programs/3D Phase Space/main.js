@@ -35,6 +35,10 @@ const palettes = {
   rgb: ["#8f0000", "#009723", "#0077FF", "#0094d8", "#9c0000", "#5eff1f"],     // red, brighter green, pure blue
   alien: ["#7D3C98", "#E75480", "#1ABC9C", "#B39CD0", "#D81B60","#2978B5"],
   cyberpunk: ["#FF00FF", "#00FFFF", "#FF6C00", "#FF0055", "#00FF99", "#3300FF"],
+  blue: ["#0b46e7", "#105ca3", "#4679d6", "#5460c7", "#218eaf", "#0052ce"],
+  red: ["#e70b0b", "#fc2a2a", "#f83a34", "#921a1a", "#6d0c0c", "#af3d3d"],
+  green: ["#0be716", "#2afc4d", "#289e32", "#1b6814", "#66e93f", "#22c052"],
+  orange: ["#d88e04", "#ca6200", "#f88334", "#c55a03", "#d18a20", "#b68937"],
   sunset: ["#FF6F61", "#F7B733", "#FF9472", "#FF3E41", "#FFC857", "#5D576B"],
   electric: ["#B0E0E6", "#FFB6C1", "#FFD700", "#9370DB", "#40E0D0", "#FF69B4"],
   contrast: ["#D72631", "#F46036", "#2E294E", "#1B998B", "#E2C044", "#F2F4F3"],
@@ -108,6 +112,11 @@ nameMap.set("rabi", "Rabinovich-Fabrikant Equations");
 nameMap.set("hoover", "Nose-Hoover Oscillator");
 nameMap.set("burkShaw", "Burk Shaw Attractor");
 nameMap.set("chenLee", "Chen-Lee Attractor");
+nameMap.set("chua", "Chua's Circuit");
+nameMap.set("newton", "Newton-Leipnik System");
+nameMap.set("shimizu", "Shimizu-Morioka System");
+nameMap.set("arneodo", "Arneodo-Coullet System");
+nameMap.set("threeScroll", "Three-Scroll Attractor");
 
 
 const equationMap = new Map();
@@ -125,6 +134,12 @@ equationMap.set("rabi", "\\[\\begin{align*} \\frac{dx}{dt} &= y(z-1+x^2) + \\gam
 equationMap.set("hoover", "\\[\\begin{align*} \\frac{dx}{dt} &= y\\\\ \\\\ \\frac{dy}{dt} &= -x-zy\\\\ \\\\ \\frac{dz}{dt} &= y^2-a\\end{align*}\\]");
 equationMap.set("burkShaw", "\\[\\begin{align*} \\frac{dx}{dt} &= -a(x+y)\\\\ \\\\ \\frac{dy}{dt} &= -y-axz\\\\ \\\\ \\frac{dz}{dt} &= axy+b\\end{align*}\\]");
 equationMap.set("chenLee", "\\[\\begin{align*} \\frac{dx}{dt} &= \\alpha x-yz\\\\ \\\\ \\frac{dy}{dt} &= \\beta y+xz\\\\ \\\\ \\frac{dz}{dt} &=  \\delta z + \\frac{xy}{3}\\end{align*}\\]");
+equationMap.set("chua", "\\[\\begin{align*} \\frac{dx}{dt} &= \\alpha (y-x-f(x))\\\\ \\\\ \\frac{dy}{dt} &= x-y+z\\\\ \\\\ \\frac{dz}{dt} &=  -\\beta y\\end{align*}\\]");
+equationMap.set("newton", "\\[\\begin{align*} \\frac{dx}{dt} &= -\\alpha x + y + 10yz\\\\ \\\\ \\frac{dy}{dt} &= -x-0.4y+5xz\\\\ \\\\ \\frac{dz}{dt} &=  \\beta z-5xy\\end{align*}\\]");
+equationMap.set("shimizu", "\\[\\begin{align*} \\frac{dx}{dt} &= y\\\\ \\\\ \\frac{dy}{dt} &= x(1-z)-\\alpha y\\\\ \\\\ \\frac{dz}{dt} &=  -\\beta z + x^2\\end{align*}\\]");
+equationMap.set("arneodo", "\\[\\begin{align*} \\frac{dx}{dt} &= y\\\\ \\\\ \\frac{dy}{dt} &= z\\\\ \\\\ \\frac{dz}{dt} &=  -\\alpha x - \\beta y - z + \\lambda x^3\\end{align*}\\]");
+equationMap.set("threeScroll", "\\[\\begin{align*} \\frac{dx}{dt} &= \\alpha(y-x)+ \\delta z\\\\ \\\\ \\frac{dy}{dt} &= \\beta x -xz + \\lambda y\\\\ \\\\ \\frac{dz}{dt} &=  xy-\\sigma z\\end{align*}\\]");
+
 
 
 const equationParamMap = new Map();
@@ -142,6 +157,11 @@ equationParamMap.set("rabi", ["\\alpha", "\\gamma", "c"]);
 equationParamMap.set("hoover", ["a", "b", "c"]);
 equationParamMap.set("burkShaw", ["a", "b", "c"]);
 equationParamMap.set("chenLee", ["\\alpha", "\\beta", "\\delta"]);
+equationParamMap.set("chua", ["\\alpha", "\\beta", "\\delta"]);
+equationParamMap.set("newton", ["\\alpha", "\\beta", "\\lambda"]);
+equationParamMap.set("shimizu", ["\\alpha", "\\beta", "\\lambda"]);
+equationParamMap.set("arneodo", ["\\alpha", "\\beta", "\\lambda"]);
+equationParamMap.set("threeScroll", ["\\alpha", "\\beta", "\\lambda"]);
 
  // smooth camera movement
 
@@ -163,7 +183,13 @@ class ThreeDimensionalSystems {
       ["rabi", (x, y, z) => this.rabi(x, y, z)],
       ["hoover", (x, y, z) => this.hoover(x, y, z)],
       ["burkShaw", (x, y, z) => this.burkShaw(x, y, z)],
-      ["chenLee", (x, y, z) => this.chenLee(x, y, z)]
+      ["chenLee", (x, y, z) => this.chenLee(x, y, z)],
+      ["chua", (x,y,z) => this.chua(x,y,z)],
+      ["newton", (x,y,z) => this.newton(x,y,z)],
+      ["shimizu", (x,y,z) => this.shimizu(x,y,z)],
+      ["arneodo", (x,y,z) => this.arneodo(x,y,z)],
+      ["threeScroll", (x,y,z) => this.threeScroll(x,y,z)]
+
     ]);
 
     this.timeScales = new Map([
@@ -181,7 +207,12 @@ class ThreeDimensionalSystems {
       ["rabi", 1],
       ["hoover", 2.5],
       ["burkShaw", 0.75],
-      ["chenLee", 1]
+      ["chenLee", 1],
+      ["chua", 1],
+      ["newton", 7],
+      ["shimizu", 7],
+      ["arneodo", 3],
+      ["threeScroll", 0.5]
     ]);
 
     this.initParams = new Map([
@@ -199,7 +230,14 @@ class ThreeDimensionalSystems {
       ["rabi", [1.1, 0.87, 0]],
       ["hoover", [1, 0, 0]],
       ["burkShaw", [10, 4.272, 0]],
-      ["chenLee", [5, -10, -0.38]]
+      ["chenLee", [5, -10, -0.38]],
+      ["chua", [15.6, 28, 0]],
+      ["newton", [0.4, 0.175, 0]],
+      ["shimizu", [0.75, 0.428, 0]],
+      ["arneodo", [5.5, 3.5, 1]],
+      ["threeScroll", [40, 40, 20]]
+
+    
     ]);
 
     this.params = new Map([
@@ -217,7 +255,14 @@ class ThreeDimensionalSystems {
       ["rabi", [1.1, 0.87, 0]],
       ["hoover", [1, 0, 0]],
       ["burkShaw", [10, 4.272, 0]],
-      ["chenLee", [5, -10, -0.38]]
+      ["chenLee", [5, -10, -0.38]],
+      ["chua", [15.6, 28, 0]],
+      ["newton", [0.4, 0.175, 0]],
+      ["shimizu", [0.75, 0.428, 0]],
+      ["arneodo", [5.5, 3.5, 1]],
+      ["threeScroll", [40, 40, 20]]
+
+
     ]);
 
     this.paramsRange = new Map([
@@ -235,7 +280,12 @@ class ThreeDimensionalSystems {
       ["rabi", [[0.14, 1.11], [0.1, 0.87], [0, 0]]],
       ["hoover", [[0.05, 5], [0, 0], [0, 0]]],
       ["burkShaw", [[1, 20], [0.25, 20], [0, 0]]],
-      ["chenLee", [[1, 5], [-40, -9.5], [-3, -0.15]]]
+      ["chenLee", [[1, 5], [-40, -9.5], [-3, -0.15]]],
+      ["chua", [[5, 18], [23, 35], [0, 0]]],
+      ["newton", [[0, 18], [0.1, 0.5], [0, 0]]],
+      ["shimizu", [[0.18, 1.2], [0.1, 1.8], [0, 0]]],
+      ["arneodo", [[1, 6], [2.25, 4], [0.5, 5]]],
+      ["threeScroll", [[30, 60], [0, 70], [10, 26]]]
     ]);
 
     this.renderScale = new Map([
@@ -246,14 +296,19 @@ class ThreeDimensionalSystems {
       ["aizawa", 1.5],
       ["halvorsen", 0.2],
       ["chen", 0.048],
-      ["thomas", 0.6],
+      ["thomas", 0.55],
       ["sprott", 3],
       ["dadras", 0.3],
       ["lu", 0.05],
       ["rabi", .9],
       ["hoover", 0.75],
       ["burkShaw", 0.85],
-      ["chenLee", 0.04]
+      ["chenLee", 0.04],
+      ["chua", 1],
+      ["newton", 4],
+      ["shimizu", 1],
+      ["arneodo", 0.75],
+      ["threeScroll", 0.015]
     ]);
 
     this.initialConditions = new Map([
@@ -271,8 +326,13 @@ class ThreeDimensionalSystems {
       ["rabi", [[-1, 0, 0.5], [-1.5, 0.001, .85], [-2, 0, 0.5], [-1.02, 0, 0.501], [-1.05, 0, 0.5], [-1.5, 0.1, 0.12]]],
       ["hoover", [[0, 0.4,  0.1], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
       ["burkShaw", [[0, 0.4,  0.1], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
-      ["chenLee", [[0, 0.4,  0.1], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]]
-    
+      ["chenLee", [[0, 0.4,  0.1], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
+      ["chua", [[0, 0.4,  0.1], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
+      ["newton", [[0, 0.4,  0.1], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
+      ["shimizu", [[0, 0.4,  0.1], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
+      ["arneodo", [[0.5, 0.01, 0.2], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
+      ["threeScroll", [[0.5, 0.01, 0.2], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]]
+
     
     ]);
 
@@ -421,6 +481,50 @@ class ThreeDimensionalSystems {
     return [dx, dy, dz];
   }
 
+  chua(x,y,z){
+    const [alpha, beta, c] = this.params.get("chua");
+    const m0 = -1.143, m1 = -0.714;
+    const f = x => m1*x + 0.5*(m0-m1)*(Math.abs(x+1) - Math.abs(x-1));
+    const dx = alpha*(y-x-f(x));
+    const dy = x - y + z;
+    const dz = -beta*y;
+    return [dx, dy, dz]
+  }
+
+  newton(x,y,z){
+    const [alpha, beta, lambda] = this.params.get("newton");
+    const dx = -alpha*x +y+10*y*z;
+    const dy = -x-0.4*y+5*x*z;
+    const dz = beta*z-5*x*y;
+    return [dx, dy, dz]
+    
+  }
+
+  shimizu(x,y,z){
+    const [alpha, beta, c] = this.params.get("shimizu");
+    const dx = y;
+    const dy = x*(1-z)-alpha*y;
+    const dz = -beta*z + x**2;
+    return [dx, dy, dz]
+  }
+
+  arneodo(x,y,z){
+    const [alpha, beta, lambda] = this.params.get("arneodo");
+    const dx = y
+    const dy = z;
+    const dz = -alpha*x-beta*y-z+lambda*x**3;
+    return [dx, dy, dz]
+  }
+
+  threeScroll(x,y,z){
+    const [a, b, c] = this.params.get("threeScroll");
+    const d = 1.5, e = 10;
+    const dx = a*(y-x)+d*z;
+    const dy = b*x -x*z + c*y;
+    const dz = x*y - e*z;
+    return [dx, dy, dz]
+  }
+
   eulerStep(x, y, z) {
     const fn = this.options.get(this.choice);
     const scale = this.timeScales.get(this.choice);
@@ -474,8 +578,8 @@ function reset(){
   clearTrail(trailPositions4, trailGeometry4);
   clearTrail(trailPositions5, trailGeometry5);
   clearTrail(trailPositions6, trailGeometry6);
-  document.getElementById("simulation-speed").value = Math.floor(stepsPerFrame/5);
-  document.getElementById("simulation-speed-value").textContent = Math.floor(stepsPerFrame/5);
+  //document.getElementById("simulation-speed").value = Math.floor(stepsPerFrame/5);
+  //document.getElementById("simulation-speed-value").textContent = Math.floor(stepsPerFrame/5);
   running = true;
   document.getElementById("pause-btn").textContent = "Pause";
 }
@@ -662,9 +766,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const [p1Val, p2Val, p3Val] = system.initParams.get(system.choice);
 
-    param1Value.textContent = p1Val.toFixed(3);
-    param2Value.textContent = p2Val.toFixed(3);
-    param3Value.textContent = p3Val.toFixed(3);
+    param1Value.textContent = p1Val.toFixed(2);
+    param2Value.textContent = p2Val.toFixed(2);
+    param3Value.textContent = p3Val.toFixed(2);
 
     const minMaxArray = system.paramsRange.get(system.choice);
     
@@ -760,9 +864,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const [p1Val, p2Val, p3Val] = system.initParams.get(system.choice);
     system.params.set(system.choice, [p1Val, p2Val, p3Val]);
-    param1Value.textContent = p1Val.toFixed(3);
-    param2Value.textContent = p2Val.toFixed(3);
-    param3Value.textContent = p3Val.toFixed(3);
+    param1Value.textContent = p1Val.toFixed(2);
+    param2Value.textContent = p2Val.toFixed(2);
+    param3Value.textContent = p3Val.toFixed(2);
     param1Slider.value = p1Val;
     param2Slider.value = p2Val;
     param3Slider.value = p3Val;
