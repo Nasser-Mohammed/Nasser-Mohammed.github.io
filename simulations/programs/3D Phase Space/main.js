@@ -661,6 +661,23 @@ function toggleParams(x,y, divName){
 
 }
 
+function resizeCanvasForHiDPI(renderer, camera, canvas) {
+  const dpr = window.devicePixelRatio || 1;
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+
+  // Set actual canvas pixel buffer size
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+
+  // Update renderer and camera
+  renderer.setSize(width, height, false);
+  renderer.setPixelRatio(dpr);
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+}
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas3d = document.getElementById("canvas3d");
@@ -1012,6 +1029,15 @@ document.addEventListener("DOMContentLoaded", () => {
   link.href = image;
   link.click();
 });
+
+window.addEventListener('resize', () => {
+  resizeCanvasForHiDPI(renderer3d, camera3d, canvas3d);
+});
+
+// Initial call after canvas is in DOM
+resizeCanvasForHiDPI(renderer3d, camera3d, canvas3d);
+
+console.log('Device Pixel Ratio:', window.devicePixelRatio);
 
 
 
