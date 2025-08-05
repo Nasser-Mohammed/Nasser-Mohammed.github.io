@@ -80,6 +80,7 @@ header, nav, main, footer {
 
 nav {
   background-color: #eee;
+  font-size: 20px;
 }
 
 footer {
@@ -104,12 +105,12 @@ header {
   position: relative;
   background-color: #333;
   color: white;
-  height: 250px; /* fixed height */
+  height: calc(150px + 2rem);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: stretch;  /* ← ensures children fill height */
-  padding: 0;            /* ← remove vertical padding */
+  padding: 0;    /* ← remove vertical padding */
 }
 
 
@@ -118,11 +119,23 @@ header {
 /* Remove default h1 spacing */
 header h1 {
   margin: 0;
-  padding-left: 1rem;  /* or try 2rem for more space */
+  padding-left: 2rem;  /* or try 2rem for more space */
   line-height: 1;
   display: flex;
   align-items: center;
 }
+
+ h2{
+  margin: 0;
+  padding-left: 1rem;
+  padding-top: 1rem;
+}
+
+h3{
+  padding-top: 1.5rem;
+  padding-left: 1rem;
+}
+
 
 
 
@@ -171,6 +184,7 @@ header h1 {
 }
 
 p {
+  padding-left: 1.2rem;
   font-size: 1.2rem; /* or try 18px, 20px, etc. */
   line-height: 1.6;  /* optional: improves readability */
 }
