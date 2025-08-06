@@ -170,3 +170,8 @@ header h1 {
   }
 }
 
+video::-webkit-media-controls {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
