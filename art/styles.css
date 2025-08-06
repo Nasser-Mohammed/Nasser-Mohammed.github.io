@@ -71,6 +71,7 @@ video {
   padding-right: 50px;
   padding-top: 15px;
   padding-bottom: 15px;
+  flex-wrap:wrap;
 }
 
 
@@ -108,14 +109,23 @@ video {
 .vidDiv {
   background-color: #333;
   border-radius: 10px;
-  padding: 50px;
-  margin: 1rem 0;          /* vertical spacing */
+  padding: 20px;  /* changed from 50px */
+  margin: 1rem 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  flex: 1 1 45%;  /* allows 2 per row */
 }
+
+
+.vidDiv video {
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+}
+
 
 .images {
   width: 100%;
