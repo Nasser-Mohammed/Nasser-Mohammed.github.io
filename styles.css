@@ -30,6 +30,7 @@ main {
 
 .background-image {
   max-width: 100%;
+  width:400px;
   height: auto;
   display: block;
   opacity: 1;
@@ -37,6 +38,13 @@ main {
           drop-shadow(0 0 8px rgba(255, 165, 0, 0.3))
           drop-shadow(0 0 12px rgba(255, 69, 0, 0.25));
   transition: filter 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  .background-image {
+    width: 80vw;        /* 80% of the viewport on small screens */
+    max-width: none;    /* allow it to go wider if needed */
+  }
 }
 
 .background-image:hover {
