@@ -34,8 +34,33 @@ nav {
     font-size: 20px;
 }
 
+.mediaItem{
+  width: 100%;
+  max-width: 600px;     /* or whatever size fits 2 per row */
+  aspect-ratio: 16 / 9; /* keeps videos/images consistent */
+  object-fit: cover;    /* prevents distortion */
+  border-radius: 8px;
+}
+
+.content-row {
+  background-color: #e9eef2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 0;
+  flex-wrap: wrap;
+  border-radius: 8px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+
 #desc{
-    background-color: rgb(85, 52, 52);
+    background-color: rgb(49, 105, 122);
     color: white;
     border-radius: 8px;
     padding-left: 11px;
@@ -58,7 +83,7 @@ nav {
     padding-bottom: 15px;
     font-family:Arial, Helvetica, sans-serif;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 1.8;
 }
 .nonBlueLink{
     color: white;
@@ -69,7 +94,6 @@ nav {
   background-color: #333;
   border-radius: 10px;
   padding: 50px;
-  display: inline-block;   /* shrink-wrap content */
   margin: 1rem 0;          /* vertical spacing */
   display: flex;
   flex-direction: column;
@@ -78,14 +102,17 @@ nav {
   gap: 10px;
 }
 
-
-.images{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
+.images {
+  width: 100%;
+  max-width: 100%;  /* or whatever width you want */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
+
 
 footer {
     background-color: #f2f2f2;
