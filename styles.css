@@ -170,14 +170,14 @@ h3 {
   .top-right-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-content: center;
     margin-top: 0.5rem;
     height: auto;
   }
 
   .top-right-container img {
-    max-height: 115px;
+    max-height: 95px;
   }
 
   header h1{
