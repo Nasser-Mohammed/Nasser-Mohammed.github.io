@@ -122,3 +122,19 @@ ul.styled-list li a:hover {
   vertical-align: middle;
   margin-right: 6px;
 }
+
+.header-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  margin: 0 1rem;
+  font-size: 1.6rem;
+  white-space: nowrap;
+}
