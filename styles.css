@@ -26,12 +26,7 @@ main {
   flex: 1;
 }
 
-.background-image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem 0;
-}
+
 
 .background-image {
   max-width: 100%;
@@ -109,7 +104,7 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: stretch;  /* ← ensures children fill height */
+  align-items: stretch;  
   padding: 0;    /* ← remove vertical padding */
 }
 
@@ -143,7 +138,7 @@ h3{
 .top-right-container {
   height: 100%;
   display: flex;
-  align-items: stretch; /* ← important */
+  align-items: stretch; 
   justify-content: flex-end;
   margin: 0;
   padding: 0;
@@ -183,8 +178,32 @@ h3{
   }
 }
 
+#contactAndImage {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+#contact {
+  flex-shrink: 0;
+  width: 240px;
+  text-align: left;
+}
+
+
+.background-image-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
 p {
   padding-left: 1.2rem;
-  font-size: 1.2rem; /* or try 18px, 20px, etc. */
-  line-height: 1.6;  /* optional: improves readability */
+  font-size: 1.2rem; 
+  line-height: 1.6;  
 }

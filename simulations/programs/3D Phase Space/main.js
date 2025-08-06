@@ -104,7 +104,6 @@ const nameMap = new Map();
 nameMap.set("lorenz", "Lorenz System");
 nameMap.set("rossler", "Rössler System");
 nameMap.set("fitzhughNagumo", "FitzHugh-Nagumo Model");
-nameMap.set("chua", "Chua's Circuit");
 nameMap.set("aizawa", "Aizawa Attractor");
 nameMap.set("halvorsen", "Halvorsen System");
 nameMap.set("thomas", "Thomas System");
@@ -180,7 +179,6 @@ class ThreeDimensionalSystems {
       ["lorenz", (x, y, z) => this.lorenz(x, y, z)],
       ["rossler", (x, y, z) => this.rossler(x, y, z)],
       ["fitzhughNagumo", (x, y, z) => this.fitzhughNagumo(x, y, z)],
-      ["chua", (x, y, z) => this.chua(x, y, z)],
       ["aizawa", (x, y, z) => this.aizawa(x, y, z)],
       ["halvorsen", (x, y, z) => this.halvorsen(x, y, z)],
       ["chen", (x, y, z) => this.chen(x, y, z)],
