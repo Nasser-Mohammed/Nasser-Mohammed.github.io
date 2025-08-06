@@ -52,10 +52,23 @@ footer {
 }
 
 .image-grid {
+  background-color: #e9eef2;
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* two columns */
   gap: 1rem;
+  padding: 1rem;          /* spacing inside */
+  border-radius: 10px;    /* optional: round the edges */
+  width: 100%;            /* ensure it stretches properly */
+  max-width: 1000px;      /* optional: prevents it from getting too wide */
+  margin-bottom: 2rem; 
 }
+
+@media (max-width: 600px) {
+  .image-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 .image-item {
   display: flex;
@@ -67,9 +80,18 @@ footer {
 .image-item img {
   width: 100%;
   aspect-ratio: 1 / 1;
-  object-fit: contain;  /* <-- change this */
-  background-color: white; /* optional, fills gaps */
+  object-fit: contain;
+  background-color: white; /* optional, fills gaps to make them look even */
+  border-radius: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
+
+.image-item span {
+  min-height: 1.5em; 
+  display: block;
+}
+
 
 #desc{
     background-color: #e9eef2;
