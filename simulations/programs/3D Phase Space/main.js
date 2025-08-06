@@ -665,8 +665,8 @@ function toggleParams(x,y, divName){
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas3d = document.getElementById("canvas3d");
-  canvas3d.width = 1500;
-  canvas3d.height = 900;
+  canvas3d.width = 1800;
+  canvas3d.height = 1000;
 
   const height = canvas3d.height;
   const width = canvas3d.width;
@@ -681,9 +681,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderer3d = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true });
   renderer3d.setSize(width, height);
   //resizeCanvasToDisplaySize(canvas3d, renderer3d, camera3d);
-
-
-  document.body.appendChild(renderer3d.domElement);
   
 
   // controls = new OrbitControls(camera3d, renderer3d.domElement);
@@ -1015,6 +1012,14 @@ document.addEventListener("DOMContentLoaded", () => {
   link.href = image;
   link.click();
 });
+
+document.getElementById("bottomBackBtn").addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+
 
 
 
