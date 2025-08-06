@@ -164,7 +164,7 @@ h3 {
 
 
 /* Responsive layout for mobile */
-@media (max-width: 400px) {
+@media (max-width: 300px) {
   header {
     flex-direction: column;
     align-items: flex-start;
