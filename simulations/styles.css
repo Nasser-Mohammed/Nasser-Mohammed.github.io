@@ -12,15 +12,6 @@ body {
 header, nav, main, footer {
     padding: 1rem;
 }
-header {
-    background-color: #333;
-    color: white;
-    height: 150px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
 
 .background-video {
   width: 150px;
@@ -28,7 +19,9 @@ header {
   object-fit: cover;
   display: block;
   pointer-events: none;
+  flex-shrink: 0;
 }
+
 
 main{
   display:flex;
@@ -123,27 +116,46 @@ ul.styled-list li a:hover {
   margin-right: 6px;
 }
 
+header {
+  background-color: #333;
+  color: white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
 .header-content {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  width: 100%;
+  max-width: 1800px; /* matches rest of page width */
   flex-wrap: nowrap;
-  max-width: 100%;
-  width: fit-content;
+  box-sizing: border-box;
+  padding: 0 1rem;
 }
+
 
 
 header h1 {
-  margin: 0 1rem;
-  font-size: 1.6rem;
+  margin: 0;
+  font-size: clamp(1.2rem, 5vw, 2rem);  /* shrink title smoothly */
+  text-align: center;
+  flex: 1;
+  min-width: 0;  /* allows it to shrink */
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 
 @media (max-width: 600px) {
   .header-content {
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
   }
 
   .background-video {
@@ -152,8 +164,9 @@ header h1 {
   }
 
   header h1 {
-    font-size: 1.2rem;
-    max-width: 90vw;
-    text-align: center;
+    white-space: normal;
+    text-overflow: unset;
+    font-size: 1.4rem;
   }
 }
+
