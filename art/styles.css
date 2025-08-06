@@ -34,6 +34,14 @@ nav {
     font-size: 20px;
 }
 
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+
 .mediaItem{
   width: 100%;
   max-width: 600px;     /* or whatever size fits 2 per row */
