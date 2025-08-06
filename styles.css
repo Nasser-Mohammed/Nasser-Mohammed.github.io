@@ -126,10 +126,12 @@ header h1 {
   padding-top: 1rem;
 }
 
-h3{
-  padding-top: 1.5rem;
+h3 {
+  padding-top: 1rem;
   padding-left: 1rem;
+  margin: 0;
 }
+
 
 
 
@@ -186,10 +188,11 @@ h3{
   box-sizing: border-box;
 }
 
+
 #contact {
-  flex-shrink: 0;
-  width: 240px;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 
