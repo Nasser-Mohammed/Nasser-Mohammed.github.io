@@ -588,7 +588,6 @@ function clearTrail(trailArray, trailGeometry) {
 
 
 function reset(){
-  stepsPerFrame = defaultSteps;
   [x1, y1, z1] = system.initialConditions.get(system.choice)[0];
   [x2, y2, z2] = system.initialConditions.get(system.choice)[1];
   [x3, y3, z3] = system.initialConditions.get(system.choice)[2];
