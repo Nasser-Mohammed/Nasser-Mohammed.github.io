@@ -40,12 +40,7 @@ main {
   transition: filter 0.3s ease;
 }
 
-@media (max-width: 600px) {
-  .background-image {
-    width: 80vw;        /* 80% of the viewport on small screens */
-    max-width: none;    /* allow it to go wider if needed */
-  }
-}
+
 
 .background-image:hover {
   animation: glowPulse 2.5s ease-in-out infinite;
