@@ -35,11 +35,18 @@ nav {
 }
 
 img, video {
-  max-width: 100%;
+  max-width: 80%;
   height: auto;
   display: block;
   margin: 0 auto;
 }
+
+video {
+  aspect-ratio: 16 / 9;
+  background-color: black; /* or something other than gray */
+}
+
+
 
 
 .mediaItem{
