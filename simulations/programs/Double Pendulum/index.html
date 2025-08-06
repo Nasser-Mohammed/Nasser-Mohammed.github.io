@@ -14,7 +14,7 @@
     <div class="TextBody">
     <h1>Chaotic Pendulum Simulation</h1>
     <h4>Solutions approximated with the Runge-Kutta method</h4>
-    <div>
+    <div class="math-scroll">
         \[
         \begin{align}
           \ddot{\theta_1} &= \frac{-g(2m_1 + m2)\sin(\theta_1) - m_2g\sin(\theta_1-2\theta_2)
@@ -26,19 +26,31 @@
            {l_2(2m_1+m_2 - m_2\cos(2(\theta_1-\theta_2)))}\\
           \end{align}
         \]
+        </div>
+        <div id="desc">
         Where \(l_1, m_1, \theta_1\) are the length, mass, and angle from vertical of the top pendulum (respectively).
         \(l_2, m_2, \theta_2\) are the length, mass, and angle from vertical of the bottom pendulum (respectively).
         \(g = 9.81\) is the force of gravity.
-            </div>
+        </div>
       </div>
+  <div id="simSec">
+  <div id="controls">
+    <div id="simSpeed">
+    <label for="speedSlider">Simulation speed:</label>
+    <input type="range" id="speedSlider" min="1" max="60" value="10">
+    <span id="speedValue" style="color: white;">10</span>
+  </div>
+
+
+  <div id="pause-reset">
   <button type="button" id="startBtn">Click to start</button>
   <button type="button" id="stopBtn">Click to reset</button>
-  <label for="speedSlider">Simulation speed:</label>
-  <input type="range" id="speedSlider" min="1" max="60" value="10">
-  <span id="speedValue">10</span>
-      <button type="button" id="dampenBtn">Add Damping (wind resistance, etc)</button>
+  <button type="button" id="dampenBtn">Add Damping (wind resistance, etc)</button>
+  </div>
+  </div>
 
   <canvas id="pendulumCanvas" width="1500" height="1200"></canvas>
+  </div>
   </div>
 
   <script src="main.js"></script>
