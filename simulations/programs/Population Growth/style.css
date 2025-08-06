@@ -12,10 +12,11 @@ body {
   left: 1rem;
   padding: 0.5rem 1rem;
   font-size: 1rem;
-  background-color: #ccc;
+  background-color: #000000;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  color: white;
 }
 
 .back-button:hover {

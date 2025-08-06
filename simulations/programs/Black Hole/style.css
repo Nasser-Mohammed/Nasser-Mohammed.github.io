@@ -10,10 +10,11 @@ body {
   left: 1rem;
   padding: 0.5rem 1rem;
   font-size: 1rem;
-  background-color: #ccc;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  background-color: black;
+  color: white;
 }
 
 .back-button:hover {
@@ -176,4 +177,15 @@ body {
   color: white;
   margin: 10px;
   text-align: center;
+}
+
+#desc{
+  background-color: rgb(192, 204, 221);
+  border-radius: 10px;
+  padding: 15px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 28px;
+  width: auto;
 }
