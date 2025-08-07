@@ -21,6 +21,10 @@ const trailPositions1 = [];
 const trailPositions2 = [];
 const numSteps = 1;
 
+let cycling = false;
+let colorInterval = null;
+let cycleColor = 0;
+
 let mediaRecorder = null;
 let recordedChunks = [];
 let isRecording = false;
@@ -54,6 +58,7 @@ const palettes = {
   kodie: ["#070D4D", "#264491", "#636FC9", "#B4BCE0", "#250DBF", "#D0DAF7"],
   rainbow: ["#FF0000", "#FF7F00", "#FFFF00","#00FF00", "#0000FF", "#8B00FF"]
 };
+
 
 let initColors = palettes.r;
 
@@ -600,6 +605,37 @@ function reset(){
   document.getElementById("pause-btn").textContent = "Pause";
 }
 
+const palLength = Object.keys(palettes).length;
+const keys = Object.keys(palettes);
+const values = Object.values(palettes);
+
+function updateColor(){
+    
+      if (cycleColor >= palLength){
+        cycleColor = cycleColor%palLength;
+      }
+      const selected = cycleColor;
+      const key = keys[selected];
+      const colors = palettes[key] || palettes.r;
+
+
+      ball1.material.color.set(colors[0]);
+      ball2.material.color.set(colors[1]);
+      ball3.material.color.set(colors[2]);
+      ball4.material.color.set(colors[3]);
+      ball5.material.color.set(colors[4]);
+      ball6.material.color.set(colors[5]);
+
+      trailLine1.material.color.set(colors[0]);
+      trailLine2.material.color.set(colors[1]);
+      trailLine3.material.color.set(colors[2]);
+      trailLine4.material.color.set(colors[3]);
+      trailLine5.material.color.set(colors[4]);
+      trailLine6.material.color.set(colors[5]);
+      document.getElementById("palette-select").value = key;
+      cycleColor++;
+}
+
 function animate() {
   animationId = requestAnimationFrame(animate);
   if (frameCount++ % 1 !== 0) return;
@@ -607,7 +643,6 @@ function animate() {
 
   if(running){
     simulationTime += dt;
-
     for(let i = 0; i < stepsPerFrame; i++) {
 
       // Euler integration
@@ -637,10 +672,10 @@ function animate() {
       }
     //updateTrail(ball3.position, trailPositions3, trailGeometry3);
     }
-  }
   controls.update();
 
   renderer3d.render(scene3d, camera3d);
+}
 }
 
 function toggleParams(x,y, divName){
@@ -934,7 +969,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const paletteSelect = document.getElementById("palette-select");
   
     paletteSelect.addEventListener("change", (e) => {
+      clearInterval(colorInterval);
+      colorInterval = null;
+      colorCycleBtn.textContent = "Cycle Colors"
+
+
       const selected = e.target.value;
+      cycleColor = keys.indexOf(selected);
+
       const colors = palettes[selected] || palettes.r;
 
       ball1.material.color.set(colors[0]);
@@ -1010,6 +1052,23 @@ document.getElementById("bottomBackBtn").addEventListener("click", () => {
     top: 0,
     behavior: 'smooth'
   });
+});
+
+const colorCycleBtn = document.getElementById("colorCycle");
+colorCycleBtn.addEventListener("click", () => {
+  if (colorInterval === null){
+    console.log("switching to color cycle");
+    colorInterval = setInterval(updateColor, 2000); //every 3.5s
+    colorCycleBtn.textContent = "Stop Cycling";
+  }
+  else{
+    clearInterval(colorInterval);
+    colorInterval = null;
+    colorCycleBtn.textContent = "Cycle Colors"
+
+  }
+
+
 });
 
 

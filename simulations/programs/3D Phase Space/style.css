@@ -105,7 +105,18 @@ h2, h4 {
 }
 
 
+#colorCycle{
+  margin-bottom: 10px;
+  background-color: rgb(61, 58, 185);
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: 15px; 
+  font-weight: bold;
 
+}
 
 
 
