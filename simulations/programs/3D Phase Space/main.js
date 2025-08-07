@@ -1058,7 +1058,7 @@ const colorCycleBtn = document.getElementById("colorCycle");
 colorCycleBtn.addEventListener("click", () => {
   if (colorInterval === null){
     console.log("switching to color cycle");
-    colorInterval = setInterval(updateColor, 2000); //every 3.5s
+    colorInterval = setInterval(updateColor, 2000); //every 2s
     colorCycleBtn.textContent = "Stop Cycling";
   }
   else{
