@@ -699,7 +699,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   scene3d = new THREE.Scene();
   camera3d = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-  camera3d.position.set(0.1, 0, 4);
+  camera3d.position.set(0.25, 0.75, 4);
   camera3d.up.set(0, 1, 0);
   camera3d.lookAt(0, 0, 0);
 
@@ -1034,14 +1034,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const resetCamBtn = document.getElementById("resetCam");
 
   resetCamBtn.addEventListener("click", (e) => {
-    camera3d.position.set(0.1, 0, 4);
-    camera3d.up.set(0, 1, 0);
 
-    // Ensure it's looking at the origin
-    camera3d.lookAt(0, 0, 0);
-
-    // Reset TrackballControls target and internal state
-    controls.target.set(0, 0, 0);
     controls.reset();  // full reset of rotation/quaternion
 
   });
