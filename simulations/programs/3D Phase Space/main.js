@@ -691,8 +691,7 @@ function toggleParams(x,y, divName){
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas3d = document.getElementById("canvas3d");
-  canvas3d.width = 1800;
-  canvas3d.height = 1000;
+
 
   const height = canvas3d.height;
   const width = canvas3d.width;
@@ -705,10 +704,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   renderer3d = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true });
-  renderer3d.setSize(width, height);
+  renderer3d.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   //resizeCanvasToDisplaySize(canvas3d, renderer3d, camera3d);
   
-
+  function resize() {
+    const w = canvas3d.clientWidth;
+    const h = canvas3d.clientHeight;
+    renderer3d.setSize(w, h, false); // false = don’t touch canvas style
+    camera3d.aspect = w / h;
+    camera3d.updateProjectionMatrix();
+  }
+  window.addEventListener("resize", resize, { passive: true });
+  resize();
   // controls = new OrbitControls(camera3d, renderer3d.domElement);
   // controls.enableDamping = true;
   // controls.minPolarAngle = 0;

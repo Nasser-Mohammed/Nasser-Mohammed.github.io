@@ -28,7 +28,10 @@ body {
   margin: 0 auto;
   text-align: center;
   background: #fff;
-  padding: 30px;
+  padding-top: 30px;
+  padding-right: 30px;
+  padding-left: 30px;
+  padding-bottom: 0px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
@@ -71,24 +74,20 @@ h2, h4 {
 
 
 .canvas-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  width: 100%;
+  padding: 0 2.5vw;    
+  box-sizing: border-box;
 }
 
 #canvas3d {
+  display: block;
   width: 100%;
   max-width: 1800px;
-  min-height: 500px;
-  height: 900px;
-  min-height: 400px;
-  display: block;
-  padding: 0;
-  margin: 0 auto;
-  box-sizing: border-box;
-  position: relative;
-  z-index: 0;
+  height: clamp(500px, 75vh, 900px);  /* not full-screen tall */
+  margin: 24px auto;
+  border-radius: 10px;   
 }
+
 
 
 #bottomBackBtn {
