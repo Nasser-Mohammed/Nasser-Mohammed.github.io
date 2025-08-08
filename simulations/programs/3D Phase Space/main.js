@@ -610,7 +610,7 @@ const keys = Object.keys(palettes);
 const values = Object.values(palettes);
 
 function updateColor(){
-    
+      cycleColor++;
       if (cycleColor >= palLength){
         cycleColor = cycleColor%palLength;
       }
@@ -633,7 +633,6 @@ function updateColor(){
       trailLine5.material.color.set(colors[4]);
       trailLine6.material.color.set(colors[5]);
       document.getElementById("palette-select").value = key;
-      cycleColor++;
 }
 
 function animate() {
@@ -672,10 +671,10 @@ function animate() {
       }
     //updateTrail(ball3.position, trailPositions3, trailGeometry3);
     }
+  }
   controls.update();
 
   renderer3d.render(scene3d, camera3d);
-}
 }
 
 function toggleParams(x,y, divName){
@@ -1058,7 +1057,7 @@ const colorCycleBtn = document.getElementById("colorCycle");
 colorCycleBtn.addEventListener("click", () => {
   if (colorInterval === null){
     console.log("switching to color cycle");
-    colorInterval = setInterval(updateColor, 2000); //every 2s
+    colorInterval = setInterval(updateColor, 3000); //every 3s
     colorCycleBtn.textContent = "Stop Cycling";
   }
   else{
