@@ -66,11 +66,19 @@ let allGridsVisible = true;
 
 
 const trailGeometry1 = new THREE.BufferGeometry();
-const trailMaterial1 = new THREE.LineBasicMaterial({ color: initColors[0]});
+const trailMaterial1 = new THREE.LineBasicMaterial({ color: initColors[0],
+  depthTest: true,
+  polygonOffset: true,
+  polygonOffsetFactor: -1, // pull toward camera
+  polygonOffsetUnits: -1});
 const trailLine1 = new THREE.Line(trailGeometry1, trailMaterial1);
 
 const trailGeometry2 = new THREE.BufferGeometry();
-const trailMaterial2 = new THREE.LineBasicMaterial({ color: initColors[1]});
+const trailMaterial2 = new THREE.LineBasicMaterial({ color: initColors[1],
+  depthTest: true,
+  polygonOffset: true,
+  polygonOffsetFactor: -1, // pull toward camera
+  polygonOffsetUnits: -1});
 const trailLine2 = new THREE.Line(trailGeometry2, trailMaterial2);
 
 
@@ -78,19 +86,35 @@ const trailLine2 = new THREE.Line(trailGeometry2, trailMaterial2);
 let trailSkip = 0; //update every third point on trail
 
 const trailGeometry3 = new THREE.BufferGeometry();
-const trailMaterial3 = new THREE.LineBasicMaterial({ color: initColors[2] }); // Blue
+const trailMaterial3 = new THREE.LineBasicMaterial({ color: initColors[2],
+  depthTest: true,
+  polygonOffset: true,
+  polygonOffsetFactor: -1, // pull toward camera
+  polygonOffsetUnits: -1}); // Blue
 const trailLine3 = new THREE.Line(trailGeometry3, trailMaterial3);
 
 const trailGeometry4 = new THREE.BufferGeometry();
-const trailMaterial4 = new THREE.LineBasicMaterial({ color: initColors[3] }); // Blue
+const trailMaterial4 = new THREE.LineBasicMaterial({ color: initColors[3],
+  depthTest: true,
+  polygonOffset: true,
+  polygonOffsetFactor: -1, // pull toward camera
+  polygonOffsetUnits: -1}); // Blue
 const trailLine4 = new THREE.Line(trailGeometry4, trailMaterial4);
 
 const trailGeometry5 = new THREE.BufferGeometry();
-const trailMaterial5 = new THREE.LineBasicMaterial({ color: initColors[4] }); // Blue
+const trailMaterial5 = new THREE.LineBasicMaterial({color: initColors[4],
+  depthTest: true,
+  polygonOffset: true,
+  polygonOffsetFactor: -1, // pull toward camera
+  polygonOffsetUnits: -1 }); // Blue
 const trailLine5 = new THREE.Line(trailGeometry5, trailMaterial5);
 
 const trailGeometry6 = new THREE.BufferGeometry();
-const trailMaterial6 = new THREE.LineBasicMaterial({ color: initColors[5] }); // Blue
+const trailMaterial6 = new THREE.LineBasicMaterial({ color: initColors[5],
+  depthTest: true,
+  polygonOffset: true,
+  polygonOffsetFactor: -1, // pull toward camera
+  polygonOffsetUnits: -1}); // Blue
 const trailLine6 = new THREE.Line(trailGeometry6, trailMaterial6);
 
 const trailPositions3 = [];
