@@ -39,24 +39,24 @@ let showYZ = true;
 let spheresVisible = true;
 
 const palettes = {
-  r: ["#ff2200", "#cf7916", "#af6238", "#ffef5f", "#ff0000", "#fda32d"],       // reddish/orange/yellow
-  bg: ["#0057FF", "#009933", "#5638ff", "#00ad0e", "#008cff", "#73ff00"],      // strong blue, strong green, strong purple
-  rgb: ["#8f0000", "#009723", "#0077FF", "#0094d8", "#9c0000", "#5eff1f"],     // red, brighter green, pure blue
-  alien: ["#7D3C98", "#E75480", "#1ABC9C", "#B39CD0", "#D81B60","#2978B5"],
-  cyberpunk: ["#FF00FF", "#00FFFF", "#FF6C00", "#FF0055", "#00FF99", "#3300FF"],
-  blue: ["#0b46e7", "#105ca3", "#4679d6", "#5460c7", "#218eaf", "#0052ce"],
-  red: ["#e70b0b", "#fc2a2a", "#f83a34", "#921a1a", "#6d0c0c", "#af3d3d"],
-  green: ["#0be716", "#2afc4d", "#289e32", "#1b6814", "#66e93f", "#22c052"],
-  orange: ["#d88e04", "#ca6200", "#f88334", "#c55a03", "#d18a20", "#b68937"],
-  sunset: ["#FF6F61", "#F7B733", "#FF9472", "#FF3E41", "#FFC857", "#5D576B"],
-  electric: ["#B0E0E6", "#FFB6C1", "#FFD700", "#9370DB", "#40E0D0", "#FF69B4"],
-  contrast: ["#D72631", "#F46036", "#2E294E", "#1B998B", "#E2C044", "#F2F4F3"],
-  forest: ["#014D4D", "#028090", "#00A896", "#fbffab", "#E94F37", "#53354A"],
-  reyna: ["#a15fa3", "#8a50c0", "#80324c", "#ffa4a4", "#381c5e", "#491d3c"],
-  lavender: ["#5C2E7F", "#2C0B42", "#D3B1FC", "#473473", "#7A5A8C", "#B7A0E8"],
-  pinky: ["#52083C", "#9C437A", "#FCB1E9", "#E0C8DC", "#9E2973", "#F7D0EF"],
-  kodie: ["#070D4D", "#264491", "#636FC9", "#B4BCE0", "#250DBF", "#D0DAF7"],
-  rainbow: ["#FF0000", "#FF7F00", "#FFFF00","#00FF00", "#0000FF", "#8B00FF"]
+  r: ["#ff1a00", "#d96b10", "#b35328", "#ffe93a", "#ff0000", "#ff9320"],       // reddish/orange/yellow
+  bg: ["#0045FF", "#00b50f", "#1a5fff", "#00c715", "#007aff", "#5aff00"],
+  rgb: ["#a00000", "#00b52b", "#0066ff", "#00a9ff", "#b00000", "#4cff19"],     // red, brighter green, pure blue
+  alien: ["#8534a0", "#ff4d78", "#16d1ac", "#c09ce8", "#e0005c", "#1c6ec2"],
+  cyberpunk: ["#ff00ff", "#00ffff", "#ff6600", "#ff0044", "#00ffaa", "#2200ff"],
+  blue: ["#0039e1", "#0a4dbd", "#3b68e2", "#4a50d6", "#189ac1", "#0044d1"],
+  red: ["#e60000", "#ff1e1e", "#ff3326", "#8b0000", "#5a0000", "#b53030"],
+  green: ["#00f516", "#1aff3f", "#1aa328", "#145f0f", "#55f42f", "#16d04a"],
+  orange: ["#e27c00", "#d15600", "#ff6e1a", "#b94d00", "#e09414", "#b6731e"],
+  sunset: ["#ff5a4d", "#ffae1a", "#ff7d54", "#ff2432", "#ffb92a", "#4b465b"],
+  electric: ["#a0e9ff", "#ff9cbf", "#ffd600", "#7e5fff", "#1ae3d6", "#ff5ca8"],
+  contrast: ["#e0002a", "#ff4c26", "#1f1c5a", "#129f8b", "#f0c400", "#ffffff"],
+  forest: ["#003c3c", "#0092a3", "#00bba1", "#faff7a", "#ff3c1f", "#3f243f"],
+  reyna: ["#a93cbc", "#9340d1", "#8b2e3a", "#ff7a7a", "#2a0f4d", "#5c1a3a"],
+  lavender: ["#6c2ea1", "#35094d", "#dda2ff", "#3e2c8a", "#8d64a5", "#c2a0ff"],
+  pinky: ["#60033f", "#b03c85", "#ff99ee", "#eab9dc", "#b31c73", "#ffbff5"],
+  kodie: ["#02083d", "#1c3a85", "#5555e0", "#9ca8e0", "#1a00bf", "#c8d6ff"],
+  rainbow: ["#ff0000", "#ff6600", "#ffef00", "#00ff00", "#0000ff", "#8b00ff"]
 };
 
 
@@ -693,8 +693,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const canvas3d = document.getElementById("canvas3d");
 
 
-  const height = canvas3d.height;
-  const width = canvas3d.width;
+  const width  = canvas3d.clientWidth;
+  const height = canvas3d.clientHeight || 1;
+
 
   scene3d = new THREE.Scene();
   camera3d = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
@@ -703,18 +704,28 @@ document.addEventListener("DOMContentLoaded", () => {
   camera3d.lookAt(0, 0, 0);
 
 
-  renderer3d = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true });
+  renderer3d = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true, powerPreference: 'high-performance' });
+  renderer3d.outputColorSpace = THREE.SRGBColorSpace;     
+  renderer3d.toneMapping = THREE.ACESFilmicToneMapping;   
+  renderer3d.toneMappingExposure = 1.15;                  // try 1.1–1.3
+
   renderer3d.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   //resizeCanvasToDisplaySize(canvas3d, renderer3d, camera3d);
   
-  function resize() {
-    const w = canvas3d.clientWidth;
-    const h = canvas3d.clientHeight;
-    renderer3d.setSize(w, h, false); // false = don’t touch canvas style
-    camera3d.aspect = w / h;
-    camera3d.updateProjectionMatrix();
-  }
+ function resize() {
+  const w = canvas3d.clientWidth;
+  const h = canvas3d.clientHeight;
+  if (h === 0 || w === 0) return; // guard
+
+  renderer3d.setSize(w, h, false);
+  camera3d.aspect = w / h;
+  camera3d.updateProjectionMatrix();
+}
+
   window.addEventListener("resize", resize, { passive: true });
+
+  const ro = new ResizeObserver(() => resize());
+  ro.observe(canvas3d.parentElement); // or a higher-level container
   resize();
   // controls = new OrbitControls(camera3d, renderer3d.domElement);
   // controls.enableDamping = true;
@@ -727,11 +738,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // controls.screenSpacePanning = true;
   controls = new TrackballControls(camera3d, renderer3d.domElement);
   controls.rotateSpeed = 2.1;
-  controls.zoomSpeed = 1;
+  controls.zoomSpeed = 2.25;
   controls.panSpeed = 0.8;
   controls.dynamicDampingFactor = 0.3;
   controls.noPan = false;
-  controls.minDistance = 0.5;
+  controls.minDistance = 0.25;
   controls.maxDistance = 15;
   controls.target.set(0, 0, 0);
   controls.update();
@@ -770,13 +781,6 @@ document.addEventListener("DOMContentLoaded", () => {
   ball6.position.set(x6, y6, z6);
 
   //ball3.position.set(7.5, -2, 27); // Initial position for third ball
-
-  const ambientLight = new THREE.AmbientLight(0x404040); // soft white light
-  scene3d.add(ambientLight);
-
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-  directionalLight.position.set(1, 1, 2);
-  scene3d.add(directionalLight);
 
   const gridXZ = new THREE.GridHelper(15, 15);
   scene3d.add(gridXZ);

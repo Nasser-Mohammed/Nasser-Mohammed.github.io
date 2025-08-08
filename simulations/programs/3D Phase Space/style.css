@@ -1,8 +1,8 @@
 /* Base styles */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f9f9f9;
-  color: #222;
+  background: #000000;
+  color: #000000;
   margin: 0;
   padding: 0px;
   min-height: 100vh;
@@ -17,7 +17,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 1800px;
+  max-width: 2100px;
   padding-bottom: 100px;
   margin: 0 auto;
   margin-top: 65px;
@@ -31,7 +31,7 @@ body {
   padding-top: 30px;
   padding-right: 30px;
   padding-left: 30px;
-  padding-bottom: 0px;
+  padding-bottom: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
@@ -58,8 +58,8 @@ h2, h4 {
   position: absolute;
   top: 20px;
   left: 20px;
-  background-color: black;
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   padding: 8px 14px;
   border-radius: 6px;
   text-decoration: none;
@@ -82,10 +82,11 @@ h2, h4 {
 #canvas3d {
   display: block;
   width: 100%;
-  max-width: 1800px;
-  height: clamp(500px, 75vh, 900px);  /* not full-screen tall */
+  max-width: 2000px;
+  height: clamp(500px, 75vh, 1200px);  /* not full-screen tall */
   margin: 24px auto;
-  border-radius: 10px;   
+  border-radius: 10px;  
+  border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 
