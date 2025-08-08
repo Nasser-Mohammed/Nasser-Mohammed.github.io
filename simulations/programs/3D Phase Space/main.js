@@ -2,6 +2,7 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js';
 //import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/controls/OrbitControls.js';
 import { TrackballControls } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/controls/TrackballControls.js';
+import { Line2 } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/lines/Line2.js';
 let renderer3d, scene3d, camera3d;
 let ball1;
 let ball2;
@@ -39,24 +40,24 @@ let showYZ = true;
 let spheresVisible = true;
 
 const palettes = {
-  r: ["#ff1a00", "#d96b10", "#b35328", "#ffe93a", "#ff0000", "#ff9320"],       // reddish/orange/yellow
-  bg: ["#0045FF", "#00b50f", "#1a5fff", "#00c715", "#007aff", "#5aff00"],
-  rgb: ["#a00000", "#00b52b", "#0066ff", "#00a9ff", "#b00000", "#4cff19"],     // red, brighter green, pure blue
-  alien: ["#8534a0", "#ff4d78", "#16d1ac", "#c09ce8", "#e0005c", "#1c6ec2"],
-  cyberpunk: ["#ff00ff", "#00ffff", "#ff6600", "#ff0044", "#00ffaa", "#2200ff"],
-  blue: ["#0039e1", "#0a4dbd", "#3b68e2", "#4a50d6", "#189ac1", "#0044d1"],
-  red: ["#e60000", "#ff1e1e", "#ff3326", "#8b0000", "#5a0000", "#b53030"],
-  green: ["#00f516", "#1aff3f", "#1aa328", "#145f0f", "#55f42f", "#16d04a"],
-  orange: ["#e27c00", "#d15600", "#ff6e1a", "#b94d00", "#e09414", "#b6731e"],
-  sunset: ["#ff5a4d", "#ffae1a", "#ff7d54", "#ff2432", "#ffb92a", "#4b465b"],
-  electric: ["#a0e9ff", "#ff9cbf", "#ffd600", "#7e5fff", "#1ae3d6", "#ff5ca8"],
-  contrast: ["#e0002a", "#ff4c26", "#1f1c5a", "#129f8b", "#f0c400", "#ffffff"],
-  forest: ["#003c3c", "#0092a3", "#00bba1", "#faff7a", "#ff3c1f", "#3f243f"],
-  reyna: ["#a93cbc", "#9340d1", "#8b2e3a", "#ff7a7a", "#2a0f4d", "#5c1a3a"],
-  lavender: ["#6c2ea1", "#35094d", "#dda2ff", "#3e2c8a", "#8d64a5", "#c2a0ff"],
-  pinky: ["#60033f", "#b03c85", "#ff99ee", "#eab9dc", "#b31c73", "#ffbff5"],
-  kodie: ["#02083d", "#1c3a85", "#5555e0", "#9ca8e0", "#1a00bf", "#c8d6ff"],
-  rainbow: ["#ff0000", "#ff6600", "#ffef00", "#00ff00", "#0000ff", "#8b00ff"]
+  r: ["#aa1700", "#9e5400", "#b33e00", "#b34100", "#d40000", "#ff9100"],       // reddish/orange/yellow
+  bg: ["#0057FF", "#009933", "#2600ff", "#00ad0e", "#003de4", "#07c500"],      // strong blue, strong green, strong purple
+  rgb: ["#8f0000", "#009723", "#0077FF", "#0094d8", "#9c0000", "#41e600"],     // red, brighter green, pure blue
+  alien: ["#7000a0", "#e60045", "#00c49c", "#5b00ca", "#d4004e","#0066b4ff"],
+  cyberpunk: ["#FF00FF", "#00FFFF", "#FF6C00", "#FF0055", "#00FF99", "#3300FF"],
+  blue: ["#003ee9", "#0056a7", "#004cda", "#0014c5", "#008ab4", "#0052ce"],
+  red: ["#e90000", "#fc0000", "#ff0800", "#8f0000", "#720000", "#b60000"],
+  green: ["#008607", "#006b12", "#00a80e", "#096b00", "#2fc501", "#00a531"],
+  orange: ["#d88e04", "#ca6200", "#ff6600", "#c55a03", "#d68100", "#be7c00"],
+  sunset: ["#ff1500", "#ffaa00", "#ff3c00", "#ff0004", "#ffaa00","#220070"],
+  electric: ["#00cee9", "#f17f90", "#FFD700", "#885fdb", "#23e0ce", "#fc57a9"],
+  contrast: ["#d3000e", "#f33500", "#1f00e9", "#00a08d", "#e0b000", "#00ff80"],
+  forest: ["#014D4D", "#028090", "#00A896", "#f2ff00", "#e71f00", "#53063c"],
+  reyna: ["#a15fa3", "#8a50c0", "#80324c", "#ffa4a4", "#381c5e", "#491d3c"],
+  lavender: ["#5C2E7F", "#2C0B42", "#D3B1FC", "#473473", "#7A5A8C", "#B7A0E8"],
+  pinky: ["#52083C", "#9C437A", "#FCB1E9", "#E0C8DC", "#9E2973", "#F7D0EF"],
+  kodie: ["#070D4D", "#264491", "#636FC9", "#B4BCE0", "#250DBF", "#D0DAF7"],
+  rainbow: ["#FF0000", "#FF7F00", "#FFFF00","#00FF00", "#0000FF", "#8B00FF"]
 };
 
 
@@ -66,19 +67,11 @@ let allGridsVisible = true;
 
 
 const trailGeometry1 = new THREE.BufferGeometry();
-const trailMaterial1 = new THREE.LineBasicMaterial({ color: initColors[0],
-  depthTest: true,
-  polygonOffset: true,
-  polygonOffsetFactor: -1, // pull toward camera
-  polygonOffsetUnits: -1});
+const trailMaterial1 = new THREE.LineBasicMaterial({ color: initColors[0], linewidth: 2});
 const trailLine1 = new THREE.Line(trailGeometry1, trailMaterial1);
 
 const trailGeometry2 = new THREE.BufferGeometry();
-const trailMaterial2 = new THREE.LineBasicMaterial({ color: initColors[1],
-  depthTest: true,
-  polygonOffset: true,
-  polygonOffsetFactor: -1, // pull toward camera
-  polygonOffsetUnits: -1});
+const trailMaterial2 = new THREE.LineBasicMaterial({ color: initColors[1], linewidth: 2});
 const trailLine2 = new THREE.Line(trailGeometry2, trailMaterial2);
 
 
@@ -86,35 +79,19 @@ const trailLine2 = new THREE.Line(trailGeometry2, trailMaterial2);
 let trailSkip = 0; //update every third point on trail
 
 const trailGeometry3 = new THREE.BufferGeometry();
-const trailMaterial3 = new THREE.LineBasicMaterial({ color: initColors[2],
-  depthTest: true,
-  polygonOffset: true,
-  polygonOffsetFactor: -1, // pull toward camera
-  polygonOffsetUnits: -1}); // Blue
+const trailMaterial3 = new THREE.LineBasicMaterial({ color: initColors[2], linewidth: 2}); // Blue
 const trailLine3 = new THREE.Line(trailGeometry3, trailMaterial3);
 
 const trailGeometry4 = new THREE.BufferGeometry();
-const trailMaterial4 = new THREE.LineBasicMaterial({ color: initColors[3],
-  depthTest: true,
-  polygonOffset: true,
-  polygonOffsetFactor: -1, // pull toward camera
-  polygonOffsetUnits: -1}); // Blue
+const trailMaterial4 = new THREE.LineBasicMaterial({ color: initColors[3], linewidth: 2}); // Blue
 const trailLine4 = new THREE.Line(trailGeometry4, trailMaterial4);
 
 const trailGeometry5 = new THREE.BufferGeometry();
-const trailMaterial5 = new THREE.LineBasicMaterial({color: initColors[4],
-  depthTest: true,
-  polygonOffset: true,
-  polygonOffsetFactor: -1, // pull toward camera
-  polygonOffsetUnits: -1 }); // Blue
+const trailMaterial5 = new THREE.LineBasicMaterial({color: initColors[4], linewidth: 2}); // Blue
 const trailLine5 = new THREE.Line(trailGeometry5, trailMaterial5);
 
 const trailGeometry6 = new THREE.BufferGeometry();
-const trailMaterial6 = new THREE.LineBasicMaterial({ color: initColors[5],
-  depthTest: true,
-  polygonOffset: true,
-  polygonOffsetFactor: -1, // pull toward camera
-  polygonOffsetUnits: -1}); // Blue
+const trailMaterial6 = new THREE.LineBasicMaterial({ color: initColors[5], linewidth: 2}); // Blue
 const trailLine6 = new THREE.Line(trailGeometry6, trailMaterial6);
 
 const trailPositions3 = [];
@@ -349,7 +326,7 @@ class ThreeDimensionalSystems {
     ]);
 
     this.initialConditions = new Map([
-      ["lorenz", [[1, 1, 1], [2, 3, 4], [2.5,2,3], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]],
+      ["lorenz", [[1, 1, 1], [2, 3, 4], [2.5,2,3], [1.5, -3, 0], [-0.5, 0.9, 1.25], [-2, 0.9, 0.75]]],
       ["rossler", [[1, 1, 1], [2, 3, 4], [2.5, 2, 3], [1.5, 3, 0], [0.5, 0.9, 1.25], [2, 0.9, 0.75]]],
       ["fitzhughNagumo", [[-1, -0.5, 1], [-10, 4, 1], [5, 5, -1]]],
       ["aizawa", [[0.5, 1.5, 0], [0.11, 0.01, 0], [0.09, -0.01, 0], [1.5, 0.5, 1.1], [0.5, 0.9, 1.25], [0, 0.9, 0.75]]],
@@ -450,14 +427,6 @@ class ThreeDimensionalSystems {
     return [dx, dy, dz];
   }
 
-  //same here
-  chua(x, y, z) {
-    const alpha = 15, beta = 28, m0 = -1, m1 = 1, m2 = 0.5;
-    const dx = alpha * (y - x - (m1 * Math.abs(x) + m2 * Math.abs(x - m0)));
-    const dy = x - y + z;
-    const dz = -beta * y;
-    return [dx, dy, dz];
-  }
 
   //same here
   fitzhughNagumo(x, y, z) {
@@ -729,9 +698,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   renderer3d = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true, powerPreference: 'high-performance' });
-  renderer3d.outputColorSpace = THREE.SRGBColorSpace;     
-  renderer3d.toneMapping = THREE.ACESFilmicToneMapping;   
-  renderer3d.toneMappingExposure = 1.15;                  // try 1.1–1.3
+  //renderer3d.outputColorSpace = THREE.SRGBColorSpace;     
+  //renderer3d.toneMapping = THREE.ACESFilmicToneMapping;   
+  //renderer3d.toneMappingExposure = 1.15;                  // try 1.1–1.3
 
   renderer3d.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   //resizeCanvasToDisplaySize(canvas3d, renderer3d, camera3d);
