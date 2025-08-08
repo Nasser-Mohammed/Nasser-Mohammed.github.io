@@ -999,7 +999,6 @@ document.addEventListener("DOMContentLoaded", () => {
       running = !running;
 
       if(running){
-        animate();
         pauseBtn.textContent = "Pause";
       }
       else{
