@@ -42,7 +42,7 @@ let showYZ = true;
 let spheresVisible = true;
 
 const palettes = {
-  r: ["#a12b19", "#9b580c", "#af4a14", "#81421e", "#c93333", "#ff9100"],       // reddish/orange/yellow
+  r: ["#a81600", "#9b5300", "#b33e00", "#7e2e00", "#bb0000", "#ff9100"],       // reddish/orange/yellow
   bg: ["#0057FF", "#009933", "#2600ff", "#00ad0e", "#003de4", "#07c500"],      // strong blue, strong green, strong purple
   rgb: ["#8f0000", "#009723", "#0077FF", "#0094d8", "#9c0000", "#41e600"],     // red, brighter green, pure blue
   alien: ["#7000a0", "#e60045", "#00c49c", "#5b00ca", "#d4004e","#0066b4ff"],
