@@ -185,3 +185,32 @@ canvas {
   width: 100%;
   max-width: 1600px;
 }
+
+/* Make buttons fit nicely on small screens */
+@media (max-width: 600px) {
+  #startBtn, #stopBtn, #dampenBtn {
+    font-size: 14px;
+    padding: 8px 12px;
+    margin: 5px;
+  }
+
+  #pause-reset {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #controls {
+    padding: 10px;
+  }
+}
+
+#controls {
+  box-sizing: border-box; /* account for padding in width */
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto; /* perfectly center inside simSec */
+}
+
+#simSec {
+  box-sizing: border-box;
+}
