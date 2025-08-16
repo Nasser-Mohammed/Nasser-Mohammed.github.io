@@ -1,72 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>Eigenvalue and Eigenvector Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eigenvalues & Eigenvectors — Notes</title>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      },
+      options: { renderActions: { addMenu: [] } }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <a href="../index.html" class="back-button">← Back</a>
-    <h1>Eigenvalues and Eigenvectors</h1>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">Eigenvalues & Eigenvectors</h1>
   </header>
-<hr style="border: 2px solid black;">
-Eigenvalues and Eigenvectors show up everywhere in math (and pretty much any quantitative field) and are not only limited to the study of linear algebra. Therefore, an inuitive and rigorous understanding of these concepts is extremely beneficial and a lot of the times necessary. First, it is necessary to think in terms of vectors and linear transformations. We can have vectors of pretty much anything, though it might help to think of normal arrow ended vectors. Vectors are simply elements of a vector space (kind of circular reasoning but a vector space is a set with a defined sort of structure, you can get more detailed notes I have here: [Vector Spaces](vector-spaces.md)). A matrix is simply a defined transformation of a vector, to another vector. This vector could be in a higher or lower dimensional space, so we consider square matrices of dimension equal to the dimension of the vector space we are in. Naturally, we might then ask, what did the matrix actually do to our vector? For simplicity we want to consider "good" matrices, i.e. one's that are non-singular and therefore all determinents are non-zero 0.
 
-<h2>Motivation</h2>
-One part of the previous question, is to consider if our vector was stretched or compressed. Intuitively, the vector was stretched if the norm of the new transformed vector is greater than the norm of the original vector and compressed otherwise (assume non-zero norms). While this is true, this does not generalize to an arbitrary vector. We want to consider properties of the matrix, and therefore we need a more general notion of what a matrix might do to an arbitrary vector (and as a result, to the space itself). A matrix can transform different vectors in different ways, so the aforementioned method wouldn't tell us something intrinsic about the matrix, rather just how the matrix interacts with that specific vector.
+  <main>
+    <p>
+      Eigenvalues and eigenvectors show up across mathematics and the sciences. Thinking in terms of vectors and linear maps, a matrix \(A\) encodes a linear transformation on a vector space. (For background, see <a href="vectorSpaces.html">Vector Spaces</a>.)
+    </p>
 
-<h2>Eigenvectors and Eigenvalues</h2>
-Let's assume that we are dealing with a "good" matrix \(A\), as defined in the first paragraph. Let us also suppose that there was possibly a vector in our space, that after the transformation via our matrix, still lies on the same "line" as before. In a more abstract sense, this means that the span of the vector before transformation, is the same as after the transformation. For more intuition, the matrix only scaled this vector. Let's denote this vector as \(\overline{v}\), then since we know that it was only scaled, we can say that
-\[A\overline{v} = \lambda \overline{v}\]
-Where \(\lambda\) is simply an element of our field (a scalar value, usually complex or real). In other words, the equation above, corresponds to the idea that the matrix multiplied to our vector has the same effect as multiplying the vector by a scalar, essentially just scaling it. We note that the identity matrix \(I\), which is simply just the matrix with 1's along the diagonal and 0's else where, can be multiplied to \(\overline{v}\) without altering it's values. It is the matrix version of the value \(1\). Doing so gives us
-\[A\overline{v} = \lambda I \bar{v}\]
-Reearranging this equation yields, 
-\[A\overline{v} - \lambda I \bar{v} = 0\]
-Pulling out a \(\overline{v}\), gives
-\[(A - \lambda I) \overline{v} = 0\]
-Now, \(\overline{v}\) obviously solves this, but we are interested in non-zero solutions. So we are assuming \(\overline{v} \neq \overline{0}\).  As a quick note, \(\overline{v}\) is an eigenvector of the matrix \(A\), but there is still more work to do. The only time that the product of a matrix and a non-zero vector is 0 (and here \(\overline{v} \neq \overline{0}\)), is precisely when the determinent of the matrix is 0. Recall, that the determinent essentially tells us the "volume" created by the shape of the new basis vectors in the dimension of the transformation. If this is 0, then the matrix squished space down into a lower dimension, resulting in a volume of 0 with respect to the current space. That is, the new lower dimensional space takes up 0 area in our current dimension. Therefore, we can deduce that 
-\[\det (A-\lambda I) = 0\]
-Where
-<div style="text-align: center;">
-$$
-A-\lambda I =\begin{bmatrix}
-a_{11} - \lambda & a_{12} & \cdots & a_{1n} \
-a_{21} & a_{22} -\lambda & \cdots & a_{2n} \
-\vdots & \vdots & \ddots & \vdots \
-a_{n1} & a_{n2} & \cdots & a_{nn}-\lambda
-\end{bmatrix}
-$$
-</div>
-The above representation is just a generalization for higher dimensional matrices. If we consider the 2D case, it would simply be
-<div style="text-align: center;">
-$$
-A-\lambda I =\begin{bmatrix}
-a_{11} - \lambda & a_{12}\
-a_{21} & a_{22} -\lambda \
-\end{bmatrix}
-$$
-</div>
-Then \[\det (A-\lambda I) = (a_{11}-\lambda)(a_{22}-\lambda) - a_{12}a_{21} = 0\]
-Which results in the characteristic polynomial,
-\[\lambda^2 - a_{11}\lambda - a_{22}\lambda + a_{11}a_{22} = 0\]
-Solving for \(\lambda\) (which is usually very simple with the quadratic formula or factoring in 2D) gives us our eigenvalues. I say values as there can be multiple. Then, to find the eigenvectors, all you have to do is solve the following equation for each eigenvalue
-\[(A-\lambda I)\overline{v} = 0\]
-Therefore, we have that the eigenvectors of a matrix, are the vectors in our vector space that are only scaled during transformation (kind of think of them as fixed vectors), and the corresponding eigenvalue tells you how much that eigenvector was scaled by. This should cover all of the intuition needed to understand eigenvalues and eigenvectors and where the formulas come from. An important thing to note is that eigenvalues and eigenvectors are "properties" of a matrix with respect to the vector space it's acting on. 
+    <div class="note">
+      Throughout, we assume our scalars lie in a field \(K\) (typically \(\mathbb{R}\) or \(\mathbb{C}\)), and that “good” matrices are <em>invertible</em> (nonsingular). The identity matrix is denoted \(I\).
+    </div>
 
-<h2>What Do Eigenvalues Tell Us About the Transformation?</h2>
-If our characteristic polynomial produces \(n\) many distinct real values, then it stretches each corresponding eigenvector by that value. If we have two repeated real valued eigenvalues then the transformation could shear our space (slant it in one direction) or scale it. If we have complex roots for \(\lambda\), then we have some sort of stretching based on the real component and rotation based on the imaginary component, this can sometimes look like a sort of spiraling motion.
+    <h2>Motivation</h2>
+    <p>
+      A general matrix may stretch, compress, shear, rotate, or reflect vectors depending on their direction. We would like directions that transform in the simplest possible way.
+      These are the <em>eigendirections</em>: directions that are only scaled by \(A\).
+    </p>
 
-<h2>Eigenbasis</h2>
-An eigenbasis, is simply a basis in which every element is an eigenvector for some matrix.
+    <h2>Definition</h2>
+    <p>
+      A nonzero vector \(v\) is an <em>eigenvector</em> of \(A\) with associated <em>eigenvalue</em> \(\lambda\in K\) if
+    </p>
+    <div class="math-block">\[
+      A v = \lambda v .
+    \]</div>
+    <p>
+      Equivalently, moving all terms to one side,
+    </p>
+    <div class="math-block">\[
+      (A - \lambda I) v = 0.
+    \]</div>
+    <p>
+      For a nontrivial solution \(v\neq 0\) to exist, the matrix \(A-\lambda I\) must be singular, i.e. its determinant vanishes:
+    </p>
+    <div class="math-block">\[
+      \det(A-\lambda I)=0.
+    \]</div>
 
-<h2>Diagonal Matrices</h2>
-Diagonal matrices are very nice matrices to work with, but we can also note that in an \(n\) dimensional space, an \(n\) dimensional diagonal matrice's eigenvectors are the basis vectors of the space, and the eigenvalues are just the values that you multiply to each basis value to get the corresponding value in the diagonal matrix.
+    <h2>Characteristic Polynomial</h2>
+    <p>
+      The polynomial \(p_A(\lambda)=\det(A-\lambda I)\) is the <em>characteristic polynomial</em>. For a 2×2 matrix
+    </p>
+    <div class="math-block">\[
+      A = \begin{bmatrix}
+      a_{11} & a_{12}\\
+      a_{21} & a_{22}
+      \end{bmatrix},
+      \quad
+      A-\lambda I = \begin{bmatrix}
+      a_{11}-\lambda & a_{12}\\
+      a_{21} & a_{22}-\lambda
+      \end{bmatrix}.
+    \]</div>
+    <p>
+      Then
+    </p>
+    <div class="math-block">\[
+      p_A(\lambda)=\det(A-\lambda I)=(a_{11}-\lambda)(a_{22}-\lambda)-a_{12}a_{21}
+      = \lambda^2 - (a_{11}+a_{22})\lambda + (a_{11}a_{22}-a_{12}a_{21}).
+    \]</div>
+    <p>
+      In general (for \(n\times n\)),
+    </p>
+    <div class="math-block">\[
+      A-\lambda I = \begin{bmatrix}
+      a_{11}-\lambda & a_{12} & \cdots & a_{1n} \\
+      a_{21} & a_{22}-\lambda & \cdots & a_{2n} \\
+      \vdots & \vdots & \ddots & \vdots \\
+      a_{n1} & a_{n2} & \cdots & a_{nn}-\lambda
+      \end{bmatrix}.
+    \]</div>
 
+    <h2>Finding Eigenpairs</h2>
+    <ol>
+      <li>Compute the roots \(\lambda\) of \(p_A(\lambda)=0\) (the eigenvalues).</li>
+      <li>For each \(\lambda\), solve \((A-\lambda I)v=0\) for a nonzero \(v\) (an eigenvector).</li>
+    </ol>
+
+    <h2>What Do Eigenvalues Tell Us?</h2>
+    <ul>
+      <li>Distinct real eigenvalues give independent eigendirections, each scaled by its eigenvalue.</li>
+      <li>Repeated real eigenvalues may still yield enough eigenvectors to diagonalize \(A\); otherwise, \(A\) may be defective (think shear in 2D).</li>
+      <li>Complex eigenvalues \(\lambda = a \pm bi\) (over \(\mathbb{R}\)) correspond to planar rotations with scale factor \(\sqrt{a^2+b^2}\) and angular rate determined by \(b\).</li>
+    </ul>
+
+    <h2>Eigenbasis</h2>
+    <p>
+      An <em>eigenbasis</em> is a basis consisting of eigenvectors of \(A\). When such a basis exists (e.g., \(A\) is diagonalizable), computations simplify drastically.
+    </p>
+
+    <h2>Diagonal Matrices</h2>
+    <p>
+      If \(A\) is diagonal, its eigenvectors are the standard basis vectors and its eigenvalues are the diagonal entries. More generally, if \(A\) is diagonalizable, then
+    </p>
+    <div class="math-block">\[
+      A = P D P^{-1}, \quad D=\operatorname{diag}(\lambda_1,\dots,\lambda_n),
+    \]</div>
+    <p>
+      where the columns of \(P\) are eigenvectors. Powers/exponentials are then easy: \(A^k=P D^k P^{-1}\), \(e^{tA}=Pe^{tD}P^{-1}\).
+    </p>
   </main>
+
+  <footer>
+    © <span id="year"></span> Notes · Eigenvalues & Eigenvectors
+  </footer>
+
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 </body>
 </html>
