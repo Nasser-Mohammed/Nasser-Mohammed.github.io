@@ -1,110 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>QIF Neuron Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quadratic Integrate-and-Fire Neuron — Notes</title>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      },
+      options: { renderActions: { addMenu: [] } }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <a href="../index.html" class="back-button">← Back</a>
-    <h1>The Quadratic Integrate-and-Fire Neuron</h1>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">The Quadratic Integrate-and-Fire Neuron</h1>
   </header>
-<hr style="border: 2px solid black;">
 
-The Hodgkin-Huxley model can be simplified into various 1-D systems (and 2-D and 3-D, as it is a 4-D system). Even in the 1-D case, we can identify four fundamental models: one for each combination of activation vs. inactivation gating and inward vs. outward current. The typical choice for preliminary analysis is the so called **Leak + Instantaneous Sodium Model**, usually referred to as the **persistent sodium model**. In this model we consider \(p\) as an activation gate variable and our only one (as opposed to the 4-D Hodgkin-Huxley model with 3 gating variables). Essentially, this captures the voltage dynamics for a neuron with only one type of channel (sodium channel) and with only 1 activation gate. The model, as mentioned, also has a leaky outward current (typically representing the leaky nature of potassium \(K^{+}\)). As for our sodium current, the current is what's referred to as **persistent**. This means that once it is activated, it has no inactivation mechanisms,  resulting in the current continuing to flow. The following is the described system, however, it is not 1 dimensional yet but we will make some assumptions to reduce it to 1-D.
-\[C\dot{V} = I - g_L(V-E_L)-gp(V-E)\]
-\[\dot{p} = \frac{(p_{\infty}(V) - p)}{\tau(V)}\]
-Now, to simplify we make the claim that the dynamics of the gating variable \(p\) occur very fast, much faster than the voltage dynamics. From this, we regard the gating process (think of the process of the gates physically opening) as instantaneous. So instead of the reality of the gating process taking some time (even if it's very small), we just assume that they respond instantly to the voltage. With this, we can replace \(p\) with its stead state asymptotic value. Therefore, we have that 
-\[p = p_{\infty}(V)\]
-The function above is derived experimentally. Now our equation reduces to,
-\[C\dot{V} = I - g_L(V-E_L)-gp_{\infty}(V)(V-E)\]
-This is now a 1-D system. As mentioned, we want to consider the sodium channels. The model above is generalized for any ensemble of identical channels with 1 instantaneous gating variable. We rewrite the equation with sodium in mind to get,
-\[C\dot{V} = I - g_L(V-E_L)-g_{Na}m_{\infty}(V)(V-E_{Na})\]
-We replace \(p\) with \(m\) because we are considering sodium channels that only use activation gates (most channels have both inactivation and activation, but this is for initial simplicity). Now below are the experimentally derived constants and functions.
-\[m_{\infty}(V) = \frac{1}{1+e^{\frac{V_{1/2}-V}{k}}}\]
-\[C = 10\mu F, I = 0 \text{pA}, g_L = 19 \ mS, E_L = -67 \ mV\]
-\[g_{Na} = 74 \ mS, V_{1/2} = 1.5 \ mV, k = 16 \ mV, E_{Na} = 60 \ mV\]
-Plugging these into our equation, we get
-\[10\dot{V} = -19(V+67)-74\left(\frac{1}{1+e^{\frac{1.5-V}{16}}}\right)\left(V-60\right)\]
-Now the goal is to determine the qualitative nature of this differential equation. Analytically no solution exists (I believe). Therefore, we need to use the tools of nonlinear dynamics to understand this model. The first part of this process is **fixed point analysis**. 
-<h2>Fixed Point Analysis</h2>
-<hr style="border: 2px solid black;">
-The first step in understanding the aforementioned dynamics, is to find the fixed points (also known as equilibrium points). This is done by setting \(\dot{V} = 0\) and solving for \(V\). 
-\[-19(V+67)-74\left(\frac{1}{1+e^{\frac{1.5-V}{16}}}\right)\left(V-60\right) = 0\]
-We cannot solve this analytically because it's a messy implicit equation. Instead we can numerically compute the zeros of the equation. Doing this gives us three fixed points: \(x_1 \approx -52.51, \ x_2 \approx -41.5148, \ x_3 \approx 30.9528\). Sketching the graph gives us:
-\
-<img src="neuron-sodium-graph.PNG" alt="sodium">
-\
-Where the x-axis represents voltage, and the y-axis is the derivative of voltage. The analysis now is straight forward. For the leftmost region (\(V < -52.51\)), the function is positive. This means that any starting voltage less than roughly \(-52.52\) will increase until it gets to the point \(-52.51\), at which it will stay forever (unless there are some external perturbations). This is considered a stable equilibrium (and is also called an attractor), since all nearby initial conditions will converge to that equilibrium point. Now to further demonstrate that stability, consider the region between the two leftmost fixed points, that is \(-52.51 < V < -41.5148 \). The function here is negative, meaning that any initial voltage in this range will be pushed to the left, towards \(-52.51\), and stay there forever (unless there are some external perturbations). Therefore, we see that any starting voltage sufficiently close to the fixed point \(-52.51\), will converge to \(-52.51\) as \(t\to \infty\), meaning the fixed point is a stable equilibrium. Now, consider voltages of \(-41.51 < V < 30.9528\) we see that there is new behavior. The graph here is positive, meaning the flow will be to the right, until reaching the final fixed point \(30.9528\) and settling there forever (unless there are some external perturbations). What this means is that \(-41.5148\) is an unstable equilibrium. Any initial voltage near it will be pushed away from it. The only exception being if the voltage is exactly \(-41.5148\). The last segment to consider is the set of points greater than the last fixed point, so \(V > 30.9528\). The graph here is negative, meaning the flow will be towards the left, back to the fixed point \(30.9528\). As we can see, this final fixed point is a stable equilibrium (an attractor). Another thing to note is that in 1 dimension, two stable equilibria must be separated by an unstable equilibrium. We interpret this stable equilibrium of around \(30.9528\) as the excited state of a neuron, and the stable equilibrium of \(-52.51\) as our rest state. Therefore, the point \(-41.5148\) acts as a threshold of whether the neuron will go to rest or excite. The values roughly correlate to the actual resting potential of a neuron and the excited potential of that neuron. Below is a graph of the evolution of voltage in time. As you can see, all initial voltage values will be attracted to one of the two stable equilibrium, and their basins of attraction are separated by the unstable equilibrium \(-41.5148\).\
-<img src="thumbnail_Image.jpg" alt="thumb">
-This system is said to be bi-stable, i.e. having two points of stability. However, stability depends on parameters of our differential equation. In our case, the input current is the only parameter that we can freely change. In our analysis so far, \(I = 0\) pA has been our input current (so none). But what would happen if we changed this? Would there be a qualitative change in our dynamics and if there was, where would it happen? This leads us to the bifurcation analysis part of our investigation.
+  <main>
+    <p>
+      The Hodgkin–Huxley model can be simplified into various 1-D systems (and 2-D and 3-D, as it is originally a 4-D system).
+      Even in the 1-D case, we can identify four fundamental models: one for each combination of activation vs. inactivation
+      gating and inward vs. outward current.
+    </p>
 
-<h2>Bifurcation Analysis</h2>
-This part of the analysis focuses on how a parameter of our differential equation can change the qualitative behavior of our system. This qualitative change in dynamics is called a bifurcation. In our case, input current can create or destroy our fixed points and their stability. Currently we have a bi-stable system, but we can change this by inputting different amounts of current. If we look back at our first graph, we can see that shifting the graph up or down would change these fixed points. We would have to shift it down quite drastically to destroy all fixed points. However, shifting it up just a little would completely destroy two of our fixed points. Recall that our original differential equation had an additive \(I\) current term. We set this to \(0\) for preliminary analysis, but now we want to revisit its importance. Shifting the graph up would correspond to adding a value to our differential equation. As mentioned, \(I\) is already being added to the equation, it is just simply \(0\) for now. The question then becomes, how much can we shift it up before the bi-stability breaks, and a qualitative change in our dynamics occur (bifurcation). Well, shifting the graph up a little would result in the two leftmost equilibria to grow closer. Below is what's called a bifurcation diagram. Without going into too much detail, there is a topological equivalence to a system with a quadratic term shifted by some constant \(I\). We can take that quadratic graph, flip it on its side, and find the point of symmetry which is where the bifurcation occurs. In our case it's \(I = 16\) that causes this bifurcation.\
-<img src="thumbnail_IMG_0002.jpg" alt="sodium">
-This bifurcation is what's called a **saddle-node bifurcation**. Again, without going into much detail, there are usually what's called a **topological normal form** for certain bifurcations. Often it is easier to analytically consider the normal form, since the qualitative behavior of the normal form (usually, under conditions) corresponds to the same behavior as the system with the same type of bifurcation.
+    <p>
+      The typical choice for preliminary analysis is the so-called
+      <strong>Leak + Instantaneous Sodium Model</strong>, often referred to as the
+      <strong>persistent sodium model</strong>.
+      In this model, we consider \(p\) as a single activation gate variable (as opposed to the 4-D Hodgkin–Huxley model
+      with three gating variables).
+    </p>
 
-<h2>Hartman-Grobman Theorem</h2>
-If we cannot find a global topologically equivalent system to make our analysis simpler, we can consider local topological equivalence. We essentially consider small neighborhoods around a fixed point. The **Hartman-Grobman Theorem** tells us that a non-linear 1-D system 
-\[\dot{V} = F(V)\]
-close enough to a fixed point, say \(V_{eq}\), is locally topologically equivalent to the linear system
-\[\dot{V} = \lambda\left(V-V_{eq}\right)\]
-if the eigenvalue
-\[\lambda = F'(V_{eq})\]
-Is non-zero. From this, we know the solution to a 1-D linear system, and can therefore analyze the behavior of the non-linear system via the solution to the linear one. Exponential growth implies instability, whereas exponential decay corresponds to stability. If our eigenvalue is \(0\), then we cannot use this method. Fixed points that have this property are called **hyperbolic equilibria**. 
+    <p>
+      Essentially, this captures the voltage dynamics for a neuron with only one type of channel (sodium channel)
+      and with only one activation gate. The model also has a leaky outward current (typically representing potassium \(K^+\)).
+      The sodium current here is <em>persistent</em>, meaning that once activated, it has no inactivation mechanism—
+      it continues to flow indefinitely.
+    </p>
 
-<h2>Topological Normal Form for Saddle-Node Bifurcation</h2>
-As mentioned, we can consider the normal form for dynamics that contain the same bifurcations. In this case the normal form is
-\[\dot{V} = I + V^2\]
-This reduction gives us the so called **Quadratic Integrate-and-Fire Neuron**. Note that these topological normal forms are only meaningful near the local neighborhood of a fixed point. However, both of the fixed points that we were considering before (rest and excited), are hyperbolic. Therefore, this reduction can represent either of them. We need to know the fixed points of this system, there are different equilibria for different values of \(I\). Let's consider them,
-\[I < 0: V_{rest} = -\sqrt{|I|} \text{ and } V_{thresh} = \sqrt{|I|}\]
-\[I = 0: V_{thresh} = V_{rest}\]
-\[I > 0: \text{ no equilibria since } V_{thresh} = V_{rest} \text{, previously (bifurcation)}\]
-When \(I > 0\), we have that \(\dot{V} \geq 0\) since both \(I\) and \(V^2\) are positive, so voltage will only increase. This creates a rapid positive feedback loop, causing voltage to go to infinity in finite time. To simulate this realistically, we just clamp the value at a maximum value \(V_{max}\) and reset it to a reset value \(V_{reset}\). This mentioned simulation is what's called the **Quadratic Integrate-and-Fire Neuron**, since it represents a threshold for the characteristic action potential, as well as a repolarization process (although instantaneous and slightly unrealistic). This type of neuron is called an **integrator**, as it sort of sums up the inputs; granted they occur in a short enough time frame. Once it hits its the threshold, it spikes rapidly (representative of an action potential). If it does not reach its threshold, it will die down towards \(V_{rest}\). We can observe some other interesting dynamics even in this simple model. This model can exhibit a single action potential, or a repetitive spiking behavior once it hits its threshold for the first time. 
+    <div class="math-block">\[
+      C\dot{V} = I - g_L(V-E_L) - gp(V-E)
+    \]</div>
+    <div class="math-block">\[
+      \dot{p} = \frac{(p_{\infty}(V) - p)}{\tau(V)}
+    \]</div>
 
-<h2>Simulations</h2>
-I have simulated the aforementioned system, with a time step (dt) of 0.01, for roughly 10 seconds (1,000 derivative updates). The system above simulates a constant current (although we can make current a function of time and observe its dynamics). Let's consider the different behaviors that this model can take based off of the input current \(I\).
+    <p>
+      To simplify, we assume the gating variable \(p\) responds much faster than voltage dynamics,
+      and thus treat it as instantaneous:
+    </p>
+    <div class="math-block">\[
+      p = p_{\infty}(V)
+    \]</div>
 
-<h2>I < 0</h2>
-We know that we will have two equilibria, \(V_{rest} = -\sqrt{|I|}\) and \(V_{thresh} = +\sqrt{|I|}\). Reaching \(V_{thresh}\) will result in our action potential. Not reaching it will result in the voltage to die down towards \(V_{rest}\). So we know that the voltage will be essentially dictated by the constant current. So, what can we change? The main thing here would be the starting voltage, obviously setting a high start will cause it to spike and then reset. This isn't particularly interesting. Because of the quadratic nature, we know that voltages starting to the left of \(V_{rest}\) will be pushed up to \(V_{rest}\), voltages starting between \(V_{rest}\) and \(V_{thresh}\) will be pushed to the left towards \(V_{rest}\) because this corresponds to the part of the parabola below the x-axis, i.e. negative derivative \(\implies\) decreasing. Voltages above \(V_{thresh}\) are on the positive part of the parabola and are therefore increasing without bound (to infinity, this is a spike). So what else could change the dynamics. The reset value \(V_{reset}\). If this is sufficiently high, we will get tonic spiking (repetitive) once it spikes for the first time. How high does it have to be? We know the bifurcation point is \(0\), so setting it above zero will cause repetitive spiking, setting it below will cause it to die, even if it spikes once. First is an example of non-tonic spiking. I use the following parameters: \(I = -25\) since this has a perfect square root and therefore easier to analyze equilibria (5). \(V_0 = 5.001\), just enough so that it's greater than \(5\) and therefore will trigger an action potential. \(V_{max} = 50\), this is not too important. \(V_{reset} = 4.999999\), this is so that after a spike, it will be in the basin of attraction for the rest state (\(V = -5.0\)), and therefore decay towards the resting value. Here is the simulation, \
-<img src="qif_neuron.gif" alt="sodium">
-\
-Now, I will change \(V_{reset}\) to \(5\), this will result in a spike and then a sustained potential of \(V=5\) since it's an equilibrium point and therefore no change will occur there. \
-<img src="reset=5.gif" alt="sodium">
-\
-For tonic spiking, we set \(V_{reset} = 5.00001\), so that it's just above the firing threshold. This results in tonic spiking even though current is constant.\
-<img src="reset=5.01.gif" alt="sodium">
-\
-Notice that the only differences in these simulations are their behavior after the first spike. The first simulation decays after the first spike to \(V_{rest}\), the second stays at the reset value of \(V = 5\) since it is an equilibrium point. The final one repetitively spikes since its reset value is greater than the threshold, causing the positive feedback and fast uptake. If we decided to change the inital voltage we could a few things happening. The first is that if the voltage is lower than 5, it will decay to \(V = -5\) and never fire. If it is exactly \(5\), it will stay there forever. That covers the only possible dynamics with a constant negative current, since we simulated above the case when the initial voltage is greater than \(5\). If we set the initial voltage very high initially it might be higher than the threshold, or get the very quickly, so it wouldn't look like much of a spike, but this isn't really an important case.
+    <p>
+      Substituting:
+    </p>
+    <div class="math-block">\[
+      C\dot{V} = I - g_L(V-E_L) - g p_{\infty}(V)(V-E)
+    \]</div>
 
-<h2>I = 0</h2>
-A current of \(0\) corresponds to the natural saddle-node bifurcation of the topological normal form we are considering. Here our equilibria of \(-\sqrt{|I|}\) and \(+\sqrt{|I|}\) merge into one since \(I = 0\). This means that \(V_{rest} = V_{thresh}\). So we only have one real state we can stay at. A voltage above \(0\) will cause a spike, so depending on whether or not \(V_{reset}\) is below or above \(0\) will determine if the neuron exhibits tonic spiking or not. A voltage below \(0\) will be attracted towards \(V= 0\) and stay there. So first will be the simulation of an initial voltage greater than \(0\) and therefore causing an initial action potential. However, I set the reset value below \(0\) so that the neuron won't fire again, and instead go to \(0\). So this simulation exhibits initial firing, then grows towards \(0\) from its reset value of \(-65\).\
-<img src="i=0-v=.5-reset=-65.gif" alt="sodium">
-\
-The simulation below has its reset value as \(.75\) so it will exhibit tonic spiking, since it resets passed the threshold.\
-<img src="i=0-v=.5-reset=.75.gif" alt="sodium">
-\
-Finally, this simulation below exhibits its characteristic spike, but resets to the equilibrium and therefore has no change after its reset.\
-<img src="i=0-v=0.5-reset=0.gif" alt="sodium">
-\
-For zero current (\(I = 0\)), the other possible behaviors of this system are dictated by the initial voltage. Above we demonstrated an initial voltage high enough to initiate an action potential. If we set the initial voltage to \(0\), the system will stay at \(0\) forever. If we set the initial voltage to a negative value (\(< 0\)), then we won't get any action potentials, and the voltage will increase towards \(0\), and then rest once it gets there indefinitely.
+    <p>
+      Considering sodium specifically, we write:
+    </p>
+    <div class="math-block">\[
+      C\dot{V} = I - g_L(V-E_L) - g_{Na} m_{\infty}(V)(V-E_{Na})
+    \]</div>
 
-<h2>I > 0</h2>
-As mentioned, this system has no equilibria due to the bifurcation that occured at \(I = 0\). Due to \(V^2 \geq 0\) and now \(I > 0\), we know the change in voltage will always be positive and therefore will go towards infinity. Therefore, any initial condition will cause an action potential, and any reset value will cause an action potential (granted it's not set above the max voltage). Therefore, the only possible dynamics of this system is tonic spiking (granted we are resetting each spike). \
-<img src="tonic-spike.gif" alt="sodium">
-\
-The phase of these spikes is dictated by the difference between the reset value and the max voltage value. The further apart they are, the greater the phase will be, with one caveat. An extremely negative reset value will cause an almost instaneous exceedance of the maximum voltage value (since the value is squared and therefore positive and very large), therefore causing the program to reset it back to its reset, and the process repeats. In summary, it would cause it to look like the voltage plateaus at the reset value after the spike, but really the growth is just so fast that it never even gets to be considered, since it immediately is above the max value. So, to combat this, we increase the max value, while keeping the reset value very small in absolute value (i.e. near \(0\)). For simplicity I just choose \(0\). As you can see below, the phase is roughly 1 spike every 2 seconds, whereas above it was closer to 3 spikes every two seconds.\
-<img src="tonic-slow.gif" alt="sodium">
+    <p>
+      With
+    </p>
+    <div class="math-block">\[
+      m_{\infty}(V) = \frac{1}{1+e^{\frac{V_{1/2}-V}{k}}}
+    \]</div>
 
-This covers the majority of the dynamical properties of the Quadratic Fire-and-Integrate Neuron. 
+    <div class="math-block">\[
+      C = 10\,\mu F,\quad I = 0\ \text{pA},\quad g_L = 19\, mS,\quad E_L = -67\ \text{mV}
+    \]</div>
+    <div class="math-block">\[
+      g_{Na} = 74\, mS,\quad V_{1/2} = 1.5\, mV,\quad k = 16\, mV,\quad E_{Na} = 60\, mV
+    \]</div>
 
+    <p>
+      Substituting numerical values:
+    </p>
+    <div class="math-block">\[
+      10\dot{V} = -19(V+67) - 74\left(\frac{1}{1+e^{\frac{1.5-V}{16}}}\right)(V-60)
+    \]</div>
 
+    <p>
+      No analytic solution exists for this nonlinear ODE, so we proceed with qualitative analysis.
+    </p>
 
+    <h2>Fixed Point Analysis</h2>
+    <p>
+      Fixed points satisfy \(\dot{V} = 0\):
+    </p>
+    <div class="math-block">\[
+      -19(V+67) - 74\left(\frac{1}{1+e^{\frac{1.5-V}{16}}}\right)(V-60) = 0
+    \]</div>
+
+    <p>
+      Numerically, this yields three fixed points:
+      \(x_1 \approx -52.51,\; x_2 \approx -41.51,\; x_3 \approx 30.95\).
+    </p>
+
+    <p>
+      <img src="neuron-sodium-graph.PNG" alt="sodium" />
+    </p>
+
+    <p>
+      The first and third are stable equilibria (rest and excited states), separated by the unstable threshold \(x_2\).
+    </p>
+
+    <p>
+      <img src="thumbnail_Image.jpg" alt="phase portrait" />
+    </p>
+
+    <h2>Bifurcation Analysis</h2>
+    <p>
+      Varying the input current \(I\) alters stability. At \(I=16\), the two leftmost fixed points merge and annihilate in
+      a <strong>saddle-node bifurcation</strong>.
+    </p>
+
+    <p>
+      <img src="thumbnail_IMG_0002.jpg" alt="bifurcation diagram" />
+    </p>
+
+    <h2>Hartman–Grobman Theorem</h2>
+    <p>
+      Locally, near a hyperbolic fixed point \(V_{eq}\), the system
+    </p>
+    <div class="math-block">\[
+      \dot{V} = F(V)
+    \]</div>
+    <p>
+      is topologically equivalent to
+    </p>
+    <div class="math-block">\[
+      \dot{V} = \lambda (V-V_{eq}), \qquad \lambda = F'(V_{eq})
+    \]</div>
+
+    <h2>Topological Normal Form</h2>
+    <p>
+      For a saddle-node bifurcation, the normal form is:
+    </p>
+    <div class="math-block">\[
+      \dot{V} = I + V^2
+    \]</div>
+
+    <p>
+      This is the <strong>Quadratic Integrate-and-Fire Neuron</strong>.
+    </p>
+
+    <h2>Simulations</h2>
+    <p>
+      Numerical experiments reveal regimes depending on \(I\):
+    </p>
+
+    <h3>I &lt; 0</h3>
+    <p>
+      Two equilibria at \(\pm\sqrt{|I|}\). Resetting just above threshold induces tonic spiking:
+    </p>
+    <img src="qif_neuron.gif" alt="non-tonic" />
+    <img src="reset=5.gif" alt="reset equilibrium" />
+    <img src="reset=5.01.gif" alt="tonic spiking" />
+
+    <h3>I = 0</h3>
+    <p>
+      Single equilibrium at \(0\). Dynamics depend on reset value:
+    </p>
+    <img src="i=0-v=.5-reset=-65.gif" alt="initial spike" />
+    <img src="i=0-v=.5-reset=.75.gif" alt="tonic spiking" />
+    <img src="i=0-v=0.5-reset=0.gif" alt="equilibrium reset" />
+
+    <h3>I &gt; 0</h3>
+    <p>
+      No equilibria. All trajectories spike repetitively:
+    </p>
+    <img src="tonic-spike.gif" alt="fast spiking" />
+    <img src="tonic-slow.gif" alt="slow spiking" />
+
+    <p>
+      These cover the main dynamical properties of the Quadratic Integrate-and-Fire Neuron.
+    </p>
   </main>
+
+  <footer>
+    © <span id="year"></span> Notes · Neurons
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

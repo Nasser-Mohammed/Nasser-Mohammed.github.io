@@ -1,26 +1,37 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Neuronal Dynamics Notes</title>
-  <link rel="icon" type="image/png" href="../../pictures/brain.png" sizes="48x48">
+  <link rel="icon" type="image/png" href="../../pictures/analysis.png" sizes="48x48">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header>
-    <h1>Neuronal Dynamics</h1>
+<body class="an">
+  <header class="an-hero">
+    <a href="../../index.html" class="an-back" aria-label="Back to main">← Back</a>
+    <div class="an-hero-inner">
+      <h1>Neuronal Dynamics</h1>
+    </div>
   </header>
-  <a href="../../index.html" class="back-button">← Back</a>
-  <br>
-  <ul class="styled-list">
-        <li><a href="pages/intro2ND.html">Intro to Neuronal Dynamics</a></li>
-        <li><a href="pages/qif-neuron.html">The Quadratic Integrate-and-Fire Neuron</a></li>
-      </ul>
+
+  <main class="an-main">
+    <nav class="an-grid">
+      <a class="an-card" href="pages/intro2ND.html">
+        <div class="an-pill">Start here</div>
+        <h2>Intro to Neuronal Dynamics</h2>
+        <p>Basic questions about neurons</p>
+        <span class="an-chevron">→</span>
+      </a>
+
+      <a class="an-card" href="pages/qif-neuron.html">
+        <div class="an-pill">Model</div>
+        <h2>The Quadratic Integrate-and-Fire Neuron</h2>
+        <p>A walkthrough of a neuronal model</p>
+        <span class="an-chevron">→</span>
+      </a>
+    </nav>
   </main>
 </body>
 </html>
