@@ -1,110 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Poisson Kernel Notes</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-  <header>
-    <a href="../index.html" class="back-button">← Back</a>
-    <h1>Derivation of the Poisson Kernel</h1>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">Derivation of the Poisson Kernel</h1>
   </header>
-<hr style="border: 2px solid black;">
-The Poisson kernel is frequently used and studied in the context of partial differential equations and harmonic analysis. I will not go over its importance in those fields. Instead I will introduce its derivation, and why it shows up naturally.
 
-<h2>Derivation</h2>
-The absolute convergence of the infinite series below is well known,
-\[\sum_{k = 0}^{\infty}p^k = \frac{1}{1-p} \ \ \ \text{ where } |p| < 1\]
-Now, we know some functions that are also bounded between \((-1,1)\). Namely, \[\sin, \cos\] Furthermore, we can multiply any value in the interval \((-1,1)\) to another value in the same interval and the result would still be in the interval. In other words, the interval \((-1,1)\) is closed under multiplication. With that, if we let 
-\[p = re^{i\theta}\]
-We can be assured by our earlier statement that \(|p| < 1\). Then our expression becomes
-\[\sum_{k = 0}^{\infty}p^k = \sum_{k = 0}^{\infty}r^ke^{ik\theta} = \frac{1}{1-re^{i\theta}}\ \ \ \text{ where } |p| < 1\]
-Now, we want to consider the real part of this function. To do so, I'll multiply our expression by \(1\) represented by the complex conjugate. 
-\[\frac{1}{1-re^{i\theta}}\cdot \frac{\overline{(1-re^{i\theta})}}{\overline{(1-re^{i\theta})}} = \frac{1}{1-re^{i\theta}}\cdot \frac{1-re^{-i\theta}}{1-re^{-i\theta}}\]
-Recall [Euler's formula](https://en.wikipedia.org/wiki/Euler%27s_formula), which can be summarized as
-\[e^{i\theta} = \cos(\theta) + i\sin(\theta)\]
-We can also derive the following,
-\[e^{-i\theta} = \cos(-\theta) + i\sin(-\theta)\]
-Now \(\cos\) is an even function so \[\cos(-\theta) = \cos(\theta)\]
-\(\sin\) is an odd function so,
-\[\sin(-\theta) = -\sin(\theta)\]
-then we have that,
-\[e^{-i\theta} = \cos(\theta) - i\sin(-\theta)\]
-Now we can use these to rewrite our expression
-\[\frac{1}{1-re^{i\theta}}\cdot \frac{1-re^{-i\theta}}{1-re^{-i\theta}} = \frac{1-re^{-i\theta}}{1 - re^{-i\theta}-re^{i\theta} + r^2e^{-i\theta}e^{i\theta}}\]
-Which just results from multiplying out the denominator. Now let's analyze the denominator,
-\[1 - re^{-i\theta}-re^{i\theta} + r^2e^{-i\theta}e^{i\theta}\]
-We can rewrite
-\[-re^{-i\theta}-re^{i\theta} = -r(e^{-i\theta}+e^{i\theta}) = -r(\cos(\theta) -i\sin(\theta) + \cos(\theta) + i\sin(\theta) \] 
-\[= -2r\cos(\theta)\]
-Which was just an application of Euler's formula. Now let's consider the other part of the denominator,
-\[r^2e^{-i\theta}e^{i\theta} = r^2\cdot 1\]
-Since \(e^{-i\theta}\cdot e^{i\theta} = 1\). Then plugging everything in, we have
-\[\frac{1-re^{-i\theta}}{r^2-2r\cos(\theta) + 1}\]
-Using Euler's formula again for the numerate, we have
-\[\frac{1-r\cos(\theta) + ir\sin(\theta)}{r^2-2r\cos(\theta) + 1}\]
-We can break this up as,
-\[\frac{1-r\cos(\theta) + ir\sin(\theta)}{r^2-2r\cos(\theta) + 1} = \frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} + \frac{ir\sin(\theta)}{r^2-2r\cos(\theta) + 1}\]
-Then we can easily extract the real part of this as
-\[P_r(\theta) = \frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1}\]
-In most settings, we will see this slightly altered, so I will also continue to show the more common form. We know that we took the real part of this series, meaning it is equivalent to if we had take the real part of 
-\[\sum_{k = 0}^{\infty}p^k = \sum_{k = 0}^{\infty}r^ke^{ik\theta}\]
-Taking the real part of the series above gives,
-\[\Re (\sum_{k = 0}^{\infty}r^ke^{ik\theta}) = \sum_{k = 0}^{\infty}r^k\cos(k\theta)\]
-and we know this is equivalent to our derived expression, so
-\[\frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} = \sum_{k = 0}^{\infty}r^k\cos(k\theta)\]
-At \(k=0\), \(\cos(0) = 1\) and \(r^0 =1\). So, we have
-\[\frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} = 1 + \sum_{k=1}^{\infty}r^k\cos(k\theta)\]
-We note that,
-\[\sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k=-1}^{-\infty}r^{|k|}\cos(|k|\theta)\]
-Again, we know \(\cos\) is even so \(\cos(-k\theta) = \cos(k\theta)\), so we can drop the absolute value sign.
-\[\sum_{k=-1}^{-\infty}r^{|k|}\cos(|k|\theta) =\sum_{k=-1}^{-\infty}r^{|k|}\cos(k\theta)\]
-\[\sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k=1}^{\infty}r^{|k|}\cos(k\theta)\]
-So we can combine these sums into 1 sum to get,
-\[\sum_{k \in \mathbb{Z}}r^{|k|}\cos(k\theta)\]
-Note, that this sum includes \(k=0\) so we must consider \(k=0\) in our original sum. Since we are combining the sum into 1 sum, this sum is going to be 2 times our original sum. In other words,
-\[2\sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k \in \mathbb{Z}}(r^{|k|}\cos(k\theta)) - 1\]
-Therefore we have that
-\[\sum_{k=1}^{\infty}r^k\cos(k\theta) = \frac{1}{2}\cdot \sum_{k \in \mathbb{Z}}(r^{|k|}\cos(k\theta)) - \frac{1}{2}\]
-We subtract this one to account for the \(k=0\) present on the right side that is not accounted for on the left. Now, our original expression was 
-\[1+\sum_{k=1}^{\infty}r^k\cos(k\theta)\]
-Plugging our new expression for the sum, we have
-\[1+\sum_{k=1}^{\infty}r^k\cos(k\theta) = 1 +\frac{1}{2}\cdot \sum_{k \in \mathbb{Z}}(r^{|k|}\cos(k\theta)) - \frac{1}{2}\]
-Which simplifies to 
-\[\frac{1}{2} + \frac{1}{2}\sum_{k \in \mathbb{Z}}r^{|k|}\cos(k\theta)\]
-Finally, recall
-\[e^{k\theta} = \cos(k\theta) + i\sin(k\theta)\]
-Then we can replace \(\cos(k\theta)\) with \(e^{k\theta}\), since 
-\[\forall k, -k, \ \text{ we would have } r^{|k|}e^{k\theta} + r^{|-k|}e^{-k\theta}\]
-It's easy to see that
-\[ r^{|k|}e^{k\theta} + r^{|-k|}e^{-k\theta} = r^{|k|}(\cos(k\theta) + i\sin(k\theta) + \cos(-k\theta) - i\sin(k\theta))\]
-Therefore, \(\forall k\), this expression reduces to 
-\[2r^{|k|}\cos(k\theta)\]
-In our current form, \(\forall k, -k\) we would have
-\[r^{|k|}\cos(k\theta) + r^{|-k|}\cos(-k\theta) = r^{|k|}\cos(k\theta) + r^{|-k|}\cos(k\theta) = 2r^{|k|}\cos(k\theta)\]
-So the two statements are equivalent. The only other case to consider is the only non-symmetric point \(k=0\), however \(\sin(0)\) ensures that we have no imaginary part for that index, and it reduces to \(\cos(k\theta)\) instead which is what we would have in our current expression since \(r^0=1\) and we'd be left with \(\cos(0)\). So finally, we have that
-\[\frac{1}{2} + \frac{1}{2}\sum_{k \in \mathbb{Z}}r^{|k|}e^{(k\theta)}\]
-The final thing to do, is compare it to the function it converges to, that is
-\[\frac{1}{2} + \frac{1}{2}\sum_{k \in \mathbb{Z}}r^{|k|}e^{(k\theta)} = \frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)}\]
-I will multiply both sides by two then subtract the remaining 1 value.
-\[1 + \sum_{k \in \mathbb{Z}}r^{|k|}e^{(k\theta)} = 2\cdot\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)}\]
-Subtracting 1 gives,
-\[\sum_{k \in \mathbb{Z}}r^{|k|}e^{(k\theta)} = 2\cdot\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - 1\]
-\[2\cdot\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - 1 = 2\cdot\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - \frac{1+r^2-2r\cos(\theta)}{1+r^2-2r\cos(\theta)}\]
-Continuing the simplification
-\[2\cdot\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - \frac{1+r^2-2r\cos(\theta)}{1+r^2-2r\cos(\theta)}\]
-\[ =\frac{2-2r\cos(\theta) - 1 -r^2 + 2r\cos(\theta)}{1+r^2-2r\cos(\theta)}\]
-\[=\frac{1-r^2}{1+r^2-2r\cos(\theta)}\]
-This is the usual function you will see associated with the Poisson kernel, so in summary, we have that
-\[P_r(\theta) = \frac{1-r^2}{1+r^2-2r\cos(\theta)} = \sum_{k \in \mathbb{Z}}r^{|k|}e^{k\theta}\]
-Where \(P_r(\theta)\) is called the **Poisson Kernel**. The Poisson kernel has several interesting properties, which you can read more about [here](https://en.wikipedia.org/wiki/Poisson_kernel).
+  <main>
+    <p>The Poisson kernel is frequently used and studied in the context... I will introduce its derivation, and why it shows up naturally.</p>
 
+    <h2>Derivation</h2>
 
+    <p>The absolute convergence of the infinite series below is well known,</p>
+    <div class="math-block">\[
+      \sum_{k = 0}^{\infty}p^k = \frac{1}{1-p} \ \ \ \text{ where } |p| < 1
+    \]</div>
+
+    <p>Now, we know some functions that are also bounded between \((-1,1)\). Namely, \(\sin\) and \(\cos\). Now the interval \((-1, -1)\) is closed under multiplication. With that, if we let</p>
+    <div class="math-block">\[
+      p = re^{i\theta}
+    \]</div>
+
+    <p>We can be assured by our earlier statement that \(|p| < 1\). Then our expression becomes</p>
+    <div class="math-block">\[
+      \sum_{k = 0}^{\infty}p^k = \sum_{k = 0}^{\infty}r^ke^{ik\theta} = \frac{1}{1-re^{i\theta}}\ \ \ \text{ where } |p| < 1
+    \]</div>
+
+    <p>Now, we want to consider the real part of this function. To do so I'll multiply our expression by \(1\) represented by the complex conjugate.</p>
+    <div class="math-block">\[
+      \frac{1}{1-re^{i\theta}}\cdot \frac{\overline{(1-re^{i\theta})}}{\overline{(1-re^{i\theta})}} = \frac{1}{1-re^{i\theta}}\
+      \cdot \frac{1-re^{-i\theta}}{1-re^{-i\theta}}
+    \]</div>
+
+    <p>Recall <a href="https://en.wikipedia.org/wiki/Euler%27s_formula">Euler's formula</a>, which can be summarized as</p>
+    <div class="math-block">\[
+      e^{i\theta} = \cos(\theta) + i\sin(\theta)
+    \]</div>
+
+    <p>We can also derive the following,</p>
+    <div class="math-block">\[
+      e^{-i\theta} = \cos(-\theta) + i\sin(-\theta)
+    \]</div>
+
+    <p>Now \(\cos\) is an even function so</p>
+    <div class="math-block">\[
+      \cos(-\theta) = \cos(\theta)
+    \]</div>
+
+    <p>\(\sin\) is an odd function so,</p>
+    <div class="math-block">\[
+      \sin(-\theta) = -\sin(\theta)
+    \]</div>
+
+    <p>then we have that,</p>
+    <div class="math-block">\[
+      e^{-i\theta} = \cos(\theta) - i\sin(-\theta)
+    \]</div>
+
+    <p>Now we can use these to rewrite our expression</p>
+    <div class="math-block">\[
+      \frac{1}{1-re^{i\theta}}\cdot \frac{1-re^{-i\theta}}{1-re^{-i\theta}}
+      = \frac{1-re^{-i\theta}}{1 - re^{-i\theta}-re^{i\theta} + r^2e^{-i\theta}e^{i\theta}}
+    \]</div>
+
+    <p>Which just results from multiplying out the denominator. Now let's analyze the denominator,</p>
+    <div class="math-block">\[
+      1 - re^{-i\theta}-re^{i\theta} + r^2e^{-i\theta}e^{i\theta}
+    \]</div>
+
+    <p>We can rewrite</p>
+    <div class="math-block">\[
+      -re^{-i\theta}-re^{i\theta} = -r(e^{-i\theta}+e^{i\theta}) = -r(\cos(\theta) -i\sin(\theta) + \cos(\theta) + i\sin(\theta))\]
+      \[= -2r\cos(\theta)
+    \]</div>
+
+    <p>
+  Which was just an application of Euler's formula. Now let's consider the other part of the denominator,
+  </p>
+  <div class="math-block">
+    \[r^2 e^{-i\theta} e^{i\theta} = r^2 \cdot 1\]
+  </div>
+  <p>
+    Since \(e^{-i\theta}\cdot e^{i\theta} = 1\). Then plugging everything in, we have
+  </p>
+  <div class="math-block">
+    \[\frac{1 - r e^{-i\theta}}{r^2 - 2r\cos(\theta) + 1}\]
+  </div>
+  <p>
+    Using Euler's formula again for the numerator, we have
+  </p>
+  <div class="math-block">
+    \[\frac{1 - r\cos(\theta) + i r\sin(\theta)}{r^2 - 2r\cos(\theta) + 1}\]
+  </div>
+  <p>
+    We can break this up as,
+  </p>
+  <div class="math-block">
+    \[\frac{1 - r\cos(\theta) + i r\sin(\theta)}{r^2 - 2r\cos(\theta) + 1} =
+      \frac{1 - r\cos(\theta)}{r^2 - 2r\cos(\theta) + 1} +
+      \frac{i r\sin(\theta)}{r^2 - 2r\cos(\theta) + 1}\]
+  </div>
+  <p>
+    Then we can easily extract the real part of this as
+  </p>
+  <div class="math-block">
+    \[P_r(\theta) = \frac{1 - r\cos(\theta)}{r^2 - 2r\cos(\theta) + 1}\]
+  </div>
+  <p>
+    In most settings, we will see this slightly altered, so I will also continue to show the more common form. We know that we took the real part of this series, meaning it is equivalent to if we had taken the real part of
+  </p>
+  <div class="math-block">
+    \[\sum_{k = 0}^{\infty} p^k = \sum_{k = 0}^{\infty} r^k e^{ik\theta}\]
+  </div>
+
+    <p>Taking the real part of the series above gives,</p>
+    <div class="math-block">\[
+      \Re \Big(\sum_{k = 0}^{\infty}r^ke^{ik\theta}\Big) = \sum_{k = 0}^{\infty}r^k\cos(k\theta)
+    \]</div>
+
+    <p>and we know this is equivalent to our derived expression, so</p>
+    <div class="math-block">\[
+      \frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} = \sum_{k = 0}^{\infty}r^k\cos(k\theta)
+    \]</div>
+
+    <p>At \(k=0\), \(\cos(0) = 1\) and \(r^0 =1\). So, we have</p>
+    <div class="math-block">\[
+      \frac{1-r\cos(\theta)}{r^2-2r\cos(\theta) + 1} = 1 + \sum_{k=1}^{\infty}r^k\cos(k\theta)
+    \]</div>
+
+    <p>We note that,</p>
+    <div class="math-block">\[
+      \sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k=-1}^{-\infty}r^{|k|}\cos(|k|\theta)
+    \]</div>
+
+    <p>Again, we know \(\cos\) is even so \(\cos(-k\theta) = \cos(k\theta)\), so we can drop the absolute value sign.</p>
+    <div class="math-block">\[
+      \sum_{k=-1}^{-\infty}r^{|k|}\cos(|k|\theta) = \sum_{k=-1}^{-\infty}r^{|k|}\cos(k\theta)
+    \]</div>
+
+    <div class="math-block">\[
+      \sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k=1}^{\infty}r^{|k|}\cos(k\theta)
+    \]</div>
+
+    <p>So we can combine these sums into 1 sum to get,</p>
+    <div class="math-block">\[
+      \sum_{k \in \mathbb{Z}}r^{|k|}\cos(k\theta)
+    \]</div>
+
+    <p>Note, that this sum includes \(k=0\) so we must consider \(k=0\) in our original sum. Since we are combining the sum into 1 sum, this sum is going to be 2 times our original sum. In other words,</p>
+    <div class="math-block">\[
+      2\sum_{k=1}^{\infty}r^k\cos(k\theta) = \sum_{k \in \mathbb{Z}}(r^{|k|}\cos(k\theta)) - 1
+    \]</div>
+
+    <p>Therefore we have that</p>
+    <div class="math-block">\[
+      \sum_{k=1}^{\infty}r^k\cos(k\theta) = \frac{1}{2}\cdot \sum_{k \in \mathbb{Z}}(r^{|k|}\cos(k\theta)) - \frac{1}{2}
+    \]</div>
+
+    <p>We subtract this one to account for the \(k=0\) present on the r...not accounted for on the left. Now, our original expression was</p>
+    <div class="math-block">\[
+      1+\sum_{k=1}^{\infty}r^k\cos(k\theta)
+    \]</div>
+
+    <p>Plugging our new expression for the sum, we have</p>
+    <div class="math-block">\[
+      1+\sum_{k=1}^{\infty}r^k\cos(k\theta)
+      = 1 +\frac{1}{2}\cdot \sum_{k \in \mathbb{Z}}(r^{|k|}\cos(k\theta)) - \frac{1}{2}
+    \]</div>
+
+    <p>Which simplifies to</p>
+    <div class="math-block">\[
+      \frac{1}{2} + \frac{1}{2}\sum_{k \in \mathbb{Z}}r^{|k|}\cos(k\theta)
+    \]</div>
+
+    <p>Finally, recall</p>
+    <div class="math-block">\[
+      e^{k\theta} = \cos(k\theta) + i\sin(k\theta)
+    \]</div>
+
+    <p>Then we can replace \(\cos(k\theta)\) with \(e^{k\theta}\), since</p>
+    <div class="math-block">\[
+      \forall k, -k, \ \text{ we would have } r^{|k|}e^{k\theta} + r^{|-k|}e^{-k\theta}
+    \]</div>
+
+    <p>It's easy to see that</p>
+    <div class="math-block">\[
+      r^{|k|}e^{k\theta} + r^{|-k|}e^{-k\theta} = r^{|k|}(\cos(k\theta) + i\sin(k\theta) + \cos(-k\theta) - i\sin(k\theta))
+    \]</div>
+
+    <p>...</p>
+
+    <div class="math-block">\[
+      \sum_{k \in \mathbb{Z}}r^{|k|}e^{(k\theta)} = 2\cdot\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - 1
+    \]</div>
+
+    <div class="math-block">\[
+      2\cdot\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - 1 =
+      2\cdot\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - \frac{1+r^2-2r\cos(\theta)}{1+r^2-2r\cos(\theta)}
+    \]</div>
+
+    <p>Continuing the simplification</p>
+    <div class="math-block">\[
+      2\cdot\frac{1-r\cos(\theta)}{1+r^2-2r\cos(\theta)} - \frac{1+r^2-2r\cos(\theta)}{1+r^2-2r\cos(\theta)}
+    \]</div>
+
+    <div class="math-block">\[
+      =\frac{2-2r\cos(\theta) - 1 -r^2 + 2r\cos(\theta)}{1+r^2-2r\cos(\theta)}
+    \]</div>
+
+    <div class="math-block">\[
+      =\frac{1-r^2}{1+r^2-2r\cos(\theta)}
+    \]</div>
+
+    <p>This is the usual function you will see associated with the Poisson kernel, so in summary, we have that</p>
+
+    <div class="math-block">\[
+      P_r(\theta) = \frac{1-r^2}{1+r^2-2r\cos(\theta)} = \sum_{k \in \mathbb{Z}}r^{|k|}e^{k\theta}
+    \]</div>
+
+    <p>Where \(P_r(\theta)\) is called the <strong>Poisson Kernel</strong>. You can learn more about the Poisson Kernel <a href="https://en.wikipedia.org/wiki/Poisson_kernel">here</a>.</p>
   </main>
 </body>
 </html>

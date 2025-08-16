@@ -1,80 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>Parseval's Identity Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Parseval's Identity and Fourier Reciprocity Formula</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-  <header>
-    <a href="../index.html" class="back-button">← Back</a>
-    <h1>Parseval's Identity and Fourier Reciprocity Formula</h1>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">Parseval's Identity and Fourier Reciprocity Formula</h1>
   </header>
-<hr style="border: 2px solid black;">
-First we will consider the Fourier Reciprocity Formula, and how it leads us to Parseval's Identity. We begin by considering a function
-\[f(\theta) = \sum_{n=-\infty}^{\infty}C_ne^{in\theta}\]
-Where \(C_n\) is the \(n^{\text{th}}\) Fourier coefficient, defined by
-\[C_n = \frac{1}{2\pi}\int_{-\pi}^{\pi}f(\theta)e^{-in\theta}d\theta\]
-Where 
-\[\sum_{n =-\infty}^{\infty}\left|C_n\right| < \infty\]
-We should note a few things about this function, first we recall the Weierstrass M test, which in summary says:\
-\
-If we have a sequence of functions, such that for a sequence of non-negative numbers \(\{M_n\}\) 
-\[\left|f_n(x)\right| \leq M_n \ \ \ \forall n \geq 0\]
-and
-\[\sum_{n=0}^{\infty}M_n  \ \ \text{converges}\]
-Then we have that,
-\[\sum_{n=0}^{\infty}f_n(x) \ \ \text{converges}\]
-This is absolutely and uniformly convergent, which then implies that the function described by this series, is continuous on the defined set. Since this converges for every point, we know that this function is bounded. More concretely, this means we are not considering functions with singularities at the endpoints of the interval, and furthermore, our functions are then bounded and continuous. We have continuity, since by the M-test we can consider the series form of our function
-\[f(\theta) = \sum_{n=-\infty}^{\infty}C_ne^{in\theta}\]
-Then
-\[\left|C_ne^{in\theta}\right| = \left|C_n\right| \ \ \text{by the complex modulus }( \left|e^{ix}\right| = 1)\]
-So we have that 
-\[\left|C_ne^{in\theta}\right| \leq \left|C_n\right| \ \ \forall n \text{ and } \forall \theta\]
-We assumed that,
-\[\sum_{n=-\infty}^{\infty}\left|C_n\right| <\infty \ \ \ \text{(i.e. convergent)}\]
-So we then have that the series
-\[\sum_{n=-\infty}^{\infty}C_ne^{in\theta} \ \ \ \text{ converges uniformly and absolutely on the circle } (-\pi, \pi]\]
-Therefore, \(f(x)\) is continuous and finite on the circle (finite in the sense that it only takes on real values on the interval, so it's not an extended value function that can output \(\infty\) as a value). Therefore, we can conclude that this function is also in \(L^1({\mathbb{T}})\), where \(\mathbb{T} = (-\pi, \pi]\). We are now in a position to consider another function in \(L^1(\mathbb{T})\) (note that although \(L^p\) is a space of equivalence classes with the relation of almost everywhere equal, we are talking about functions in those equivalence classes when we say elements of \(L^p\)). Recall, a function 
-\[h(\theta) \in L^1(A) \implies \int_{A}\left|h(\theta)\right|d\theta <\infty\]
-Now let,
-\[g \in L^1(\mathbb{T})\]
-and similar to above,
-\[D_n = \frac{1}{2\pi}\int_{-\pi}^{\pi}g(\theta)e^{-in\theta}d\theta\]
-We must note an important orthogonality concept, in complex form we have that,
-\[\int_{-\pi}^{\pi}e^{-ni\theta} e^{mi\theta} = 0 \ \ \text{if } m \neq n \ \text{ and equals } 2\pi \text{ when } n = m\]
-From this, we have that (where \(m \in \mathbb{Z}\))
-\[\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{-im\theta}f(\theta)d\theta = \frac{1}{2\pi}\int_{-\pi}^{\pi}e^{-im\theta}\sum_{n\in\mathbb{Z}}\left(C_ne^{in\theta}\right)d\theta \]
-\[\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{-im\theta}\sum_{n\in\mathbb{Z}}\left(C_ne^{in\theta}\right)d\theta = \frac{1}{2\pi}\int_{-\pi}^{\pi}\sum_{n\in\mathbb{Z}}\left(C_ne^{-im\theta}e^{in\theta}\right)d\theta\]
-\[\frac{1}{2\pi}\int_{-\pi}^{\pi}\sum_{n\in\mathbb{Z}}\left(C_ne^{-im\theta}e^{in\theta}\right)d\theta = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}\int_{-\pi}^{\pi}\left(C_ne^{-im\theta}e^{in\theta}\right)d\theta\]
-\[\frac{1}{2\pi}\sum_{n\in\mathbb{Z}}\int_{-\pi}^{\pi}\left(C_ne^{-im\theta}e^{in\theta}\right)d\theta = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_n\int_{-\pi}^{\pi}\left(e^{-im\theta}e^{in\theta}\right)d\theta\]
-As mentioned, we know that the integral will evaluate to \(0 \ \forall n \neq m\) and therefore, only when \(m = n\) do we have \(2\pi\). Therefore, this will be a sum of all \(0's\) except for when \(m=n\), so we can replace \(n\) with \(m\), and we have that the entire sum evaluates to
-\[\frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_n\int_{-\pi}^{\pi}\left(e^{-im\theta}e^{in\theta}\right)d\theta = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_n\int_{-\pi}^{\pi}\left(e^{-im\theta}e^{im\theta}\right)d\theta = 2\pi(\frac{C_m}{2\pi}) = C_m\]
-This result holds for any integer \(m\). With that we can finish the proof of the formula. If we consider,
-\[\frac{1}{2\pi}\int_{-\pi}^{\pi}f(\theta)g(\theta)d\theta = \frac{1}{2\pi}\int_{-\pi}^{\pi}g(\theta)\sum_{n \in \mathbb{Z}}C_ne^{in\theta}d\theta =  \frac{1}{2\pi}\sum_{n \in \mathbb{Z}}\left(\int_{-\pi}^{\pi}g(\theta)C_ne^{in\theta}d\theta\right)\]
-\[\frac{1}{2\pi}\sum_{n \in \mathbb{Z}}\left(\int_{-\pi}^{\pi}g(\theta)C_ne^{in\theta}d\theta\right) = \frac{1}{2\pi}\sum_{n \in \mathbb{Z}}C_n\left(\int_{-\pi}^{\pi}g(\theta)e^{in\theta}d\theta\right) = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_nD_{-n}\]
-So we have the \
-\
-**Fourier Reciprocity Formula**
-\[\frac{1}{2\pi}\int_{-\pi}^{\pi}f(\theta)g(\theta)d\theta = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_nD_{-n}\]
-By letting,
-\[g = \bar{f} \ \ \ \text{where } \bar{f} \ \ \text{ is the complex conjugate of } f\]
-We get Parseval's Identity. Note that taking the complex conjugate is necessary, since for a complex function \(f\),
-\[f\bar{f} = \left|f\right|^2\]
-Which is what we want in our identity, and it is not necessarily true for complex functions that \(f\cdot f = \left|f\right|^2\) since we are left with an imaginary unit and the modulus of a complex function is real. Therefore, we see that we need the complex conjugate to get back to a real function. For example, take 
-\[f(x) = a(x) + ib(x)\]
-Then
-\[f(x)\cdot f(x) = a^2 +2iab - b^2\]
-And 
-\[2iab \not \in \mathbb{R} \ \ \text{ (obviously assuming } a \neq 0, b \neq 0)\]
-Finally, when \(g = \bar{f}\) we have\
-\
-**Parseval's Identity on the Circle**
-\[\frac{1}{2\pi}\int_{-\pi}^{\pi}\left|f(\theta)\right|^2d\theta = \frac{1}{2\pi}\sum_{n \in \mathbb{Z}}\left|C_n\right|^2\]
+
+  <main>
+    <p>First we will consider the Fourier Reciprocity Formula, and how it leads us to Parseval's Identity. We begin by considering a function</p>
+
+    <div class="math-block">
+      \[f(\theta) = \sum_{n=-\infty}^{\infty}C_ne^{in\theta}\]
+    </div>
+
+    <p>Where \(C_n\) is the \(n^{\text{th}}\) Fourier coefficient, defined by</p>
+
+    <div class="math-block">
+      \[C_n = \frac{1}{2\pi}\int_{-\pi}^{\pi}f(\theta)e^{-in\theta}d\theta\]
+    </div>
+
+    <p>Where</p>
+    <div class="math-block">
+      \[\sum_{n =-\infty}^{\infty}\left|C_n\right| < \infty\]
+    </div>
+
+    <p>We should note a few things about this function, first we recall the Weierstrass M test, which in summary says:</p>
+
+    <p>If we have a sequence of functions, such that for a sequence of non-negative numbers \(\{M_n\}\)</p>
+
+    <div class="math-block">
+      \[\left|f_n(x)\right| \leq M_n \ \ \ \forall n \geq 0\]
+    </div>
+
+    <p>and</p>
+
+    <div class="math-block">
+      \[\sum_{n=0}^{\infty}M_n  \ \ \text{converges}\]
+    </div>
+
+    <p>Then we have that,</p>
+
+    <div class="math-block">
+      \[\sum_{n=0}^{\infty}f_n(x) \ \ \text{converges}\]
+    </div>
+
+    <p>This is absolutely and uniformly convergent, which then implies that the function described by this series is continuous on the defined set. Since this converges for every point, we know that this function is bounded. More concretely, this means we are not considering functions with singularities at the endpoints of the interval, and furthermore, our functions are then bounded and continuous. We have continuity, since by the M-test we can consider the series form of our function</p>
+
+    <div class="math-block">
+      \[f(\theta) = \sum_{n=-\infty}^{\infty}C_ne^{in\theta}\]
+    </div>
+
+    <p>Then</p>
+
+    <div class="math-block">
+      \[\left|C_ne^{in\theta}\right| = \left|C_n\right| \ \ \text{by the complex modulus }( \left|e^{ix}\right| = 1)\]
+    </div>
+
+    <p>So we have that</p>
+
+    <div class="math-block">
+      \[\left|C_ne^{in\theta}\right| \leq \left|C_n\right| \ \ \forall n \text{ and } \forall \theta\]
+    </div>
+
+    <p>We assumed that,</p>
+
+    <div class="math-block">
+      \[\sum_{n=-\infty}^{\infty}\left|C_n\right| <\infty \ \ \ \text{(i.e. convergent)}\]
+    </div>
+
+    <p>So we then have that the series</p>
+
+    <div class="math-block">
+      \[\sum_{n=-\infty}^{\infty}C_ne^{in\theta} \ \ \ \text{ converges uniformly and absolutely on the circle } (-\pi, \pi]\]
+    </div>
+
+    <p>Therefore, \(f(x)\) is continuous and finite on the circle (finite in the sense that it only takes on real values on the interval, so it's not an extended value function that can output \(\infty\) as a value). Therefore, we can conclude that this function is also in \(L^1({\mathbb{T}})\), where \(\mathbb{T} = (-\pi, \pi]\). We are now in a position to consider another function in \(L^1(\mathbb{T})\). Recall, a function</p>
+
+    <div class="math-block">
+      \[h(\theta) \in L^1(A) \implies \int_{A}\left|h(\theta)\right|d\theta <\infty\]
+    </div>
+
+    <p>Now let,</p>
+
+    <div class="math-block">
+      \[g \in L^1(\mathbb{T})\]
+    </div>
+
+    <p>and similar to above,</p>
+
+    <div class="math-block">
+      \[D_n = \frac{1}{2\pi}\int_{-\pi}^{\pi}g(\theta)e^{-in\theta}d\theta\]
+    </div>
+
+    <p>We must note an important orthogonality concept, in complex form we have that,</p>
+
+    <div class="math-block">
+      \[\int_{-\pi}^{\pi}e^{-ni\theta} e^{mi\theta} = 0 \ \ \text{if } m \neq n \ \text{ and equals } 2\pi \text{ when } n = m\]
+    </div>
+
+    <p>From this, we have that (where \(m \in \mathbb{Z}\))</p>
+
+    <div class="math-block">
+      \[\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{-im\theta}f(\theta)d\theta = \frac{1}{2\pi}\int_{-\pi}^{\pi}e^{-im\theta}\sum_{n\in\mathbb{Z}}\left(C_ne^{in\theta}\right)d\theta \]
+    </div>
+
+    <div class="math-block">
+      \[\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{-im\theta}\sum_{n\in\mathbb{Z}}\left(C_ne^{in\theta}\right)d\theta = \frac{1}{2\pi}\int_{-\pi}^{\pi}\sum_{n\in\mathbb{Z}}\left(C_ne^{-im\theta}e^{in\theta}\right)d\theta\]
+    </div>
+
+    <div class="math-block">
+      \[\frac{1}{2\pi}\int_{-\pi}^{\pi}\sum_{n\in\mathbb{Z}}\left(C_ne^{-im\theta}e^{in\theta}\right)d\theta = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}\int_{-\pi}^{\pi}\left(C_ne^{-im\theta}e^{in\theta}\right)d\theta\]
+    </div>
+
+    <div class="math-block">
+      \[\frac{1}{2\pi}\sum_{n\in\mathbb{Z}}\int_{-\pi}^{\pi}\left(C_ne^{-im\theta}e^{in\theta}\right)d\theta = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_n\int_{-\pi}^{\pi}\left(e^{-im\theta}e^{in\theta}\right)d\theta\]
+    </div>
+
+    <p>As mentioned, we know that the integral will evaluate to \(0 \ \forall n \neq m\) and therefore, only when \(m = n\) do we have \(2\pi\). Therefore, this will be a sum of all \(0\)'s except for when \(m=n\), so we can replace \(n\) with \(m\), and we have that the entire sum evaluates to</p>
+
+    <div class="math-block">
+      \[\frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_n\int_{-\pi}^{\pi}\left(e^{-im\theta}e^{in\theta}\right)d\theta = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_n\int_{-\pi}^{\pi}\left(e^{-im\theta}e^{im\theta}\right)d\theta = 2\pi\Big(\frac{C_m}{2\pi}\Big) = C_m\]
+    </div>
+
+    <p>This result holds for any integer \(m\). With that we can finish the proof of the formula. If we consider,</p>
+
+    <div class="math-block">
+      \[\frac{1}{2\pi}\int_{-\pi}^{\pi}f(\theta)g(\theta)d\theta = \frac{1}{2\pi}\int_{-\pi}^{\pi}g(\theta)\sum_{n \in \mathbb{Z}}C_ne^{in\theta}d\theta =  \frac{1}{2\pi}\sum_{n \in \mathbb{Z}}\left(\int_{-\pi}^{\pi}g(\theta)C_ne^{in\theta}d\theta\right)\]
+    </div>
+
+    <div class="math-block">
+      \[\frac{1}{2\pi}\sum_{n \in \mathbb{Z}}\left(\int_{-\pi}^{\pi}g(\theta)C_ne^{in\theta}d\theta\right) = \frac{1}{2\pi}\sum_{n \in \mathbb{Z}}C_n\left(\int_{-\pi}^{\pi}g(\theta)e^{in\theta}d\theta\right) = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_nD_{-n}\]
+    </div>
+
+    <p>So we have the</p>
+
+    <h2>Fourier Reciprocity Formula</h2>
+    <div class="math-block">
+      \[\frac{1}{2\pi}\int_{-\pi}^{\pi}f(\theta)g(\theta)d\theta = \frac{1}{2\pi}\sum_{n\in\mathbb{Z}}C_nD_{-n}\]
+    </div>
+
+    <p>By letting,</p>
+
+    <div class="math-block">
+      \[g = \bar{f} \ \ \ \text{where } \bar{f} \ \ \text{ is the complex conjugate of } f\]
+    </div>
+
+    <p>We get Parseval's Identity. Note that taking the complex conjugate is necessary, since for a complex function \(f\),</p>
+
+    <div class="math-block">
+      \[f\bar{f} = \left|f\right|^2\]
+    </div>
+
+    <p>Which is what we want in our identity, and it is not necessarily true for complex functions that \(f\cdot f = \left|f\right|^2\) since we are left with an imaginary unit and the modulus of a complex function is real. Therefore, we see that we need the complex conjugate to get back to a real function. For example, take</p>
+
+    <div class="math-block">
+      \[f(x) = a(x) + ib(x)\]
+    </div>
+
+    <p>Then</p>
+
+    <div class="math-block">
+      \[f(x)\cdot f(x) = a^2 +2iab - b^2\]
+    </div>
+
+    <p>And</p>
+
+    <div class="math-block">
+      \[2iab \not \in \mathbb{R} \ \ \text{ (obviously assuming } a \neq 0, b \neq 0)\]
+    </div>
+
+    <p>Finally, when \(g = \bar{f}\) we have</p>
+
+    <h2>Parseval's Identity on the Circle</h2>
+    <div class="math-block">
+      \[\frac{1}{2\pi}\int_{-\pi}^{\pi}\left|f(\theta)\right|^2d\theta = \frac{1}{2\pi}\sum_{n \in \mathbb{Z}}\left|C_n\right|^2\]
+    </div>
+
   </main>
 </body>
 </html>
