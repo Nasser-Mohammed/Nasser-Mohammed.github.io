@@ -1,38 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>Intro to PDEs Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>What are Partial Differential Equations?</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-  <header>
-    <a href="../index.html" class="back-button">← Back</a>
-    <h1>What are Partial Differential Equations?</h1>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">What are Partial Differential Equations?</h1>
   </header>
-<hr style="border: 2px solid black;">
 
-In middle and highschool, you typically solve algebraic equations that describe how two values (variables) are related to each other.
-For example, the equation \[y = x^2+1\] tells us, that the value of \(y\) is related to the value of \(x\) by squaring \(x\) and adding 1.
-In contrast, a partial differential equation (PDE) describes the way a function is related to its partial derivatives.
-Our goal, is to then find the function or functions that satisfy the described relationship. 
-An example is the equation that describes heat flow, \[u_t=\alpha^2u_{xx}\] which tells us that for a function \(u\) to satisfy this relationship, its first time (\(t\)) derivative must be equal to \(\alpha^2\) multiplied by its second spatial (\(x\)) derivative. For simplicity if we assume \(\alpha = 1\) then the PDE will tell us that a function that satisfies the described relationship, will have its first time (\(t\)) derivative equal to its second spatial (\(x\)) derivative. 
+  <main>
+    <p>
+      In middle and highschool, you typically solve algebraic equations that describe how two values (variables) are related to each other.
+      For example:
+    </p>
+    <div class="math-block">\[ y = x^2 + 1 \]</div>
+    <p>
+      tells us that the value of \(y\) is related to the value of \(x\) by squaring \(x\) and adding 1.
+      In contrast, a partial differential equation (PDE) describes the way a function is related to its partial derivatives.
+      Our goal is to then find the function or functions that satisfy the described relationship.
+      An example is the equation that describes heat flow:
+    </p>
+    <div class="math-block">\[ u_t = \alpha^2 u_{xx} \]</div>
+    <p>
+      which tells us that for a function \(u\) to satisfy this relationship,
+      its first time (\(t\)) derivative must be equal to \(\alpha^2\) multiplied by its second spatial (\(x\)) derivative.
+      For simplicity, if we assume \(\alpha = 1\),
+      then the PDE will tell us that a function that satisfies the described relationship will have its first time (\(t\)) derivative equal to its second spatial (\(x\)) derivative.
+    </p>
 
-Where do PDEs Come From?
-===
-PDEs are typically derived from physical laws or experimental findings, however, not all are or need be. It seems though, as the universe is best described by PDEs, so they are of great interest to study from both a pure and applied point of view.
+    <h2>Where do PDEs Come From?</h2>
+    <p>
+      PDEs are typically derived from physical laws or experimental findings; however, not all are or need be.
+      It seems though, as the universe is best described by PDEs,
+      so they are of great interest to study from both a pure and applied point of view.
+    </p>
 
-Boundary Conditions
-===
-PDEs without some sort of spatial restriction/requirement usually don't tell us much. That is because we can usually find an infinite number of solutions which are very different, yet still solve the PDE. So to derive meaning from these equations, we impose something called *Boundary Conditions*. Boundary conditions are nothing more than the explicit value of the function (or its derivative) at the spatial boundaries. For example, if we are solving the heat equation on a metal rod of length 1, then an example of boundary conditions would be knowing the heat at both ends of the rod. With this information, we get a much better idea of the behavior of the function that we are looking for. 
+    <h2>Boundary Conditions</h2>
+    <p>
+      PDEs without some sort of spatial restriction/requirement usually don't tell us much.
+      That is because we can usually find an infinite number of solutions which are very different,
+      yet still solve the PDE. So to derive meaning from these equations, we impose something called <em>Boundary Conditions</em>.
+      Boundary conditions are nothing more than the explicit value of the function (or its derivative) at the spatial boundaries.
+      For example, if we are solving the heat equation on a metal rod of length 1, then an example of boundary conditions would be knowing
+      the heat at both ends of the rod. With this information, we get a much better idea of the behavior of the function that we are looking for.
+    </p>
 
-Initial Conditions
-===
-Similar to boundary conditions, initial conditions are nothing more than a restriction/requirement for the function at the temporal boundary. Since time always starts at 0, and there is no "end" to time. Our initial condition will always be a restriction on the behavior of the function at time 0. 
+    <h2>Initial Conditions</h2>
+    <p>
+      Similar to boundary conditions, initial conditions are nothing more than a restriction/requirement for the function at the temporal boundary.
+      Since time always starts at 0, and there is no "end" to time,
+      our initial condition will always be a restriction on the behavior of the function at time 0.
+    </p>
   </main>
 </body>
 </html>
+

@@ -1,87 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>Method of Characteristics Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Method of Characteristics</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-  <header>
-    <a href="../index.html" class="back-button">← Back</a>
-    <h1>The Method of Characteristics</h1>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">The Method of Characteristics</h1>
   </header>
-<hr style="border: 2px solid black;">
-\[a(x,t)u_x + b(x,t)u_t + c(x,t)u = 0 \]
-The method of characteristics is a very powerful method for solving first order PDEs, though there are ways to also solve certain second order hyperbolic PDEs. However, our focus will be on the first order approach. This method involves breaking a PDE into a system of ODEs. We do this by finding certain curves called **characteristics** or **characteristic curves**, along which the PDE reduces to an ODE. Then we can use standard ODE theory to solve for the unknown function \(u\) and translate it back into the proper coordinate system to find the full solution to the PDE.
 
+  <main>
+    <div class="math-block">\[
+      a(x,t)\,u_x + b(x,t)\,u_t + c(x,t)\,u = 0
+    \]</div>
 
-Theory Behind It
-===
-As mentioned, we want to find these **characteristic curves**, along which the solution to our PDE reduces to an ODE. This is not apparent at first glance so we will go step-by-step. First let's consider the first order equation:
-\[a(x,t)u_x + b(x,t)u_t = 1 \]
-Now if we could parameterize \(x\) and \(t\) by some parameter, say \(s\), then our equation would be:
-\[a(x(s), t(s))u_x + b(x(s),t(s))u_t = 1\]
-Note that \((x(s), t(s))\) traces out a surface in 3D and a curve in 2D. \
-The chain rule tells us that
-\[\frac{du}{ds} = \frac{\partial u}{\partial x}\frac{dx}{ds} + \frac{\partial u}{\partial t}\frac{dt}{ds}\]
-This is simply 
-\[\frac{du}{ds} = \frac{dx}{ds}u_x + \frac{dx}{ds}u_t\]
-So if we could some how match \(a(x(s), t(s))\) to \(\frac{dx}{ds}\) and \(b(x(s), t(s))\) to \(\frac{dx}{ds}\) then we would have the below equality
-\[\frac{du}{ds} = \frac{dx}{ds}u_x + \frac{dx}{ds}u_t = a(x(s), t(s))u_x + b(x(s),t(s))u_t\]
-Which is just the left hand side of our PDE. So substituting \(\frac{du}{ds}\) into our PDE, we get
-\[\frac{du}{ds} = 1\]
-This is a simple ODE with solution \(u(x(s), t(s)) = s + c\). But we skipped over an important part of the process. We need to match \(a(x(s), t(s))\) to \(\frac{dx}{ds}\) and \(b(x(s), t(s))\) to \(\frac{dx}{ds}\) to even get this equation, so let's do that.
-\[a(x(s), t(s)) = \frac{dx}{ds}\]
-and 
-\[b(x(s), t(s)) = \frac{dt}{ds}\]
-You might notice that these are just two ODEs. Solving these will give you \(x(s)\) and \(t(s)\). So along the curve \((x(s), t(s))\) the solution \(u\) to our PDE will also solve the ODE that we derived. \
-**Note:** We will introduce another parameter \(\tau\) to account for where these curves start on the \(x\)-axis. In other words, depending on the initial condition, we might start lower or higher up on the curve at each point on the \(x\)-axis.
+    <p>
+      The method of characteristics solves first-order PDEs by finding curves—<em>characteristics</em>—along which the PDE reduces to an ODE. We solve the resulting ODEs and then map the solution back to \((x,t)\).
+    </p>
 
-Our curves \((x(s), t(s))\) intuitively have a "start" at time 0, i.e. \(t=0\), and evolves from there. However, there is no necessary starting point spatially. That is, we have the same curve that just starts at a different \(x\) value. But as mentioned, all of our curves start at the same \(t\) value (\(t = 0\)), but these curves can start anywhere on the specified interval/domain. To account for this, we introduce another parameter \(\tau\). Now, we know the behavior of the value of \(t\) at \(s = 0\) (that is, we want time to start where our curve, parameterized by \(s\), starts. This happens at \(s = 0\) where \(t=0\)).
+    <h2>Theory Behind It</h2>
 
-Example Problem
-===
-\[2xu_x + u_t = 1 \text{   with initial condition of   } u(0, x) = \phi (x)\]
-So we know we are looking for the following solutions
-\[2x = \frac{dx}{ds}\]
-and 
-\[1 = \frac{dt}{ds}\]
-Solving the first one, we get
-\[\int \frac{1}{x}dx = \int 2 ds \implies x = C_1e^{2s}\]
-Solving the second one, we get
-\[t = s + C_2\]
-So we have a parametric curve where our PDE reduces to an ODE. Therefore by the aforementioned chain rule
-\[\frac{du}{ds} = \frac{\partial u}{\partial x}\frac{dx}{ds} + \frac{\partial u}{\partial t}\frac{dt}{ds}\]
-Since we solved the ODEs above, we know that this is equal to the left hand side of our PDE:
-\[2xu_x + u_t\]
-So plugging \(\frac{du}{ds}\) in for the left hand side of our PDE, our PDE becomes
-\[\frac{du}{ds} = 1\]
-The solution to this ODE is simply
-\[u = s + C_3\]
-Now we consider the initial condition of \(u(0, x) = \phi (x)\), here is where we introduce \(\tau\). We know we want the start of our curve to be at \(s = 0\) and we want that to be at \(t = 0\). Therefore we set,
-\[t(0) = 0\]
-However, the value of \(x\) needs to be able to vary when \(s = 0\), so we introduce \(\tau\), where 
-\[x(0) = \tau\]
-Now plugging these into our solutions for \(x\) and \(t\) we get
-\[t(0) = 0 = 0 + C_2 \implies C_2 = 0 \implies t(s) = s\]
-and
-\[x(0) = \tau = C_1e^0 \implies \tau = C_1 \implies x(s) = \tau e^{2s}\]
-So now \(x\) and \(t\) are parameterized by \(s\) and \(\tau\). Now we can handle our initial condition \(u(0, x) = \phi (x)\). We know that \(t = 0\) when \(s = 0\) \(\implies x(0, \tau) = \tau\) so we plug that in to our equation 
-\[u(t(s), x(s)) = s + C_3 \implies u(t(0) = 0, x(0) = \tau) = C_3 \implies \phi(x(0)) = C_3 \implies \phi(x(0)) = \phi(\tau) \implies \phi(\tau) = C_3\]
-So our solution in \((s, \tau)\) is
-\[u(s, \tau) = s + \phi(\tau)\]
-Finally, we need to convert this back into the \((x,t)\) plane.
-\[t = s\]
-Is straightforward, now plugging in \(t\) for \(s\) in \(x(s)\) we get
-\[x(t) = \tau e^{2t} \implies \tau = \frac{x}{e^{2t}}\]
-Now plugging in our expressions for \(s\) and \(\tau\) into our solution \(u(s, \tau) = s + \phi(\tau)\). We get
-\[u(x,t) = t + \phi\left (\frac{x}{e^{2t}}\right )\]
-That is our solution to the PDE with an arbitrary initial condition.
+    <p>Consider the first-order equation (without the zeroth-order term for clarity)</p>
 
+    <div class="math-block">\[
+      a(x,t)\,u_x + b(x,t)\,u_t = 1.
+    \]</div>
+
+    <p>
+      Parameterize \(x\) and \(t\) by a parameter \(s\): \(x=x(s)\), \(t=t(s)\). The chain rule gives
+    </p>
+
+    <div class="math-block">\[
+      \frac{du}{ds} \;=\; u_x\,\frac{dx}{ds} \;+\; u_t\,\frac{dt}{ds}.
+    \]</div>
+
+    <p>
+      If we choose the characteristic equations
+    </p>
+
+    <div class="math-block">\[
+      \frac{dx}{ds} = a\!\big(x(s),t(s)\big), \qquad
+      \frac{dt}{ds} = b\!\big(x(s),t(s)\big),
+    \]</div>
+
+    <p>
+      then along the curve \((x(s),t(s))\),
+    </p>
+
+    <div class="math-block">\[
+      \frac{du}{ds} \;=\; a\,u_x + b\,u_t \;=\; 1,
+    \]</div>
+
+    <p>
+      which is an ODE with solution \(u(x(s),t(s)) = s + C\).
+    </p>
+
+    <p>
+      We will also introduce a parameter \(\tau\) to label where characteristics start on the \(x\)-axis at \(t=0\). Thus, characteristics are indexed by \(\tau\) and advanced by \(s\).
+    </p>
+
+    <h2>Example Problem</h2>
+
+    <div class="math-block">\[
+      2x\,u_x + u_t = 1,
+      \qquad
+      u(0,x) = \phi(x).
+    \]</div>
+
+    <p>Characteristic ODEs:</p>
+
+    <div class="math-block">\[
+      \frac{dx}{ds} = 2x, \qquad \frac{dt}{ds} = 1.
+    \]</div>
+
+    <p>Integrate:</p>
+
+    <div class="math-block">\[
+      \int \frac{1}{x}\,dx = \int 2\,ds \;\Rightarrow\; x(s)=C_1 e^{2s}, \qquad
+      t(s)=s+C_2.
+    \]</div>
+
+    <p>
+      Along characteristics, by the chain rule,
+    </p>
+
+    <div class="math-block">\[
+      \frac{du}{ds} = 1 \;\;\Rightarrow\;\; u(s)=s+C_3.
+    \]</div>
+
+    <h3>Apply Initial Data and Label Curves</h3>
+
+    <p>
+      Enforce that characteristics start at \(t=0\) when \(s=0\):
+      \(\;t(0)=0 \Rightarrow C_2=0 \Rightarrow t(s)=s.\)
+      Label their \(x\)-start by \(\tau\): \(x(0)=\tau \Rightarrow C_1=\tau \Rightarrow x(s)=\tau e^{2s}.\)
+    </p>
+
+    <p>
+      At \(s=0\) we have \(t=0\) and \(x=\tau\), so the initial condition gives
+    </p>
+
+    <div class="math-block">\[
+      u(0,\tau) \;=\; \phi(\tau) \;=\; C_3.
+    \]</div>
+
+    <p>
+      Therefore the solution in \((s,\tau)\) is
+    </p>
+
+    <div class="math-block">\[
+      u(s,\tau) \;=\; s + \phi(\tau).
+    \]</div>
+
+    <h3>Return to \((x,t)\)</h3>
+
+    <p>
+      We have \(t=s\). From \(x(s)=\tau e^{2s}\), solve for \(\tau\):
+    </p>
+
+    <div class="math-block">\[
+      \tau \;=\; \frac{x}{e^{2t}}.
+    \]</div>
+
+    <p>Substitute into \(u(s,\tau)\):</p>
+
+    <div class="math-block">\[
+      u(x,t) \;=\; t \;+\; \phi\!\left(\frac{x}{e^{2t}}\right).
+    \]</div>
+
+    <p>
+      This is the (classical) solution to the PDE with arbitrary initial condition \(\phi\).
+    </p>
   </main>
 </body>
 </html>

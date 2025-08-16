@@ -1,30 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>Perturbation Theory Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perturbative Theory for PDEs</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-  <header>
-    <a href="../index.html" class="back-button">← Back</a>
-    <h1>Perturbative Theory for PDEs</h1>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">Perturbative Theory for PDEs</h1>
   </header>
-<hr style="border: 2px solid black;">
-Perturbative methods are used to solve more convoluted PDEs. By this, I mean PDEs that either have variable coefficients, difficult geometries, or are nonlinear. The idea is to multiply an \(\varepsilon\) term to the term that is causing us trouble. This allows us to have a sort of knob on how much irregularity we want. When \(\varepsilon = 0\) our PDE usually reduces down to a more simple PDE, we then consider \(\varepsilon\) in different domains leading up to \(\varepsilon = 1\), where we have just recovered the original PDE. For example, if we recall Laplace's equation 
-\[\nabla^2 u = 0\]
-If we wanted to solve a more complicated PDE like,
-\[\nabla^2 u + u^2 = 0\]
-We couldn't use our general techniques, since this is a nonlinear PDE (and we don't have the law of superposition), so instead we rewrite this equation as
-\[\nabla^2 u + \varepsilon u^2 = 0\]
-Now when \(\varepsilon = 0\) we just get Laplace's equation above. We can then consider \(\varepsilon \in (0,1)\), and finally \(\varepsilon = 1\) where we recovered the original nonlinear PDE.
 
-To Be Continued When I Know More on It
-====
+  <main>
+    <p>
+      Perturbative methods are used to tackle PDEs with variable coefficients, difficult geometries, or nonlinearities. The main idea is to introduce a small parameter \( \varepsilon \) multiplying the “hard” part of the equation. This provides a knob to control the irregularity: when \( \varepsilon = 0 \), the PDE reduces to a simpler problem; as \( \varepsilon \) increases toward \(1\), we recover the original PDE.
+    </p>
+
+    <p>For example, recall Laplace’s equation:</p>
+    <div class="math-block">\[
+      \nabla^2 u = 0
+    \]</div>
+
+    <p>
+      If we wish to study a more complicated nonlinear PDE such as
+    </p>
+    <div class="math-block">\[
+      \nabla^2 u + u^2 = 0,
+    \]</div>
+
+    <p>
+      our usual linear techniques (e.g., superposition) no longer apply. Instead, introduce a small parameter:
+    </p>
+
+    <div class="math-block">\[
+      \nabla^2 u + \varepsilon\,u^2 = 0.
+    \]</div>
+
+    <p>
+      When \( \varepsilon = 0 \), we return to Laplace’s equation. We then analyze the problem for \( \varepsilon \in (0,1) \) and finally take \( \varepsilon = 1 \) to connect back to the original nonlinear PDE.
+    </p>
+
+    <h2>To Be Continued When I Know More on It</h2>
   </main>
 </body>
 </html>

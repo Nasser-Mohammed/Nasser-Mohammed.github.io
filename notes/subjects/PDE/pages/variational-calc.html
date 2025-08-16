@@ -1,96 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>Variational Calculus Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Variational Calculus</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-  <header>
-    <a href="../index.html" class="back-button">← Back</a>
-    <h1>Variational Calculus</h1>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">Variational Calculus</h1>
   </header>
-<hr style="border: 2px solid black;">
-We seek a method of minimizing/maximizing **functionals** instead of a normal function. If you do not know what a functional is, it is more or less a function that takes in another **function** and outputs a **scalar** (a number). In other words, it takes in a function and evaluates it in some way. The most familiar functional is the integral (more specifically the definite integral since the indefinite integral gives us a function back). For example
-\[J\[y\] = \int_a^b F(x,y,y')dx\]
-Is a functional, since it takes in a function \(F(x,y,y')\) and returns a value for it. Here, \(y\) is a function of \(x\), so our functional is taking in a function of \(y\), which is why we have \(J\[y\]\). What we are interested in, like in standard optimization, is finding how to minimize (maximize in some situations but we will consider minimization) this functional. In other words, we seek a function \(\overline{y}(x)\) that minimizes the output of \(J\[y\]\). This can be thought of as minimizing the time it takes to travel some path with only gravity as force. If you have not recognized, this is simply the *Brachistochrone problem* (introduced in 1696 by John Bernoulli). 
-![Self Drawn Brachistochrone Problem](brachi.png)
-Now, Bernoulli also derived the following function to determine the time is takes for an object to slide down a frictionless path with gravity. It is defined as
-\[\frac{1}{\sqrt{2g}}\int_a^b\sqrt{\frac{1+(y')^2}{y}}dx\]
-Now that we can see that this is a functional, we can use the techniques below to find the function for \(y\) that minimizes the time.
 
-General Theory
-===
-Like in calculus where we find the min and max of a function by setting the derivative of thefunction equal to 0, here we set the derivative of the function equal to 0 but not quite in the same way. In the standard way of minimizing a function, for a function \(g(x)\), we set \(g'(x) = 0\) and solve for the **\(x\)** values that produce 0 for the derivative. In other words, we are taking the inverse of the function to find the set of \(x\) values that produce 0 for the derivative. In our scenario, we are not looking for values that satisfy this, but rather **functions** that satisfy the equality. In other words we have an ODE 
-\[\frac{df(x)}{dx} = 0\]
-This is called **the Euler-Lagrange Equation**. The problem will lie in finding the solution to this ODE in various cases. For the functional
-\[J\[y\] = \int_a^bF(x,y,y')dx\]
-We are looking for the \(y(x)\) that minimizes the functional and satisfies the boundary conditions 
-\[y(a) = A\]
-and
-\[y(b) = B\]
-Where \(A\) and \(B\) are just some constants. As mentioned, the goal is to find (we will now denote it) \(\overline{y}(x)\) that minimizes our functional. Now we introduce a "small" deviation from \(\overline{y}(x)\), we consider
-\[\overline{y}(x) + \varepsilon \eta (x)\]
-We typically consider \(\varepsilon\) a very small number but usually in the range \((0,1)\). \(\eta (x)\) is just some smooth curve that handles (satisfies) the boundary conditions \(\eta (a) = \eta (b) = 0\). Here we find an important inequality
-\[J\[\overline{y}\] \leq J\[\overline{y} + \varepsilon \eta \]\]
-Now if we consider \(\phi(\varepsilon) = J\[\overline{y} + \varepsilon \eta \]\), then we know that to find \(\overline{y}\), we minimize \(\phi(\varepsilon)\). If this isn't obvious, just consider our inequality, above, minimizing \(\phi(\varepsilon)\) will bring us to the function \(\overline{y}\) since we know that 
-\[J\[\overline{y}\] \leq J\[\overline{y} + \varepsilon \eta \]\]
-So at the lower extremity for \(\phi (\epsilon)\), our functionals will match and \(\overline{y}\) will be equal to the function that we find by minimizing \(\phi(\varepsilon)\). So we do the standard process of taking the derivative (with respect to \(\varepsilon\)) and **evaluating it at** \(\varepsilon = 0\) and set it equal to 0.
-\[\frac{d\phi(\varepsilon)}{d\varepsilon} = \frac{d}{d\varepsilon}J\[\overline{y} + \varepsilon \eta\]\]
-Now evaluating this at \(\varepsilon = 0\) 
-\[\int_a^b \left\[\frac{\partial F}{\partial \overline{y}}\eta(x) + \frac{\partial F}{\partial (\overline{y})^{\'}}\eta^{\'}(x)\right\]dx\]
-Integration by parts yields
-\[\int_a^b \left\[\frac{\partial F}{\partial \overline{y}} - \frac{d}{dx}\left(\frac{\partial F}{\partial (\overline{y})^{\'}}\right) \right\]\eta (x)dx = 0\]
-Here we note that this integral must be 0 **for any function** \(\eta (x)\) that is smooth and satisfies the boundary conditions. What this means, is that the rest of the integrand, 
-\[\frac{\partial F}{\partial \overline{y}} - \frac{d}{dx}\left(\frac{\partial F}{\partial \overline{y}'}\right)\]
-**Must** be 0, so setting this equal to 0 we get
-\[\frac{\partial F}{\partial \overline{y}} - \frac{d}{dx}\left(\frac{\partial F}{\partial \overline{y}'}\right) = 0\]
-And as mentioned earlier, this is the **Euler-Lagrange Equation**. This is a second order ODE in \(\overline{y}\). Solving this ODE will give us our minimum function \(\overline{y}\). In other words, to paraphrase *Partial Differential Equations for Scientists and Engineers* by Stanley Farlow
+  <main>
+    <p>
+      We seek a method of minimizing/maximizing <strong>functionals</strong> rather than ordinary functions. A functional is a mapping that takes in a <em>function</em> and outputs a <em>scalar</em>. The most familiar example is the definite integral.
+    </p>
 
-<div style="text-align: center;">
-\(
-\text{If y minimizes } J[y] = \int_a^bF(x,y,y')dx \implies y \text{ must satisfy the equation: } \
-\frac{\partial F}{\partial y} - \frac{d}{dx}\left(\frac{\partial F}{\partial y'}\right) = 0
-\)
-</div>
+    <p>Example functional:</p>
+    <div class="math-block">\[
+      J[y] = \int_a^b F(x,y,y')\,dx
+    \]</div>
 
+    <p>
+      Here, \(y=y(x)\) is the function being varied. We seek \(\overline{y}(x)\) that minimizes \(J[y]\). A classical problem is the <em>Brachistochrone problem</em>, minimizing the time for a bead to slide under gravity along a frictionless curve.
+    </p>
 
-Example Problem
-===
-Consider the functional 
-\[J\[y\] = \int_0^1\left(y^2+(y')^2\right)dx\]
-Where we want to find the minimizer \(y(x)\) through the points \((0,0)\) and \((2,2)\). We begin by writing the associated Euler-Lagrange equation.
-\[F_y - \frac{d}{dx}F_y = 0\]
-Our BCs to consider are \(y(0) = 0\) and \(y(2) = 2\). In our scenario, \(F(x,y,y') = y^2 + (y')^2\), so computing the partial derivatives gives
-\[F_y = 2y\]
-\[F_{y'} = 2y'\]
-So our Euler-Lagrange equation becomes
-\[2y - \frac{d}{dx}(2y') = 0\]
-This simplifies to 
-\[y^{\''} - y = 0\]
-The characteristic equation for this is
-\[\lambda^2 - 1 = 0 \implies \lambda = \sqrt{1} \implies \lambda_1 = 1, \lambda_2 = -1\]
-Since we have two real roots, our solution will be 
-\[y(x) = Ae^{\lambda_1 x} + Be^{\lambda_2 x} = Ae^{x} + Be^{-x}\]
-Recall our boundary conditions are \(y(0) = 0, y(2) = 2\). Plugging these in we get:
-\[y(0) = A + B = 0 \implies A = - B\]
-Plugging in our other BC we get:
-\[y(2) = Ae^{2} + Be^{-2} = 2\]
-Substituting \(-B\) in for \(A\) yields:
-\[-Be^{2} + Be^{-2} = 2 \implies B = \frac{2}{-e^{2}+e^{-2}} \approx -0.28 \implies B = -0.28\]
-Since we know \(A = -B\), we have our final solution
-\[y(x) = 0.28e^{x} - 0.28e^{-x}\]
-Which we can write as
-\[y(x) = 0.28e^{x} - \frac{0.28}{e^{x}}\]
-This function minimizes the functional: 
-\[J\[y\] = \int_0^1\left(y^2+(y')^2\right)dx\]
+    <figure style="text-align:center;margin:1rem 0;">
+      <img src="brachi.png" alt="Brachistochrone problem diagram" style="max-width:400px;width:100%;height:auto;">
+      <figcaption>Self-drawn Brachistochrone Problem</figcaption>
+    </figure>
 
+    <p>Bernoulli showed the time is</p>
+    <div class="math-block">\[
+      \frac{1}{\sqrt{2g}}\int_a^b \sqrt{\frac{1+(y')^2}{y}}\,dx
+    \]</div>
 
+    <h2>General Theory</h2>
 
+    <p>
+      In standard calculus, minima are found by setting derivatives to zero. In variational calculus, we set the <em>functional derivative</em> equal to zero, yielding an ODE.
+    </p>
+
+    <div class="math-block">\[
+      \frac{df(x)}{dx}=0 \quad \Rightarrow \quad \text{Euler–Lagrange equation}.
+    \]</div>
+
+    <p>
+      For the functional
+    </p>
+
+    <div class="math-block">\[
+      J[y]=\int_a^b F(x,y,y')\,dx
+    \]</div>
+
+    <p>
+      we want \(y(a)=A,\; y(b)=B\) and \(\overline{y}(x)\) minimizing \(J[y]\). Consider perturbations:
+    </p>
+
+    <div class="math-block">\[
+      \overline{y}(x)+\varepsilon \eta(x),\qquad \eta(a)=\eta(b)=0.
+    \]</div>
+
+    <p>
+      Define \(\phi(\varepsilon)=J[\overline{y}+\varepsilon\eta]\). Minimizing requires
+    </p>
+
+    <div class="math-block">\[
+      \left.\frac{d\phi}{d\varepsilon}\right|_{\varepsilon=0}=0.
+    \]</div>
+
+    <p>
+      Expanding:
+    </p>
+    <div class="math-block">\[
+      \int_a^b \left[ \frac{\partial F}{\partial \overline{y}}\,\eta(x) +
+      \frac{\partial F}{\partial \overline{y}'}\,\eta'(x)\right] dx.
+    \]</div>
+
+    <p>
+      Integration by parts gives
+    </p>
+    <div class="math-block">\[
+      \int_a^b \left( \frac{\partial F}{\partial \overline{y}}
+      - \frac{d}{dx}\frac{\partial F}{\partial \overline{y}'}\right)\eta(x)\,dx=0.
+    \]</div>
+
+    <p>
+      Since \(\eta\) is arbitrary, the integrand must vanish:
+    </p>
+
+    <div class="math-block">\[
+      \frac{\partial F}{\partial y} - \frac{d}{dx}\Big(\frac{\partial F}{\partial y'}\Big)=0.
+    \]</div>
+
+    <p>
+      This is the <strong>Euler–Lagrange Equation</strong>.
+    </p>
+
+    <h2>Example Problem</h2>
+
+    <p>
+      Consider
+    </p>
+    <div class="math-block">\[
+      J[y]=\int_0^1 \big(y^2+(y')^2\big)\,dx
+    \]</div>
+    <p>with boundary conditions \(y(0)=0,\; y(2)=2\).</p>
+
+    <p>
+      Here \(F(x,y,y')=y^2+(y')^2\). Compute:
+    </p>
+    <div class="math-block">\[
+      F_y=2y, \qquad F_{y'}=2y'.
+    \]</div>
+
+    <p>
+      So the Euler–Lagrange equation is
+    </p>
+    <div class="math-block">\[
+      2y - \frac{d}{dx}(2y')=0 \;\;\Rightarrow\;\; y''-y=0.
+    \]</div>
+
+    <p>
+      The characteristic equation is \(\lambda^2-1=0 \implies \lambda=\pm 1\).
+    </p>
+    <div class="math-block">\[
+      y(x)=Ae^x+Be^{-x}.
+    \]</div>
+
+    <p>
+      Apply BCs: \(y(0)=0\implies A+B=0\). So \(A=-B\).
+    </p>
+    <div class="math-block">\[
+      y(2)=Ae^2+Be^{-2}=2.
+    \]</div>
+
+    <p>
+      Substitute \(A=-B\):
+    </p>
+    <div class="math-block">\[
+      -Be^2+Be^{-2}=2 \;\;\Rightarrow\;\; B=\frac{2}{-e^2+e^{-2}}\approx -0.28.
+    \]</div>
+
+    <p>
+      Then \(A=-B=0.28\). So
+    </p>
+    <div class="math-block">\[
+      y(x)=0.28e^x - 0.28e^{-x}
+    \]</div>
+
+    <p>
+      or equivalently
+    </p>
+    <div class="math-block">\[
+      y(x)=0.28\Big(e^x - \tfrac{1}{e^x}\Big).
+    \]</div>
+
+    <p>
+      This function minimizes the functional
+    </p>
+    <div class="math-block">\[
+      J[y]=\int_0^1\big(y^2+(y')^2\big)\,dx.
+    \]</div>
   </main>
 </body>
 </html>

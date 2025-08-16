@@ -1,23 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>The Law of Superposition Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Law of Superposition</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-  <header>
-    <a href="../index.html" class="back-button">← Back</a>
-    <h1>The Law of Superposition</h1>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">The Law of Superposition</h1>
   </header>
-<hr style="border: 2px solid black;">
-It is well known that the solutions to a homogenous linear differential equation form a vector space. What this means, is that **any** linear combination of solutions is also a solution to the differential equation. The Law of Superposition is simply the statement that these solutions do form a vector space. But what does the word superposition have to do with this? I had trouble with the concept at first, however, it makes sense when you understand why we consider the linear combination of solutions. If all we have is a general solution to a differential equation, then every linear combination also solves our differential equation. That is, if \(\phi(x,t)\) solves our PDE and \(\psi(x,t)\) does as well, then so does 
-\[\sum_{n=1}^{\infty}c_1 \cdot \phi(x,t) + c_2\cdot \psi(x,t)\]
-Now, we can't deduce much from this, so we usually impose an initial condition. The initial condition tells us exactly what configuration of this sum satisfies our problem. In other words, the particular solution to our problem lies in a superposition of every possible solution (in the form above). Only when we solve for the necessary configuration of this combination, do we get our particular solution. This can be thought of as Schrödinger's wave function collapsing when observed. In the context of a quantum system, the state of the system (determined by Schrödinger's equation) is in several different states simultaneously, it is not until measured (/observed) that the states collapse into 1 (the observed state). Much like the quantum analog, our solution exists in many different states, more specifically, it exists in all possible states. Once we impose an initial condition on it, it collapses into a specific solution to our problem. Therefore, like the quantum system, the possibility of our solution being **any** linear combination of solutions, collapses into a single solution. This is why it's called superposition.
+
+  <main>
+    <p>
+      It is well known that the solutions to a homogeneous linear differential equation form a <strong>vector space</strong>. This means that <em>any</em> linear combination of solutions is also a solution. The Law of Superposition is simply this statement.
+    </p>
+
+    <p>
+      But why call it “superposition”? The meaning becomes clear once we consider linear combinations of solutions. If we know two solutions \( \phi(x,t) \) and \( \psi(x,t) \), then any linear combination
+    </p>
+
+    <div class="math-block">\[
+      \sum_{n=1}^\infty \bigl(c_1 \phi(x,t) + c_2 \psi(x,t)\bigr)
+    \]</div>
+
+    <p>
+      is also a solution. On its own this doesn’t tell us much, so we usually impose <strong>initial conditions</strong>. The initial condition fixes which combination of solutions gives the <em>particular</em> solution we want.
+    </p>
+
+    <p>
+      In other words, the actual solution lies in a superposition of all possible linear combinations. Only after imposing the initial condition do we “collapse” into a specific solution.
+    </p>
+
+    <h2>Analogy to Quantum Mechanics</h2>
+
+    <p>
+      This can be compared to Schrödinger’s wave function: a quantum system is in a superposition of states until observed, at which point it collapses into a single state. Similarly, our PDE solution exists in all possible states (linear combinations), but once constrained by an initial condition, it collapses into the unique solution of the problem.
+    </p>
+
+    <p>
+      This could be why it’s called <strong>superposition</strong>: the general solution is literally a superposition of all possible particular solutions. However, this was my interpretation of the convention, not necessarily the truth.
+    </p>
   </main>
 </body>
 </html>
