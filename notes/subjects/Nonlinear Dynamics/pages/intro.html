@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Introduction to Nonlinear Dynamics</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">Introduction to Nonlinear Dynamics</h1>
+  </header>
+
+  <main>
+    <p>
+      All of the differential equations that are solved in a first or even second semester differential equations course
+      have <strong>analytic</strong> solutions.
+      The differential equations that you solve are carefully crafted for you to do some basic algebraic manipulation and use some basic calculus to solve. 
+      However, the vast majority of differential equations have no analytic solutions, so the techniques you learned will not be of any use.
+      So if we can't get a closed form solution for the differential equations that govern the natural world, how do we understand the natural world?
+      This is the focus of the study of nonlinear dynamics, as almost any differential equation that models something
+      complex will be nonlinear, and pretty much any nonlinear ODE has no analytic solution.
+    </p>
+
+    <h2>Basic Example</h2>
+    <p>
+      One of the simplest examples of a nonlinear ODE, is the simple pendulum.
+    </p>
+    <div class="math-block">\[
+      \ddot{\theta} + \frac{g}{L}\sin(\theta) = 0
+    \]</div>
+    <p>This is easily derived using Newton's second law. This models a pendulum with no air resistance.
+        If we limit our investigation to small angles (i.e. small values for \(\theta\)), then we can often
+        substitute \(\sin\) for \(\theta\) in the differential equation since
+    </p>
+    <div class="math-block">\[
+        \sin(\theta) \approx \theta
+        \]
+    </div>
+    <p>Then our ODE would become</p>
+        <div class="math-block">\[
+        \ddot{\theta} + \frac{g}{L}\theta = 0
+        \]
+    </div>
+
+    <p>This turns the nonlinear ODE into a linear one with an analytic solution. But this is a limiting view of 
+        a real physical model. Instead if we wanted to model the behavior for any \(\theta\) then we cannot find
+        an analytic solution. This shows how limited linear ODEs are, they cannot even properly model something as 
+        basic as the motion of a pendulum. However, this also demonstrates how important Nonlinear theory is.
+    </p>
+
+  </main>
+</body>
+</html>
