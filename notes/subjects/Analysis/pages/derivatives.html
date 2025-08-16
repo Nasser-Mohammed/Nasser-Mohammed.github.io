@@ -1,49 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>Derivative Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deriving the Derivative Rules</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-  <header>
-    <a href="../index.html" class="back-button">← Back</a>
-    <h1>Deriving the Derivative Rules</h1>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">Deriving the Derivative Rules</h1>
   </header>
-<hr style="border: 2px solid black;">
-Many students first encounter the derivative "rules" in a first year calculus course. However, many never learn where these rules come from, and why functions of certain forms follow certain rules. I will derive the primary derivative rules by use of limits, and the limit definition of derivative. After all, the derivative is the limit definition, and everything else comes after. Naturally, we will begin with the properties of a limit.
 
-<h2>Limit Definition of a Derivative</h2>
-The derivative is defined in terms of a limit as such. For a function \(f(x)\), 
-\[f'(x) = \lim_{h\to } \frac{f(x+h)-f(x)}{h}\]
-Now, we need to note a few properties of limits before we start the derivation. Below are the most funadmental properties,
-\[\text{Sums: } \lim_{x \to a}(f(x) + g(x)) = \lim_{x \to a}f(x) + \lim_{x\to a}g(x)\]
-\[\text{Scalar multiplication: } \lim_{x\to a}cf(x) = c\cdot \lim_{x \to a}f(x) \ \ \text{for a constant } c\]
-\[\text{Products: } \lim_{x \to a}(f(x)\cdot g(x)) = \lim_{x\to a}f(x) \cdot \lim_{x \to a}g(x)\]
-\[\text{Powers: } \lim_{x\to a}(f(x))^n = (\lim_{x\to a}f(x))^n\]
-With these, we can now begin the derivation. Let's start with the most common, the power rule:
-\[\text{Let } f(x) = x^n \implies f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}\]
-Replacing \(f(x)\) with \(x^n\), we see that we have
-\[\lim_{h \to 0} \frac{(x+h)^n - x^n}{h}\]
-We will use [Binomial Theorem](https://en.wikipedia.org/wiki/Binomial_theorem), to expand the \((x+h)^n\) into 
-\[\sum_{k = 0}^{n} \binom{n}{k}x^kh^{n-k} = x^n + \binom{n}{1}hx^{n-1} + \binom{n}{2}x^{n-2}h^2 + .... h^n\]
-Then subtracting both sides by \(x^n\) gives,
-\[(x+h)^n - x^n = \binom{n}{1}hx^{n-1} + \binom{n}{2}x^{n-2}h^2 + .... h^n\]
-Dividing by \(h\), we have
-\[\frac{(x+h)^n - x^n}{h} = \binom{n}{1}x^{n-1} + \binom{n}{2}x^{n-2}h + .... h^{n-1}\]
-Now we consider the limit as \(h \to 0\),
-\[\lim_{h \to 0}\frac{(x+h)^n - x^n}{h} = \lim_{h \to 0}\binom{n}{1}x^{n-1} + \binom{n}{2}x^{n-2}h + .... h^{n-1}\]
-\[\lim_{h \to 0}\frac{(x+h)^n - x^n}{h} = \lim_{h \to 0}\binom{n}{1}x^{n-1} + \lim_{h \to 0}\binom{n}{2}x^{n-2}h + .... \lim_{h \to 0}h^{n-1}\]
-Each term goes to \(0\), except for the first. 
-\[\lim_{h \to 0}\frac{(x+h)^n - x^n}{h} = \lim_{h \to 0}\binom{n}{1}x^{n-1} = \binom{n}{1}x^{n-1}\]
-Since the right hand side doesn't depend on \(h\). Therefore, we have that 
-\[f'(x) = \binom{n}{1}x^{n-1} = \frac{n!}{1!(n-1)!}x^{n-1} = nx^{n-1}\]
-And we have the known rule that,
-\[f'(x) = nx^{n-1}\]
+  <main>
+    <p>
+      Many students first meet the derivative rules in a first year calculus course. Plenty never see where those rules come from or why functions with certain forms follow certain rules. Here I build the primary rules straight from limits and the limit definition of the derivative. The derivative is the limit definition and everything else follows. We start with a few facts about limits.
+    </p>
+
+    <h2>Limit Definition of a Derivative</h2>
+    <p>
+      For a function \(f(x)\) the derivative at \(x\) is
+    </p>
+    <div class="math-block">\[
+      f'(x) = \lim_{h\to 0}\frac{f(x+h)-f(x)}{h}.
+    \]</div>
+
+    <p>
+      We will use standard limit properties:
+    </p>
+    <div class="math-block">\[
+      \lim_{x\to a}(f(x)+g(x))=\lim_{x\to a}f(x)+\lim_{x\to a}g(x)
+    \]</div>
+    <div class="math-block">\[
+      \lim_{x\to a}c\,f(x)=c\cdot\lim_{x\to a}f(x)\quad\text{for constant }c
+    \]</div>
+    <div class="math-block">\[
+      \lim_{x\to a}(f(x)\,g(x))=\bigl(\lim_{x\to a}f(x)\bigr)\bigl(\lim_{x\to a}g(x)\bigr)
+    \]</div>
+    <div class="math-block">\[
+      \lim_{x\to a}(f(x))^{n}=\bigl(\lim_{x\to a}f(x)\bigr)^{n}.
+    \]</div>
+
+    <h2>Power Rule from the Definition</h2>
+    <p>
+      Let \(f(x)=x^{n}\). Then
+    </p>
+    <div class="math-block">\[
+      f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}
+      =\lim_{h\to 0}\frac{(x+h)^{n}-x^{n}}{h}.
+    \]</div>
+
+    <p>
+      Expand \((x+h)^n\) with the Binomial Theorem
+    </p>
+    <div class="math-block">\[
+      (x+h)^n=\sum_{k=0}^{n}\binom{n}{k}x^{n-k}h^{k}
+      =x^{n}+\binom{n}{1}x^{n-1}h+\binom{n}{2}x^{n-2}h^{2}+\cdots+h^{n}.
+    \]</div>
+
+    <p>
+      Subtract \(x^n\)
+    </p>
+    <div class="math-block">\[
+      (x+h)^n-x^{n}=\binom{n}{1}x^{n-1}h+\binom{n}{2}x^{n-2}h^{2}+\cdots+h^{n}.
+    \]</div>
+
+    <p>
+      Divide by \(h\)
+    </p>
+    <div class="math-block">\[
+      \frac{(x+h)^n-x^{n}}{h}
+      =\binom{n}{1}x^{n-1}+\binom{n}{2}x^{n-2}h+\cdots+h^{n-1}.
+    \]</div>
+
+    <p>
+      Take the limit as \(h\to 0\). Every term with a factor of \(h\) vanishes and the first term survives
+    </p>
+    <div class="math-block">\[
+      \lim_{h\to 0}\frac{(x+h)^n-x^{n}}{h}
+      =\binom{n}{1}x^{n-1}.
+    \]</div>
+
+    <p>
+      Since \(\binom{n}{1}=n\) we get the familiar rule
+    </p>
+    <div class="math-block">\[
+      f'(x)=n\,x^{n-1}.
+    \]</div>
   </main>
 </body>
 </html>

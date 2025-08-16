@@ -1,31 +1,71 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Analysis Notes</title>
   <link rel="icon" type="image/png" href="../../pictures/analysis.png" sizes="48x48">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header>
-    <h1>Real Analysis</h1>
+<body class="an">
+  <header class="an-hero">
+    <a href="../../index.html" class="an-back" aria-label="Back to main">← Back</a>
+    <div class="an-hero-inner">
+      <h1>Real Analysis</h1>
+    </div>
   </header>
-  <a href="../../index.html" class="back-button">← Back</a>
-  <br>
-  <ul class="styled-list">
-        <li><a href="pages/derivatives.html">Deriving Derivative Rules</a></li>
-        <li><a href="pages/harmonic-series.html">The Divergence of the Harmonic Series</a></li>
-        <li><a href="pages/sigmaAlgebras.html">Sigma Algebras</a></li>
-        <li><a href="pages/lebesguemeas.html">Lebesgue Measure Theory</a></li> 
-        <li><a href="pages/lebintegral.html">Lebesgue Integral</a></li> 
-        <li><a href="pages/ftc.html">Establishing the Fundamental Theorem of Calculus with the Lebesgue Integral</a></li>
-        <li><a href="pages/missing.html">The Rest of Measure Theory</a></li>
-    </ul>
+
+  <main class="an-main">
+    <nav class="an-grid">
+      <a class="an-card" href="pages/derivatives.html">
+        <div class="an-pill">Start here</div>
+        <h2>Deriving Derivative Rules</h2>
+        <p>Build every standard rule from first principles</p>
+        <span class="an-chevron">→</span>
+      </a>
+
+      <a class="an-card" href="pages/harmonic-series.html">
+        <div class="an-pill">Series</div>
+        <h2>Harmonic Series Diverges</h2>
+        <p>A clean proof and variations you can reuse</p>
+        <span class="an-chevron">→</span>
+      </a>
+
+      <a class="an-card" href="pages/sigmaAlgebras.html">
+        <div class="an-pill">Measure</div>
+        <h2>Sigma Algebras</h2>
+        <p>Collections that behave well under countable operations</p>
+        <span class="an-chevron">→</span>
+      </a>
+
+      <a class="an-card" href="pages/lebesguemeas.html">
+        <div class="an-pill">Measure</div>
+        <h2>Lebesgue Measure</h2>
+        <p>Outer measure, measurable sets, and regularity ideas</p>
+        <span class="an-chevron">→</span>
+      </a>
+
+      <a class="an-card" href="pages/lebintegral.html">
+        <div class="an-pill">Integral</div>
+        <h2>Lebesgue Integral</h2>
+        <p>Step functions to general functions with limit theorems</p>
+        <span class="an-chevron">→</span>
+      </a>
+
+      <a class="an-card" href="pages/ftc.html">
+        <div class="an-pill">Integral</div>
+        <h2>Fundamental Theorem</h2>
+        <p>Connect the integral with differentiation carefully</p>
+        <span class="an-chevron">→</span>
+      </a>
+
+      <a class="an-card" href="pages/missing.html">
+        <div class="an-pill">More</div>
+        <h2>Further Measure Topics</h2>
+        <p>Convergence modes, product spaces, and more to add</p>
+        <span class="an-chevron">→</span>
+      </a>
+    </nav>
   </main>
 </body>
 </html>

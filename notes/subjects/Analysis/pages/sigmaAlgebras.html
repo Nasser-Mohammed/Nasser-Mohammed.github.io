@@ -1,60 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>Sigma Algebras Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sigma Algebras</title>
+
+  <!-- Shared stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- MathJax v3 (with inline + display config) -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 </head>
 <body>
-  <header>
-    <a href="../index.html" class="back-button">← Back</a>
-    <h1>Sigma Algebras</h1>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">Sigma Algebras</h1>
   </header>
-<hr style="border: 2px solid black;">
-A \(\sigma\)-Algebra \(M\), of **subsets** of a set \(X\), is a collection of subsets of \(X\) that satisfies the following properties.
-\(
+<main>
+  <div class="theorem">
+    <p>
+      A \(\sigma\)-Algebra \(M\), of <strong>subsets</strong> of a set \(X\), is a collection of subsets of \(X\) that satisfies the following properties:
+    </p>
+    <div class="math-block">
+\[
 \begin{align}
-\
-(1)&\text{ M contains the empty set: } \emptyset \in \text{M} \
-\
-(2)&\text{ Closure under complementation: If } B \in \text{M, then } B^c \in \text{M} \
-\
-(3)&\smash{\text{ Closure under countable union: If } B_1, B_2, ..... , B_n \in \text{M, then } \bigcup_{n = 1}^{\infty}B_n \in \text{M}} \
+(1)&\ \text{M contains the empty set: } \emptyset \in M \\
+(2)&\ \text{Closure under complementation: If } B \in M,\ \text{then } B^c \in M \\
+(3)&\ \text{Closure under countable union: If } B_1, B_2, \ldots \in M,\ \text{then } \bigcup_{n=1}^{\infty} B_n \in M
 \end{align}
-\)
+\]
+    </div>
+  </div>
 
-There are two things to consider with this definition. The first is that since \(\emptyset \in\) M, and M is closed under complementation \(\implies \emptyset^c \in M \text{ and } \emptyset^c = X \implies X \in M\). \
-The second concerns the choice of countable union. For some set \(E \in M\), where 
-\[E = \bigcup_{n = 1}^{\infty}E_n\]  and where each \(E_n\) is some element of \(M\). Then we know \(E \in M \implies E^c \in M\), so if we replace \(E\) by the union of sets that it's comprised of, we get
-\[E = \bigcup_{n = 1}^{\infty}E_n \text{ then } E^c = (\bigcup_{n = 1}^{\infty}E_n)^c\]
-By De Morgan's Law \[(\bigcup_{n = 1}^{\infty}E_n)^c = \bigcap_{n = 1}^{\infty}E_n^c\]
-Now, we know each \(E_n \in M \implies E_n^c \in M\). So in our above expression, we have the countable intersection of elements in \(M\). Finally, know that we simply rewrote our original set \(E^c\), so \[E^c = (\bigcup_{n = 1}^{\infty}E_n)^c = \bigcap_{n = 1}^{\infty}E_n^c\] 
-Implies, \[E^c =\bigcap_{n = 1}^{\infty}E_n^c\] And we know \(E^c \in M\) since \(E \in M\), finally this implies \[\bigcap_{n = 1}^{\infty}E_n^c \in M\] Where each \(E_n^c \in M\). Essentially, combining the closure under complementation and De Morgan's Law with the closure under countable union, we can conclude that \(M\) is **also** closed under countable intersection. Therefore, we can actually choose whether to use countable union or countable intersection in our definition, since they both end up implying the other (when coupled with complementation). 
+  <p>
+    There are two things to consider with this definition. The first is that since \(\emptyset \in M\), and \(M\) is closed under complementation, it follows that \(\emptyset^c \in M\) and \(\emptyset^c = X \implies X \in M\).
+  </p>
 
-Why Are \(\sigma\)-Algebras Important?
-====
-At least in the context of measure theory, for an exterior measure defined on a set \(X\), we know that the exterior measure assigns a measure to **every** subset of \(X\) (i.e. the power set of \(X: 2^X\)), and we know that the exterior measure \(m_{\ast}\) is only countably sub-additive. In other words, the best statement we can make about the measure of sets that are equal to countably-infinite unions of other sets is
-\[\text{If } E = \bigcup_{j = 1}^{\infty}E_n \text{   then   } m_{\ast}(E) \leq \sum_{j = 1}^{\infty}m_{\ast}(E_n)\]
-However, if we limit the exterior measure to an appropriate \(\sigma\)-algebra of \(X\), then we actually get countable additivity. In other words, if \(E\) is an element of an appropriate \(\sigma\)-algebra of \(X\) then we can say the following:
-\[\text{If } E = \bigcup_{j = 1}^{\infty}E_n \text{   then   } m_{\ast}(E) = \sum_{j = 1}^{\infty}m_{\ast}(E_n)\]
-\[\text{Where each } E_n \text{ is disjoint}\]
-By "an appropriate \(\sigma\)-algebra", I mean one that gives us countable additivity. Not all \(\sigma\)-algebras of a set \(X\) provide an exterior measure with countable additivity. For example, the power set \(2^X\) is a \(\sigma\)-algebra of \(X\), yet as we know, does not allow for countable additivity. So we must find some criteria that carves out the sets that prevent us from having countable additivity. With the **Lebsgue Exterior Measure**, we use the definition of *measurability* to form an appropriate \(\sigma\)-algebra. The definition is as follows,
-\[\text{A set } \mathbb{E} \text{, is measurable if } \forall \epsilon > 0, \exists \text{ an open set } \mathbb{O} \text{ with } \mathbb{E} \subset \mathbb{O} \text{ such that } m_{\ast}(\mathbb{O} - \mathbb{E}) \leq \epsilon\]
-\[\text{Where } \mathbb{O}-\mathbb{E} \text{ is defined as the set difference operation: } \mathbb{O}-\mathbb{E} = \mathbb{O}\cap\mathbb{E}^c\]
-Therefore, if we consider all subsets of a set \(X\) that satisfy the above condition, we produce a \(\sigma\)-algebra. In particular, this \(\sigma\)-algebra gives us countable additivity.
-\
-\
-More generally though, \(\sigma\)-algebras provide us with structure to make conclusions about the behavior of certain set operations and how certain sets might interact with each other. 
-\
-\
-For additional information, another \(\sigma\)-algebra that is important in analysis is the **Borel** \(\sigma\)**-Algebra**, which is defined, as the smallest possible \(\sigma\)-algebra that contains all of the open sets of \(\mathbb{R}^d\). The smallest meaning, that any other \(\sigma\)-algebra that also contains all of the open sets of \(\mathbb{R}^d\), must also contain the **Borel** \(\sigma\)**-Algebra**, denoted \(B_{\mathbb{R}^d}\). This \(\sigma\)-algebra is made up of open sets, closed sets, \(G_{\delta}\)'s and \(F_{\sigma}\)'s. Where the latter two are defined as, 
-\[\text{A } G_{\delta} \text{ is a countable intersection of open sets}\]
-\[\text{An } F_{\sigma} \text{ is a countable union of closed sets}\]
-The last remark I will make, is that the **Borel** \(\sigma\)**-Algebra** adjoined with the null sets (sets of exterior measure 0) forms the \(\sigma\)-algebra called the **Lebesgue Measurable Sets**, which are the primary concern of Lebesgue Measure Theory. 
-  </main>
+  <p>
+    The second concerns the choice of countable union. For some set \(E \in M\), where 
+  </p>
+  <div class="math-block">
+    \[ E = \bigcup_{n=1}^{\infty}E_n \]
+  </div>
+  <p>
+    and where each \(E_n\) is some element of \(M\). Then we know \(E \in M \implies E^c \in M\). So if we replace \(E\) by the union of sets that it's comprised of, we get
+  </p>
+
+  <div class="math-block">
+    \[ E^c = \left(\bigcup_{n = 1}^{\infty}E_n\right)^c \]
+    \[ (\bigcup_{n = 1}^{\infty}E_n)^c = \bigcap_{n = 1}^{\infty}E_n^c \]
+  </div>
+
+  <p>
+    Now, we know each \(E_n \in M \implies E_n^c \in M\). So in our above expression, we have the countable intersection of elements in \(M\). Finally, since this simply rewrites \(E^c\), we have:
+  </p>
+
+  <div class="math-block">
+    \[ E^c = \bigcap_{n = 1}^{\infty}E_n^c \]
+  </div>
+
+  <p>
+    Therefore, \(\bigcap_{n = 1}^{\infty}E_n^c \in M\). Combining closure under complementation and De Morgan's Law with closure under countable union, we conclude that \(M\) is <strong>also</strong> closed under countable intersection. Thus, we can equivalently define a \(\sigma\)-algebra using closure under countable intersection.
+  </p>
+
+  <h2>Why Are \(\sigma\)-Algebras Important?</h2>
+  <p>
+    In measure theory, for an exterior measure defined on a set \(X\), the measure assigns a value to <strong>every</strong> subset of \(X\) (the power set \(2^X\)). However, the exterior measure \(m_{\ast}\) is only countably sub-additive. That is,
+  </p>
+  <div class="math-block">
+    \[\text{If } E = \bigcup_{j = 1}^{\infty}E_n \quad \text{then} \quad m_{\ast}(E) \leq \sum_{j = 1}^{\infty}m_{\ast}(E_n)\]
+  </div>
+
+  <p>
+    If we instead restrict the exterior measure to an appropriate \(\sigma\)-algebra of \(X\), then we actually get countable additivity:
+  </p>
+  <div class="math-block">
+    \[\text{If } E = \bigcup_{j = 1}^{\infty}E_n \quad \text{then} \quad m_{\ast}(E) = \sum_{j = 1}^{\infty}m_{\ast}(E_n)\]
+    \[\text{Where each } E_n \text{ is disjoint}\]
+  </div>
+
+  <p>
+    By "appropriate \(\sigma\)-algebra", I mean one that ensures countable additivity. For example, the power set \(2^X\) is a \(\sigma\)-algebra but does <em>not</em> allow for countable additivity. With the <strong>Lebesgue Exterior Measure</strong>, measurability carves out the right subsets:
+  </p>
+  <div class="math-block">
+    \[\text{A set } \mathbb{E} \text{ is measurable if } \forall \epsilon > 0,\ \exists\ \mathbb{O} \supset \mathbb{E},\ \mathbb{O}\ \text{open, such that } m_{\ast}(\mathbb{O} - \mathbb{E}) \leq \epsilon \]
+    \[\mathbb{O}-\mathbb{E} = \mathbb{O}\cap\mathbb{E}^c\]
+  </div>
+
+  <p>
+    Considering all subsets of \(X\) that satisfy this yields a \(\sigma\)-algebra that gives countable additivity.
+  </p>
+
+  <p>
+    More generally, \(\sigma\)-algebras provide structure to make conclusions about the behavior of set operations and how sets interact.
+  </p>
+
+  <p>
+    Another important example is the <strong>Borel \(\sigma\)-Algebra</strong>, defined as the smallest \(\sigma\)-algebra containing all open sets of \(\mathbb{R}^d\). Explicitly:
+  </p>
+  <div class="math-block">
+    \[\text{A } G_{\delta} \text{ is a countable intersection of open sets}\]
+    \[\text{An } F_{\sigma} \text{ is a countable union of closed sets}\]
+  </div>
+
+  <p>
+    The Borel \(\sigma\)-algebra adjoined with null sets forms the \(\sigma\)-algebra of <strong>Lebesgue Measurable Sets</strong>, the main objects of Lebesgue measure theory.
+  </p>
+</main>
+
 </body>
 </html>

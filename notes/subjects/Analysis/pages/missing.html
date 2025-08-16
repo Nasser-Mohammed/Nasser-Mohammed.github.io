@@ -1,45 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>Missing Measure Theory Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Rest of Measure Theory</title>
+
+  <!-- Shared stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- MathJax v3 (with inline + display config) -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 </head>
 <body>
-  <header>
-    <a href="../index.html" class="back-button">← Back</a>
-    <h1>The Rest of Measure Theory</h1>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">The Rest of Measure Theory</h1>
   </header>
-<hr style="border: 2px solid black;">
-The topics covered so far is not an exhaustive treatment of measure theory, rather some of the most "notable" results and simply the ones I understood best. Below is a list of most of the other important topics that I could not go into detail on (either from lack of knowledge, time, or material). The abstract measure theory section seems like a lot, but most of it is pretty intuitive after going through Lebesgue measure theory.
+<main>
+  <p>
+    The topics covered so far is not an exhaustive treatment of measure theory, rather some of the most "notable" results and simply the ones I understood best. Below is a list of most of the other important topics that I could not go into detail on (either from lack of knowledge, time, or material). The abstract measure theory section seems like a lot, but most of it is pretty intuitive after going through Lebesgue measure theory.
+  </p>
 
-
-- <a href="https://en.wikipedia.org/wiki/Fubini%27s_theorem" target="_blank">Fubini's and Tonelli's Theorems</a>
-- <a href="https://en.wikipedia.org/wiki/Lp_space" target="_blank">Lp Theory</a>
-  - <a href="https://en.wikipedia.org/wiki/H%C3%B6lder%27s_inequality" target="_blank">Holder's Inequality</a>
-  - Holder Conjugates
-  - Young's Inequality for Convolutions
-- Abstract Measure Theory
-  - \(\sigma\)-finiteness
-  - Measure Spaces
-  - Metric Measure Spaces
-  - Exterior Measure
-  - Premeasure
-  - Algebras and Premeasures vs \(\sigma\)-Algebras and Exterior Measures
-  - <a href="https://en.wikipedia.org/wiki/Carath%C3%A9odory%27s_criterion" target="_blank">Caratheodory Measurability</a>
-  - Signed Measures
-  - Absolute Continuity of Measures
-  - Mutually Singular Measures
-  - Measurable Functions with Abstract Measures
-  - Integration with Abstract Measures
-  - General Fubini's Theorem
-  - <a href="https://en.wikipedia.org/wiki/Radon%E2%80%93Nikodym_theorem" target="_blank">Radon–Nikodym Theorem and Derivative</a>
-- <a href="https://en.wikipedia.org/wiki/Hilbert_space" target="_blank">Hilbert Spaces</a>
-
-  </main>
+  <ul>
+    <li><a href="https://en.wikipedia.org/wiki/Fubini%27s_theorem" target="_blank">Fubini's and Tonelli's Theorems</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Lp_space" target="_blank">Lp Theory</a>
+      <ul>
+        <li><a href="https://en.wikipedia.org/wiki/H%C3%B6lder%27s_inequality" target="_blank">Hölder's Inequality</a></li>
+        <li>Hölder Conjugates</li>
+        <li>Young's Inequality for Convolutions</li>
+      </ul>
+    </li>
+    <li>Abstract Measure Theory
+      <ul>
+        <li>\(\sigma\)-finiteness</li>
+        <li>Measure Spaces</li>
+        <li>Metric Measure Spaces</li>
+        <li>Exterior Measure</li>
+        <li>Premeasure</li>
+        <li>Algebras and Premeasures vs \(\sigma\)-Algebras and Exterior Measures</li>
+        <li><a href="https://en.wikipedia.org/wiki/Carath%C3%A9odory%27s_criterion" target="_blank">Carathéodory Measurability</a></li>
+        <li>Signed Measures</li>
+        <li>Absolute Continuity of Measures</li>
+        <li>Mutually Singular Measures</li>
+        <li>Measurable Functions with Abstract Measures</li>
+        <li>Integration with Abstract Measures</li>
+        <li>General Fubini's Theorem</li>
+        <li><a href="https://en.wikipedia.org/wiki/Radon%E2%80%93Nikodym_theorem" target="_blank">Radon–Nikodym Theorem and Derivative</a></li>
+      </ul>
+    </li>
+    <li><a href="https://en.wikipedia.org/wiki/Hilbert_space" target="_blank">Hilbert Spaces</a></li>
+  </ul>
+</main>
 </body>
 </html>
