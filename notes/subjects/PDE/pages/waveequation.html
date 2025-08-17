@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wave Equation</title>
+  <title>The Wave Equation</title>
   <link rel="stylesheet" href="styles.css" />
   <script>
     window.MathJax = {
@@ -20,125 +20,103 @@
 <body>
   <header class="site">
     <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Wave Equation</h1>
+    <h1 class="title">The Wave Equation</h1>
   </header>
 
   <main>
+    <p><div class="math-block">\[u_{tt} = c^2 u_{xx}\]</div></p>
+
     <p>
-      The wave equation arises naturally in physical systems such as vibrating strings and membranes. 
-      It is the archetype of a second-order hyperbolic PDE.
+      Originally solved by Jean le Rond d'Alembert in 1747, the function \(u\) describes the "height" of a string (or wave) at a point in space and time \((x,t)\). Note, we are considering a 1-dimensional string. Here (when considering \(c = 1\)), we seek a function whose second temporal partial derivative is equal to its second spatial partial derivative. Immediately, that should set off light bulbs in your head of some sort of \(\sin\) and \(\cos\) functions.
     </p>
 
-    <h2>Derivation</h2>
-
-    <p>For a string of length \(L\) with fixed ends, let \(u(x,t)\) represent the transverse displacement.</p>
-
+    <h2>Boundary Conditions on the 1-D String</h2>
     <p>
-      Consider a small element of string between \(x\) and \(x+\Delta x\). Tension \(T\) acts along the string. 
-      The vertical component of tension is
-    </p>
-
-    <div class="math-block">\[
-      T\sin\theta \approx T \frac{\partial u}{\partial x}.
-    \]</div>
-
-    <p>
-      Newton’s second law: force = mass × acceleration. The vertical force is
-    </p>
-
-    <div class="math-block">\[
-      \rho \Delta x \frac{\partial^2 u}{\partial t^2}
-      = T \frac{\partial u}{\partial x}\Big|_{x+\Delta x}
-      - T \frac{\partial u}{\partial x}\Big|_{x}.
-    \]</div>
-
-    <p>
-      Divide through by \(\Delta x\) and take the limit:
-    </p>
-
-    <div class="math-block">\[
-      \rho \frac{\partial^2 u}{\partial t^2}
-      = T \frac{\partial^2 u}{\partial x^2}.
-    \]</div>
-
-    <p>
-      Let \(c^2 = T/\rho\). Then
-    </p>
-
-    <div class="math-block">\[
-      u_{tt} = c^2 u_{xx}.
-    \]</div>
-
-    <h2>Initial and Boundary Conditions</h2>
-
-    <p>
-      To solve, we need:
+      There are several boundary conditions to consider but we will mostly be concerned with three kinds:
     </p>
     <ul>
-      <li>Initial displacement: \(u(x,0)=f(x)\)</li>
-      <li>Initial velocity: \(u_t(x,0)=g(x)\)</li>
-      <li>Boundary conditions (e.g., fixed ends): \(u(0,t)=u(L,t)=0\)</li>
+      <li>endpoints held at 0 (homogenous)</li>
+      <li>endpoints that vary with time</li>
+      <li>force specified on the end points</li>
     </ul>
 
-    <h2>Separation of Variables</h2>
-
     <p>
-      Assume \(u(x,t)=X(x)T(t)\). Substituting:
+      To interpret these, let's consider the first boundary condition: imagine a guitar string that is clamped down at the ends (as usual). If you pull the string up and release, it will send "standing" waves through the string. For the second boundary condition, imagine two people holding opposite ends of a rope, where they are raising their end up and down. Intuitively, this will send "waves" through the string. As for the last boundary condition, we consider the endpoints of a string connected to a frictionless sleeve. As the sleeve moves up and down, it will drag the string with it. In that way, we have the force specified at the boundary, instead of the explicit position of the string at the endpoint. In the rest of this page, I will only consider the first boundary condition.
     </p>
 
-    <div class="math-block">\[
-      \frac{T''}{c^2 T} = \frac{X''}{X} = -\lambda.
-    \]</div>
+    <h2>The Vibrating Wave (Guitar String)</h2>
+    <p>
+      Consider the following IBVP:
+    </p>
+    <div class="math-block">\[\text{PDE: } u_{tt} = \alpha^2u_{xx}, \quad 0 < x < L, \quad 0 < t < \infty\]</div>
+    <div class="math-block">\[\text{Boundary conditions: } u(0, t) = 0 = u(L, t)\]</div>
+    <div class="math-block">\[\text{Initial conditions: } u(x,0) = \phi(x), \quad u_t(x, 0) = \psi(x)\]</div>
 
     <p>
-      This yields two ODEs:
+      Note that we have two initial conditions now, this is due to the fact that our temporal derivative \(u_{tt}\) is of 2nd order, and therefore the solution to an ODE in \(t\) will produce two coefficients. It makes sense if we think about the guitar string example again: we don't only need the initial position of the string, but we also need to know how "fast" the string is moving from its initial position since that will affect the evolution of the string.
     </p>
 
-    <div class="math-block">\[
-      X''+\lambda X=0, \quad T''+c^2\lambda T=0.
-    \]</div>
-
-    <h3>Spatial Equation</h3>
-    <p>With boundary conditions \(X(0)=X(L)=0\):</p>
-
-    <div class="math-block">\[
-      X_n(x)=\sin\left(\frac{n\pi x}{L}\right),\quad \lambda_n=\left(\frac{n\pi}{L}\right)^2.
-    \]</div>
-
-    <h3>Temporal Equation</h3>
-    <p>Solutions are:</p>
-
-    <div class="math-block">\[
-      T_n(t)=A_n\cos\left(\frac{n\pi c t}{L}\right)
-            +B_n\sin\left(\frac{n\pi c t}{L}\right).
-    \]</div>
-
-    <h2>General Solution</h2>
-
-    <div class="math-block">\[
-      u(x,t)=\sum_{n=1}^\infty
-      \left[A_n\cos\left(\frac{n\pi c t}{L}\right)
-      +B_n\sin\left(\frac{n\pi c t}{L}\right)\right]
-      \sin\left(\frac{n\pi x}{L}\right).
-    \]</div>
-
     <p>
-      Coefficients \(A_n,B_n\) are determined from the initial conditions using Fourier sine series expansions.
+      We solve this problem through separation of variables, so we assume
+      <div class="math-block">\[u(x,t) = T(t)X(x)\]</div>
+      Plugging this into \(u_{tt} = \alpha^2u_{xx}\) we get
+      <div class="math-block">\[T''(t)X(x) = \alpha^2T(t)X''(x)\]</div>
+      Separating variables gives
+      <div class="math-block">\[\frac{T''(t)}{\alpha^2T(t)} = \frac{X''(x)}{X(x)} = k\]</div>
     </p>
 
-    <h2>d’Alembert’s Solution</h2>
-
     <p>
-      On an infinite string, the solution takes the form:
+      We now can write this as two separate equations:
+      <div class="math-block">\[T''(t) - k\alpha^2T(t) = 0\]</div>
+      <div class="math-block">\[X''(x) - kX(x) = 0\]</div>
     </p>
 
-    <div class="math-block">\[
-      u(x,t)=\tfrac{1}{2}\big[f(x-ct)+f(x+ct)\big]
-      +\tfrac{1}{2c}\int_{x-ct}^{x+ct} g(s)\,ds.
-    \]</div>
+    <p>
+      Unlike the heat equation, here we cannot immediately conclude that \(k < 0\). Both ODEs are second-order homogeneous linear ODEs, so each has three solution types:
+    </p>
+
+    <ol>
+      <li>\(k = 0: T(t) = At + B, \quad X(x) = Cx + D\)</li>
+      <li>\(k < 0: T(t) = A\sin(\alpha \beta t) + B\cos(\alpha \beta t), \quad X(x) = C\sin(\beta x) + D\cos(\beta x)\)</li>
+      <li>\(k > 0: T(t) = Ae^{\alpha \beta t} + Be^{-\alpha \beta t}, \quad X(x) = Ce^{\beta x} + De^{-\beta x}\)</li>
+    </ol>
 
     <p>
-      This represents the superposition of traveling waves moving left and right with speed \(c\).
+      After checking each case, only \(k < 0\) produces a non-trivial bounded solution. Thus,
+      <div class="math-block">\[u(x,t) = [C\sin(\beta x) + D\cos(\beta x)] [A\sin(\alpha \beta t) + B\cos(\alpha \beta t)]\]</div>
+    </p>
+
+    <h2>Applying Boundary Conditions</h2>
+    <p>
+      With \(u(0,t) = 0\), we get \(D = 0\). So,
+      <div class="math-block">\[u(x,t) = C\sin(\beta x)[A\sin(\alpha \beta t) + B\cos(\alpha \beta t)]\]</div>
+      Applying \(u(L,t) = 0\) gives \(\sin(\beta L) = 0 \implies \beta_n = \frac{n\pi}{L}\).
+    </p>
+
+    <p>
+      Therefore, the general solution is
+      <div class="math-block">\[u(x,t) = \sum_{n=1}^{\infty} \sin(\tfrac{n\pi x}{L}) [a_n \sin(\tfrac{n\pi \alpha t}{L}) + b_n \cos(\tfrac{n\pi \alpha t}{L})]\]</div>
+    </p>
+
+    <h2>Using Initial Conditions</h2>
+    <p>
+      From \(u(x,0) = \phi(x)\), we find
+      <div class="math-block">\[\phi(x) = \sum_{n=1}^{\infty} b_n \sin(\tfrac{n\pi x}{L})\]</div>
+      Using orthogonality of sine functions, this gives
+      <div class="math-block">\[b_n = \frac{2}{L} \int_0^L \phi(x) \sin(\tfrac{n\pi x}{L}) dx\]</div>
+    </p>
+
+    <p>
+      From \(u_t(x,0) = \psi(x)\), we compute
+      <div class="math-block">\[a_n = \frac{2}{n\pi \alpha} \int_0^L \psi(x) \sin(\tfrac{n\pi x}{L}) dx\]</div>
+    </p>
+
+    <h2>Final Solution</h2>
+    <p>
+      The final solution to the finite vibrating string with homogenous Dirichlet boundary conditions and arbitrary initial conditions is:
+      <div class="math-block">\[u(x,t) = \sum_{n=1}^{\infty} \sin(\tfrac{n\pi x}{L}) [a_n \sin(\tfrac{n\pi \alpha t}{L}) + b_n \cos(\tfrac{n\pi \alpha t}{L})]\]</div>
+      with
+      <div class="math-block">\[a_n = \frac{2}{n\pi \alpha} \int_0^L \psi(x) \sin(\tfrac{n\pi x}{L}) dx, \quad b_n = \frac{2}{L} \int_0^L \phi(x) \sin(\tfrac{n\pi x}{L}) dx\]</div>
     </p>
   </main>
 </body>
