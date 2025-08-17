@@ -2,39 +2,45 @@
 // - RK4 particles with short fading trails (foreground)
 // - Each step "burns" a faint, colored line into a persistent background layer
 // - No wrapping: particles can drift off-screen naturally
+// - ODE parameters are live-adjustable via window.SIM API
+// - Responsive canvas with HiDPI support
 
-// -------------------- Knobs --------------------
-const NUM_PARTICLES = 150;    // dust count
-const TRAIL_LEN     = 12;     // short fading trail per particle
-const PARTICLE_STEP = 0.0025;  // RK4 step per frame (smaller = slower)
-const TRAIL_ALPHA   = 0.65;   // head opacity of the trail
-const TRAIL_FADE    = 0.86;   // per-segment fade along trail (0.8–0.95)
-const BALL_SIZE     = 1.8;    // particle dot radius (px)
-const BURN_ALPHA    = 0.09;   // opacity of the engraved background strokes
-const MAX_WORLD_STEP = 0.12;  // safety clamp for rare large leaps
+// -------------------- Knobs (display) --------------------
+let NUM_PARTICLES = 150;
+let TRAIL_LEN     = 28;
+let PARTICLE_STEP = 0.0035; // user default
+let TRAIL_ALPHA   = 0.85;
+let TRAIL_FADE    = 0.93;
+let BALL_SIZE     = 2.6;
+let BURN_ALPHA    = 0.09;   // user default
+let MAX_WORLD_STEP = 0.12;
 
 // -------------------- Globals --------------------
-let ctx, W, H;
+let ctx, W, H, dpr;
 let bgCanvas, bgCtx; // persistent background layer
+
+// -------------------- ODE Parameter Defaults --------------------
+const DEFAULT_PARAMS = {
+  lotka:            { alpha: 2.0,  beta: 1.0,  gamma: 1.0,  delta: 0.5 },
+  vanDerPol:        { mu: 0.5 },
+  fitzHugh_Nagumo:  { I: 0.5, R: 0.1, a: 0.7, b: 0.8, epsilon: 0.8 },
+  spiral:           { k: 1.0 },
+  saddle_node:      { mu: 0.5 },
+  brusselator:      { A: 1.0, B: 3.0 },
+  rayleigh:         { mu: 0.1 },
+  hopf_normal:      { mu: 10.0 },
+  morris_lecar:     { I: 95.0, phi: 0.04 },
+  oregonator:       { q: 0.002, f: 1.2, s: 77.27 },
+  relay:            { k: 2.0, b: 5.0 }
+};
 
 // === Two–Dimensional Systems (2D only) ===
 class TwoDimensionalSystems {
   constructor() {
     this.choice = "lotka";
-    this.options = new Map([
-      ["lotka",            (x, y) => this.lotka(x, y)],
-      ["vanDerPol",        (x, y) => this.vanDerPol(x, y)],
-      ["fitzHugh_Nagumo",  (v, w) => this.fitzHugh_Nagumo(v, w)],
-      ["spiral",           (x, y) => this.spiral(x, y)],
-      ["saddle_node",      (x, y) => this.saddle_node(x, y)],
-      ["brusselator",      (x, y) => this.brusselator(x, y)],
-      ["rayleigh",         (x, y) => this.rayleigh(x, y)],
-      ["hopf_normal",      (x, y) => this.hopf_normal(x, y)],
-      ["morris_lecar",     (V, w) => this.morris_lecar(V, w)],
-      ["oregonator",       (x, y) => this.oregonator(x, y)],
-      ["relay",            (x, y) => this.relay(x, y)],
-    ]);
+    this.params = JSON.parse(JSON.stringify(DEFAULT_PARAMS));
   }
+  get p(){ return this.params[this.choice]; }
 
   getWorldBounds() {
     const c = this.choice;
@@ -50,7 +56,6 @@ class TwoDimensionalSystems {
     return { xMin:-12, xMax:12, yMin:-10, yMax:10 };
   }
 
-  // world -> canvas
   wc(x, y) {
     const {xMin,xMax,yMin,yMax} = this.getWorldBounds();
     const sx = W / (xMax - xMin);
@@ -58,26 +63,37 @@ class TwoDimensionalSystems {
     return [ (x - xMin) * sx, H - (y - yMin) * sy ];
   }
 
-  // vector field
   f(x, y) {
-    return this.options.get(this.choice)(x, y);
+    const c = this.choice;
+    if (c === "lotka")            return this.lotka(x,y);
+    if (c === "vanDerPol")        return this.vanDerPol(x,y);
+    if (c === "fitzHugh_Nagumo")  return this.fitzHugh_Nagumo(x,y);
+    if (c === "spiral")           return this.spiral(x,y);
+    if (c === "saddle_node")      return this.saddle_node(x,y);
+    if (c === "brusselator")      return this.brusselator(x,y);
+    if (c === "rayleigh")         return this.rayleigh(x,y);
+    if (c === "hopf_normal")      return this.hopf_normal(x,y);
+    if (c === "morris_lecar")     return this.morris_lecar(x,y);
+    if (c === "oregonator")       return this.oregonator(x,y);
+    if (c === "relay")            return this.relay(x,y);
+    return [0,0];
   }
 
-  // ----- systems -----
-  lotka(x, y) { const a=2,b=1,g=1,d=0.5; return [a*x - b*x*y, -g*y + d*x*y]; }
-  vanDerPol(x, y) { const mu=0.5; return [y, mu*(1 - x*x)*y - x]; }
-  fitzHugh_Nagumo(v, w) {
-    const I=0.5,R=0.1,a=0.7,b=0.8,eps=0.8;
-    return [v - (v*v*v)/3 - w + R*I, eps*(v + a - b*w)];
+  // Systems using live params
+  lotka(x, y){ const {alpha,beta,gamma,delta}=this.p; return [alpha*x - beta*x*y, -gamma*y + delta*x*y]; }
+  vanDerPol(x, y){ const {mu}=this.p; return [y, mu*(1 - x*x)*y - x]; }
+  fitzHugh_Nagumo(v, w){
+    const {I,R,a,b,epsilon}=this.p;
+    return [v - (v*v*v)/3 - w + R*I, epsilon*(v + a - b*w)];
   }
-  spiral(x, y) { const r2=x*x+y*y; return [x - y - x*r2, x + y - y*r2]; }
-  saddle_node(x, y) { const mu=0.5; return [y, x*x - mu]; }
-  brusselator(x, y) { const A=1,B=3; return [A-(B+1)*x + x*x*y, B*x - x*x*y]; }
-  rayleigh(x, y) { const mu=0.1; return [y, mu*(1 - y*y)*y - x]; }
-  hopf_normal(x, y) { const mu=10, r2=x*x+y*y; return [mu*x - y - x*r2, x + mu*y - y*r2]; }
-  morris_lecar(V, w) {
-    const C=20,gca=4.4,gk=8,gl=2, Vca=120,Vk=-84,Vl=-60,
-          V1=-1.2,V2=18,V3=12,V4=17.4, phi=0.04,I=95;
+  spiral(x, y){ const {k}=this.p; const r2=x*x+y*y; return [x - y - k*x*r2, x + y - k*y*r2]; }
+  saddle_node(x, y){ const {mu}=this.p; return [y, x*x - mu]; }
+  brusselator(x, y){ const {A,B}=this.p; return [A - (B+1)*x + x*x*y, B*x - x*x*y]; }
+  rayleigh(x, y){ const {mu}=this.p; return [y, mu*(1 - y*y)*y - x]; }
+  hopf_normal(x, y){ const {mu}=this.p; const r2=x*x+y*y; return [mu*x - y - x*r2, x + mu*y - y*r2]; }
+  morris_lecar(V, w){
+    const C=20,gca=4.4,gk=8,gl=2, Vca=120,Vk=-84,Vl=-60, V1=-1.2,V2=18,V3=12,V4=17.4;
+    const {I,phi}=this.p;
     const mV=0.5*(1+Math.tanh((V-V1)/V2));
     const wV=0.5*(1+Math.tanh((V-V3)/V4));
     const tau=1/Math.cosh((V-V3)/(2*V4));
@@ -85,19 +101,24 @@ class TwoDimensionalSystems {
     const dw=phi*(wV - w)/tau;
     return [dV, dw];
   }
-  oregonator(x, y) { const q=0.002,f=1.2,s=77.27; return [s*(q*y - x*y + x*(1-x)), (1/s)*(-q*y - x*y + f)]; }
-  relay(x, y) { const dy = (x>0)? -2*x+5 : -2*x-5; return [y, dy]; }
+  oregonator(x, y){ const {q,f,s}=this.p; return [s*(q*y - x*y + x*(1 - x)), (1/s)*(-q*y - x*y + f)]; }
+  relay(x, y){ const {k,b}=this.p; const dy = (x>0)? (-k*x + b) : (-k*x - b); return [y, dy]; }
 
-  // RK4 step for 2D
-  rk4(x, y, h) {
-    const f1 = this.f(x, y);
-    const f2 = this.f(x + 0.5*h*f1[0], y + 0.5*h*f1[1]);
-    const f3 = this.f(x + 0.5*h*f2[0], y + 0.5*h*f2[1]);
-    const f4 = this.f(x + h*f3[0],     y + h*f3[1]);
-    const nx = x + (h/6)*(f1[0] + 2*f2[0] + 2*f3[0] + f4[0]);
-    const ny = y + (h/6)*(f1[1] + 2*f2[1] + 2*f3[1] + f4[1]);
+  // RK4 step
+  rk4(x, y, h){
+    const f1=this.f(x,y);
+    const f2=this.f(x+0.5*h*f1[0], y+0.5*h*f1[1]);
+    const f3=this.f(x+0.5*h*f2[0], y+0.5*h*f2[1]);
+    const f4=this.f(x+h*f3[0],     y+h*f3[1]);
+    const nx=x+(h/6)*(f1[0]+2*f2[0]+2*f3[0]+f4[0]);
+    const ny=y+(h/6)*(f1[1]+2*f2[1]+2*f3[1]+f4[1]);
     return [nx, ny];
   }
+
+  setChoice(name){ this.choice = name; }
+  setParams(partial){ Object.assign(this.params[this.choice], partial); }
+  setSystemParams(name, partial){ Object.assign(this.params[name], partial); }
+  getSystemParams(name){ return {...this.params[name]}; }
 }
 
 const system = new TwoDimensionalSystems();
@@ -105,10 +126,10 @@ const system = new TwoDimensionalSystems();
 // -------------------- Particles --------------------
 class Particle {
   constructor(x, y, hue) {
-    this.x = x; this.y = y; // world
+    this.x = x; this.y = y;
     const [cx, cy] = system.wc(x, y);
-    this.cx = cx; this.cy = cy; // canvas
-    this.h = hue;              // color hue
+    this.cx = cx; this.cy = cy;
+    this.h = hue;
     this.trail = new Float32Array(TRAIL_LEN * 2);
     for (let i=0;i<TRAIL_LEN;i++){ this.trail[2*i]=cx; this.trail[2*i+1]=cy; }
     this.head = 0;
@@ -127,17 +148,15 @@ function seedParticles() {
     const ry = (r + 0.25 + 0.5*Math.random()) / Math.max(1, rows-1);
     const x = xMin + rx*(xMax-xMin);
     const y = yMin + ry*(yMax-yMin);
-    const hue = (i / NUM_PARTICLES) * 360; // evenly cycle hues
+    const hue = (i / Math.max(1, NUM_PARTICLES-1)) * 360;
     particles.push(new Particle(x, y, hue));
   }
 }
 
 // Engrave a faint colored segment into the persistent background
-const GAP_FRAC = 0.60; // ignore absurd jumps (shouldn't happen w/o wrap)
+const GAP_FRAC = 0.60;
 function burnSegment(ox, oy, nx, ny, hue) {
-  // Skip if the segment is too large (likely numerical hiccup)
   if (Math.abs(nx - ox) > W*GAP_FRAC || Math.abs(ny - oy) > H*GAP_FRAC) return;
-
   bgCtx.strokeStyle = `hsla(${hue}, 90%, 65%, ${BURN_ALPHA})`;
   bgCtx.beginPath();
   bgCtx.moveTo(ox, oy);
@@ -148,14 +167,10 @@ function burnSegment(ox, oy, nx, ny, hue) {
 function stepParticles() {
   for (let i=0;i<particles.length;i++){
     const p = particles[i];
-
-    // previous canvas pos for engraving
     const ox = p.cx, oy = p.cy;
 
-    // propose next world position via RK4
     let [nx, ny] = system.rk4(p.x, p.y, PARTICLE_STEP);
 
-    // optional: clamp very large steps before accepting
     const dxw = nx - p.x, dyw = ny - p.y;
     const dlen = Math.hypot(dxw, dyw);
     if (dlen > MAX_WORLD_STEP) {
@@ -164,17 +179,13 @@ function stepParticles() {
       ny = p.y + dyw * s;
     }
 
-    // accept new position (even if off-screen/world)
     p.x = nx; p.y = ny;
 
-    // project to canvas
     const [cx, cy] = system.wc(p.x, p.y);
     p.cx = cx; p.cy = cy;
 
-    // engrave this small step into the background
     burnSegment(ox, oy, cx, cy, p.h);
 
-    // update fading trail
     p.head = (p.head + 1) % TRAIL_LEN;
     p.trail[2*p.head]   = cx;
     p.trail[2*p.head+1] = cy;
@@ -188,8 +199,6 @@ function drawParticles() {
 
   for (let i=0;i<particles.length;i++){
     const p = particles[i];
-
-    // colored fading trail
     ctx.beginPath();
     let a = TRAIL_ALPHA;
     for (let k=0;k<TRAIL_LEN;k++){
@@ -201,7 +210,6 @@ function drawParticles() {
     }
     ctx.stroke();
 
-    // head dot (same hue, full opacity)
     ctx.fillStyle = `hsl(${p.h}, 90%, 70%)`;
     ctx.beginPath();
     ctx.arc(p.cx, p.cy, BALL_SIZE, 0, Math.PI*2);
@@ -209,17 +217,49 @@ function drawParticles() {
   }
 }
 
+// -------------------- Responsive sizing --------------------
+function getDPR(){ return Math.min(window.devicePixelRatio || 1, 2); } // cap for memory
+function resizeCanvases(){
+  const canvas = document.getElementById("canvas2d");
+  const overlay = document.getElementById("canvas3d");
+
+  // CSS sizes are controlled by the container; read them
+  const rect = canvas.getBoundingClientRect();
+  const cssW = Math.max(320, Math.floor(rect.width));
+  const cssH = Math.max(320, Math.floor(rect.height));
+
+  dpr = getDPR();
+  const pxW = Math.floor(cssW * dpr);
+  const pxH = Math.floor(cssH * dpr);
+
+  // Only resize buffers if changed
+  if (canvas.width !== pxW || canvas.height !== pxH) {
+    canvas.width = pxW;  canvas.height = pxH;
+    if (overlay){ overlay.width = pxW; overlay.height = pxH; }
+    W = pxW; H = pxH;
+
+    // rebuild background buffer to match
+    bgCanvas.width = W; bgCanvas.height = H;
+    bgCtx.fillStyle = "black"; bgCtx.fillRect(0,0,W,H);
+
+    // clear main canvas & reseed for new scale
+    ctx.fillStyle = "black"; ctx.fillRect(0,0,W,H);
+    seedParticles();
+  }
+}
+
+// simple debounce for resize events
+let _rAF = null;
+function queueResize(){
+  if (_rAF !== null) cancelAnimationFrame(_rAF);
+  _rAF = requestAnimationFrame(() => { _rAF = null; resizeCanvases(); });
+}
+
 // -------------------- Animation --------------------
 function animate(){
   requestAnimationFrame(animate);
-
-  // 1) draw the persistent background history
   ctx.drawImage(bgCanvas, 0, 0);
-
-  // 2) advance particles & engrave their infinitesimal steps
   stepParticles();
-
-  // 3) draw current fading trails / heads on top
   drawParticles();
 }
 
@@ -227,52 +267,76 @@ function animate(){
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("canvas2d");
   ctx = canvas.getContext("2d", { willReadFrequently: true });
-  W = canvas.width; H = canvas.height;
 
-  // persistent background layer (accumulates engraved lines)
+  // persistent background layer
   bgCanvas = document.createElement("canvas");
-  bgCanvas.width = W; bgCanvas.height = H;
-  bgCtx = bgCanvas.getContext("2d");
-  bgCtx.fillStyle = "black";
-  bgCtx.fillRect(0,0,W,H);
-  bgCtx.lineWidth = 1.2;
-  bgCtx.lineJoin = "round";
-  bgCtx.lineCap  = "round";
+  bgCtx = bgCanvas.getContext("2d", { willReadFrequently: true });
 
-  // clear main canvas
-  ctx.fillStyle = "black";
-  ctx.fillRect(0,0,W,H);
+  // Initial sizing based on CSS size of container/canvas
+  resizeCanvases();
 
-  // seed particles
-  seedParticles();
-
-  // system switch (if you have a <select>)
+  // system switch
   const sysSelect = document.getElementById("system-select-2d");
   if (sysSelect){
     sysSelect.addEventListener("change", (e) => {
-      system.choice = e.target.value;
-      // wipe background history for new system
-      bgCtx.fillStyle = "black";
-      bgCtx.fillRect(0,0,W,H);
-      // clear main canvas and reseed for new bounds
-      ctx.fillStyle = "black";
-      ctx.fillRect(0,0,W,H);
+      system.setChoice(e.target.value);
+      // wipe background & reseed
+      bgCtx.fillStyle = "black"; bgCtx.fillRect(0,0,W,H);
+      ctx.fillStyle = "black";  ctx.fillRect(0,0,W,H);
       seedParticles();
+      window.SIM?._onSystemChange?.(e.target.value);
     });
   }
 
-  // reset button (optional)
+  // Reset button
   const resetBtn = document.getElementById("reset-btn");
   if (resetBtn){
     resetBtn.addEventListener("click", () => {
-      // wipe background & foreground
-      bgCtx.fillStyle = "black";
-      bgCtx.fillRect(0,0,W,H);
-      ctx.fillStyle = "black";
-      ctx.fillRect(0,0,W,H);
+      bgCtx.fillStyle = "black"; bgCtx.fillRect(0,0,W,H);
+      ctx.fillStyle = "black";  ctx.fillRect(0,0,W,H);
       seedParticles();
     });
   }
 
+  // Handle window resizes/orientation changes
+  window.addEventListener("resize", queueResize);
+  window.addEventListener("orientationchange", queueResize);
+
   animate();
 });
+
+// --- expose control API ---
+window.SIM = {
+  setParams: (p) => {
+    if ('NUM_PARTICLES'   in p) { NUM_PARTICLES = p.NUM_PARTICLES; seedParticles(); }
+    if ('PARTICLE_STEP'   in p) { PARTICLE_STEP = p.PARTICLE_STEP; }
+    if ('BURN_ALPHA'      in p) { BURN_ALPHA = p.BURN_ALPHA; }
+    if ('TRAIL_LEN'       in p) {
+      TRAIL_LEN = p.TRAIL_LEN;
+      for (const part of particles){
+        const newBuf = new Float32Array(TRAIL_LEN*2);
+        for (let i=0;i<TRAIL_LEN;i++){ newBuf[2*i]=part.cx; newBuf[2*i+1]=part.cy; }
+        part.trail = newBuf; part.head = 0;
+      }
+    }
+    if ('TRAIL_ALPHA'     in p) { TRAIL_ALPHA = p.TRAIL_ALPHA; }
+    if ('TRAIL_FADE'      in p) { TRAIL_FADE = p.TRAIL_FADE; }
+    if ('BALL_SIZE'       in p) { BALL_SIZE = p.BALL_SIZE; }
+    if ('MAX_WORLD_STEP'  in p) { MAX_WORLD_STEP = p.MAX_WORLD_STEP; }
+  },
+
+  setODEParams:     (partial)      => { system.setParams(partial); },
+  setSystemParams:  (name, patch)  => { system.setSystemParams(name, patch); },
+  getSystemParams:  (name)         => system.getSystemParams(name),
+
+  setSystem: (name) => {
+    system.setChoice(name);
+    bgCtx.fillStyle = "black"; bgCtx.fillRect(0,0,W,H);
+    ctx.fillStyle   = "black"; ctx.fillRect(0,0,W,H);
+    seedParticles();
+  },
+
+  clearBackground: () => { bgCtx.fillStyle = "black"; bgCtx.fillRect(0,0,W,H); },
+  reseed: () => seedParticles(),
+  _onSystemChange: null
+};

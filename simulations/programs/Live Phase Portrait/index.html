@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +6,37 @@
   <link rel="icon" type="image/png" href="images/neptune.png" sizes="48x48">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    /* Panel styles (unchanged) */
+    .panel { margin: 12px 0; padding: 12px; background:#0b0b0b; border:1px solid #222; border-radius:10px; }
+    .panel h3 { margin: 0 0 10px; font-size: 16px; }
+    .grid { display:grid; grid-template-columns: 200px 1fr 80px; gap:8px 10px; align-items:center; }
+    .grid label { color:#ddd; }
+    .grid input[type=range] { width:100%; }
+    .val { text-align:right; color:#9ad; font-variant-numeric: tabular-nums; }
+    .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    button { padding:6px 10px; border-radius:8px; border:1px solid #333; background:#111; color:#ddd; cursor:pointer; }
+    select { padding:4px 6px; }
+
+    /* Responsive canvas container */
+    .canvas-container{
+      position: relative;
+      width: min(100%, 1920px);
+      height: calc(100vh - 260px); /* leaves space below for scrolling/notes */
+      margin: 12px auto 240px;     /* the 240px is the extra space below */
+      background: #000;
+      border: 1px solid #111;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .canvas-container canvas{
+      position: absolute;
+      inset: 0;
+      width: 100%;   /* CSS size; actual pixel buffer set in JS for HiDPI */
+      height: 100%;
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <a href="../../index.html" class="back-button">← Back</a>
@@ -15,50 +45,141 @@
     <h4>Solutions approximated with Runge-Kutta method and state augmentation</h4>
     <h2><u>n-Dimensional Systems</u></h2>
 
-    <div>
-      $$\dot{\textbf{x}} = A(t)\textbf{F}(\textbf{x})$$
-      <span>Where \(\textbf{x} \in \mathbb{R}^n\), \(A(t)\) is an \(m\)x\(n\) matrix,
-        and \(\textbf{F}: \mathbb{R}^n \to \mathbb{R}^n\)
-      </span>
-    </div>
-
-      <hr>
-
     <!-- 2D system selector -->
-    <div id="twoD-container">
+    <div id="twoD-container" class="row">
       <label for="system-select-2d">Select 2D system:</label>
       <select id="system-select-2d">
         <option value="lotka">Lotka-Volterra</option>
         <option value="vanDerPol">Van der Pol</option>
-        <option value="fitzHugh_Nagumo">FitzHugh-Nagumo</option>
+        <option value="fitzHugh_Nagumo">FitzHugh–Nagumo</option>
         <option value="spiral">Spiral</option>
         <option value="saddle_node">Saddle-Node</option>
         <option value="brusselator">Brusselator</option>
         <option value="rayleigh">Rayleigh Oscillator</option>
         <option value="hopf_normal">Hopf Normal Form</option>
+        <option value="morris_lecar">Morris–Lecar (I, φ)</option>
+        <option value="oregonator">Oregonator</option>
         <option value="relay">Relay</option>
       </select>
+
+      <button id="clear-bg-btn">Clear Background</button>
+      <button id="reseed-btn">Reseed Particles</button>
     </div>
 
-    <!-- 3D system selector -->
-    <div id="threeD-container" style="display: none;">
-      <label for="system-select-3d">Select 3D system:</label>
-      <select id="system-select-3d">
-        <option value="lorenz">Lorenz</option>
-        <option value="rossler">Rössler</option>
-      </select>
+    <!-- System parameter controls (built dynamically) -->
+    <div class="panel" id="ode-panel">
+      <h3>System Parameters</h3>
+      <div class="grid" id="ode-grid"></div>
+      <small style="color:#8a8a8a;">Ranges are intentionally tight to avoid pushing the flow far off-screen.</small>
     </div>
 
-    <br>
     <br>
     <button id="reset-btn">Reset</button>
-    </div>
-    <div class="canvas-container">
-      <canvas id="canvas2d" width="1800" height="1050" style="position:absolute; z-index:0;"></canvas>
-      <canvas id="canvas3d" width="1800" height="1050" style="position:absolute; z-index:1;"></canvas>
-      </div>
-      <div style="height: 500px;"></div>
+  </div>
 
-    <script type="module" src="main.js?v=2"></script>
+  <div class="canvas-container">
+    <!-- width/height are set by JS for crisp HiDPI drawing -->
+    <canvas id="canvas2d"></canvas>
+    <canvas id="canvas3d" style="pointer-events:none;"></canvas>
+  </div>
+
+  <script type="module" src="main.js?v=responsive"></script>
+
+  <!-- UI logic for parameter sliders -->
+  <script type="module">
+    const $ = id => document.getElementById(id);
+    const fmt = (n, d=3) => (+n).toFixed(d);
+
+    // Safe slider definitions per system
+    const RANGES = {
+      lotka: { alpha:{min:1,max:3,step:0.05,label:"α (prey growth)"},
+               beta:{min:0.30,max:2,step:0.02,label:"β (predation)"},
+               gamma:{min:0.5,max:2,step:0.02,label:"γ (predator death)"},
+               delta:{min:0.20,max:1.2,step:0.01,label:"δ (predator growth)"} },
+      vanDerPol: { mu:{min:0.05,max:3,step:0.01,label:"μ"} },
+      fitzHugh_Nagumo: { I:{min:0,max:1.5,step:0.01,label:"I"},
+                         R:{min:0,max:0.5,step:0.01,label:"R"},
+                         a:{min:0.4,max:1,step:0.01,label:"a"},
+                         b:{min:0.6,max:1.2,step:0.01,label:"b"},
+                         epsilon:{min:0.2,max:1.2,step:0.01,label:"ε"} },
+      spiral: { k:{min:0.6,max:1.4,step:0.01,label:"k (cubic strength)"} },
+      saddle_node: { mu:{min:0,max:2,step:0.02,label:"μ"} },
+      brusselator: { A:{min:0.5,max:2,step:0.01,label:"A"},
+                     B:{min:1.5,max:5,step:0.02,label:"B"} },
+      rayleigh: { mu:{min:0.01,max:1,step:0.01,label:"μ"} },
+      hopf_normal: { mu:{min:5,max:15,step:0.1,label:"μ"} },
+      morris_lecar: { I:{min:60,max:130,step:1,label:"I (pA)"},
+                      phi:{min:0.02,max:0.08,step:0.001,label:"φ"} },
+      oregonator: { q:{min:0.0005,max:0.01,step:0.0001,label:"q"},
+                    f:{min:0.8,max:2.2,step:0.01,label:"f"},
+                    s:{min:50,max:120,step:1,label:"s"} },
+      relay: { k:{min:1,max:4,step:0.05,label:"k (slope)"},
+               b:{min:3,max:8,step:0.1,label:"b (bias)"} }
+    };
+
+    function buildSliders(systemName){
+      const grid = document.getElementById("ode-grid");
+      grid.innerHTML = "";
+      const ranges = RANGES[systemName] || {};
+      const params = window.SIM?.getSystemParams?.(systemName) || {};
+      const keys = Object.keys(ranges);
+      if (!keys.length) {
+        grid.innerHTML = '<div style="grid-column:1 / -1; color:#aaa;">No exposed parameters for this system.</div>';
+        return;
+      }
+      for (const key of keys){
+        const r = ranges[key];
+        const id = `p_${key}`;
+        const val = (key in params) ? params[key] : ((r.min + r.max)/2);
+
+        const label = document.createElement("label");
+        label.setAttribute("for", id); label.textContent = r.label || key;
+
+        const input = document.createElement("input");
+        input.id = id; input.type = "range";
+        input.min = r.min; input.max = r.max; input.step = r.step; input.value = val;
+
+        const out = document.createElement("span");
+        out.className = "val"; out.id = id + "_val";
+        out.textContent = (+val).toFixed(r.step < 0.01 ? 4 : 2);
+
+        input.addEventListener("input", () => {
+          out.textContent = (+input.value).toFixed(r.step < 0.01 ? 4 : 2);
+          const patch = {}; patch[key] = parseFloat(input.value);
+          window.SIM?.setODEParams?.(patch);
+        });
+
+        grid.appendChild(label);
+        grid.appendChild(input);
+        grid.appendChild(out);
+      }
+    }
+
+    document.getElementById("clear-bg-btn")?.addEventListener("click", () => window.SIM?.clearBackground?.());
+    document.getElementById("reseed-btn")?.addEventListener("click", () => window.SIM?.reseed?.());
+
+    const sysSelect = document.getElementById("system-select-2d");
+    const refreshPanel = () => buildSliders(sysSelect.value);
+
+    if (!window.SIM) window.SIM = {};
+    window.SIM._onSystemChange = (name) => {
+      if (sysSelect.value !== name) sysSelect.value = name;
+      refreshPanel();
+    };
+
+    sysSelect.addEventListener("change", (e) => {
+      window.SIM?.setSystem?.(e.target.value);
+      refreshPanel();
+    });
+
+    const waitForSim = () => {
+      if (window.SIM && typeof window.SIM.getSystemParams === "function") {
+        refreshPanel();
+      } else {
+        requestAnimationFrame(waitForSim);
+      }
+    };
+    waitForSim();
+  </script>
 </body>
 </html>

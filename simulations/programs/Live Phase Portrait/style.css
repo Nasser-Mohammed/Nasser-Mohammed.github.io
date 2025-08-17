@@ -100,3 +100,10 @@ label[for="dimension-select"] {
   margin-bottom: 6px;
   color: #000000;
 }
+/* brighten the panel text */
+#ode-panel h3 { color: #fff; }
+#ode-panel .grid label { color: #eee; font-weight: 600; }
+#ode-panel .val { color: #cfe9ff; font-weight: 600; }
+
+/* if anything was dimming the panel globally, neutralize it */
+#ode-panel { opacity: 1; filter: none; }
