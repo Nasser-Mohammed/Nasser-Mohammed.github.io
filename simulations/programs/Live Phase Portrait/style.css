@@ -107,3 +107,52 @@ label[for="dimension-select"] {
 
 /* if anything was dimming the panel globally, neutralize it */
 #ode-panel { opacity: 1; filter: none; }
+/* Header toolbar + cohesive dark wrapper */
+.wrapper {
+  max-width: 1100px;
+  background: #0e0e10;
+  color: #eaeaea;
+}
+
+h1, h4 { color: #eaeaea; }
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #0b0b0b;
+  border: 1px solid #222;
+  border-radius: 10px;
+  margin: 16px 0;
+  flex-wrap: wrap;
+}
+.toolbar .spacer { flex: 1 1 auto; }
+.toolbar label { color: #e6e6e6; font-weight: 600; }
+.toolbar select {
+  background: #141414; color: #e6e6e6;
+  border: 1px solid #333; border-radius: 8px;
+  padding: 6px 10px;
+}
+.toolbar .btn {
+  padding: 8px 12px; border-radius: 8px;
+  border: 1px solid #333; background: #141414; color: #e6e6e6;
+  cursor: pointer;
+}
+.toolbar .btn:hover { background: #1b1b1b; }
+.toolbar .btn-ghost { background: transparent; }
+
+/* Parameter panel polish */
+#ode-panel { margin-top: 12px; }
+#ode-panel h3 { color: #fff; }
+#ode-panel .grid label { color: #eee; font-weight: 600; }
+#ode-panel .val { color: #cfe9ff; font-weight: 600; }
+#ode-panel { opacity: 1; filter: none; }
+
+/* Balance the parameter grid widths and stack on small screens */
+#ode-panel .grid { grid-template-columns: minmax(160px, 240px) 1fr 80px; }
+@media (max-width: 720px) {
+  #ode-panel .grid { grid-template-columns: 1fr; }
+  #ode-panel .val { text-align: left; padding-left: 2px; }
+}

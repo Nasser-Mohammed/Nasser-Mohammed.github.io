@@ -41,40 +41,39 @@
 <body>
   <a href="../../index.html" class="back-button">← Back</a>
   <div class="wrapper">
-    <h1>n-Dimensional Systems of ODEs</h1>
+    <h1>Planar Systems of ODEs</h1>
     <h4>Solutions approximated with Runge-Kutta method and state augmentation</h4>
-    <h2><u>n-Dimensional Systems</u></h2>
 
-    <!-- 2D system selector -->
-    <div id="twoD-container" class="row">
-      <label for="system-select-2d">Select 2D system:</label>
-      <select id="system-select-2d">
-        <option value="lotka">Lotka-Volterra</option>
-        <option value="vanDerPol">Van der Pol</option>
-        <option value="fitzHugh_Nagumo">FitzHugh–Nagumo</option>
-        <option value="spiral">Spiral</option>
-        <option value="saddle_node">Saddle-Node</option>
-        <option value="brusselator">Brusselator</option>
-        <option value="rayleigh">Rayleigh Oscillator</option>
-        <option value="hopf_normal">Hopf Normal Form</option>
-        <option value="morris_lecar">Morris–Lecar (I, φ)</option>
-        <option value="oregonator">Oregonator</option>
-        <option value="relay">Relay</option>
-      </select>
+    <div class="toolbar" id="top-toolbar">
+  <label for="system-select-2d">System</label>
+  <select id="system-select-2d">
+    <option value="lotka">Lotka-Volterra</option>
+    <option value="vanDerPol">Van der Pol</option>
+    <option value="fitzHugh_Nagumo">FitzHugh–Nagumo</option>
+    <option value="spiral">Spiral</option>
+    <option value="saddle_node">Saddle-Node</option>
+    <option value="brusselator">Brusselator</option>
+    <option value="rayleigh">Rayleigh Oscillator</option>
+    <option value="hopf_normal">Hopf Normal Form</option>
+    <option value="morris_lecar">Morris–Lecar (I, φ)</option>
+    <option value="oregonator">Oregonator</option>
+    <option value="relay">Relay</option>
+  </select>
 
-      <button id="clear-bg-btn">Clear Background</button>
-      <button id="reseed-btn">Reseed Particles</button>
-    </div>
+  <div class="spacer"></div>
 
-    <!-- System parameter controls (built dynamically) -->
-    <div class="panel" id="ode-panel">
-      <h3>System Parameters</h3>
-      <div class="grid" id="ode-grid"></div>
-      <small style="color:#8a8a8a;">Ranges are intentionally tight to avoid pushing the flow far off-screen.</small>
-    </div>
+  <button class="btn" id="clear-bg-btn">Clear Background</button>
+  <button class="btn" id="reseed-btn">Reseed</button>
+  <button class="btn btn-ghost" id="reset-btn">Reset</button>
+  <button class="btn btn-ghost" id="toggle-params">Toggle Params</button>
+</div>
 
-    <br>
-    <button id="reset-btn">Reset</button>
+<!-- System parameter controls (built dynamically) -->
+<div class="panel" id="ode-panel">
+  <h3>System Parameters</h3>
+  <div class="grid" id="ode-grid"></div>
+  <small style="color:#9aa3b2;">Ranges are intentionally tight to avoid pushing the flow far off-screen.</small>
+</div>
   </div>
 
   <div class="canvas-container">
@@ -84,6 +83,14 @@
   </div>
 
   <script type="module" src="main.js?v=responsive"></script>
+
+  <script type="module">
+  document.getElementById('toggle-params')?.addEventListener('click', () => {
+    const p = document.getElementById('ode-panel');
+    p.style.display = (p.style.display === 'none') ? '' : 'none';
+  });
+</script>
+
 
   <!-- UI logic for parameter sliders -->
   <script type="module">
