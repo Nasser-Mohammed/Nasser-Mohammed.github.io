@@ -66,6 +66,11 @@
   <button class="btn" id="reseed-btn">Reseed</button>
   <button class="btn btn-ghost" id="reset-btn">Reset</button>
   <button class="btn btn-ghost" id="toggle-params">Toggle Params</button>
+  <label style="display:flex;align-items:center;gap:6px">
+  <input type="checkbox" id="show-dots">
+  Show spheres
+</label>
+
 </div>
 
 <!-- System parameter controls (built dynamically) -->
@@ -79,7 +84,6 @@
   <div class="canvas-container">
     <!-- width/height are set by JS for crisp HiDPI drawing -->
     <canvas id="canvas2d"></canvas>
-    <canvas id="canvas3d" style="pointer-events:none;"></canvas>
   </div>
 
   <script type="module" src="main.js?v=responsive"></script>
@@ -187,6 +191,14 @@
       }
     };
     waitForSim();
+    // after your bindings
+    const cb = document.getElementById('show-dots');
+    if (cb) {
+      cb.checked = false;                 // ensure OFF on load
+      window.SIM?.setDotsVisible?.(false);
+      cb.addEventListener('change', e => window.SIM?.setDotsVisible?.(e.target.checked));
+    }
+
   </script>
 </body>
 </html>

@@ -7,13 +7,15 @@
 
 // -------------------- Knobs (display) --------------------
 let NUM_PARTICLES = 150;
-let TRAIL_LEN     = 28;
+let TRAIL_LEN     = 12;
 let PARTICLE_STEP = 0.0035; // user default
 let TRAIL_ALPHA   = 0.85;
 let TRAIL_FADE    = 0.93;
 let BALL_SIZE     = 2.6;
-let BURN_ALPHA    = 0.09;   // user default
+let BURN_ALPHA    = 0.75;   // user default
 let MAX_WORLD_STEP = 0.12;
+let SHOW_DOTS = true;  // toggle ball (head) visibility
+
 
 // -------------------- Globals --------------------
 let ctx, W, H, dpr;
@@ -210,10 +212,14 @@ function drawParticles() {
     }
     ctx.stroke();
 
-    ctx.fillStyle = `hsl(${p.h}, 90%, 70%)`;
-    ctx.beginPath();
-    ctx.arc(p.cx, p.cy, BALL_SIZE, 0, Math.PI*2);
-    ctx.fill();
+    // head dot (same hue)
+    if (SHOW_DOTS && BALL_SIZE > 0) {
+      ctx.fillStyle = `hsl(${p.h}, 90%, 70%)`;
+      ctx.beginPath();
+      ctx.arc(p.cx, p.cy, BALL_SIZE, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
   }
 }
 
@@ -338,5 +344,6 @@ window.SIM = {
 
   clearBackground: () => { bgCtx.fillStyle = "black"; bgCtx.fillRect(0,0,W,H); },
   reseed: () => seedParticles(),
+  setDotsVisible: (on) => { SHOW_DOTS = !!on; },
   _onSystemChange: null
 };
