@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>One Dimensional Systems</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">One Dimensional Systems</h1>
+  </header>
+
+  <main>
+    <p>
+      Now that we have shown that any higher order ODEs can be reduced into a system of first order ODEs, the ability to analyze
+      first order ODEs is obviously important. The first step in this process is <strong>fixed point analysis</strong>.
+    </p>
+
+  <h2>Fixed Point Analysis</h2>
+    <p>
+      As mentioned, we can analyze systems of autonomous first order ODEs individually at first. We begin with the aforementioned
+      <strong>fixed point analysis.</strong>. First let's consider such a system,
+    </p>
+    <div class="math-block">\[
+          \dot{x} = f(x)
+    \]</div>
+    <p>The <strong>fixed points</strong>, are the points \(x^*\) such that</p>
+    <div class="math-block">\[
+          f(x^*) = 0
+    \]</div>
+    <p>Since the right hand side of these systems are algebraic, it is often pretty straightforward to find these points. 
+      It's not always easy to find it analytically, but numerical approximations can work as well.
+    </p>
+    <p>Now what does it mean for our system when \(f(x) = 0\)? This means that our state variable \(x\) is not changing.
+      That is, the derivative (instantaneous rate of change) is \(0\) and will stay \(0\). Since,
+    </p>
+    <div class="math-block">\[
+          \dot{x} = f(x^*) = 0
+    \]</div>
+    <p>Finding this point is simply finding the value of \(x\) at which the state will never move. This is why it's called a fixed point.
+      Due to our uniqueness and existence theorems, we know that no other trajectory can ever intersect the fixed point. This is due
+      to the fact that there is a trajectory starting at the fixed point and stays there forever, and if some other trajectory 
+      intersected this point it would contradict the uniqueness of solutions that we have. However, fixed points dominate the behavior
+      of any system but especially 1D systems. In one dimension, each trajectory will either get arbitrarily close to a fixed point, or go off to infinity.
+    </p>
+
+
+  </main>
+</body>
+</html>

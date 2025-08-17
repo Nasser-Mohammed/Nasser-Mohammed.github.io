@@ -152,3 +152,15 @@ footer {
   margin: .5em 0 .2em 1.2em;
 }
 
+.topic-figure {
+  margin: 1.2em auto;
+  text-align: center;
+}
+
+.topic-figure img.topic-img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
