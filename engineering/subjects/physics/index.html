@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Linear Algebra Notes</title>
+  <link rel="icon" type="image/png" href="../../pictures/matrix.png" sizes="48x48">
+  <link rel="stylesheet" href="styles.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body class="la">
+  <header class="la-hero">
+    <a href="../../index.html" class="la-back" aria-label="Back to main">← Back</a>
+    <div class="la-hero-inner">
+      <h1>Physics</h1>
+    </div>
+  </header>
+
+  <main class="la-main">
+    <nav class="la-grid">
+      <a class="la-card" href="pages/newton.html">
+        <div class="la-pill">Classical Mechanics</div>
+        <h2>Newtonian Mechanics</h2>
+        <p>Forces and motion: \(F = ma\)</p>
+        <span class="la-chevron">→</span>
+      </a>
+      <a class="la-card" href="pages/lagrange.html">
+        <div class="la-pill">Classical Mechanics</div>
+        <h2>Lagrangian Mechanics</h2>
+        <p>Principle of Least Action and Euler-Lagrange equations</p>
+        <span class="la-chevron">→</span>
+      </a>
+    <a class="la-card" href="pages/hamilton.html">
+        <div class="la-pill">Classical Mechanics</div>
+        <h2>Hamiltonian Mechanics</h2>
+        <p>Phase space and symplectic geometry of motion</p>
+        <span class="la-chevron">→</span>
+      </a>
+      <a class="la-card" href="pages/electromagnetism.html">
+        <div class="la-pill">E & M</div>
+        <h2>Electricity and Magnetism</h2>
+        <p>Charges and fields governed by Maxwell's equations</p>
+        <span class="la-chevron">→</span>
+      </a>
+      <a class="la-card" href="pages/thermo.html">
+        <div class="la-pill">Heat and Work</div>
+        <h2>Statistical Mechanics and Thermodynamics</h2>
+        <p>Microscopic ensembles and macroscopic thermodynamics</p>
+        <span class="la-chevron">→</span>
+      </a>
+      <a class="la-card" href="pages/relativity.html">
+        <div class="la-pill">Relativity</div>
+        <h2>General and Special Relativity</h2>
+        <p>Lorentz transformations and Einstein's equations</p>
+        <span class="la-chevron">→</span>
+      </a>
+      
+      <a class="la-card" href="pages/quantum.html">
+        <div class="la-pill">Quantum</div>
+        <h2>Quantum Mechanics</h2>
+        <p>Schrödinger's equation, wavefunctions, hilbert spaces</p>
+        <span class="la-chevron">→</span>
+      </a>
+
+
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
