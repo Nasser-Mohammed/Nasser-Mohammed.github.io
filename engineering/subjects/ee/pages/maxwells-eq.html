@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../../../pictures/eeIcon.png" sizes="48x48">
+  <title>Maxwell's Equations</title>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      },
+      options: { renderActions: { addMenu: [] } }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">Maxwell's Equations</h1>
+  </header>
+
+  <main>
+    <p>
+        As mentioned, Maxwell's Equations form the foundation of Electrical Engineering. This page explores the fundamental nature 
+        of the system of PDEs that govern electromagnetic phenomena. First, we will examine each PDE in roughly the order 
+        they were discovered. At the end, we will combine them to reconstruct Maxwell's Equations.
+        </p>
+
+        <h2>Coulomb's Law (1785)</h2>
+        <p>
+            In 1785, Charles-Augustin de Coulomb measured the force between static electric charges and discovered an 
+            inverse-square relationship governing electrostatics. This is very similar to the formula governing the 
+            gravitational force between two celestial bodies.
+            </p>
+
+            <div class="math-block">
+            \[
+            F = k_e \frac{q_1 q_2}{r^2}
+            \]
+            </div>
+
+            <p>
+            Where \(k_e = \frac{1}{4\pi \varepsilon_0}\) is <strong>Coulomb's constant</strong>. The key takeaway is that 
+            this law is essentially analogous to <strong>Newton's Law of Gravitation</strong>, but for electric charges.
+            </p>
+
+            <p>
+                Here, \(q_1\) and \(q_2\) are considered <strong>point charges</strong>, meaning they are idealized charges 
+                with no spatial extent, so that the force acts along the line connecting them. Roughly speaking, an atom is 
+                positively charged if it has more protons than electrons, negatively charged if it has more electrons than 
+                protons, and neutral if it has the same number of protons and electrons. In our equation, this means that 
+                when the signs of \(q_1\) and \(q_2\) are opposite, the product is negative, resulting in an attractive force. 
+                Otherwise, the charges repel, consistent with physical reality. Later, Gauss generalized this law to 
+                continuous charge distributions, giving it its modern differential form.
+        </p>
+
+
+        <h2>Ampère's Law (1820-1825)</h2>
+        <p>
+        Between 1820 and 1825, André-Marie Ampère studied the magnetic field produced by electric currents and formulated 
+        the relationship between current and magnetic field.
+        </p>
+
+        <h2>Faraday's Law of Induction (1831)</h2>
+        <p>
+        In 1831, Michael Faraday discovered experimentally that a changing magnetic field induces an electric current.
+        </p>
+
+        <h2>Gauss's Laws (1830s-1845)</h2>
+        <p>
+        From the 1830s to 1845, Carl Friedrich Gauss formulated Gauss's Law for electricity, relating electric fields 
+        to charge distribution.
+        </p>
+
+        <h2>Ampère-Maxwell Law (1861-1862)</h2>
+        <p>
+        Between 1861 and 1862, Maxwell identified inconsistencies in Ampère's Law under certain scenarios, such as a charging capacitor. 
+        He introduced the <strong>displacement current</strong> to resolve this, making the law consistent with charge conservation.
+        </p>
+
+        <h2>Maxwell's Synthesis (1860s)</h2>
+        <p>
+        Maxwell then compiled the four laws into a unified system of PDEs. Later, Oliver Heaviside reformulated them in the vector 
+        notation we use today.
+        </p>
+
+
+  </main>
+
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>
