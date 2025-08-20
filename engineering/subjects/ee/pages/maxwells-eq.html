@@ -61,15 +61,111 @@
                 protons, and neutral if it has the same number of protons and electrons. In our equation, this means that 
                 when the signs of \(q_1\) and \(q_2\) are opposite, the product is negative, resulting in an attractive force. 
                 Otherwise, the charges repel, consistent with physical reality. Later, Gauss generalized this law to 
-                continuous charge distributions, giving it its modern differential form.
-        </p>
+                continuous charge distributions, giving it its modern differential form. However, what I showed 
+                was only the <strong>magnitude</strong> of force. This does not necessarily give us a sense of
+                direction in space. This force may very well be at an angle relative to a normal Cartesian coordinate 
+                system. The positive vs. negative distinction gives us one piece of information , however, it's for the magnitude 
+                of the force, not the direction of force. Furthermore, our point charge doesn't necessarily 
+                need to be centered at the origin, we might want a more generalized form for different use cases.
+                Therefore we must consider the vector form using a displacement vector, \(\vec{r}\). Now we know that 
+            </p>
+
+            <h2>Electric Fields Defined by Coulomb's Law</h2>
+            <p>There's sort of two ways to look at an electric field, so we'll start with the first. 
+              If we consider an electric monopole \(q_1\) (a single point charge), then we might want to 
+              have a graphical representation of its effect on any point in space. This is where we get the 
+              concept of an electric field. Denoted \(\textbf{E}\), the electric field is simply a vector field where 
+              each point in space is assigned a vector representing the electric force per unit charge.
+              This is an important distinction, because we can then use the electric field to determine the 
+              actual effect on a charged particle \(q_2\) by simply scaling the vector at that point by \(q2\).
+              In other words it gives us a general (and normalized) measurement for the effect of our source \(q_1\)
+              on any point in space. The magnitude of the vector field at any point in space is given by,
+            </p>
+            <div class="math-block">\[
+                k_e\frac{q_1}{r^2}
+              \]
+            </div>
+            <p>A higher value of \(q_1\) creates a stronger electric field, and the field 
+              is weaker further away from the source. However so far the field we described is only scalar and is not a vector field. To properly
+              define a vector field we must have vectors. So since we defined the magnitude of the field at each point, we just 
+              need to multiply it by its displacement vector. More specifically, the actual vector field 
+            \(\vec{\textbf{E}}\) is given by</p>
+            <div class="math-block">\[
+                \vec{\textbf{E}} = k_{\epsilon}\frac{q_1}{r^2}\hat{r} = k_{\epsilon}\frac{q_1}{r^3}\vec{r}
+              \]
+            </div> 
+            <p>These are equivalent since</p>
+            <div class="math-block">\[
+                \hat{r} = \frac{\vec{r}}{r}
+              \]
+            </div> 
+              
+              <p>
+              Here, \(\vec{r}\) is the <strong>displacement vector</strong>. More specifically, 
+              in three-dimensional coordinates, it is the vector difference between the position of the 
+              field point \((x,y,z)\) and the position of the source charge \((x_0,y_0,z_0)\).
+              </p>
+
+              
+              <p>If we ever want to determine the actual force that our source 
+              exerts on another point charge \(q_2\), we simply multiply the magnitude of the vector at its position by 
+              the charge of \(q_2\). In other words, 
+            </p>
+            <div class="math-block">\[
+                  |F| = q_2\cdot|\vec{\textbf{E}}|
+              \]
+            </div>
+            <p>Where we can determine \(r\) by the Euclidean distance,
+            </p>
+            <div class="math-block">\[
+                  r = \sqrt{(x-x_0)^2+(y-y_0)^2+(z-z_0)^2} \implies r^2 = (x-x_0)^2 + (y-y_0)^2 + (z-z_0)^2
+              \]
+            </div>
+            <p>Where \((x_0, y_0, z_0)\) are the coordinates of the source charge. This basically defines the outline of a sphere of radius \(r\). So the source's effect on space 
+              is radially symmetric (at least in this formulation with an idealized point charge).
+            </p>
+      <section aria-labelledby="efields-title" class="sim-section"></section>
+      <h2 id="efields-title">Electric Field Simulator</h2>
+      <p>Here is a live simulator I programmed to get the feel for electric fields of mono and dipoles.</p>
+          <div class="sim-grid">
+            <!-- Monopole -->
+            <article class="sim-card" aria-labelledby="mono-title">
+              <header class="sim-head">
+                <h3 id="mono-title">Monopole Field</h3>
+              </header>
+
+              <div class="sim-wrap">
+                <canvas id="mono-canvas" class="sim-canvas" width="800" height="600" aria-label="Monopole field canvas"></canvas>
+                <p class="sim-hint">click and drag the charge • right click charge to flip polarity</p>
+              </div>
+            </article>
+
+            <!-- Dipole -->
+            <article class="sim-card" aria-labelledby="dipole-title">
+              <header class="sim-head">
+                <h3 id="dipole-title">Dipole Field</h3>
+              </header>
+
+              <div class="sim-wrap">
+                <canvas id="dipole-canvas" class="sim-canvas" width="800" height="600" aria-label="Dipole field canvas"></canvas>
+                <p class="sim-hint">click and drag the charges • right click charge to flip polarity</p>
+              </div>
+            </article>
+          </div>
+        </section>
 
 
         <h2>Ampère's Law (1820-1825)</h2>
         <p>
         Between 1820 and 1825, André-Marie Ampère studied the magnetic field produced by electric currents and formulated 
-        the relationship between current and magnetic field.
-        </p>
+        the relationship between current and magnetic field. His results were built upon the seminal work of Ørsted.
+        In its standard integral form, <strong>Ampère's Law</strong> is written as
+      </p>
+        <div class="math-block">\[
+            \oint_C \textbf{B}\cdot dl = \mu_0 I_{\text{enc}}
+          \]
+        </div>
+        <p>Let's interpret this. Imagine we had a wire carrying a current \(I\), then </p>
 
         <h2>Faraday's Law of Induction (1831)</h2>
         <p>
@@ -97,6 +193,8 @@
 
   </main>
 
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+  <script defer src="monopole.js"></script>
+  <script defer src="dipole.js"></script>
+
 </body>
 </html>
