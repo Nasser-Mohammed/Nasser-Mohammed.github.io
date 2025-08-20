@@ -23,11 +23,11 @@ let sourceQ = -5;
 let k = 1;
 
 // === GRID DENSITY (lower numbers = fewer arrows) ===
-let cols = 27;   // was 50
-let rows = 27;   // was 50
+let cols = 15;   // was 50
+let rows = 15;   // was 50
 
 // Charge drawing size (CSS px)
-let chargeRadius = 19; // was 6 — bigger dot
+let chargeRadius = 16; // was 6 — bigger dot
 
 let hoverMono = false;   
 let dragging = false;    

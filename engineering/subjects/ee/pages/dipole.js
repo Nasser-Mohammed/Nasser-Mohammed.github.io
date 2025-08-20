@@ -19,8 +19,8 @@ const charges = [
 ];
 
 let k = 1;                 // visual scale
-let cols = 32, rows = 32;  // arrow density
-let chargeRadius = 19;     // drawn radius (CSS px)
+let cols = 15, rows = 15;  // arrow density
+let chargeRadius = 16;     // drawn radius (CSS px)
 const arrowGain = 120;     // arrow length scale
 
 function resizeCanvas() {
