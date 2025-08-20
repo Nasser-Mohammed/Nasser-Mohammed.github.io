@@ -29,8 +29,8 @@ let rows = 27;   // was 50
 // Charge drawing size (CSS px)
 let chargeRadius = 30; // was 6 — bigger dot
 
-let hoverMono = false;   // you already have this
-let dragging = false;    // <-- move this out of DOMContentLoaded
+let hoverMono = false;   
+let dragging = false;    
 
 
 function clamp(val, min, max) {
