@@ -89,9 +89,9 @@
               is weaker further away from the source. However so far the field we described is only scalar and is not a vector field. To properly
               define a vector field we must have vectors. So since we defined the magnitude of the field at each point, we just 
               need to multiply it by its displacement vector. More specifically, the actual vector field 
-            \(\vec{\textbf{E}}\) is given by</p>
+            \(\textbf{E}\) is given by</p>
             <div class="math-block">\[
-                \vec{\textbf{E}} = k_{\epsilon}\frac{q_1}{r^2}\hat{r} = k_{\epsilon}\frac{q_1}{r^3}\vec{r}
+                \textbf{E} = k_{\epsilon}\frac{q_1}{r^2}\hat{r} = k_{\epsilon}\frac{q_1}{r^3}\vec{r}
               \]
             </div> 
             <p>These are equivalent since</p>
@@ -112,7 +112,7 @@
               the charge of \(q_2\). In other words, 
             </p>
             <div class="math-block">\[
-                  |F| = q_2\cdot|\vec{\textbf{E}}|
+                  |F| = q_2\cdot|\textbf{E}|
               \]
             </div>
             <p>Where we can determine \(r\) by the Euclidean distance,
@@ -162,10 +162,16 @@
         In its standard integral form, <strong>Ampère's Law</strong> is written as
       </p>
         <div class="math-block">\[
-            \oint_C \textbf{B}\cdot dl = \mu_0 I_{\text{enc}}
+            \oint_C \textbf{B}\cdot d\textbf{l} = \mu_0 I_{\text{enc}}
           \]
         </div>
-        <p>Let's interpret this. Imagine we had a wire carrying a current \(I\), then </p>
+        <p>Here \(\textbf{B}\) is called the <strong>Magnetic Field</strong>. In English this says that the line integral 
+          of the magnetic field \(\textbf{B}\) around a closed loop \(C\) is proportional to the net electric current 
+          \(I_{\text{enc}}\) that passes through the surface which is bounded by that loop.  
+        </p>
+        <p>More simply, this says that an electric current induces a magnetic field around itself. To find the 
+          actual strength of the magnetic field, you use <strong>Ampère's Law</strong> above.
+        </p>
 
         <h2>Faraday's Law of Induction (1831)</h2>
         <p>
