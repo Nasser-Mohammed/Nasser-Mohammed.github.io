@@ -134,3 +134,56 @@ footer {
   font-size: .9rem;
   text-align: center;
 }
+
+/* Electric field sims (no external controls) */
+.sim-section h2 { color: var(--accent-2); margin-top: 1.2rem; }
+
+.sim-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 12px;
+}
+
+.sim-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.sim-head { display: flex; align-items: center; }
+.sim-head h3 { margin: 0; font-size: clamp(1.05rem, 2.2vw, 1.25rem); color: var(--text); }
+
+.sim-wrap {
+  position: relative;
+}
+
+.sim-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: crosshair;
+  touch-action: none; /* allow smooth pointer handling on mobile */
+}
+
+.sim-hint {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  font-size: 0.9rem;
+  color: white;
+  background: rgb(0, 0, 0);
+  padding: 6px 8px;
+  border-radius: 8px;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
