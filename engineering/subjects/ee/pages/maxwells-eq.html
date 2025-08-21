@@ -150,7 +150,13 @@
             </p>
       <section aria-labelledby="efields-title" class="sim-section"></section>
       <h2 id="efields-title">Electric Field Simulator</h2>
-      <p>Here is a live simulator I programmed to get the feel for electric fields of mono and dipoles.</p>
+      <p>Here is a live simulator I programmed to get the feel for electric fields of mono and dipoles. For all of the simulations 
+        on this page, since the fields are static unless some charge moves, 
+        I can deploy a render on demand scheme for the simulation logic to
+        save CPU usage. Basically, I only update the canvas when you change it, 
+        and save the last frame to show, instead of having an animation loop
+        eating the CPU.
+      </p>
           <div class="sim-grid">
             <!-- Monopole -->
             <article class="sim-card" aria-labelledby="mono-title">
@@ -284,7 +290,7 @@
             \oint_{\partial V}\textbf{B}\cdot d\textbf{A} = 0
           \]
         </div>
-        <p>The current used form is its differential form below,</p>
+        <p>The modern form is its differential form below,</p>
         <div class="math-block">\[
           \nabla \cdot \textbf{B} = 0\]
         </div>
@@ -320,7 +326,7 @@
 
       <p>
           What this says is that a changing magnetic field will induce a circulating electric field. 
-          The term <code>\(\nabla \times \textbf{E}\)</code> is the <strong>curl</strong> of the electric field at a point in space, 
+          The term \(\nabla \times \textbf{E}\) is the <strong>curl</strong> of the electric field at a point in space, 
           which measures how much the field “loops” around that point. The negative sign indicates that the induced circulation 
           opposes the change in magnetic flux, as described by 
           <a href="https://en.wikipedia.org/wiki/Lenz%27s_law" target="_blank">Lenz's Law</a>.
