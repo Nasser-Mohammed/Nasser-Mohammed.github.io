@@ -147,15 +147,111 @@
         fields interact, and voltage becomes a more subtle concept.
     </p>
 
+    <h2>Batteries</h2>
+    <p>It's important to have atleast a rough understanding of how batteries work. 
+        I currently have a limited understanding of chemistry so I will not be able to go into 
+        much detail. Now, we start with the idea of an <strong>anode</strong> and <strong>cathode</strong>.
+        These are two different types of <strong>electrodes</strong>. An electrode is a 
+        conductor that lets current to enter or leave a material (battery for example).
+        The anode is what releases the electrons into the circuit, and is the 
+        negative (-) side of a battery. The cathode receives electrons from the circuit, 
+        and is the positive (+) side of a battery. The naming convention is due to the type of 
+        atom used at either end. An ion is a charged particle (nonzero charge). A cation is a 
+        positively charged ion, and an anion is a negatively charged ion. In an alkaline battery,
+        manganese dioxide is used in the cathode, and zinc is used in the anode. Between the 
+        two electrodes is an electrolytic fluid (an electrolyte). These electrodes are 
+        overall pretty much electrically neutral despite the (+) and (-) distinction. Before connecting 
+        the battery to a circuit, there is a tiny imbalance of charge. The anode has a 
+        slight excess of electrons (therefore slightly negative), and the cathode has a 
+        slight lack of electrons (therefore slightly positive). However this slight imbalance 
+        is negligible and as mentioned the actual anode and cathode are considered relatively 
+        neutral. It's really just that their atomic structure has the <em>tendency</em> 
+        to gain electrons in the cathode, and lose electrons in the anode. This tendency 
+        is called <strong>chemical potential</strong> (or redox potential).
+    </p>
+    <p>Now let's discuss the electrolytic fluid in between the anode and cathode. 
+        This is a fluid that contains <strong>free ions</strong> (i.e. cations and anions).
+        Unlike the ions that make up metals and are bound to the rigid lattice, the 
+        ions in the electrolytic fluid can move freely.
+        The electrolytic fluid's main role is to keep the battery overall electrically 
+        neutral. It's essentially the battery's balancing system. Before the 
+        circuit has been closed, the fluid will already be arranged to maintain 
+        electric charge neutrality. The cations will be closer 
+        to the anode, since the negatively charged anode attracts positive cations. 
+        Conversely, the anions will be closer to the cathode, since the positively charged 
+        cathode attract negative anions. 
+        Now, the chemical potential mentioned earlier makes the corresponding electrode 
+        "want" to gain or lose an electron to reach a lower energy state. In the cathode, the atoms want to 
+        gain an electron (since they have a lack of electrons), this process is known as
+        <strong>oxidation</strong>. In the anode, the atoms want to lose an electron 
+        (since they have extra), this process is known as <stong>reduction</stong>.
+        For example, in the Alkaline battery with a zinc anode, oxidation occurs. Zinc 
+        atoms lose electrons, which then go into the wire of the circuit. At the other end, 
+        the cathode made of manganese dioxide atoms undergo reduction reactions, where electrons 
+        leaving the wire are "consumed". This process is obviously finite and limited by 
+        how many atoms you have to undergo this reaction. Once there are no atoms left to 
+        react, every atom is now "stable" and the battery is dead. So the battery life can 
+        be thought of as the stored up chemical potential of all the atoms that make up the 
+        positive and negative side. During this process of discharging electrons, 
+        the ions near each electrode will slowly start drifiting more towards the middle of 
+        the fluid since there's no longer anything to be attracted to. They'll arrange themselves
+        to still be neutral with respect to the other ions inside the fluid. 
+    </p>
+    <p>One thing we can tell from this, is that the electric field strength is determined 
+        by how many atoms we can put on both ends of the battery. Also, we see that this 
+        electric field gets weaker with time. As more electrons leave and enter, there are more 
+        neutral atoms and therefore less total charge. 
+    </p>
+    <p>One question that I had, was how can the battery be electrically neutral, but have 
+        an electric field? Now this might not be a great question but it still made me think. 
+        The reason we have an electric field with an overall electrically neutral battery, is because the 
+        charge density is what creates electric fields, not total charge. So we have 
+        charge density at both ends of the battery, even if they are roughly inversely proportional. 
+    </p>
+
 
     <h2>Electricity and the Flow of Electrons</h2>
-    <p>So what exactly is electricity? What happens in a wire connected to a battery? Electricity is 
+    <p>So what exactly is electricity? What happens in a wire connected to a battery? The answer 
+        is surprisingly hard to find or deduce to an acceptable degree of accuracy. Electricity is 
         essentially the flow of electrons in a wire. But why do they flow? Answer: the electric field. We know
-        that a battery can maintain a voltage which will produce an electric field.  
+        that a battery can maintain a voltage which will produce an electric field. However, 
+        this answer still needs some nuance. It is not only the electric field produced by 
+        the battery, but also the electric field produce from <em>within</em> the wire.
+    </p>
+    <p>First, let's simply assume that the only electric field doing work is that of 
+        the battery. There are two main things we will need to be true. One is that the current 
+        should be constant. Two is that the flow of electrons needs to match the actual 
+        geometry of the wire.
     </p>
 
     <h2>Energy Dissipation and Heat from Currents</h2>
-    <p></p>
+    <p>Even at room temperature, an electron moves extremely fast, on the order of \(10^6 m/s\). This is known as 
+        the <a href="https://en.wikipedia.org/wiki/Fermi_energy" target="_blank">Fermi velocity</a>. 
+        It's roughly \(1/300\) the speed of light. 
+        However this thermal motion is random and therefore the electrons stay in roughly the same 
+        area. The wire is already at <strong>thermal equilibrium</strong>, and therefore this 
+        random motion is exactly that <strong>equilibrium state</strong> of the system. 
+        Therefore we don't see any extra energy fluctuations from electrons colliding with the ion lattice 
+        (the positively charged atomic cores, consisting of nuclei plus bound electrons).
+        However, the electric field of a battery (plus the electric field 
+        mentioned above) causes the entire sea of electrons to start 
+        drifting through the metal lattice. This drift speed is extremely slow, on the order of
+        \(\approx 1-2mm/s\), a few millimeters a second. As they drift, the electrons are 
+        continuously colliding with the atomic lattice. However, the electric field is doing 
+        work on those electrons, and therefore we are no longer in a thermal equilibrium. 
+        The strength of the fields determines the force at which the electrons collide with 
+        the lattice. As they collide, energy is transferred from the field, to the electrons, 
+        and finally to the lattice (i.e. the metal wire). This kinetic energy that the 
+        metal wire receives is precisely heat. Therefore we can deduce that to get a hotter wire, 
+        we can increase the force at which the electrons collide with the lattice via a stronger 
+        electric field and/or increase the drift speed that they are colliding with the lattice. 
+        Both are a result of an increase in the strength of the electric field, i.e. more voltage. 
+        This will induce more current, which then dissipates more energy as heat. This concept is also 
+        how we have things like stoves, heaters, toasters, etc. Note that increasing the 
+        voltage only minimally increases the drift speed, but does increase the force 
+        substantially. So the energy we see dissipated is mostly as a result of the force 
+        of the electric field, not the speed of the electrons.
+    </p>
 
 
 
