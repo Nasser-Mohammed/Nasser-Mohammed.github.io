@@ -148,27 +148,31 @@
     </p>
 
     <h2>Batteries</h2>
-    <p>It's important to have atleast a rough understanding of how batteries work. 
+    <p>It's important to have at least a rough understanding of how batteries work. 
         I currently have a limited understanding of chemistry so I will not be able to go into 
         much detail. Now, we start with the idea of an <strong>anode</strong> and <strong>cathode</strong>.
         These are two different types of <strong>electrodes</strong>. An electrode is a 
-        conductor that lets current to enter or leave a material (battery for example).
+        conductor that lets current enter or leave a material (battery for example).
         The anode is what releases the electrons into the circuit, and is the 
         negative (-) side of a battery. The cathode receives electrons from the circuit, 
-        and is the positive (+) side of a battery. The naming convention is due to the type of 
-        atom used at either end. An ion is a charged particle (nonzero charge). A cation is a 
+        and is the positive (+) side of a battery. An ion is a charged particle (nonzero charge). A cation is a 
         positively charged ion, and an anion is a negatively charged ion. In an alkaline battery,
         manganese dioxide is used in the cathode, and zinc is used in the anode. Between the 
-        two electrodes is an electrolytic fluid (an electrolyte). These electrodes are 
-        overall pretty much electrically neutral despite the (+) and (-) distinction. Before connecting 
+        two electrodes is an electrolytic fluid (an electrolyte). The electrodes are 
+        overall pretty much electrically neutral despite the (+) and (-) distinction. 
+        The (+) and (-) distinction is more related to whether it consumes or supplies electrons. 
+        Where producing is (-) and consuming is (+). However, as mentioned the zinc in the anode is 
+        electrically neutral (30 protons and 30 electrons). Similarly, manganese oxide has 
+        41 protons and electrons (and therefore electrically neutral). Before connecting 
         the battery to a circuit, there is a tiny imbalance of charge. The anode has a 
         slight excess of electrons (therefore slightly negative), and the cathode has a 
         slight lack of electrons (therefore slightly positive). However this slight imbalance 
         is negligible and as mentioned the actual anode and cathode are considered relatively 
         neutral. It's really just that their atomic structure has the <em>tendency</em> 
-        to gain electrons in the cathode, and lose electrons in the anode. This tendency 
+        to lose electrons in the anode, and gain electrons in the cathode. This tendency 
         is called <strong>chemical potential</strong> (or redox potential).
     </p>
+
     <p>Now let's discuss the electrolytic fluid in between the anode and cathode. 
         This is a fluid that contains <strong>free ions</strong> (i.e. cations and anions).
         Unlike the ions that make up metals and are bound to the rigid lattice, the 
@@ -176,38 +180,56 @@
         The electrolytic fluid's main role is to keep the battery overall electrically 
         neutral. It's essentially the battery's balancing system. Before the 
         circuit has been closed, the fluid will already be arranged to maintain 
-        electric charge neutrality. The cations will be closer 
-        to the anode, since the negatively charged anode attracts positive cations. 
-        Conversely, the anions will be closer to the cathode, since the positively charged 
-        cathode attract negative anions. 
+        electric charge neutrality.
         Now, the chemical potential mentioned earlier makes the corresponding electrode 
-        "want" to gain or lose an electron to reach a lower energy state. In the cathode, the atoms want to 
-        gain an electron (since they have a lack of electrons), this process is known as
-        <strong>oxidation</strong>. In the anode, the atoms want to lose an electron 
-        (since they have extra), this process is known as <stong>reduction</stong>.
-        For example, in the Alkaline battery with a zinc anode, oxidation occurs. Zinc 
-        atoms lose electrons, which then go into the wire of the circuit. At the other end, 
-        the cathode made of manganese dioxide atoms undergo reduction reactions, where electrons 
-        leaving the wire are "consumed". This process is obviously finite and limited by 
-        how many atoms you have to undergo this reaction. Once there are no atoms left to 
-        react, every atom is now "stable" and the battery is dead. So the battery life can 
-        be thought of as the stored up chemical potential of all the atoms that make up the 
-        positive and negative side. During this process of discharging electrons, 
-        the ions near each electrode will slowly start drifiting more towards the middle of 
-        the fluid since there's no longer anything to be attracted to. They'll arrange themselves
-        to still be neutral with respect to the other ions inside the fluid. 
-    </p>
+        "want" to gain or lose an electron to reach a lower energy state. In the anode, the atoms want to 
+        lose an electron (oxidation). In the cathode, the atoms want to gain an electron 
+        (reduction).
+        For example, in the alkaline battery with a zinc anode, oxidation occurs. Zinc 
+        atoms lose electrons, which then go into the wire of the circuit. More specifically, 
+        zinc undergoes the reaction,</p>
+        <div class="math-block">\[
+            \text{Zn(s)} \to \text{Zn}^{2+}(\text{aq}) + 2e^-\]
+        </div>
+    
+        <p>What this says, is that the zinc will lose two electrons, 
+            which will flow into the wire, whereas the \(Zn^{2+}\) now positively charged zinc
+            ion will flow into the electrolyte. In other words, the electrolyte dissolves the zinc 
+            metal to power the circuit. 
+            At the other end, 
+            the cathode made of manganese dioxide undergoes reduction reactions, where electrons 
+            leaving the wire are "consumed". The formula for this reaction is, </p>
+        <div class="math-block">\[
+            2\text{MnO}_2 + 2\text{H}_2\text{O} + 2e^- \to \text{Mn}_2\text{O}_3 + 2\text{OH}^-\]
+        </div>
+        <p>This reaction consumes two electrons for each reaction. Instead of dissolving the 
+            cathode, it accumulates its products. 
+        </p>
+        
+        <p>
+            This process is obviously finite and limited by 
+            how many atoms you have that can undergo this reaction. Once there are no atoms that can react, 
+            the battery is dead. So the battery life can 
+            be thought of as the stored up chemical potential of all the atoms that make up the 
+            positive and negative side. The ions in the electrolyte arrange themselves
+            to still be neutral with respect to the other ions inside the fluid and to account for 
+            the new ions entering the fluid. 
+         </p>
+
     <p>One thing we can tell from this, is that the electric field strength is determined 
         by how many atoms we can put on both ends of the battery. Also, we see that this 
         electric field gets weaker with time. As more electrons leave and enter, there are more 
         neutral atoms and therefore less total charge. 
     </p>
+
     <p>One question that I had, was how can the battery be electrically neutral, but have 
         an electric field? Now this might not be a great question but it still made me think. 
         The reason we have an electric field with an overall electrically neutral battery, is because the 
         charge density is what creates electric fields, not total charge. So we have 
-        charge density at both ends of the battery, even if they are roughly inversely proportional. 
+        charge density at both ends of the battery, due to very small surface charges between the 
+        electrolyte and electrode. 
     </p>
+
 
 
     <h2>Electricity and the Flow of Electrons</h2>
