@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../../../pictures/eeIcon.png" sizes="48x48">
+  <title>Circuit Theory</title>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      },
+      options: { renderActions: { addMenu: [] } }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">Circuit Theory</h1>
+  </header>
+
+  <main>
+    <p>
+        Now that we properly understand Maxwell's equations, we can begin to exploit them for 
+        certain tasks. The most obvious and direct application of Maxwell's equations can be found in 
+        the field of circuits. A circuit is typically a closed loop of conductive wire that is connected
+        at two points to something that can maintain an electric potential difference between the two points.
+        The device I described that maintains this potential difference is typically a battery or some other power source. The electric 
+        potential difference is also known as <strong>voltage</strong>. If we recall, the electric field 
+        \(\textbf{E}\) gives us the force per unit charge at some point. However, this is a vector field.
+        Instead we might want to know what the energy per unit charge is at some point. This is precisely 
+        the concept of the <strong>electric potential</strong>. However, this introduces a new concept of 
+        energy, which then raises the question: <strong>what is energy?</strong>
+    </p>
+    <p>
+        In this context, energy refers to <strong>the ability to do work</strong>.
+        Again, we have introduced another foreign concept. This raises the next natural question: 
+        <strong>what is work?</strong>
+        Work is simply the force applied over a displacement. In a mathematical formulation, it can be 
+        represented as
+    </p>
+    <div class="math-block">\[
+        W = \vec{F}\cdot\vec{d}
+    \]
+    </div>
+    <p>
+    Why have we introduced these concepts? Well, anytime we have a force field (electric, gravitational, etc.), 
+    the motion of an object under the influence of that field involves, by definition, the work done by the field.
+    </p>
+    <p>
+        In the electric field example, we can find the force on a charge \(q\) through the relation
+    </p>
+    <div class="math-block">\[
+        \vec{F} = q\vec{E}
+    \]</div>
+    <p>
+        Therefore, the work done by the field to move a charge along a displacement \(d\mathbf{\ell}\) is
+    </p>
+    <div class="math-block">\[
+        dW = \vec{F} \cdot d\mathbf{\ell} = q \vec{E} \cdot d\mathbf{\ell}
+    \]</div>
+    <p>
+        Think of this work as energy transferred to the particle. Energy is like money in your bank account, 
+        and work is like spending or transferring that money. We can connect work to the electric potential 
+        difference between two points in space:
+    </p>
+    <div class="math-block">\[
+        W = q \Delta V
+    \]</div>
+    <p>
+        For a small displacement in a uniform field, we can substitute and divide by \(q\):
+    </p>
+    <div class="math-block">\[
+        \vec{E} \cdot d\mathbf{\ell} = -\Delta V
+    \]</div>
+    <p>
+        More generally, for non-uniform fields or curved paths, the potential difference is given by an integral:
+    </p>
+    <div class="math-block">\[
+        \Delta V = - \int_{\text{path}} \vec{E} \cdot d\mathbf{\ell}
+    \]</div>
+    <p>
+        This shows that the electric field determines how much work is done per unit charge. In other words, it sets the voltage between points in a circuit.
+        Sometimes it is helpful to consider a gravitational example. Imagine we have a hill, and we are determining 
+        the effect of gravity on an object. 
+        The electric field would be like the slope of the hill at each point, whereas the electric potential would 
+        be like the height of the hill at each point. 
+    </p>
+    <p>Again, imagine our electric field. We can also think of the potential at a certain point as follows. 
+        Start at the origin, and walk to the point you want to determine the potential of. Each step you 
+        add up the vector of the field, and once you get to the point you will have the value of the 
+        potential at that point. Every step the vector tells you to go up or down a certain amount, 
+        so by the time you reach your point, you will be at the height that you wished to find. This idea of 
+        adding up vector contributions is simply an integral and therefore
+    </p>
+    <div class="math-block">\[
+    V(\textbf{r}) = -\int_{\text{reference}}^{\textbf{r}} \vec{E}\cdot d\ell
+    \]</div>
+    <p>
+        Since \(\Delta V = V_{\text{final}} - V_{\text{initial}}\), we can write:
+    </p>
+    <div class="math-block">\[
+        \Delta V = V(\textbf{r}_2) - V(\textbf{r}_1)
+    \]</div>
+    <p>
+        This gives the potential difference between two points, which can also be expressed as:
+    </p>
+    <div class="math-block">\[
+        \Delta V = - \int_{\text{path}} \vec{E} \cdot d\mathbf{\ell}
+    \]</div>
+    <p>
+        In static electric fields, this integral is path-independent. Since the field is conservative, 
+        the potential difference depends only on the start and end points, not the path taken. However, 
+        in more complicated scenarios like time-varying electric fields, the potential difference can depend 
+        on the path. 
+    </p>
+    <p>
+        Fortunately, in the majority of small-scale circuits, such as those on a breadboard, we can 
+        safely use the concept of potential difference between two points. Even if there are slightly 
+        changing electric or magnetic fields, the resulting electromagnetic waves have wavelengths much 
+        larger than the circuit, so their effect is negligible.
+    </p>
+    <p>
+        To connect this to circuits: the potential difference across a component “drives” current. 
+        The electric field in the wire exerts a force on charges, transferring energy from the source 
+        (like a battery) to the device. Think of potential as the “height of a hill” and the electric field 
+        as the slope, the charges “roll down” from high to low potential, converting energy into motion or 
+        heat.
+    </p>
+    <p>
+        For example, if a 9V battery is connected across a resistor, each coulomb of charge loses 9J of
+         potential energy as it moves through the resistor, that energy is dissipated as heat. 
+    </p>
+    <p>
+        Finally, note that in AC or high-frequency circuits, this simple ΔV picture is an approximation. 
+        At very high frequencies, the full set of Maxwell's equations governs how electric and magnetic 
+        fields interact, and voltage becomes a more subtle concept.
+    </p>
+
+
+    <h2>Electricity and the Flow of Electrons</h2>
+    <p>So what exactly is electricity? What happens in a wire connected to a battery? Electricity is 
+        essentially the flow of electrons in a wire. But why do they flow? Answer: the electric field. We know
+        that a battery can maintain a voltage which will produce an electric field.  
+    </p>
+
+    <h2>Energy Dissipation and Heat from Currents</h2>
+    <p></p>
+
+
+
+  </main>
+
+</body>
+</html>
