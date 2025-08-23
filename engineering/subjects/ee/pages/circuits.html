@@ -30,250 +30,28 @@
   </header>
 
   <main>
-    <p>
-        Now that we properly understand Maxwell's equations, we can begin to exploit them for 
-        certain tasks. The most obvious and direct application of Maxwell's equations can be found in 
-        the field of circuits. A circuit is typically a closed loop of conductive wire that is connected
-        at two points to something that can maintain an electric potential difference between the two points.
-        The device I described that maintains this potential difference is typically a battery or some other power source. The electric 
-        potential difference is also known as <strong>voltage</strong>. If we recall, the electric field 
-        \(\textbf{E}\) gives us the force per unit charge at some point. However, this is a vector field.
-        Instead we might want to know what the energy per unit charge is at some point. This is precisely 
-        the concept of the <strong>electric potential</strong>. However, this introduces a new concept of 
-        energy, which then raises the question: <strong>what is energy?</strong>
+    <p>Now that we have covered a majority of the concepts found in circuits from a 
+        field perspective (using Maxwell's equations), we can now make various simplifications
+        to the quantities and ideas found in smaller scale circuits. It would be cumbersome to 
+        try to compute the various electric fields and other things all the time so instead we make some 
+        realistic assumptions which allows us to get more straightforward deductions of the nature of the 
+        circuit. 
     </p>
-    <p>
-        In this context, energy refers to <strong>the ability to do work</strong>.
-        Again, we have introduced another foreign concept. This raises the next natural question: 
-        <strong>what is work?</strong>
-        Work is simply the force applied over a displacement. In a mathematical formulation, it can be 
-        represented as
+
+    <h2>Ohm's Law</h2>
+    <p>As mentioned, the most useful aspect of our assumptions will be simplification of 
+        electromagnetic phenomena found in small scale (and typically DC) circuits. 
+        With these reductions we can readily compute things like voltage, current, resistance, etc. 
+        The first of which is <strong>Ohm's Law</strong>. Ohm's Law gives us a nice relationship between 
+        voltage, resistance, and current. It is given by
     </p>
-    <div class="math-block">\[
-        W = \vec{F}\cdot\vec{d}
-    \]
+    <div class="math-block">
+        \[ V = I R \]
     </div>
-    <p>
-    Why have we introduced these concepts? Well, anytime we have a force field (electric, gravitational, etc.), 
-    the motion of an object under the influence of that field involves, by definition, the work done by the field.
-    </p>
-    <p>
-        In the electric field example, we can find the force on a charge \(q\) through the relation
-    </p>
-    <div class="math-block">\[
-        \vec{F} = q\vec{E}
-    \]</div>
-    <p>
-        Therefore, the work done by the field to move a charge along a displacement \(d\mathbf{\ell}\) is
-    </p>
-    <div class="math-block">\[
-        dW = \vec{F} \cdot d\mathbf{\ell} = q \vec{E} \cdot d\mathbf{\ell}
-    \]</div>
-    <p>
-        Think of this work as energy transferred to the particle. Energy is like money in your bank account, 
-        and work is like spending or transferring that money. We can connect work to the electric potential 
-        difference between two points in space:
-    </p>
-    <div class="math-block">\[
-        W = q \Delta V
-    \]</div>
-    <p>
-        For a small displacement in a uniform field, we can substitute and divide by \(q\):
-    </p>
-    <div class="math-block">\[
-        \vec{E} \cdot d\mathbf{\ell} = -\Delta V
-    \]</div>
-    <p>
-        More generally, for non-uniform fields or curved paths, the potential difference is given by an integral:
-    </p>
-    <div class="math-block">\[
-        \Delta V = - \int_{\text{path}} \vec{E} \cdot d\mathbf{\ell}
-    \]</div>
-    <p>
-        This shows that the electric field determines how much work is done per unit charge. In other words, it sets the voltage between points in a circuit.
-        Sometimes it is helpful to consider a gravitational example. Imagine we have a hill, and we are determining 
-        the effect of gravity on an object. 
-        The electric field would be like the slope of the hill at each point, whereas the electric potential would 
-        be like the height of the hill at each point. 
-    </p>
-    <p>Again, imagine our electric field. We can also think of the potential at a certain point as follows. 
-        Start at the origin, and walk to the point you want to determine the potential of. Each step you 
-        add up the vector of the field, and once you get to the point you will have the value of the 
-        potential at that point. Every step the vector tells you to go up or down a certain amount, 
-        so by the time you reach your point, you will be at the height that you wished to find. This idea of 
-        adding up vector contributions is simply an integral and therefore
-    </p>
-    <div class="math-block">\[
-    V(\textbf{r}) = -\int_{\text{reference}}^{\textbf{r}} \vec{E}\cdot d\ell
-    \]</div>
-    <p>
-        Since \(\Delta V = V_{\text{final}} - V_{\text{initial}}\), we can write:
-    </p>
-    <div class="math-block">\[
-        \Delta V = V(\textbf{r}_2) - V(\textbf{r}_1)
-    \]</div>
-    <p>
-        This gives the potential difference between two points, which can also be expressed as:
-    </p>
-    <div class="math-block">\[
-        \Delta V = - \int_{\text{path}} \vec{E} \cdot d\mathbf{\ell}
-    \]</div>
-    <p>
-        In static electric fields, this integral is path-independent. Since the field is conservative, 
-        the potential difference depends only on the start and end points, not the path taken. However, 
-        in more complicated scenarios like time-varying electric fields, the potential difference can depend 
-        on the path. 
-    </p>
-    <p>
-        Fortunately, in the majority of small-scale circuits, such as those on a breadboard, we can 
-        safely use the concept of potential difference between two points. Even if there are slightly 
-        changing electric or magnetic fields, the resulting electromagnetic waves have wavelengths much 
-        larger than the circuit, so their effect is negligible.
-    </p>
-    <p>
-        To connect this to circuits: the potential difference across a component “drives” current. 
-        The electric field in the wire exerts a force on charges, transferring energy from the source 
-        (like a battery) to the device. Think of potential as the “height of a hill” and the electric field 
-        as the slope, the charges “roll down” from high to low potential, converting energy into motion or 
-        heat.
-    </p>
-    <p>
-        For example, if a 9V battery is connected across a resistor, each coulomb of charge loses 9J of
-         potential energy as it moves through the resistor, that energy is dissipated as heat. 
-    </p>
-    <p>
-        Finally, note that in AC or high-frequency circuits, this simple ΔV picture is an approximation. 
-        At very high frequencies, the full set of Maxwell's equations governs how electric and magnetic 
-        fields interact, and voltage becomes a more subtle concept.
+    <p>Where \(V\) is voltage (measured in volts V), \(I\) is current (measured in amps A), and 
+        \(R\) is resistance (measured in Ohm's \(\Omega\))
     </p>
 
-    <h2>Batteries</h2>
-    <p>It's important to have at least a rough understanding of how batteries work. 
-        I currently have a limited understanding of chemistry so I will not be able to go into 
-        much detail. Now, we start with the idea of an <strong>anode</strong> and <strong>cathode</strong>.
-        These are two different types of <strong>electrodes</strong>. An electrode is a 
-        conductor that lets current enter or leave a material (battery for example).
-        The anode is what releases the electrons into the circuit, and is the 
-        negative (-) side of a battery. The cathode receives electrons from the circuit, 
-        and is the positive (+) side of a battery. An ion is a charged particle (nonzero charge). A cation is a 
-        positively charged ion, and an anion is a negatively charged ion. In an alkaline battery,
-        manganese dioxide is used in the cathode, and zinc is used in the anode. Between the 
-        two electrodes is an electrolytic fluid (an electrolyte). The electrodes are 
-        overall pretty much electrically neutral despite the (+) and (-) distinction. 
-        The (+) and (-) distinction is more related to whether it consumes or supplies electrons. 
-        Where producing is (-) and consuming is (+). However, as mentioned the zinc in the anode is 
-        electrically neutral (30 protons and 30 electrons). Similarly, manganese oxide has 
-        41 protons and electrons (and therefore electrically neutral). Before connecting 
-        the battery to a circuit, there is a tiny imbalance of charge. The anode has a 
-        slight excess of electrons (therefore slightly negative), and the cathode has a 
-        slight lack of electrons (therefore slightly positive). However this slight imbalance 
-        is negligible and as mentioned the actual anode and cathode are considered relatively 
-        neutral. It's really just that their atomic structure has the <em>tendency</em> 
-        to lose electrons in the anode, and gain electrons in the cathode. This tendency 
-        is called <strong>chemical potential</strong> (or redox potential).
-    </p>
-
-    <p>Now let's discuss the electrolytic fluid in between the anode and cathode. 
-        This is a fluid that contains <strong>free ions</strong> (i.e. cations and anions).
-        Unlike the ions that make up metals and are bound to the rigid lattice, the 
-        ions in the electrolytic fluid can move freely.
-        The electrolytic fluid's main role is to keep the battery overall electrically 
-        neutral. It's essentially the battery's balancing system. Before the 
-        circuit has been closed, the fluid will already be arranged to maintain 
-        electric charge neutrality.
-        Now, the chemical potential mentioned earlier makes the corresponding electrode 
-        "want" to gain or lose an electron to reach a lower energy state. In the anode, the atoms want to 
-        lose an electron (oxidation). In the cathode, the atoms want to gain an electron 
-        (reduction).
-        For example, in the alkaline battery with a zinc anode, oxidation occurs. Zinc 
-        atoms lose electrons, which then go into the wire of the circuit. More specifically, 
-        zinc undergoes the reaction,</p>
-        <div class="math-block">\[
-            \text{Zn(s)} \to \text{Zn}^{2+}(\text{aq}) + 2e^-\]
-        </div>
-    
-        <p>What this says, is that the zinc will lose two electrons, 
-            which will flow into the wire, whereas the \(Zn^{2+}\) now positively charged zinc
-            ion will flow into the electrolyte. In other words, the electrolyte dissolves the zinc 
-            metal to power the circuit. 
-            At the other end, 
-            the cathode made of manganese dioxide undergoes reduction reactions, where electrons 
-            leaving the wire are "consumed". The formula for this reaction is, </p>
-        <div class="math-block">\[
-            2\text{MnO}_2 + 2\text{H}_2\text{O} + 2e^- \to \text{Mn}_2\text{O}_3 + 2\text{OH}^-\]
-        </div>
-        <p>This reaction consumes two electrons for each reaction. Instead of dissolving the 
-            cathode, it accumulates its products. 
-        </p>
-        
-        <p>
-            This process is obviously finite and limited by 
-            how many atoms you have that can undergo this reaction. Once there are no atoms that can react, 
-            the battery is dead. So the battery life can 
-            be thought of as the stored up chemical potential of all the atoms that make up the 
-            positive and negative side. The ions in the electrolyte arrange themselves
-            to still be neutral with respect to the other ions inside the fluid and to account for 
-            the new ions entering the fluid. 
-         </p>
-
-    <p>One thing we can tell from this, is that the electric field strength is determined 
-        by how many atoms we can put on both ends of the battery. Also, we see that this 
-        electric field gets weaker with time. As more electrons leave and enter, there are more 
-        neutral atoms and therefore less total charge. 
-    </p>
-
-    <p>One question that I had, was how can the battery be electrically neutral, but have 
-        an electric field? Now this might not be a great question but it still made me think. 
-        The reason we have an electric field with an overall electrically neutral battery, is because the 
-        charge density is what creates electric fields, not total charge. So we have 
-        charge density at both ends of the battery, due to very small surface charges between the 
-        electrolyte and electrode. 
-    </p>
-
-
-
-    <h2>Electricity and the Flow of Electrons</h2>
-    <p>So what exactly is electricity? What happens in a wire connected to a battery? The answer 
-        is surprisingly hard to find or deduce to an acceptable degree of accuracy. Electricity is 
-        essentially the flow of electrons in a wire. But why do they flow? Answer: the electric field. We know
-        that a battery can maintain a voltage which will produce an electric field. However, 
-        this answer still needs some nuance. It is not only the electric field produced by 
-        the battery, but also the electric field produce from <em>within</em> the wire.
-    </p>
-    <p>First, let's simply assume that the only electric field doing work is that of 
-        the battery. There are two main things we will need to be true. One is that the current 
-        should be constant. Two is that the flow of electrons needs to match the actual 
-        geometry of the wire.
-    </p>
-
-    <h2>Energy Dissipation and Heat from Currents</h2>
-    <p>Even at room temperature, an electron moves extremely fast, on the order of \(10^6 m/s\). This is known as 
-        the <a href="https://en.wikipedia.org/wiki/Fermi_energy" target="_blank">Fermi velocity</a>. 
-        It's roughly \(1/300\) the speed of light. 
-        However this thermal motion is random and therefore the electrons stay in roughly the same 
-        area. The wire is already at <strong>thermal equilibrium</strong>, and therefore this 
-        random motion is exactly that <strong>equilibrium state</strong> of the system. 
-        Therefore we don't see any extra energy fluctuations from electrons colliding with the ion lattice 
-        (the positively charged atomic cores, consisting of nuclei plus bound electrons).
-        However, the electric field of a battery (plus the electric field 
-        mentioned above) causes the entire sea of electrons to start 
-        drifting through the metal lattice. This drift speed is extremely slow, on the order of
-        \(\approx 1-2mm/s\), a few millimeters a second. As they drift, the electrons are 
-        continuously colliding with the atomic lattice. However, the electric field is doing 
-        work on those electrons, and therefore we are no longer in a thermal equilibrium. 
-        The strength of the fields determines the force at which the electrons collide with 
-        the lattice. As they collide, energy is transferred from the field, to the electrons, 
-        and finally to the lattice (i.e. the metal wire). This kinetic energy that the 
-        metal wire receives is precisely heat. Therefore we can deduce that to get a hotter wire, 
-        we can increase the force at which the electrons collide with the lattice via a stronger 
-        electric field and/or increase the drift speed that they are colliding with the lattice. 
-        Both are a result of an increase in the strength of the electric field, i.e. more voltage. 
-        This will induce more current, which then dissipates more energy as heat. This concept is also 
-        how we have things like stoves, heaters, toasters, etc. Note that increasing the 
-        voltage only minimally increases the drift speed, but does increase the force 
-        substantially. So the energy we see dissipated is mostly as a result of the force 
-        of the electric field, not the speed of the electrons.
-    </p>
 
 
 
