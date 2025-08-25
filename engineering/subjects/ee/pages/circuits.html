@@ -51,6 +51,160 @@
     <p>Where \(V\) is voltage (measured in volts V), \(I\) is current (measured in amps A), and 
         \(R\) is resistance (measured in Ohm's \(\Omega\))
     </p>
+    <h2>Kirchhoff's Laws</h2>
+    <p>Kirchhoff's laws are not really "laws" in the sense that nature follows them. Instead, 
+      they are useful and very accurate approximations for DC circuits and for low frequency AC currents,
+      since the wavelengths of electromagnetic waves are much larger than the physical size of the 
+      circuits. These can be mathematically deduced from Maxwell's equations and are not just 
+      guesses. 
+    </p>
+    <h3>Kirchhoff's Current Law (KCL)</h3>
+    <p>This law is also known as the conservation of charge. It states that the sum of currents at a 
+      node \(= 0\). This basically means that the amount of current entering a point must be the same 
+      as the amount of current leaving it. 
+      A node is basically a point where two or more circuit elements connect together. 
+      It can be thought of as a junction of the circuit. More specifically, a node is a set of points 
+      that have the same voltage. Typically, we draw the voltage source and then 
+      lines representing the conductive wire in a loop back to the voltage source's other end. 
+      In between that is where we put all of our circuit elements. This law at a node can be represented as,
+    </p>
+    <div class="math-block">\[
+      \sum_{j=1}^{n}I_j = 0\]
+    </div>
+    <p>This represents a node with \(n\) currents that can be exiting or entering the node.
+      We can think about it like this, if we have three different currents flowing into a point and 
+      only one flowing out, then \(I_1+I_2+I_3 = I_4\), this implies that 
+      \(I_1+I_2+I_3 - I_4 = 0\). The sign convention does not relate to the actual sign of the current flow. 
+      The current is always a negative flow, since it's the flow of electrons. Although, the actual convention 
+      is that current flows in the direction that positive charge would, but this is not relevant to the
+      Kirchhoff's Current Law. We can consider the currents entering a point as positive, and those leaving as 
+      negative in this law. This convention is unique for each node. By that I mean a current can leave one 
+      node (and therefore be considered "negative" in the nodal analysis of the first node) and enter another 
+      node (and therefore be considered "positive" in the nodal analysis of the second node). So this convention 
+      is local for each node. 
+    </p>
+    <h3>Kirchhoff's Voltage Law (KVL)</h3>
+    <p>Kirchhoff's Voltage Law is also known as the conservation of energy (in this context). It states that 
+      the sum of voltages around a loop must be \(0\). Mathematically this is expressed as,
+    </p>
+    <div class="math-block">\[
+        \sum_{k=1}^{n}V_k = 0
+      \]
+    </div>
+    <p>Where \(V_k\) is the voltage across the \(k\)-th element of the circuit. 
+      A loop is simply any closed path that starts at a node and returns to the same node. 
+      These can appear as sub-loops inside the circuit where this law still holds. 
+      When we say the "voltage across" an element, we mean the change in electric potential from one side 
+      of the element to the other side. Mathematically, this is
+    </p>
+    <div class="math-block">\[
+      V = V_{\text{end}} - V_{\text{start}}\]
+    </div>
+    <p>This is the same concept as voltage, the difference in electric potential between two points.</p>
+
+    <p>As mentioned, these laws are used in the specific context of DC and low frequency AC circuits. 
+      Furthmore, these usually assume a steady-state current. This typically isn't a problem; my 
+      interpretation is that the current reaches steady-state almost instantaneously and therefore 
+      this assumption is of no concern. 
+    </p>
+
+    <h2>Deriving Kirchhoff's Laws from Maxwell's Equations</h2>
+    <p>
+      As mentioned, Kirchhoff's Laws can be derived from Maxwell's equations under certain assumptions. 
+      This helps explain why they work so well for DC circuits and low-frequency AC circuits.
+      The derivations usually come from manipulating Maxwell's equationas and then making assumptions.
+    </p>
+
+    <h3>Kirchhoff's Current Law (KCL)</h3>
+    <p>
+      KCL is based on the <strong>continuity equation</strong>, which comes from the law of charge conservation: 
+      \[
+        \nabla \cdot \mathbf{J} = -\frac{\partial \rho}{\partial t}
+      \]
+      Here, <em>\(\mathbf{J}\)</em> is the current density and <em>\(\rho\)</em> is the charge density. 
+      In a steady-state DC circuit, the charge density doesn't change over time, so \(\partial \rho / \partial t = 0\). 
+      This gives \(\nabla \cdot \mathbf{J} = 0\), meaning the net current into any point (node) is zero, exactly KCL.
+    </p>
+
+    <h3>Kirchhoff's Voltage Law (KVL)</h3>
+    <p>
+      KVL comes from Faraday's law of induction: 
+      \[
+        \oint \mathbf{E} \cdot d\mathbf{l} = -\frac{d\Phi_B}{dt}
+      \]
+      For DC circuits or circuits with slowly changing currents, the magnetic flux \(\Phi_B\) is approximately constant, so \(\frac{d\Phi_B}{dt} \approx 0\). 
+      This simplifies to \(\oint \mathbf{E} \cdot d\mathbf{l} = 0\), meaning the sum of voltage drops around any closed loop is zero, exactly KVL.
+    </p>
+
+    <p>
+      In other words, Kirchhoff's Laws are <strong>approximations valid when electric and magnetic fields are relatively uniform and changing slowly</strong>. 
+      This is why they are extremely accurate for small-scale circuits and low-frequency signals.
+    </p>
+
+
+    <h2>Circuit Analysis</h2>
+    <p>
+      So far we've talked about circuits and nodes, but we haven't shown what they actually look like. 
+      Circuits are usually drawn as diagrams with <strong>nodes</strong> (junctions) and <strong>elements</strong> (resistors, batteries, capacitors, etc.) connected by wires. 
+      There isn't one “canonical” way to draw a circuit, but a common approach is to start with a node representing the voltage source (for example, a battery), 
+      then draw wires connecting its positive and negative terminals, and place circuit elements along those wires.
+    </p>
+    <p>
+      By convention, <strong>current flows in the direction that positive charge would move</strong> - from the positive terminal of a battery, through the circuit elements, 
+      and back to the negative terminal. Even though the actual charge carriers (electrons) move opposite to this direction, this convention simplifies calculations 
+      and aligns with the definitions used in Kirchhoff's Laws and Ohm's Law.
+    </p>
+
+    <h2>Resistors</h2>
+    <p>Resistors are very useful circuit components, and give us the starting point to building 
+      more complex circuits. Resistors are essentially current throttles, they can limit 
+      the amount of current flowing for a set voltage. If we consider a resistor with a set amount of 
+      resistance, and a voltage supply with a set amount of voltage. Then by rearranging Ohm's Law, we have 
+    </p>
+    <div class="math-block">\[
+      R = \frac{V}{I} \]
+    </div>
+    <p>In other words, if we increase the resistance, the current must decrease to maintain the relation. 
+      Resistors dissipate electrical energy into heat. As mentioned in the previous page, this is via the 
+      interaction between the current flow and atomic lattice. As the electrons drift, they bounce off of 
+      the atomic lattice and transfer electrical energy to the lattice, increasing the heat of the metal. 
+      They are designed to dissipate a certain amount of energy. 
+      </p>
+      <p>
+      When multiple resistors are in a circuit, their arrangement affects the total resistance. 
+      The two main arrangements are <strong>series</strong> and <strong>parallel</strong>.
+    </p>
+
+    <h3>Series Resistors</h3>
+    <p>
+      Resistors in series are connected end-to-end, so the same current flows through all of them. 
+      The total voltage across all resistors is the sum of individual voltages:
+    </p>
+    <div class="math-block">
+      \[ V_{\text{total}} = V_1 + V_2 + ... + V_n \]
+    </div>
+    <p>
+      Their equivalent resistance is
+    </p>
+    <div class="math-block">
+      \[ R_{\text{eq}} = R_1 + R_2 + ... + R_n \]
+    </div>
+
+    <h3>Parallel Resistors</h3>
+    <p>
+      Resistors in parallel are connected across the same two nodes, so the voltage across each is the same. 
+      The total current is the sum of the currents through each resistor:
+    </p>
+    <div class="math-block">
+      \[ I_{\text{total}} = I_1 + I_2 + ... + I_n \]
+    </div>
+    <p>
+      The equivalent resistance is
+    </p>
+    <div class="math-block">
+      \[ \frac{1}{R_{\text{eq}}} = \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n} \]
+    </div>
+
 
 
 
