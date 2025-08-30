@@ -8,7 +8,7 @@ body {
 }
 
 .wrapper {
-  max-width: 900px;
+  max-width: 1400px;
   margin: 0 auto;
   text-align: center;
   background: #fff;
@@ -171,3 +171,11 @@ select {
   outline: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
 }
+canvas#simCanvas {
+  display: block;
+  width: 100%;             /* almost full screen on smaller devices */
+  max-width: 1400px;      /* allow it to grow larger on desktops */
+  height: auto;           /* maintain aspect ratio */
+  margin: 0 auto;         /* keep centered */
+}
+
