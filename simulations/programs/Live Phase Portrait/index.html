@@ -191,13 +191,14 @@
       }
     };
     waitForSim();
-    // after your bindings
+
     const cb = document.getElementById('show-dots');
     if (cb) {
-      cb.checked = false;                 // ensure OFF on load
-      window.SIM?.setDotsVisible?.(false);
+      cb.checked = true;                  // ensure ON on load
+      window.SIM?.setDotsVisible?.(true);
       cb.addEventListener('change', e => window.SIM?.setDotsVisible?.(e.target.checked));
     }
+
 
   </script>
 </body>
