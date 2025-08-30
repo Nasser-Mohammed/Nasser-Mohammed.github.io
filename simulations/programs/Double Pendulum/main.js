@@ -7,7 +7,7 @@
 //1/2*l*(theta'_1)^2*sin(theta_1-theta_2) + 1/2*g*sin(theta_2) = 0
 
 let p1 = {length: 250, mass: 11, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
-let p2 = {length: 120, mass: 15, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
+let p2 = {length: 120, mass: 20, theta: 0, velocity: 0, acceleration: 0, x: 0, y: 0};
 let midLineHeight;
 let midLineWidth;
 
@@ -384,5 +384,14 @@ document.addEventListener("DOMContentLoaded", () => {
   dampingEnabled = true;
   dampenBtn.style.display = "none";
 });
+  const clearTrailBtn = document.getElementById("clearTrailBtn");
+  clearTrailBtn.addEventListener("click", () => {
+    fullTrail = [];
+    visibleTrail = [];
+    visitedPoints = new Set();
+    console.log("Trajectory cleared");
+
+  });
+
 
 });

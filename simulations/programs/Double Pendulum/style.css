@@ -14,14 +14,22 @@ body, html {
 }
 
 .TextBody {
-  max-width: 90vw;            /* max width relative to viewport */
-  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;             /* center the whole block */
+  box-sizing: border-box;
   background-color: rgb(192, 204, 221);
   border-radius: 10px;
-  padding-bottom: 25px;
-  padding-left: 20px;
-  padding-right: 20px;
-  width: 100%;
+  padding: 20px;
+  text-align: center;         /* center inline content */
+}
+
+/* center math-scroll contents */
+.TextBody .math-scroll {
+  display: flex;
+  justify-content: center;    /* center horizontally */
+  overflow-x: auto;           /* still allow scroll if needed */
+  padding: 0.5rem;
 }
 
 
@@ -169,21 +177,22 @@ canvas {
   font-size: 18px;
 }
 
-#simSec{
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  gap: 15px;
-  background-color: rgb(192, 204, 221);
-  max-width: 90vw;   
-  border-radius: 10px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 20px;
+#simSec {
   width: 100%;
-  max-width: 1600px;
+  max-width: 1200px;     /* match TextBody */
+  margin: 0 auto;        /* center the block */
+  box-sizing: border-box;
+  background-color: rgb(192, 204, 221);
+  border-radius: 10px;
+  padding: 20px;
+}
+#simSec canvas,
+canvas#pendulumCanvas {
+  display: block;
+  width: 100% !important;  /* override the 1500px attribute width */
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
 }
 
 /* Make buttons fit nicely on small screens */
@@ -214,3 +223,22 @@ canvas {
 #simSec {
   box-sizing: border-box;
 }
+#clearTrailBtn {
+  background-color: #6c757d; /* gray */
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'Segoe UI', sans-serif;
+  border: none;
+  border-radius: 8px;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#clearTrailBtn:hover {
+  background-color: #5a6268;
+  transform: scale(1.05);
+}
+
