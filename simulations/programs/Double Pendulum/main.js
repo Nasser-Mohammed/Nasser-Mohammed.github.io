@@ -174,13 +174,13 @@ function draw(){
 
   const lw = 1 / ZOOM; // keep line widths visually consistent
 
-  drawMidline(); // your existing midline function:contentReference[oaicite:0]{index=0}
+  drawMidline(); // existing midline function:contentReference[oaicite:0]{index=0}
 
   // trail
   ctx.beginPath();
   ctx.strokeStyle = 'rgba(0, 255, 255, 0.7)';
   ctx.lineWidth = 2 * lw;
-  drawTrail(); // your existing trail renderer:contentReference[oaicite:1]{index=1}
+  drawTrail(); // existing trail renderer:contentReference[oaicite:1]{index=1}
 
   // top arm
   ctx.lineWidth = 15 * lw;

@@ -16,7 +16,7 @@ let cnt = 0;
 let multiplier = 1;
 let centerX;
 let centerY;
-let maxTrailLength = 900;
+let maxTrailLength = 450;
 let stepsPerFrame = 500;
 let defaultSteps = 500;
 const targetZoom = 2;
@@ -31,9 +31,9 @@ const trailColorMap = new Map([
 const celestialObjects = new Map();
 //0.0123/333
 //i scaled down masses from 333,000 to 1000 (max) so divided by 333
-celestialObjects.set('earth', {name: 'earth', stateVector: {}, size: 50, mass: 20, trail: [], trailColor: trailColorMap.get("earth"), inSimulation: false, image: Object.assign(new Image(), {src: "images/earth.png"})});
-celestialObjects.set('neptune', {name: 'neptune', stateVector: {}, size: 55, mass: 25, trail: [], trailColor: trailColorMap.get("neptune"), inSimulation: false, image: Object.assign(new Image(), {src: "images/neptune.png"})});
-celestialObjects.set('extraterrestrial', {name: 'extraterrestrial', stateVector: {}, size: 45, mass: 18, trail: [], trailColor: trailColorMap.get("extraterrestrial"), inSimulation: false, image: Object.assign(new Image(), {src: "images/randomPlanet.png"})});
+celestialObjects.set('earth', {name: 'earth', stateVector: {}, size: 27, mass: 20, trail: [], trailColor: trailColorMap.get("earth"), inSimulation: false, image: Object.assign(new Image(), {src: "images/earth.png"})});
+celestialObjects.set('neptune', {name: 'neptune', stateVector: {}, size: 32, mass: 25, trail: [], trailColor: trailColorMap.get("neptune"), inSimulation: false, image: Object.assign(new Image(), {src: "images/neptune.png"})});
+celestialObjects.set('extraterrestrial', {name: 'extraterrestrial', stateVector: {}, size: 22, mass: 18, trail: [], trailColor: trailColorMap.get("extraterrestrial"), inSimulation: false, image: Object.assign(new Image(), {src: "images/randomPlanet.png"})});
 let maxPlanetSize = Math.max(celestialObjects.get("earth").size, celestialObjects.get("neptune").size, celestialObjects.get("extraterrestrial").size);
 let defaultEarthMass = 20;
 let defaultNeptuneMass = 25;
@@ -201,37 +201,59 @@ function animate(){
 
 
 function drawTrail(ctx, body, color) {
-  const uiScale = getPlanetUIScale();
+  const ui = getPlanetUIScale();
+  const cssScale = canvasPxPerCssPx();
+
   ctx.beginPath();
   for (let i = 0; i < body.trail.length - 1; i++) {
-    const p1 = body.trail[i], p2 = body.trail[i+1];
+    const p1 = body.trail[i], p2 = body.trail[i + 1];
     const s1 = worldToScreen(p1.x, p1.y), s2 = worldToScreen(p2.x, p2.y);
     ctx.moveTo(s1.screenX, s1.screenY);
     ctx.lineTo(s2.screenX, s2.screenY);
   }
+  const lwCss = clamp(2 * ui, 2, 6);               // CSS px
   ctx.strokeStyle = color;
-  ctx.lineWidth = Math.max(1.5, 2 * (uiScale / 1.3)); // subtle boost on small screens
+  ctx.lineWidth   = lwCss * cssScale;               // canvas px
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
   ctx.stroke();
 }
 
 
-function getPlanetUIScale() {
-  const cssW = ctx.canvas.clientWidth || width;   // CSS pixels
-  if (cssW <= 400) return 2.2;   // small phones
-  if (cssW <= 520) return 1.9;   // big phones
-  if (cssW <= 680) return 1.6;   // small tablets
-  if (cssW <= 820) return 1.3;   // large phones / small laptops
-  return 1.0;                    // desktops stay the same
+
+// how many canvas pixels equal 1 CSS pixel right now
+function canvasPxPerCssPx() {
+  const cssW = ctx?.canvas?.clientWidth || width;  // CSS px
+  return width / cssW;                              // canvas px per CSS px
 }
 
+function getPlanetUIScale() {
+  const cssW = ctx?.canvas?.clientWidth || width;
+  if (cssW <= 360) return 3.0;
+  if (cssW <= 420) return 2.6;
+  if (cssW <= 520) return 2.2;
+  if (cssW <= 680) return 1.8;
+  if (cssW <= 820) return 1.4;
+  return 1.0;
+}
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
 function drawBodies(){
-  const uiScale = getPlanetUIScale();
+  const ui = getPlanetUIScale();
+  const cssScale = canvasPxPerCssPx();
+
+  // bounds in CSS pixels so phones are readable, desktops unchanged
+  const MIN_CSS = 48;      // tweak to taste
+  const MAX_CSS = 110;     // cap so they don’t get cartoonish
+
   for (let i = 0; i < bodies.length; i++) {
     const planet = bodies[i];
     const screen = worldToScreen(planet.stateVector.x, planet.stateVector.y);
-    const s = planet.size * uiScale;  // scale per device width
+
+    // base size in CSS px, apply UI scale, then clamp
+    const baseCss = planet.size * ui;               // <-- uiScale actually used
+    const sCss    = clamp(baseCss, MIN_CSS, MAX_CSS);
+    const s       = Math.round(sCss * cssScale);    // convert to canvas px
 
     ctx.drawImage(
       planet.image,
@@ -241,6 +263,8 @@ function drawBodies(){
     );
   }
 }
+
+
 
 
 function updateTrail(body) {
