@@ -159,32 +159,50 @@ function drawTrail() {
 
 
 
+const ZOOM = 1.25;  // 1.0 = no zoom, 1.25 = 25% larger
+
 function draw(){
+  // clear background at native scale
   ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, width, height)
-  drawMidline();
+  ctx.fillRect(0, 0, width, height);
+
+  // draw everything scaled about the hinge line
+  ctx.save();
+  ctx.translate(width/2, midLineHeight);  // center pivot
+  ctx.scale(ZOOM, ZOOM);
+  ctx.translate(-width/2, -midLineHeight);
+
+  const lw = 1 / ZOOM; // keep line widths visually consistent
+
+  drawMidline(); // your existing midline function:contentReference[oaicite:0]{index=0}
+
+  // trail
   ctx.beginPath();
   ctx.strokeStyle = 'rgba(0, 255, 255, 0.7)';
-  ctx.lineWidth = 2;
-  drawTrail();
+  ctx.lineWidth = 2 * lw;
+  drawTrail(); // your existing trail renderer:contentReference[oaicite:1]{index=1}
 
-
-  ctx.lineWidth = 15;
+  // top arm
+  ctx.lineWidth = 15 * lw;
   ctx.strokeStyle = 'red';
   ctx.beginPath();
-  ctx.moveTo(Math.floor((1/2)*width), midLineHeight)
+  ctx.moveTo(Math.floor(width/2), midLineHeight);
   ctx.lineTo(p1.x, p1.y);
-  ctx.stroke()
+  ctx.stroke();
 
-  ctx.lineWidth = 22;
+  // bottom arm
+  ctx.lineWidth = 22 * lw;
   ctx.strokeStyle = "yellow";
   ctx.beginPath();
-  ctx.moveTo(p1.x, p1.y)
+  ctx.moveTo(p1.x, p1.y);
   ctx.lineTo(p2.x, p2.y);
   ctx.stroke();
 
+  // bolts (will scale with the scene; keep as-is)
   drawBolt(Math.floor(p1.x), Math.floor(p1.y), bolt2Radius);
   drawBolt(Math.floor(width/2), Math.floor(midLineHeight), bolt1Radius);
+
+  ctx.restore();
 }
 
 
@@ -258,22 +276,6 @@ function initializePendulums(){
   console.log("Starting position for top pendulum: x: ", p1.x , " y: ", p1.y);
   console.log("Starting position for bottom pendulum: x: ", p2.x, " y: ", p2.y);
 
-  ctx.lineWidth = 15;
-  ctx.strokeStyle = 'red';
-  ctx.beginPath();
-  ctx.moveTo(Math.floor((1/2)*width), midLineHeight)
-  ctx.lineTo(p1.x, p1.y);
-  ctx.stroke()
-
-  ctx.lineWidth = 22;
-  ctx.strokeStyle = "yellow";
-  ctx.beginPath();
-  ctx.moveTo(p1.x, p1.y)
-  ctx.lineTo(p2.x, p2.y);
-  ctx.stroke();
-
-  drawBolt(p1.x, p1.y, bolt2Radius);
-  drawBolt(Math.floor(width/2), midLineHeight, bolt1Radius);
 
   p1.acceleration = 0;
   p1.velocity = 0;
@@ -323,6 +325,7 @@ function resetSimulation(){
   label.textContent = "10";
   speedMultiplier = 10;
   initCanvas();
+  draw();
   dampingEnabled = false;
   dampenBtn.style.display = "inline-block";
 
@@ -331,6 +334,7 @@ function resetSimulation(){
 function initCanvas(){
   drawMidline();
   initializePendulums();
+  draw();
 }
 
 
