@@ -195,23 +195,7 @@ canvas#pendulumCanvas {
   margin: 0 auto;
 }
 
-/* Make buttons fit nicely on small screens */
-@media (max-width: 600px) {
-  #startBtn, #stopBtn, #dampenBtn {
-    font-size: 14px;
-    padding: 8px 12px;
-    margin: 5px;
-  }
 
-  #pause-reset {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  #controls {
-    padding: 10px;
-  }
-}
 
 #controls {
   box-sizing: border-box; /* account for padding in width */
@@ -242,3 +226,19 @@ canvas#pendulumCanvas {
   transform: scale(1.05);
 }
 
+/* Make buttons fit nicely on small screens */
+@media (max-width: 600px) {
+  #pause-reset {
+    display: flex;
+    flex-wrap: wrap;        /* allow wrapping */
+    justify-content: center;
+    gap: 8px;
+  }
+
+  #pause-reset button {
+    flex: 1 1 45%;          /* each takes ~45% of the row */
+    font-size: 12px;
+    padding: 6px 10px;
+    margin: 0;
+  }
+}
