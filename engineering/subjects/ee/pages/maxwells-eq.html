@@ -417,39 +417,51 @@
     </p>
 
     <h2>Light</h2>
-    <p>We often hear about light and its relation to electricity or electrons.
-      But where does it fit into all of this and where is its equation? 
+    <p>
+      We often hear about light and its relation to electricity or electrons.
+      But where does it fit into all of this, and what is its equation?
     </p>
-    <p>It turns out that light is precisely <strong>electromagnetic 
-      radiation
-    </strong>. The word radiation here indicates energy transmitted 
-    through space by either waves or particles. Maxwell's equations 
-    above tell us the magnetic field in terms of a changing electric field, 
-    or the electric field in terms of a changing magnetic field, however, 
-    it doesn't tell us how those fields will change. Furthermore,
-    what if the way in which the electric/magnetic field is changing,
-    is itself changing. For example, imagine I am moving a magnet in a 
-    described way, say up and down at a constant speed. 
-    Then we could use Maxwell's equations and find the 
-    electric field induced by it. But what if we wanted to change the 
-    way in which our hand was moving? This is exactly how light is formed
-    and how we can derive the equations for light. I used the 
-    wording of "changing the way in which the electric/magnetic field is 
-    chaning". This should be interpreted as a rate of change of range of change, 
-    i.e. a second order derivative. That is exactly what we do, and doing so 
-    gives us the wave equations for electric and magnetic fields.  
-    I cover this on my physics electricity and magnetism page
-     <a href="https://nasser-mohammed.github.io/engineering/subjects/physics/pages/electromagnetism.html" target="_blank">here</a>. 
-    Furthermore, if you are interested in the wave equation alone, I 
-    have notes on it <a href="https://nasser-mohammed.github.io/notes/subjects/PDE/pages/waveequation.html" target="_blank">here</a>.
-    In short, an accelerating electric/magnetic field 
-    is what propogates electromagnetic radiation, i.e. light. We can see 
-    this feedback loop in Maxwell's last two equations. A changing 
-    magnetic field induces an electric field, and a changing electric 
-    field induces a magnetic field, changing the electric field, and 
-    changing the magnetic field. This feedback loop is the source of 
-    light (more generally electromagnetic radiation).
-  </p>
+    <p>
+      Light is nothing other than <strong>electromagnetic radiation</strong>. 
+      The word <em>radiation</em> here simply means energy transmitted through space 
+      in the form of waves (or, from a quantum perspective, particles called photons).
+    </p>
+    <p>
+      Maxwell's equations tell us that a changing electric field produces a magnetic field, 
+      and a changing magnetic field produces an electric field. This feedback loop 
+      suggests that if one field is changing in time, it can sustain the other. 
+      But what if the change itself is varying - in other words, what if the fields 
+      are accelerating? This leads us naturally to <strong>wave equations</strong> 
+      for the fields.
+    </p>
+    <p>
+      Starting from Maxwell’s equations in free space (no charges, no currents), 
+      we can derive that both the electric field \(\mathbf{E}\) and magnetic field \(\mathbf{B}\) 
+      satisfy the same wave equation:
+    </p>
+    <div class="math-block">\[
+      \nabla^2 \mathbf{E} - \frac{1}{c^2} \frac{\partial^2 \mathbf{E}}{\partial t^2} = 0,
+    \]</div>
+    <div class="math-block">\[
+      \nabla^2 \mathbf{B} - \frac{1}{c^2} \frac{\partial^2 \mathbf{B}}{\partial t^2} = 0,
+    \]</div>
+    <p>
+      where \(c\) is the speed of light in vacuum. These equations show that disturbances 
+      in the electromagnetic field propagate as waves moving at speed \(c\).
+    </p>
+    <p>
+      In short: an accelerating electric field induces a changing magnetic field, 
+      which in turn regenerates the electric field, and so on. This self-sustaining 
+      cycle propagates through space as electromagnetic radiation - what we call light.
+    </p>
+    <p>
+      I cover the full derivation of these wave equations on my physics 
+      electromagnetism page 
+      <a href="https://nasser-mohammed.github.io/engineering/subjects/physics/pages/electromagnetism.html" target="_blank">here</a>. 
+      If you are interested in the mathematical wave equation itself, I also have notes 
+      <a href="https://nasser-mohammed.github.io/notes/subjects/PDE/pages/waveequation.html" target="_blank">here</a>.
+    </p>
+
     
 
 

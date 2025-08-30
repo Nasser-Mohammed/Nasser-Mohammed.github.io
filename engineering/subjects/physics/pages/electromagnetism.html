@@ -415,29 +415,51 @@
     </p>
 
     <h2>Light</h2>
-    <p>We often hear about light and its relation to electricity or electrons.
-      But where does it fit into all of this and where is its equation? 
-    </p>
-    <p>It turns out that light is precisely <strong>electromagnetic 
-      radiation
-    </strong>. The word radiation here indicates energy transmitted 
-    through space by either waves or particles. Maxwell's equations 
-    above tell us the magnetic field in terms of a changing electric field, 
-    or the electric field in terms of a changing magnetic field, however, 
-    it doesn't tell us how those fields will change. Furthermore,
-    what if the way in which the electric/magnetic field is changing,
-    is itself changing. For example, imagine I am moving a magnet in a 
-    described way, say up and down at a constant speed. 
-    Then we could use Maxwell's equations and find the 
-    electric field induced by it. But what if we wanted to change the 
-    way in which our hand was moving? This is exactly how light is formed
-    and how we can derive the equations for light. I used the 
-    wording of "changing the way in which the electric/magnetic field is 
-    chaning". This should be interpreted as a rate of change of range of change, 
-    i.e. a second order derivative. That is exactly what we do, and doing so 
-    gives us the wave equations for electric and magnetic fields.  
-  </p>
-    
+    <p>Start with Maxwell's equations in free space (vacuum, no charges \(\rho=0\) and no currents \(\mathbf{J}=0\)), in SI units:</p>
+
+    <div class="math-block">\[
+    \nabla\cdot\mathbf{E}=0,\qquad
+    \nabla\cdot\mathbf{B}=0,
+    \]</div>
+    <div class="math-block">\[
+    \nabla\times\mathbf{E}=-\frac{\partial\mathbf{B}}{\partial t},\qquad
+    \nabla\times\mathbf{B}=\mu_0\varepsilon_0\frac{\partial\mathbf{E}}{\partial t}.
+    \]</div>
+
+    <p>Take the curl of Faraday's law \(\nabla\times\mathbf{E}=-\partial_t\mathbf{B}\):</p>
+
+    <div class="math-block">\[
+    \nabla\times(\nabla\times\mathbf{E}) = -\frac{\partial}{\partial t}(\nabla\times\mathbf{B}).
+    \]</div>
+
+    <p>Use the vector identity \(\nabla\times(\nabla\times\mathbf{E})=\nabla(\nabla\cdot\mathbf{E})-\nabla^2\mathbf{E}\).
+    Because \(\nabla\cdot\mathbf{E}=0\) in free space this simplifies to \(-\nabla^2\mathbf{E}\). Substitute the Maxwell–Ampère law for \(\nabla\times\mathbf{B}\):</p>
+
+    <div class="math-block">\[
+    -\nabla^2\mathbf{E} \;=\; -\frac{\partial}{\partial t}\!\Big(\mu_0\varepsilon_0\frac{\partial\mathbf{E}}{\partial t}\Big)
+    \;=\; -\mu_0\varepsilon_0\frac{\partial^2\mathbf{E}}{\partial t^2}.
+    \]</div>
+
+    <p>Cancel the minus signs to obtain the wave equation for the electric field:</p>
+
+    <div class="math-block">\[
+    \nabla^2\mathbf{E} - \mu_0\varepsilon_0\frac{\partial^2\mathbf{E}}{\partial t^2} = 0.
+    \]</div>
+
+    <p>Define the speed of light in vacuum \(c\) by \(c^2 = \tfrac{1}{\mu_0\varepsilon_0}\). Then the equation becomes the familiar form:</p>
+
+    <div class="math-block">\[
+    \nabla^2\mathbf{E} - \frac{1}{c^2}\frac{\partial^2\mathbf{E}}{\partial t^2} = 0.
+    \]</div>
+
+    <p>An identical reasoning (take the curl of Maxwell–Ampère and use Faraday's law) yields the wave equation for the magnetic field:</p>
+
+    <div class="math-block">\[
+    \nabla^2\mathbf{B} - \frac{1}{c^2}\frac{\partial^2\mathbf{B}}{\partial t^2} = 0.
+    \]</div>
+
+    <p>Thus disturbances in the electromagnetic field propagate as waves with speed \(c\). This is the mathematical statement that light is electromagnetic radiation.</p>
+        
 
 
 

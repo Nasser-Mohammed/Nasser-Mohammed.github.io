@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../../../pictures/butterfly16.png" sizes="48x48">
   <title>Existence and Uniquness Theorems</title>
   <link rel="stylesheet" href="styles.css" />
   <script>
@@ -29,27 +30,73 @@
       give us the conditions under which ODEs have solutions, and when those solutions are unique. Once we have these results,
       we can make some very powerful observations about any system described by them.
     </p>
-  <h2>Preliminary Result</h2>
-  <p>Before we get into the theorems, we must know the solution to first order linear ODEs with constant coefficients.
-    These are ODEs of the form
-  </p>
-  <div class="math-block">\[
-    \dot{x} = rx
-    \]
-  </div>
-  <p>Such systems always have solutions of the form</p>
+
+    <h2>Preliminary Result</h2>
+    <p>
+      Before we get into the general theorems, let us recall the solution to first-order linear ODEs with constant coefficients.
+      These are equations of the form
+    </p>
     <div class="math-block">\[
-        x(t) = Ae^{rt}
+      \dot{x} = rx,
+      \]
+    </div>
+    <p>
+      which always have solutions
+    </p>
+    <div class="math-block">\[
+      x(t) = Ae^{rt},
+      \]
+    </div>
+    <p>
+      where the constant \(A\) is determined by the initial condition \(x(0) = x_0\).
+    </p>
+
+    <h2>Existence Theorem</h2>
+    <p>
+      Consider the general initial value problem
+    </p>
+    <div class="math-block">\[
+      \dot{x} = f(t,x), \quad x(t_0) = x_0.
+      \]
+    </div>
+    <p>
+      The <b>Existence Theorem</b> states: if the function \(f(t,x)\) is continuous in a region around \((t_0, x_0)\),
+      then there exists at least one solution \(x(t)\) defined in some interval containing \(t_0\).
+    </p>
+    <p>
+      This guarantees that continuity of the vector field is enough to ensure that trajectories actually exist.
+    </p>
+
+    <h2>Uniqueness Theorem</h2>
+    <p>
+      Continuity alone does not prevent multiple solutions. To guarantee uniqueness, we require more.
+      Suppose \(f(t,x)\) satisfies a <i>Lipschitz condition</i> in the variable \(x\); that is, there exists \(L > 0\) such that
+    </p>
+    <div class="math-block">\[
+      |f(t,x_1) - f(t,x_2)| \leq L |x_1 - x_2|
     \]
-  </div>
-  <p>Where \(A\) is determined by \(x(0)\).</p>
+    </div>
+    <p>
+      for all \(x_1, x_2\) in the region of interest. Then the initial value problem has exactly one solution.
+    </p>
+    <p>
+      Geometrically, this means that in the phase space, no two trajectories can cross, and each point belongs to one and only one solution curve.
+    </p>
 
-  <h2>In progress</h2>
-
-  <h2>Existence Theorem</h2>
-
-  <h2>Uniqueness Theorem</h2>
-
+    <h2>Failure of Uniqueness</h2>
+    <p>
+      If the Lipschitz condition fails, uniqueness may break down. For instance, consider
+    </p>
+    <div class="math-block">\[
+      \dot{x} = \sqrt{|x|}, \quad x(0) = 0.
+    \]
+    </div>
+    <p>
+      Both \(x(t) = 0\) and \(x(t) = \tfrac{1}{4}(t-c)^2\) (for any \(c \geq 0\)) are valid solutions.
+      Thus the system is not deterministic, and multiple solution curves can pass through the same initial point.
+    </p>
   </main>
+
+
 </body>
 </html>
