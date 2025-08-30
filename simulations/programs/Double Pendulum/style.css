@@ -15,7 +15,7 @@ body, html {
 
 .TextBody {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;             /* center the whole block */
   box-sizing: border-box;
   background-color: rgb(192, 204, 221);
@@ -179,7 +179,7 @@ canvas {
 
 #simSec {
   width: 100%;
-  max-width: 1200px;     /* match TextBody */
+  max-width: 1300px;     /* match TextBody */
   margin: 0 auto;        /* center the block */
   box-sizing: border-box;
   background-color: rgb(192, 204, 221);
