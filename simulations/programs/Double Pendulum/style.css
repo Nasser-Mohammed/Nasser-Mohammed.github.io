@@ -226,19 +226,38 @@ canvas#pendulumCanvas {
   transform: scale(1.05);
 }
 
-/* Make buttons fit nicely on small screens */
+/* Compact, wrapping buttons on small screens */
 @media (max-width: 600px) {
   #pause-reset {
     display: flex;
-    flex-wrap: wrap;        /* allow wrapping */
+    flex-wrap: wrap;           /* allow multiple rows */
     justify-content: center;
     gap: 8px;
   }
 
-  #pause-reset button {
-    flex: 1 1 45%;          /* each takes ~45% of the row */
-    font-size: 12px;
-    padding: 6px 10px;
+  /* make each button take ~half the row, and allow wrapping */
+  #pause-reset button,
+  #startBtn, #stopBtn, #dampenBtn, #clearTrailBtn {
+    flex: 1 1 calc(50% - 8px); /* two per row */
+    min-width: 0;              /* allow flex items to shrink so text can wrap */
+    padding: 6px 8px;          /* smaller box */
+    border-radius: 6px;
     margin: 0;
+    box-shadow: none;
+
+    /* text that wraps + shrinks */
+    white-space: normal;       /* enable wrapping */
+    overflow-wrap: anywhere;   /* break long words if needed */
+    word-break: break-word;    /* extra safety on iOS */
+    hyphens: auto;             /* good with long words */
+    text-align: center;
+
+    /* responsive font size: shrinks on tiny screens, never huge */
+    font-size: clamp(11px, 3.2vw, 13px);
+    line-height: 1.15;         /* keeps height tight */
   }
+
+  /* tighten the container padding so it matches the smaller buttons */
+  #controls { padding: 8px; }
 }
+

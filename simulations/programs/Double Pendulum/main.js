@@ -159,7 +159,7 @@ function drawTrail() {
 
 
 
-const ZOOM = 1.25;  // 1.0 = no zoom, 1.25 = 25% larger
+const ZOOM = 1.41;  // 1.0 = no zoom, 1.25 = 25% larger
 
 function draw(){
   // clear background at native scale
