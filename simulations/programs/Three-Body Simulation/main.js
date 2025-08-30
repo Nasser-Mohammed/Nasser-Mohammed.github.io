@@ -31,9 +31,9 @@ const trailColorMap = new Map([
 const celestialObjects = new Map();
 //0.0123/333
 //i scaled down masses from 333,000 to 1000 (max) so divided by 333
-celestialObjects.set('earth', {name: 'earth', stateVector: {}, size: 35, mass: 20, trail: [], trailColor: trailColorMap.get("earth"), inSimulation: false, image: Object.assign(new Image(), {src: "images/earth.png"})});
-celestialObjects.set('neptune', {name: 'neptune', stateVector: {}, size: 35, mass: 25, trail: [], trailColor: trailColorMap.get("neptune"), inSimulation: false, image: Object.assign(new Image(), {src: "images/neptune.png"})});
-celestialObjects.set('extraterrestrial', {name: 'extraterrestrial', stateVector: {}, size: 35, mass: 18, trail: [], trailColor: trailColorMap.get("extraterrestrial"), inSimulation: false, image: Object.assign(new Image(), {src: "images/randomPlanet.png"})});
+celestialObjects.set('earth', {name: 'earth', stateVector: {}, size: 50, mass: 20, trail: [], trailColor: trailColorMap.get("earth"), inSimulation: false, image: Object.assign(new Image(), {src: "images/earth.png"})});
+celestialObjects.set('neptune', {name: 'neptune', stateVector: {}, size: 55, mass: 25, trail: [], trailColor: trailColorMap.get("neptune"), inSimulation: false, image: Object.assign(new Image(), {src: "images/neptune.png"})});
+celestialObjects.set('extraterrestrial', {name: 'extraterrestrial', stateVector: {}, size: 45, mass: 18, trail: [], trailColor: trailColorMap.get("extraterrestrial"), inSimulation: false, image: Object.assign(new Image(), {src: "images/randomPlanet.png"})});
 let maxPlanetSize = Math.max(celestialObjects.get("earth").size, celestialObjects.get("neptune").size, celestialObjects.get("extraterrestrial").size);
 let defaultEarthMass = 20;
 let defaultNeptuneMass = 25;
