@@ -59,6 +59,12 @@
     <option value="oregonator">Oregonator</option>
     <option value="relay">Relay</option>
   </select>
+  <div class="spacer"></div>
+  <div id="equation-box" class="panel" style="margin-top:12px;">
+    <h3>System Equations</h3>
+    <div id="equation-tex"></div>
+  </div>
+
 
   <div class="spacer"></div>
 
@@ -198,6 +204,104 @@
       window.SIM?.setDotsVisible?.(true);
       cb.addEventListener('change', e => window.SIM?.setDotsVisible?.(e.target.checked));
     }
+
+    // --- Show LaTeX equations for each system (rendered by MathJax) ---
+    const EQUATIONS = {
+      lotka: String.raw`\[
+    \begin{aligned}
+    \dot{x} &= \alpha x - \beta x y \\
+    \dot{y} &= -\gamma y + \delta x y
+    \end{aligned}
+    \]`,
+      vanDerPol: String.raw`\[
+    \begin{aligned}
+    \dot{x} &= y \\
+    \dot{y} &= \mu(1-x^{2})\,y - x
+    \end{aligned}
+    \]`,
+      fitzHugh_Nagumo: String.raw`\[
+    \begin{aligned}
+    \dot{v} &= v - \frac{v^{3}}{3} - w + R I \\
+    \dot{w} &= \varepsilon\,(v + a - b w)
+    \end{aligned}
+    \]`,
+      spiral: String.raw`\[
+    \begin{aligned}
+    \dot{x} &= x - y - k\,x(x^{2}+y^{2}) \\
+    \dot{y} &= x + y - k\,y(x^{2}+y^{2})
+    \end{aligned}
+    \]`,
+      saddle_node: String.raw`\[
+    \begin{aligned}
+    \dot{x} &= y \\
+    \dot{y} &= x^{2} - \mu
+    \end{aligned}
+    \]`,
+      brusselator: String.raw`\[
+    \begin{aligned}
+    \dot{x} &= A - (B+1)x + x^{2}y \\
+    \dot{y} &= Bx - x^{2}y
+    \end{aligned}
+    \]`,
+      rayleigh: String.raw`\[
+    \begin{aligned}
+    \dot{x} &= y \\
+    \dot{y} &= \mu(1-y^{2})\,y - x
+    \end{aligned}
+    \]`,
+      hopf_normal: String.raw`\[
+    \begin{aligned}
+    \dot{x} &= \mu x - y - x(x^{2}+y^{2}) \\
+    \dot{y} &= x + \mu y - y(x^{2}+y^{2})
+    \end{aligned}
+    \]`,
+      morris_lecar: String.raw`\[
+    \begin{aligned}
+    C\,\dot{V} &= I - g_{\mathrm{Ca}}\,m_\infty(V)\,(V - V_{\mathrm{Ca}})
+                - g_{\mathrm{K}}\,w\,(V - V_{\mathrm{K}})
+                - g_{\mathrm{L}}\,(V - V_{\mathrm{L}})\\
+    \dot{w} &= \phi\,\frac{w_\infty(V) - w}{\tau(V)}
+    \end{aligned}
+    \]`,
+      oregonator: String.raw`\[
+    \begin{aligned}
+    \dot{x} &= s\,(q y - x y + x(1-x)) \\
+    \dot{y} &= \frac{1}{s}\,(-q y - x y + f)
+    \end{aligned}
+    \]`,
+      relay: String.raw`\[
+    \begin{aligned}
+    \dot{x} &= y \\
+    \dot{y} &= 
+    \begin{cases}
+    -kx + b, & x > 0\\
+    -kx - b, & x \le 0
+    \end{cases}
+    \end{aligned}
+    \]`,
+    };
+
+    function renderEquation(name){
+      const box = document.getElementById('equation-tex');
+      if (!box) return;
+      box.innerHTML = EQUATIONS[name] || '';
+      // Ask MathJax to typeset the new content (MathJax is already loaded on your page)
+      if (window.MathJax?.typesetPromise) {
+        window.MathJax.typesetPromise([box]);
+      }
+    }
+
+    // On first load, render the currently selected system's equation
+    const sysSelectEl = document.getElementById('system-select-2d');
+    if (sysSelectEl) renderEquation(sysSelectEl.value);
+
+    // Also re-render whenever the system changes (hook you already expose)
+    const prevHook = window.SIM._onSystemChange;
+    window.SIM._onSystemChange = (name) => {
+      try { if (typeof prevHook === 'function') prevHook(name); } catch {}
+      renderEquation(name);
+    };
+
 
 
   </script>
