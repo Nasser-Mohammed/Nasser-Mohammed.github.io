@@ -201,39 +201,47 @@ function animate(){
 
 
 function drawTrail(ctx, body, color) {
+  const uiScale = getPlanetUIScale();
   ctx.beginPath();
   for (let i = 0; i < body.trail.length - 1; i++) {
-    const p1 = body.trail[i];
-    const p2 = body.trail[i + 1];
-
-    const s1 = worldToScreen(p1.x, p1.y);
-    const s2 = worldToScreen(p2.x, p2.y);
+    const p1 = body.trail[i], p2 = body.trail[i+1];
+    const s1 = worldToScreen(p1.x, p1.y), s2 = worldToScreen(p2.x, p2.y);
     ctx.moveTo(s1.screenX, s1.screenY);
     ctx.lineTo(s2.screenX, s2.screenY);
-
   }
   ctx.strokeStyle = color;
+  ctx.lineWidth = Math.max(1.5, 2 * (uiScale / 1.3)); // subtle boost on small screens
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
   ctx.stroke();
 }
 
+
+function getPlanetUIScale() {
+  const cssW = ctx.canvas.clientWidth || width;   // CSS pixels
+  if (cssW <= 400) return 2.2;   // small phones
+  if (cssW <= 520) return 1.9;   // big phones
+  if (cssW <= 680) return 1.6;   // small tablets
+  if (cssW <= 820) return 1.3;   // large phones / small laptops
+  return 1.0;                    // desktops stay the same
+}
+
 function drawBodies(){
-  for(let i = 0; i < bodies.length; i++){
+  const uiScale = getPlanetUIScale();
+  for (let i = 0; i < bodies.length; i++) {
     const planet = bodies[i];
-    //console.log(planet.image.src);
     const screen = worldToScreen(planet.stateVector.x, planet.stateVector.y);
-    //console.log("drawing: ", screen);
+    const s = planet.size * uiScale;  // scale per device width
+
     ctx.drawImage(
       planet.image,
-      screen.screenX - planet.size / 2,
-      screen.screenY - planet.size / 2,
-      planet.size,
-      planet.size
+      screen.screenX - s / 2,
+      screen.screenY - s / 2,
+      s, s
     );
-
-
-
   }
 }
+
 
 function updateTrail(body) {
   //const maxTrailLength = 15000; // adjust for performance/appearance
