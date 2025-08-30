@@ -14,12 +14,13 @@ let isDragging = false;
 let bodies = [];
 let cnt = 0;
 let multiplier = 1;
-let zoomFactor = 1; // pixels per unit of distance
 let centerX;
 let centerY;
 let maxTrailLength = 900;
 let stepsPerFrame = 500;
 let defaultSteps = 500;
+const targetZoom = 2;
+let zoomFactor = targetZoom; // pixels per unit of distance
 
 const trailColorMap = new Map([
   ["earth", "green"],
@@ -181,7 +182,7 @@ function animate(){
     let zoomY = height / (2 * adjustedY + yMargin);
 
 
-    let targetZoom = Math.min(1, zoomX, zoomY);
+    //let targetZoom = 1.75; //Math.min(1.5, zoomX, zoomY);
     zoomFactor = targetZoom;  
 
 
@@ -220,7 +221,7 @@ function drawBodies(){
     const planet = bodies[i];
     //console.log(planet.image.src);
     const screen = worldToScreen(planet.stateVector.x, planet.stateVector.y);
-    console.log("drawing: ", screen);
+    //console.log("drawing: ", screen);
     ctx.drawImage(
       planet.image,
       screen.screenX - planet.size / 2,
@@ -324,7 +325,7 @@ function resetSimulation() {
   toggleMassInputs(false);
   simulationTime = 0;
   frameCount = 0;
-  zoomFactor = 1;
+  //zoomFactor = 1;
   stepsPerFrame = defaultSteps;
   const speedSlider = document.getElementById("speed-slider");
   const speedValue = document.getElementById("speed-value");
