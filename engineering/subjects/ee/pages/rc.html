@@ -205,7 +205,192 @@
       \[ \frac{1}{R_{\text{eq}}} = \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n} \]
     </div>
 
+    <h2>Capacitors</h2>
+    <p>The next most fundamental circuit element is the capacitor. Capacitors can be thought of as a 
+    small component that can store charge. Similar to a small battery, however, it's more like a 
+    temporary storage for the circuit that can charge and discharge very quickly. This could be 
+    useful to making sure that certain parts of the circuit have a steady voltage supply,
+    to smooth out fluctuations in voltage, etc.</p>
 
+     <p>Physically, the capacitor is typically comprised of two separated metal sheets. 
+      As current flows in on one side, the charge builds up on that plate. This build up of 
+      charge creates a small electric field and makes the plate negatively charged. However, the charge will not flow across the gap, 
+      instead opposite charge will build up on the other plate (the electrons in the second plate will be 
+      repelled by the negatively charged plate and therefore the second plate will have a positive charge).
+      Recall that at equilibrium, the metal is actually neutrally charged. Therefore if we push the sea 
+      of electrons away from one area of the plate, they will have a net positive charge. Finally,
+      the capacitor stores energy in this electric field. To get current from a capacitor, we 
+      typically need to disconnect the voltage source and close the circuit so that the charge 
+      has a path to flow. The charge will then flow from the negative plate to the positive plate.
+      Note that this is in the opposite direction that it was charged. You can think of it like a 
+      spring, the energy is stored as potential energy, and then released in the opposite direction 
+      as the force that charged it. 
+     </p>
+
+     <p>The ability of a capacitor to store charge is called its <strong>capacitance</strong>, 
+      measured in <strong>farads</strong> (F). Capacitance tells us how much charge the 
+      capacitor can store per volt applied: \(C = Q/V\). In practical circuits, capacitors are 
+      usually much smaller than 1 F, commonly in the range of microfarads (\(\mu F\)), 
+      nanofarads (nF), or picofarads (pF).</p>
+
+    <p>Although we sometimes assume that certain processes are instantaneous, we cannot do the same 
+      with capacitors. Charging and discharging a capacitor takes a non-trivial amount of time. 
+      This is because as a capacitor charges, the voltage across it increases, lowering the 
+      current flow. So we see fast charging at first, and then it slows down. This also means 
+      we have a variable current flow (as opposed to resistors which have constant current through them).
+
+      The rate at which a capacitor charges or discharges is determined by the <strong>RC time constant</strong>
+      \(\tau = RC\), where \(R\) is the resistance in series with the capacitor and \(C\) is the capacitance.
+      The voltage and current change exponentially in time and therefore capacitors unlock 
+      a whole new range of circuit behaviors.
+    </p>
+
+    <h3>The Capacitor Equation</h3>
+    <p>The fundamental equation for a capacitor is given by</p>
+    <div class="math-block">\[
+      I(t) = C \frac{dV_C}{dt}
+      \]
+      </div>
+    <p>Where \(V_C\) is the voltage across the capacitor.</p>
+
+    <h3>RC Charging Circuit</h3>
+    <p>For a resistor \(R\) in series with our capacitor (which we need because otherwise the 
+      math would give us infinite current), we can find the voltage across the capacitor using 
+      KVL. This gives us that
+    </p>
+        <div class="math-block">\[
+      V_s = V_R + V_C
+      \]
+      </div>
+      <p>Where \(V_s\) is the source voltage, \(V_R\) is the voltage across the resistor, 
+        and \(V_C\) is the voltage across the capacitor. Now by Ohm's Law we can replace 
+        the voltage across the resistor with its resistance and current. This gives us
+      </p>
+      <div class="math-block">\[
+      V_s = iR + V_C
+      \]
+      </div>
+      <p>But we know that current is a function of time (and affected by the charge of the 
+        capacitor) so we replace it with the Capacitor equation. This gives,
+      </p>
+      <div class="math-block">\[
+      V_s = RC\frac{dV_C}{dt} + V_C
+      \]
+      </div>    
+      <p>We can rearrange this as</p>
+      <div class="math-block">\[
+      \frac{dV_C}{dt} = \frac{V_s - V_C}{RC} \\
+      \implies \frac{dV_C}{dt} = \frac{V_s}{RC} - \frac{V_C}{RC}
+      \]
+      </div>    
+      <p>Now if you have read my dynamical systems notes, we can readily notice that since 
+        \(V_s\) and \(RC\) are constants, then this is a first order linear ODE in \(V_C\).
+        As mentioned, the \(\frac{V_s}{Rc}\) term is simply a constant, and the the coefficient 
+        of \(V_C\) is simply \(\frac{-1}{RC}\)The general solution to this type of ODE is given by
+      </p>
+      <p>To see the ODE solution more clearly, let \(\omega = \frac{V_s}{RC}\) and let 
+        \(\lambda = \frac{-1}{RC}\). Then our ODE would be
+      </p>
+      <div class="math-block">\[
+      \frac{dV_C}{dt}= \omega + \lambda V_C
+      \]
+      </div>  
+      <p>Now it is easy to see that this is the simplest ODE and has solution</p>
+      <div class="math-block">\[
+      V_C(t) = \gamma e^{\lambda t} - \frac{\omega}{\lambda}
+      \]
+      </div>  
+      <p>Where \(\gamma\) is determined by the initial condition, which in this case is that 
+        \(V_C(0) = 0\) since the capacitor is uncharged at \(t=0\). Plugging in the values for our 
+        constants, we finally have
+      </p>
+    <div class="math-block">\[
+      V_C(t) = \gamma e^{-t/(RC)} - \frac{V_s/RC}{-1/RC}
+      \]
+      </div>  
+      <p>The RCs cancel, and we are left with </p>
+    <div class="math-block">\[
+      V_C(t) = \gamma e^{-t/(RC)} + V_s
+      \]
+      </div>  
+      <p>Finally for the initial condition</p>
+    <div class="math-block">\[
+      V_C(0) = 0 \implies \gamma e^{0} + V_s = 0 \implies \gamma = -V_s
+      \]
+      </div>  
+    Therefore, voltage as a function of time is given by
+        <div class="math-block">\[
+      V_C(t) = -V_s e^{-t/(RC)} + V_s 
+      \]
+      </div>  
+      <p>It will most commonly be factored into the standard form of the equation below,</p>
+        <div class="math-block">\[
+      V_C(t) = V_s(1-e^{-t/(RC)})
+      \]
+      </div>  
+      <p>Typically, we use the aforementioned \(\tau\) for the time constant \(RC\), so you 
+        would likely see this equation as
+      </p>
+      <div class="math-block">\[
+      V_C(t) = V_s(1-e^{-t/\tau})
+      \]
+      </div>  
+      <p>\(\tau\) is important because it gives us a sort of time-scale for the circuit. 
+        Questions are usually asked about the peercentage that the capacitor is charged after a 
+        certain time constant. For example, after two time constants would refer to 
+        when \(t = 2\tau\), and so on. This time constant determines the speed of charge and discharge of
+        the capacitor. The capacitor will charge exponentially (never truly to 100% i.e. \(V_s\)), 
+        as \(t \to \infty\).
+      </p>
+      
+    <p>The discharge process can be thought of as a time-reversed version of charging. If the capacitor 
+    is initially charged to \(V_s\) and then allowed to discharge through a resistor, its voltage is given by</p>
+
+    <div class="math-block">\[
+    V_C(t) = V_s e^{-t/\tau}
+    \]
+    </div>
+    <p>We get this from a similar differential equation, 
+      however, we use the initial condition that \(V_C(0) = V_s\). Since in the discharging 
+      case we have no voltage source, the differential equation becomes 
+    </p>
+      <div class="math-block">\[
+      \frac{dV_C}{dt} = \frac{V_s - V_C}{RC} \\
+      \implies \frac{dV_C}{dt} = \frac{V_s}{RC} - \frac{V_C}{RC} 
+      \]
+      \[V_s = 0
+      \implies \frac{dV_C}{dt} = - \frac{V_C}{RC} 
+      \]
+      </div>    
+      <p>The solution to this is simply</p>
+      <div class="math-block">\[
+      V_C(t) = \gamma e^{-t/\tau}\]
+      </div>  
+      <p>Using the initial condition that \(V_C(0) = V_s\), we have</p>
+      <div class="math-block">\[
+      V_C(0) = V_s \implies \gamma e^{0} = V_s \implies \gamma = V_s
+      \]
+      </div>  
+      <p>Therefore our discharging function is </p>
+    <div class="math-block">\[
+    V_C(t) = V_s e^{-t/\tau}
+    \]
+    </div>
+    <p>As we can see, this function decays in time, as expected.</p>
+
+    <h2>Capacitors in Series</h2>
+      <p>When capacitors are connected end-to-end (in series), the total capacitance is less than any individual capacitor. The formula for total capacitance is:</p>
+      <div class="math-block">\[
+      \frac{1}{C_\text{total}} = \frac{1}{C_1} + \frac{1}{C_2} + \dots
+      \]</div>
+      <p>In this configuration, each capacitor has the same charge, but the voltage across each may be different. Series connections are useful when you need a smaller overall capacitance or to handle higher voltages.</p>
+
+  <h2>Capacitors in Parallel</h2>
+    <p>When capacitors are connected side-by-side (in parallel), the total capacitance is the sum of all the individual capacitors:</p>
+    <div class="math-block">\[
+    C_\text{total} = C_1 + C_2 + \dots
+    \]</div>
+    <p>In parallel, each capacitor experiences the same voltage, but the charges on each can be different. Parallel connections are useful when you want to increase the total capacitance in a circuit.</p>
 
 
 
