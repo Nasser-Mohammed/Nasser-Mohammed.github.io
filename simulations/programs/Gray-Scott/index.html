@@ -31,6 +31,23 @@
         <input type="range" id="dv" min="0.05" max="0.25" step="0.01" value="0.08">
         <span id="dv-val">0.08</span>
 
+        <label for="preset">Presets:</label>
+        <select id="preset">
+          <option value="maze">Maze</option>
+          <option value="spots">Spots</option>
+          <option value="worms">Worms</option>
+          <option value="waves">Waves</option>
+          <option value="chaos">Chaos</option>
+        </select>
+          <label for="palette">Color Palette:</label>
+          <select id="palette">
+            <option value="bluered" selected>Blue / Red</option>
+            <option value="purplegreen">Purple / Green</option>
+            <option value="redyellow">Red / Yellow</option>
+            <option value="bluegreen">Blue / Green</option>
+          </select>
+
+
         <button id="reset-btn">Reset Simulation</button>
       </div>
 
@@ -40,21 +57,20 @@
           \[
           \begin{align*}
           \frac{\partial U}{\partial t} &= D_u \nabla^2 U - UV^2 + F(1-U) \\
+          \\
           \frac{\partial V}{\partial t} &= D_v \nabla^2 V + UV^2 - (F+k)V
           \end{align*}
           \]
         </p>
       </div>
     </div>
-
+        <span id="tip">
+      TIP: Left click and drag to drop blue concentration, right click and drag for red concentration.
+    </span>
     <div id="canvas-container">
       <canvas id="canvas2d"></canvas>
     </div>
 
-    <span id="tip">
-      TIP: Adjust the sliders for F and k to explore different pattern behaviors.
-      Common interesting values: F = 0.0367, k = 0.0649
-    </span>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>

@@ -1,4 +1,4 @@
-/* Base styles */
+/* ==== Base Page Styling ==== */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #0e0e0e;
@@ -16,60 +16,84 @@ body {
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
-  max-width: 1000px;
+  max-width: 1400px;   /* give it more horizontal space */
+  width: 95%;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+
 h1, h4 {
   color: white;
   margin: 5px 0;
 }
 
-/* Layout container for control + equation panels */
+/* ==== Layout: Controls + Equation ==== */
 #mainControl {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: stretch; /* ensures both panels match tallest one */
+  align-items: stretch;
   gap: 40px;
   margin-top: 20px;
   width: 100%;
   max-width: 900px;
 }
 
-/* Panels */
+/* ==== Panels ==== */
 #controls, #params {
   background-color: black;
   color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1;
-  height: auto; /* flexible height */
+  justify-content: center;
   box-sizing: border-box;
 }
 
-/* Control panel layout */
-#controls {
-  justify-content: space-between;
-}
-
+/* ==== Controls Panel ==== */
 #controls label {
   margin-top: 5px;
 }
 
-input[type="range"] {
+#controls input[type="range"] {
   width: 180px;
   cursor: pointer;
+  margin-bottom: 8px;
 }
 
-/* Reset button */
+#preset {
+  margin-top: 10px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background-color: #111;
+  color: white;
+}
+
+#color-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+#color-controls input[type="color"] {
+  cursor: pointer;
+  width: 50px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+}
+
+
 #reset-btn {
   background-color: rgb(56, 134, 104);
   color: white;
@@ -79,51 +103,79 @@ input[type="range"] {
   margin-top: 10px;
   cursor: pointer;
   font-weight: bold;
+  transition: background-color 0.3s ease;
 }
+
+
 
 #reset-btn:hover {
   background-color: rgb(72, 174, 134);
 }
 
-/* Equation panel */
+/* ==== Equation Panel ==== */
 #param-title {
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 10px;
+  color: white;
 }
 
-/* Center and scale the math */
 #params {
-  justify-content: center;
   text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 #params p {
   font-size: 18px;
   margin: 0;
   line-height: 1.8em;
-  transform: scale(1.2);
-  transform-origin: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 160px; /* keeps math centered vertically */
 }
 
-/* Canvas container */
+#params .MathJax {
+  margin: auto !important;
+}
+
+/* ==== Canvas ==== */
+/* ==== Canvas Container ==== */
 #canvas-container {
   margin-top: 40px;
   background: black;
-  padding: 15px;
+  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  aspect-ratio: 1 / 1;      /* 🔥 enforce square container */
 }
 
+/* ==== Canvas ==== */
 #canvas2d {
-  width: 500px;
-  height: 500px;
   display: block;
-  border-radius: 8px;
+  width: 100%;
+  height: 100%;             /* 🔥 fill square container exactly */
   border: 1px solid #333;
+  border-radius: 8px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
-/* Tip text */
+
+
+
+
+
+
+/* ==== Tip ==== */
 #tip {
   background-color: black;
   color: white;
@@ -134,7 +186,7 @@ input[type="range"] {
   margin-top: 20px;
 }
 
-/* Back button */
+/* ==== Back Button ==== */
 .back-button {
   position: absolute;
   top: 20px;
@@ -152,7 +204,7 @@ input[type="range"] {
   background-color: #333;
 }
 
-/* Responsive layout for smaller screens */
+/* ==== Responsive ==== */
 @media (max-width: 700px) {
   #mainControl {
     flex-direction: column;
@@ -161,7 +213,6 @@ input[type="range"] {
 
   #controls, #params {
     width: 100%;
-    height: auto;
   }
 
   #canvas2d {
@@ -170,6 +221,7 @@ input[type="range"] {
   }
 
   #params p {
-    transform: scale(1);
+    min-height: auto;
+    transform: scale(1.05);
   }
 }
