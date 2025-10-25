@@ -21,16 +21,25 @@
         <span id="diff-val">0.0001</span>
 
         <label for="visc">Viscosity (\(\mu\)):</label>
-        <input type="range" id="visc" min="0.0" max="0.001" step="0.0001" value="0.0005">
-        <span id="visc-val">0.0005</span>
-        
-        <label for="presets">(Optional) Choose specific fluid behavior:</label>
-        <select name="presets" id="presets">
-          <option value="default" selected>Default</option>
-          <option value="gas">Gas-like</option>
-          <option value="water">Water-like</option>
-          <option value="honey">Honey-like</option>
-        </select>
+        <input type="range" id="visc" min="0.0" max="0.001" step="0.0001" value="0.0002">
+        <span id="visc-val">0.0002</span>
+          <label for="presets">Fluid behavior (optional):</label>
+          <select name="presets" id="presets">
+            <option value="default" selected>Default</option>
+            <option value="gas">Gas-like</option>
+            <option value="water">Water-like</option>
+            <option value="honey">Honey-like</option>
+          </select>
+
+          <label for="fidelity">Choose quality (slower computers will need lower values): <span id="fidelity-val">150</span></label>
+            <input 
+              type="range" 
+              id="fidelity" 
+              min="100" 
+              max="225" 
+              step="1" 
+              value="150">
+
         
         <button id="reset-btn">Reset Fluid</button>
       </div>
@@ -52,7 +61,9 @@
     </div>
 
     <span id="tip">
-      TIP: Drag to add velocity — hold <b>Shift</b> while dragging to inject density.
+      TIP: Drag to add some dye and velocity — hold <b>Shift</b> while dragging to inject dye without velocity.
+      <br>
+      Adding dye without velocity will help show the advection more clearly.
     </span>
 
     <div id="canvas-container">

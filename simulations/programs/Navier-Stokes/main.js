@@ -11,12 +11,13 @@ window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
 // === Simulation Parameters ===
-const N = 150;
+let N = 150;
 const iter = 16;
 const dt = 0.1;
 
 let diff = 0.0001;
 let visc = 0.0001;
+let mode = "default";
 
 let size = (N + 2) * (N + 2);
 let densR = new Float32Array(size);
@@ -35,6 +36,28 @@ let isDown = false;
 let lastX = 0, lastY = 0;
 
 function IX(x, y) { return x + (N + 2) * y; }
+
+
+function reinitFluid(newN) {
+  N = newN;
+  size = (N + 2) * (N + 2);
+
+  // recreate all field arrays
+  densR = new Float32Array(size);
+  densG = new Float32Array(size);
+  densB = new Float32Array(size);
+  densPrevR = new Float32Array(size);
+  densPrevG = new Float32Array(size);
+  densPrevB = new Float32Array(size);
+  u = new Float32Array(size);
+  v = new Float32Array(size);
+  uPrev = new Float32Array(size);
+  vPrev = new Float32Array(size);
+
+  reset(); // clear all
+  console.log(`Reinitialized fluid at N=${N}`);
+}
+
 
 // === Core Math ===
 function addSource(x, s) {
@@ -225,6 +248,7 @@ document.getElementById("reset-btn").onclick = reset;
 
 document.getElementById("presets").onclick = e => {
   const value = e.target.value;
+  mode = value;
 
   switch (value){
     
@@ -234,26 +258,41 @@ document.getElementById("presets").onclick = e => {
       break;
 
       case "water":
-      diff = 0.00005;
-      visc = 0.00054;
+      diff = 0.00004;
+      visc = 0.00025;
       break;
 
       case "honey":
       diff = 0.000002;
-      visc = 0.0015;
+      visc = 0.001;
       break;
 
       default:
       diff = 0.0001;
-      visc = 0.0005;
+      visc = 0.0002;
       break;
   }
 
     const diffLabel = document.getElementById("diff-val");
     const viscLabel = document.getElementById("visc-val");
+    const diffSlider = document.getElementById("diff");
+    const viscSlider = document.getElementById("visc");
+    
+    if (diffSlider) diffSlider.value = diff;
+    if (viscSlider) viscSlider.value = visc;
     if (diffLabel) diffLabel.textContent = diff.toFixed(5);
     if (viscLabel) viscLabel.textContent = visc.toFixed(5);
 }
+
+  const fidelitySlider = document.getElementById("fidelity");
+  const fidelityLabel = document.getElementById("fidelity-val");
+
+  fidelitySlider.addEventListener("change", e => {
+    const newN = parseInt(e.target.value);
+    fidelityLabel.textContent = newN;
+    reinitFluid(newN);
+  });
+
 
 
 // === Mouse Interaction ===
@@ -265,29 +304,40 @@ canvas.addEventListener("mousedown", e => {
 });
 canvas.addEventListener("mouseup", () => isDown = false);
 canvas.addEventListener("mouseleave", () => isDown = false);
+
 canvas.addEventListener("mousemove", e => {
   if (!isDown) return;
+
   const rect = canvas.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
   const gridX = Math.floor((x / rect.width) * N);
   const gridY = Math.floor((y / rect.height) * N);
   const idx = IX(gridX, gridY);
+
   const dx = x - lastX;
   const dy = y - lastY;
-  lastX = x; lastY = y;
+  lastX = x;
+  lastY = y;
 
-  // Add velocity
-  u[idx] += dx * 0.95;
-  v[idx] += dy * 0.95;
-
-  // Add density (rainbow hue)
   const hue = (Date.now() * 0.05) % 360;
   const c = hsvToRgb(hue / 360, 1.0, 1.0);
-  densR[idx] += c[0] * 40.0;
-  densG[idx] += c[1] * 40.0;
-  densB[idx] += c[2] * 40.0;
+
+  if (e.shiftKey) {
+    // === SHIFT + DRAG: add dye only ===
+    densR[idx] += c[0] * 40.0;
+    densG[idx] += c[1] * 40.0;
+    densB[idx] += c[2] * 40.0;
+  } else {
+    // === NORMAL DRAG: add velocity + lighter dye ===
+    u[idx] += dx * 2.0;
+    v[idx] += dy * 2.0;
+    densR[idx] += c[0] * 10.0;
+    densG[idx] += c[1] * 10.0;
+    densB[idx] += c[2] * 10.0;
+  }
 });
+
 
   reset();
 
