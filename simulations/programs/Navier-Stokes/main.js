@@ -11,7 +11,7 @@ window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
 // === Simulation Parameters ===
-const N = 128;
+const N = 156;
 const iter = 16;
 const dt = 0.1;
 
@@ -22,11 +22,17 @@ let size = (N + 2) * (N + 2);
 let densR = new Float32Array(size);
 let densG = new Float32Array(size);
 let densB = new Float32Array(size);
-let densPrev = new Float32Array(size);
+let densPrevR = new Float32Array(size);
+let densPrevG = new Float32Array(size);
+let densPrevB = new Float32Array(size);
+
 let u = new Float32Array(size);
 let v = new Float32Array(size);
 let uPrev = new Float32Array(size);
 let vPrev = new Float32Array(size);
+
+let isDown = false;
+let lastX = 0, lastY = 0;
 
 function IX(x, y) { return x + (N + 2) * y; }
 
@@ -158,14 +164,53 @@ function renderDens() {
     ctx.drawImage(simCanvas, 0, 0, canvas.width, canvas.height);
 }
 
+  function hsvToRgb(h, s, v) {
+    let r, g, b;
+    let i = Math.floor(h * 6);
+    let f = h * 6 - i;
+    let p = v * (1 - s);
+    let q = v * (1 - f * s);
+    let t = v * (1 - (1 - f) * s);
+    switch (i % 6) {
+      case 0: r = v, g = t, b = p; break;
+      case 1: r = q, g = v, b = p; break;
+      case 2: r = p, g = v, b = t; break;
+      case 3: r = p, g = q, b = v; break;
+      case 4: r = t, g = p, b = v; break;
+      case 5: r = v, g = p, b = q; break;
+    }
+    return [r, g, b];
+  }
+
+  // === Main Loop ===
+function step() {
+  velStep(u, v, uPrev, vPrev, visc);
+  densStep(densR, densPrevR, u, v, diff);
+  densStep(densG, densPrevG, u, v, diff);
+  densStep(densB, densPrevB, u, v, diff);
+
+  renderDens();
+  uPrev.fill(0); vPrev.fill(0);
+  densPrevR.fill(0);
+  densPrevG.fill(0);
+  densPrevB.fill(0);
+
+  requestAnimationFrame(step);
+}
+
 // === Reset ===
 function reset() {
   densR.fill(0); densG.fill(0); densB.fill(0);
   u.fill(0); v.fill(0);
   uPrev.fill(0); vPrev.fill(0);
-  densPrev.fill(0);
+  densPrevR.fill(0);
+  densPrevG.fill(0);
+  densPrevB.fill(0);
+
 }
-reset();
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM fully loaded and parsed");
 
 // === UI Controls ===
 document.getElementById("diff").oninput = e => {
@@ -178,9 +223,8 @@ document.getElementById("visc").oninput = e => {
 };
 document.getElementById("reset-btn").onclick = reset;
 
+
 // === Mouse Interaction ===
-let isDown = false;
-let lastX = 0, lastY = 0;
 canvas.addEventListener("mousedown", e => {
   isDown = true;
   const rect = canvas.getBoundingClientRect();
@@ -208,37 +252,16 @@ canvas.addEventListener("mousemove", e => {
   // Add density (rainbow hue)
   const hue = (Date.now() * 0.05) % 360;
   const c = hsvToRgb(hue / 360, 1.0, 1.0);
-  densR[idx] += c[0] * 0.8;
-  densG[idx] += c[1] * 0.8;
-  densB[idx] += c[2] * 0.8;
+  densR[idx] += c[0] * 50.0;
+  densG[idx] += c[1] * 50.0;
+  densB[idx] += c[2] * 50.0;
 });
 
-function hsvToRgb(h, s, v) {
-  let r, g, b;
-  let i = Math.floor(h * 6);
-  let f = h * 6 - i;
-  let p = v * (1 - s);
-  let q = v * (1 - f * s);
-  let t = v * (1 - (1 - f) * s);
-  switch (i % 6) {
-    case 0: r = v, g = t, b = p; break;
-    case 1: r = q, g = v, b = p; break;
-    case 2: r = p, g = v, b = t; break;
-    case 3: r = p, g = q, b = v; break;
-    case 4: r = t, g = p, b = v; break;
-    case 5: r = v, g = p, b = q; break;
-  }
-  return [r, g, b];
-}
+  reset();
 
-// === Main Loop ===
-function step() {
-  velStep(u, v, uPrev, vPrev, visc);
-  densStep(densR, densPrev, u, v, diff);
-  densStep(densG, densPrev, u, v, diff);
-  densStep(densB, densPrev, u, v, diff);
-  renderDens();
-  uPrev.fill(0); vPrev.fill(0); densPrev.fill(0);
-  requestAnimationFrame(step);
-}
-step();
+  console.log("Starting simulation loop");
+  step();
+
+
+
+});
