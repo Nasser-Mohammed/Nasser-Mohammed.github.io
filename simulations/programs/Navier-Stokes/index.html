@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>2D Navier–Stokes Fluid Simulation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="../../index.html" class="back-button">← Back</a>
+
+  <div class="wrapper">
+    <h1>2D Navier–Stokes Fluid Simulation</h1>
+    <h4>Interactive Real-Time Viscous Fluids</h4>
+
+    <div style="height: 2px; background-color: black; width: 100%;"></div>
+
+    <div id="mainControl">
+      <div id="controls">
+        <label for="diff">Diffusion Coefficient of Dye (D):</label>
+        <input type="range" id="diff" min="0.0" max="0.01" step="0.0001" value="0.0001">
+        <span id="diff-val">0.0001</span>
+
+        <label for="visc">Viscosity (\(\mu\)):</label>
+        <input type="range" id="visc" min="0.0" max="0.01" step="0.0001" value="0.0001">
+        <span id="visc-val">0.0001</span>
+
+        <button id="reset-btn">Reset Fluid</button>
+      </div>
+
+      <div id="params">
+        <span id="param-title">Incompressible Navier–Stokes Equations</span>
+        <p>
+          \[
+          \begin{gather}
+          \rho\left(\frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla)\mathbf{u}\right)  = 
+          \mu \nabla^2 \mathbf{u} -\nabla p 
+          + \mathbf{f} \\
+          \\
+          \nabla \cdot \mathbf{u} = 0
+          \end{gather}
+          \]
+        </p>
+      </div>
+    </div>
+
+    <span id="tip">
+      TIP: Drag to add velocity — hold <b>Shift</b> while dragging to inject density.
+    </span>
+
+    <div id="canvas-container">
+      <canvas id="canvas2d"></canvas>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
