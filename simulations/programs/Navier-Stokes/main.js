@@ -11,7 +11,7 @@ window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
 // === Simulation Parameters ===
-const N = 156;
+const N = 150;
 const iter = 16;
 const dt = 0.1;
 
@@ -223,6 +223,38 @@ document.getElementById("visc").oninput = e => {
 };
 document.getElementById("reset-btn").onclick = reset;
 
+document.getElementById("presets").onclick = e => {
+  const value = e.target.value;
+
+  switch (value){
+    
+    case "gas":
+      diff = 0;
+      visc = 0.0000;
+      break;
+
+      case "water":
+      diff = 0.00005;
+      visc = 0.00054;
+      break;
+
+      case "honey":
+      diff = 0.000002;
+      visc = 0.0015;
+      break;
+
+      default:
+      diff = 0.0001;
+      visc = 0.0005;
+      break;
+  }
+
+    const diffLabel = document.getElementById("diff-val");
+    const viscLabel = document.getElementById("visc-val");
+    if (diffLabel) diffLabel.textContent = diff.toFixed(5);
+    if (viscLabel) viscLabel.textContent = visc.toFixed(5);
+}
+
 
 // === Mouse Interaction ===
 canvas.addEventListener("mousedown", e => {
@@ -246,15 +278,15 @@ canvas.addEventListener("mousemove", e => {
   lastX = x; lastY = y;
 
   // Add velocity
-  u[idx] += dx * 0.5;
-  v[idx] += dy * 0.5;
+  u[idx] += dx * 0.95;
+  v[idx] += dy * 0.95;
 
   // Add density (rainbow hue)
   const hue = (Date.now() * 0.05) % 360;
   const c = hsvToRgb(hue / 360, 1.0, 1.0);
-  densR[idx] += c[0] * 50.0;
-  densG[idx] += c[1] * 50.0;
-  densB[idx] += c[2] * 50.0;
+  densR[idx] += c[0] * 40.0;
+  densG[idx] += c[1] * 40.0;
+  densB[idx] += c[2] * 40.0;
 });
 
   reset();

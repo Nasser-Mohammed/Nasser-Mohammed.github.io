@@ -17,13 +17,21 @@
     <div id="mainControl">
       <div id="controls">
         <label for="diff">Diffusion Coefficient of Dye (D):</label>
-        <input type="range" id="diff" min="0.0" max="0.01" step="0.0001" value="0.0001">
+        <input type="range" id="diff" min="0.0" max="0.001" step="0.0001" value="0.0001">
         <span id="diff-val">0.0001</span>
 
         <label for="visc">Viscosity (\(\mu\)):</label>
-        <input type="range" id="visc" min="0.0" max="0.01" step="0.0001" value="0.0001">
-        <span id="visc-val">0.0001</span>
-
+        <input type="range" id="visc" min="0.0" max="0.001" step="0.0001" value="0.0005">
+        <span id="visc-val">0.0005</span>
+        
+        <label for="presets">(Optional) Choose specific fluid behavior:</label>
+        <select name="presets" id="presets">
+          <option value="default" selected>Default</option>
+          <option value="gas">Gas-like</option>
+          <option value="water">Water-like</option>
+          <option value="honey">Honey-like</option>
+        </select>
+        
         <button id="reset-btn">Reset Fluid</button>
       </div>
 
