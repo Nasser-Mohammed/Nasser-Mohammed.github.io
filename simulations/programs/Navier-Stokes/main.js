@@ -15,9 +15,9 @@ let N = 150;
 const iter = 16;
 const dt = 0.1;
 
-let diff = 0.0001;
-let visc = 0.0001;
-let mode = "default";
+let diff = 0.000;
+let visc = 0.000;
+let mode = "gas";
 
 let size = (N + 2) * (N + 2);
 let densR = new Float32Array(size);

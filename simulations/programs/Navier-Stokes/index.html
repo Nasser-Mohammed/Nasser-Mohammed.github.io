@@ -17,21 +17,21 @@
     <div id="mainControl">
       <div id="controls">
         <label for="diff">Diffusion Coefficient of Dye (D):</label>
-        <input type="range" id="diff" min="0.0" max="0.001" step="0.0001" value="0.0001">
-        <span id="diff-val">0.0001</span>
+        <input type="range" id="diff" min="0.0" max="0.001" step="0.0001" value="0.00">
+        <span id="diff-val">0.0</span>
 
         <label for="visc">Viscosity (\(\mu\)):</label>
-        <input type="range" id="visc" min="0.0" max="0.001" step="0.0001" value="0.0002">
-        <span id="visc-val">0.0002</span>
+        <input type="range" id="visc" min="0.0" max="0.001" step="0.0001" value="0.000">
+        <span id="visc-val">0.0</span>
           <label for="presets">Fluid behavior (optional):</label>
           <select name="presets" id="presets">
-            <option value="default" selected>Default</option>
-            <option value="gas">Gas-like</option>
+            <option value="gas" selected>Gas-like</option>
             <option value="water">Water-like</option>
             <option value="honey">Honey-like</option>
+            <option value="default">Default</option>
           </select>
-
-          <label for="fidelity">Choose quality (slower computers will need lower values): <span id="fidelity-val">150</span></label>
+          <br>
+          <label for="fidelity">Choose quality <br> (Higher values will give more detailed fluids, <br> but may appear more glitchy if computer isn't strong). <br><span id="fidelity-val">150</span></label>
             <input 
               type="range" 
               id="fidelity" 
