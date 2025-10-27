@@ -141,6 +141,9 @@ h1, h4 {
   background-color: black;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+  touch-action: none;      /* let our JS handle touch; avoid browser gestures */
+  -ms-touch-action: none;  /* older Edge */
+  user-select: none;
 }
 
 

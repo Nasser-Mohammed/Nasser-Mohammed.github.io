@@ -37,6 +37,10 @@ let lastX = 0, lastY = 0;
 let isDownLeft = false;
 let isDownRight = false;
 
+// === Touch Interaction (mobile) ===
+let isTouching = false;
+let isTwoFinger = false;
+
 function IX(x, y) { return x + (N + 2) * y; }
 
 
@@ -234,6 +238,11 @@ function reset() {
 
 }
 
+function getCanvasPosFromTouch(t) {
+  const rect = canvas.getBoundingClientRect();
+  return { x: t.clientX - rect.left, y: t.clientY - rect.top, rect };
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM fully loaded and parsed");
 
@@ -359,6 +368,58 @@ canvas.addEventListener("mousemove", e => {
     }
   }
 });
+
+canvas.addEventListener("touchstart", (e) => {
+  // we need to prevent default scrolling/zooming
+  e.preventDefault();
+  if (e.touches.length === 0) return;
+
+  isTouching = true;
+  isTwoFinger = e.touches.length >= 2;
+
+  const { x, y } = getCanvasPosFromTouch(e.touches[0]);
+  lastX = x;
+  lastY = y;
+}, { passive: false });
+
+canvas.addEventListener("touchmove", (e) => {
+  e.preventDefault();
+  if (!isTouching || e.touches.length === 0) return;
+
+  const { x, y, rect } = getCanvasPosFromTouch(e.touches[0]);
+
+  const gridX = Math.floor((x / rect.width) * N);
+  const gridY = Math.floor((y / rect.height) * N);
+  const idx = IX(gridX, gridY);
+
+  const dx = x - lastX;
+  const dy = y - lastY;
+  lastX = x;
+  lastY = y;
+
+  const hue = (Date.now() * 0.05) % 360;
+  const c = hsvToRgb(hue / 360, 1.0, 1.0);
+
+  if (isTwoFinger) {
+    // === TWO FINGERS: velocity only (mobile equivalent of right-drag) ===
+    u[idx] += dx * 2.0;
+    v[idx] += dy * 2.0;
+  } else {
+    // === ONE FINGER: velocity + light dye (like normal left-drag) ===
+    u[idx] += dx * 2.0;
+    v[idx] += dy * 2.0;
+    densR[idx] += c[0] * 10.0;
+    densG[idx] += c[1] * 10.0;
+    densB[idx] += c[2] * 10.0;
+  }
+}, { passive: false });
+
+function endTouch() {
+  isTouching = false;
+  isTwoFinger = false;
+}
+canvas.addEventListener("touchend", endTouch, { passive: false });
+canvas.addEventListener("touchcancel", endTouch, { passive: false });
 
 
   reset();
