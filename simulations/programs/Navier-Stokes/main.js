@@ -34,6 +34,8 @@ let vPrev = new Float32Array(size);
 
 let isDown = false;
 let lastX = 0, lastY = 0;
+let isDownLeft = false;
+let isDownRight = false;
 
 function IX(x, y) { return x + (N + 2) * y; }
 
@@ -292,21 +294,34 @@ document.getElementById("presets").onclick = e => {
     fidelityLabel.textContent = newN;
     reinitFluid(newN);
   });
+  canvas.addEventListener("contextmenu", (e) => e.preventDefault());
 
 
 
 // === Mouse Interaction ===
 canvas.addEventListener("mousedown", e => {
-  isDown = true;
   const rect = canvas.getBoundingClientRect();
   lastX = e.clientX - rect.left;
   lastY = e.clientY - rect.top;
+
+  if (e.button === 2) {        // right button
+    isDownRight = true;
+  } else if (e.button === 0) { // left button
+    isDownLeft = true;
+  }
 });
-canvas.addEventListener("mouseup", () => isDown = false);
-canvas.addEventListener("mouseleave", () => isDown = false);
+
+canvas.addEventListener("mouseup", e => {
+  if (e.button === 2) isDownRight = false;
+  if (e.button === 0) isDownLeft = false;
+});
+canvas.addEventListener("mouseleave", () => {
+  isDownLeft = false;
+  isDownRight = false;
+});
 
 canvas.addEventListener("mousemove", e => {
-  if (!isDown) return;
+  if (!isDownLeft && !isDownRight) return;
 
   const rect = canvas.getBoundingClientRect();
   const x = e.clientX - rect.left;
@@ -320,21 +335,28 @@ canvas.addEventListener("mousemove", e => {
   lastX = x;
   lastY = y;
 
+  // smooth rainbow color for left-drag dye
   const hue = (Date.now() * 0.05) % 360;
   const c = hsvToRgb(hue / 360, 1.0, 1.0);
 
-  if (e.shiftKey) {
-    // === SHIFT + DRAG: add dye only ===
-    densR[idx] += c[0] * 40.0;
-    densG[idx] += c[1] * 40.0;
-    densB[idx] += c[2] * 40.0;
-  } else {
-    // === NORMAL DRAG: add velocity + lighter dye ===
+  if (isDownRight) {
+    // === RIGHT DRAG: velocity only (no dye) ===
     u[idx] += dx * 2.0;
     v[idx] += dy * 2.0;
-    densR[idx] += c[0] * 10.0;
-    densG[idx] += c[1] * 10.0;
-    densB[idx] += c[2] * 10.0;
+  } else if (isDownLeft) {
+    if (e.shiftKey) {
+      // === SHIFT + LEFT DRAG: dye only ===
+      densR[idx] += c[0] * 40.0;
+      densG[idx] += c[1] * 40.0;
+      densB[idx] += c[2] * 40.0;
+    } else {
+      // === LEFT DRAG: velocity + light dye ===
+      u[idx] += dx * 2.0;
+      v[idx] += dy * 2.0;
+      densR[idx] += c[0] * 10.0;
+      densG[idx] += c[1] * 10.0;
+      densB[idx] += c[2] * 10.0;
+    }
   }
 });
 
