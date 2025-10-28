@@ -31,6 +31,14 @@
             <option value="default">Default</option>
           </select>
           <br>
+          <label for="bc-select">Boundary condition:</label>
+            <select id="bc-select">
+              <option value="noslip" selected>No-slip walls (default)</option>
+              <option value="zero">Zero on boundaries (Dirichlet)</option>
+              <option value="periodic">Periodic</option>
+            </select>
+
+        <br>
           <label for="fidelity">Choose quality <br> (Higher values will give more detailed fluids, <br> but may appear more glitchy if computer isn't strong). <br><span id="fidelity-val">150</span></label>
             <input 
               type="range" 

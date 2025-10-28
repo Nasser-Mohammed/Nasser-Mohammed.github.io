@@ -36,6 +36,8 @@ let isDown = false;
 let lastX = 0, lastY = 0;
 let isDownLeft = false;
 let isDownRight = false;
+let boundaryMode = "noslip"; // "noslip" | "zero" | "periodic"
+
 
 // === Touch Interaction (mobile) ===
 let isTouching = false;
@@ -137,17 +139,67 @@ function project(u, v, p, div) {
 }
 
 function set_bnd(b, x) {
-  for (let i = 1; i <= N; i++) {
-    x[IX(0,i)]     = b===1 ? -x[IX(1,i)] : x[IX(1,i)];
-    x[IX(N+1,i)]   = b===1 ? -x[IX(N,i)] : x[IX(N,i)];
-    x[IX(i,0)]     = b===2 ? -x[IX(i,1)] : x[IX(i,1)];
-    x[IX(i,N+1)]   = b===2 ? -x[IX(i,N)] : x[IX(i,N)];
+  switch (boundaryMode) {
+    case "zero":
+      set_bnd_zero(b, x);
+      break;
+    case "periodic":
+      set_bnd_periodic(b, x);
+      break;
+    case "noslip":
+    default:
+      set_bnd_noslip(b, x);
+      break;
   }
-  x[IX(0,0)]       = 0.5 * (x[IX(1,0)] + x[IX(0,1)]);
-  x[IX(0,N+1)]     = 0.5 * (x[IX(1,N+1)] + x[IX(0,N)]);
-  x[IX(N+1,0)]     = 0.5 * (x[IX(N,0)] + x[IX(N+1,1)]);
-  x[IX(N+1,N+1)]   = 0.5 * (x[IX(N,N+1)] + x[IX(N+1,N)]);
 }
+
+// --- No-slip walls (your previous behavior for velocities; copy for scalars) ---
+function set_bnd_noslip(b, x) {
+  for (let i = 1; i <= N; i++) {
+    x[IX(0, i)]     = (b === 1) ? -x[IX(1, i)] : x[IX(1, i)];
+    x[IX(N + 1, i)] = (b === 1) ? -x[IX(N, i)] : x[IX(N, i)];
+    x[IX(i, 0)]     = (b === 2) ? -x[IX(i, 1)] : x[IX(i, 1)];
+    x[IX(i, N + 1)] = (b === 2) ? -x[IX(i, N)] : x[IX(i, N)];
+  }
+  x[IX(0, 0)]           = 0.5 * (x[IX(1, 0)] + x[IX(0, 1)]);
+  x[IX(0, N + 1)]       = 0.5 * (x[IX(1, N + 1)] + x[IX(0, N)]);
+  x[IX(N + 1, 0)]       = 0.5 * (x[IX(N, 0)] + x[IX(N + 1, 1)]);
+  x[IX(N + 1, N + 1)]   = 0.5 * (x[IX(N, N + 1)] + x[IX(N + 1, N)]);
+}
+
+// --- Zero Dirichlet on boundaries (explicit 0 on all edges & corners) ---
+function set_bnd_zero(b, x) {
+  for (let i = 0; i <= N + 1; i++) {
+    x[IX(0, i)]       = 0.0;
+    x[IX(N + 1, i)]   = 0.0;
+    x[IX(i, 0)]       = 0.0;
+    x[IX(i, N + 1)]   = 0.0;
+  }
+  x[IX(0, 0)]         = 0.0;
+  x[IX(0, N + 1)]     = 0.0;
+  x[IX(N + 1, 0)]     = 0.0;
+  x[IX(N + 1, N + 1)] = 0.0;
+}
+
+// --- Periodic boundaries (wrap around; no sign flips) ---
+function set_bnd_periodic(b, x) {
+  // wrap left/right using opposite interior cells
+  for (let i = 1; i <= N; i++) {
+    x[IX(0, i)]       = x[IX(N, i)];
+    x[IX(N + 1, i)]   = x[IX(1, i)];
+  }
+  // wrap top/bottom
+  for (let i = 1; i <= N; i++) {
+    x[IX(i, 0)]       = x[IX(i, N)];
+    x[IX(i, N + 1)]   = x[IX(i, 1)];
+  }
+  // corners (after edges are set, any reasonable average works)
+  x[IX(0, 0)]         = 0.5 * (x[IX(1, 0)] + x[IX(0, 1)]);
+  x[IX(0, N + 1)]     = 0.5 * (x[IX(1, N + 1)] + x[IX(0, N)]);
+  x[IX(N + 1, 0)]     = 0.5 * (x[IX(N, 0)] + x[IX(N + 1, 1)]);
+  x[IX(N + 1, N + 1)] = 0.5 * (x[IX(N, N + 1)] + x[IX(N + 1, N)]);
+}
+
 
 // === Fluid Steps ===
 function velStep(u,v,u0,v0,visc) {
@@ -350,8 +402,8 @@ canvas.addEventListener("mousemove", e => {
 
   if (isDownRight) {
     // === RIGHT DRAG: velocity only (no dye) ===
-    u[idx] += dx * 2.0;
-    v[idx] += dy * 2.0;
+    u[idx] += dx * 0.75;
+    v[idx] += dy * 0.75;
   } else if (isDownLeft) {
     if (e.shiftKey) {
       // === SHIFT + LEFT DRAG: dye only ===
@@ -360,11 +412,11 @@ canvas.addEventListener("mousemove", e => {
       densB[idx] += c[2] * 40.0;
     } else {
       // === LEFT DRAG: velocity + light dye ===
-      u[idx] += dx * 2.0;
-      v[idx] += dy * 2.0;
-      densR[idx] += c[0] * 10.0;
-      densG[idx] += c[1] * 10.0;
-      densB[idx] += c[2] * 10.0;
+      u[idx] += dx * 0.25;
+      v[idx] += dy * 0.25;
+      densR[idx] += c[0] * 25.0;
+      densG[idx] += c[1] * 25.0;
+      densB[idx] += c[2] * 25.0;
     }
   }
 });
@@ -420,6 +472,14 @@ function endTouch() {
 }
 canvas.addEventListener("touchend", endTouch, { passive: false });
 canvas.addEventListener("touchcancel", endTouch, { passive: false });
+
+const bcSelect = document.getElementById("bc-select");
+if (bcSelect) {
+  bcSelect.addEventListener("change", (e) => {
+    boundaryMode = e.target.value;
+  });
+}
+
 
 
   reset();
