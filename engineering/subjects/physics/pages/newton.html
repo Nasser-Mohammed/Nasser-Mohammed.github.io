@@ -29,9 +29,221 @@
   </header>
 
   <main>
+<p>
+    Newtonian (classical) mechanics is primarily concerned with forces, motion, 
+    and the causes of changes in motion. In many contexts—especially macroscopic 
+    ones on Earth—it is extremely powerful, in part due to its simplicity. 
+    Within this framework, the typical goal is either to find the function that 
+    satisfies the second-order differential equation given by Newton’s second law, 
+    or to determine the forces required to produce a desired motion. 
+    To begin, I will describe Newton’s three laws, which serve as the axioms of 
+    Newtonian mechanics.
+</p>
+
+
+
+
+    <h2>Newton's First Law</h2>
+    <p>Also known as the <b>Law of Inertia</b>, this law simply states that 
+    an object moving at a constant velocity, will remain at the velocity until
+      acted upon by a force.</p>
+
+
+    <h2>Newton's Second Law</h2>
     <p>
-        In progress.
+        This law provides the fundamental differential equation of motion. 
+        It states that the net force acting on an object is equal to the product 
+        of its mass and acceleration:
+        \[F = m a\]
+        In other words, force causes acceleration, and the magnitude of that 
+        acceleration depends on the object's mass.
     </p>
+
+  <h2>Newton's Third Law</h2>
+  <p>
+      Also known as the law of action and reaction, this law states that for 
+      every action, there is an equal and opposite reaction. In other words, 
+      forces always occur in pairs: if one object exerts a force on another, 
+      the second exerts an equal and opposite force in return. For example, 
+      if you push on a wall, the wall pushes back on you with the same magnitude 
+      of force.
+  </p>
+
+  <h2>What Next?</h2>
+  <p>Now that we've set the rules of our playground, we can determine how things move, 
+    act on other things, etc. 
+
+    But first I would like to reinterpret Newton's second law as a differential equation.
+    \[F=ma\]
+    As mentioned, the goal is to typically find where an object will be in the future, 
+    or maybe the function describing where it will be at any time \(t\); you could even 
+    be given the way the object moves and then be asked to find the forces that cause that.
+    In any case, we are concerned with a function 
+    \[x(t)\]
+    That gives the position of the object at time \(t\). We know that 
+    the derivative of position is velocity. That is, velocity is how fast our position 
+    is changing. The rate at which our velocity changes (i.e. the derivative of velocity)
+    is acceleration. Therefore, if we are given that 
+    \[F=ma\]
+    We could equivalently write this as 
+    \[F=m\ddot{x}(t)\]
+    Where the two dots above the variable \(x\) represent the second time 
+    derivative. This represents a second order ODE in time. We can then 
+    import methods of solving second order ODEs to this setting. Since 
+    \(\sin, \cos\) are eigenfunctions of the second order derivative operator, 
+    we expect to see them often. 
+  </p>
+
+  <p>That is pretty much all that is concerned with Newtonian Mechanics 
+    in terms of its principal axioms. However, there are
+    nontrivial considerations for extra things like torque, angular velocity, etc. 
+    However, they can all be linked back to these principals, with just 
+    specific equations for force. 
+  </p>
+
+  <p>
+    Also note that we have assumed mass to be constant, which is true for most 
+    everyday scenarios. However, in cases like rocket propulsion—where the 
+    mass decreases over time as fuel is burned—we must use Newton’s full 
+    second law:
+    \[ F = \frac{dp}{dt} \]
+    This expression reduces to the familiar \( F = ma \) form when mass is constant. 
+    In the equation above, \( p \) represents the momentum:
+    \[ p = m v, \]
+    where \( v \) is the velocity (i.e., \( \dot{x} \)).  
+    If the mass changes with time (that is, if \( m = m(t) \)), then applying the chain rule gives:
+    \[ \frac{d}{dt}(m v) = \dot{m} v + m \dot{v}, \]
+    which can be written as:
+    \[ F = \dot{m} \dot{x} + m \ddot{x}. \]
+    This more general form is used in problems such as rocket motion and other 
+    variable-mass systems. For our purposes, however, we will assume the mass 
+    remains constant.
+</p>
+
+
+  <h2>Problems</h2>
+  <p>I will go over 5 problems that cover the various different situations 
+    you may encounter in Newtonian mechanics. These should be representative 
+    of the problems covered in a first year course.
+  </p>
+<h3>1. Free Fall / Constant Acceleration</h3>
+<p>
+    A ball of mass \(m\) at rest (zero velocity) is dropped from a height \(h_0\) above the ground.
+    The force due to gravity is a constant: \(-mg\) (this is because 
+    the acceleration due to gravity is simply \(-g\) so the force must account for 
+    mass). Find the height and velocity of the 
+    ball as a function of time. 
+</p>
+<h4>Solution</h4>
+<p>So we know the force acting on our ball. Which is \(-mg\), then we know that 
+  \[-mg = m\ddot{x}(t)\]
+  We then see that 
+  \[\ddot{x}(t) = -g\]
+</p>
+
+<p>Here \(x(t)\) represents the height of the ball at time \(t\). 
+  The goal is to then find this function. Qualitatively, \(g\) is constant, 
+  therefore velocity is linear in time. In other words, we can directly integrate 
+  this twice.
+  \[\int \ddot{x}(t) dt = \int -g\ dt = -g \int dt = -gt + C\]
+  We know due to the Fundamental Theorem of Calculus that 
+  \[\int\ddot{x}(t) = \dot{x}(t)\]
+  Therefore, we have the velocity as a function of time,
+  \[\dot{x}(t) = -gt + C\]
+  To make things clearer, we just let \(v(t) = \dot{x}(t)\), so
+  \[v(t) = -gt + C\]
+  At time \(t=0\), we said that the ball was at rest, i.e. \(v(0) = 0\). Therefore, 
+  \[v(0) = -g\cdot 0 + C = 0 \implies C = 0\]
+  Now we have our final equation of velocity,
+    \[v(t) = -gt\]
+  Integrating this function, we find the height of the ball as a function of time.
+  We can use the velocity equation with or without the constant, since the conditions will 
+  give us the same result. However, I will replace \(C\) with \(v_0\) where 
+  that represents our initial velocity, since we showed above that they this constant will 
+  equal the initial velocity.
+  \[\int \dot{x}(t) \ dt = \int -gt + v_0 \ dt\]
+  \[\implies x(t) = -\frac{1}{2}gt^2 + v_0 t + C\]
+  Note that \(C\) is a constant and not related to the \(C\) used earlier. 
+  Finally, using our initial condition that the height of the ball at time \(t=0\)
+  is \(h_0\), we have
+    \[ x(0) = -\frac{1}{2}g\cdot(0)^2 + v_0 \cdot 0 + C = h_0\]
+    So we see that \(C=h_0\). Therefore, our final equation of motion is 
+    \[x(t) = -\frac{1}{2}gt^2 + v_0t + h_0\]
+    In our case \(v_0 = 0\), so this reduces to
+    \[x(t) = -\frac{1}{2}gt^2 + h_0\]
+</p>
+
+<p>Another question might be to determine how long this equation is physically valid for.
+  For instance, if we let \(t\to \infty\) eventually, the value will become negative indicating the ball is below 
+  the ground, not physically viable. This is 
+  straight forward, we would just want to find when \(x(t) \geq 0\). 
+  \[-\frac{1}{2}gt^2 + h_0 \geq 0 \implies h_0 \geq \frac{1}{2}gt^2\]
+  \[\implies 2h_0 \geq gt^2 \implies t \leq \sqrt{\frac{2h_0}{g}}\]
+  So this equation is valid for \(0 \leq t \leq \sqrt{\frac{2h_0}{g}}\)
+</p>
+<p>Another question might be to find the time at which the ball hits the ground 
+  (or reaches any arbitrary point for that matter). This is also straightforward, 
+  just set the equation for height equal to \(0\) (or whichever point we want to solve for) and solve for \(t\).
+  
+  \[x(t) = 0 \implies -\frac{1}{2}gt^2+h_0 = 0\]
+  \[\implies gt^2 = 2h_0 \implies t = \sqrt{\frac{2h_0}{g}}\]
+  We could have also deduced this from solving for the valid times. 
+</p>
+
+<h3>2. Inclined Plane with Friction</h3>
+<p>
+    A block of mass \(m\) slides down a plane inclined at angle \(\theta\) 
+    with coefficient of kinetic friction \(\mu_k\). The net force along the 
+    incline is
+    \[ F_{\text{net}} = m g \sin\theta - \mu_k m g \cos\theta, \]
+    giving the acceleration
+    \[ a = g (\sin\theta - \mu_k \cos\theta). \]
+    You can solve for the velocity as a function of time or the distance 
+    traveled along the incline.
+</p>
+
+<h3>3. Mass–Spring System (Simple Harmonic Motion)</h3>
+<p>
+    A mass \(m\) is attached to a spring with spring constant \(k\). 
+    The restoring force is
+    \[ F = - k x, \]
+    leading to the differential equation
+    \[ m \ddot{x} + k x = 0 \quad \implies \quad \ddot{x} + \frac{k}{m} x = 0. \]
+    The general solution is
+    \[ x(t) = A \cos(\omega t) + B \sin(\omega t), \quad \omega = \sqrt{\frac{k}{m}}, \]
+    where \(A\) and \(B\) depend on initial conditions. This models simple 
+    oscillatory motion, and can be visualized with an animation of the spring.
+</p>
+
+<h3>4. Atwood Machine</h3>
+<p>
+    Two masses \(m_1\) and \(m_2\) are connected by a light string over a 
+    frictionless pulley. Using Newton's second law for each mass:
+    \[
+        m_1 a = m_1 g - T, \quad m_2 a = T - m_2 g,
+    \]
+    where \(T\) is the tension and \(a\) is the acceleration. Solving these 
+    simultaneously gives
+    \[ a = \frac{(m_1 - m_2) g}{m_1 + m_2}, \quad T = \frac{2 m_1 m_2 g}{m_1 + m_2}. \]
+    This demonstrates forces in systems of connected bodies.
+</p>
+
+<h3>5. Rocket Motion (Variable Mass)</h3>
+<p>
+    A rocket of initial mass \(m_0\) ejects fuel at a constant velocity \(u\) 
+    relative to the rocket. Using the full form of Newton's second law:
+    \[ F = \frac{d}{dt}(m v), \]
+    and assuming no external forces, the velocity of the rocket as a function of 
+    its decreasing mass is
+    \[ v = u \ln \frac{m_0}{m}. \]
+    This illustrates variable-mass systems and the importance of momentum 
+    conservation beyond the \( F = ma \) approximation.
+</p>
+
+
+
+
+
 
   </main>
 
