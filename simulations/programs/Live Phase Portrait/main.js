@@ -6,7 +6,7 @@
 // - Responsive canvas with HiDPI support
 
 // -------------------- Knobs (display) --------------------
-let NUM_PARTICLES = 150;
+let NUM_PARTICLES = 250;
 let TRAIL_LEN     = 12;
 let PARTICLE_STEP = 0.0035; // user default
 let TRAIL_ALPHA   = 0.85;
