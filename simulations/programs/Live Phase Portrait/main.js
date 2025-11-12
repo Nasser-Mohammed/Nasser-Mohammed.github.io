@@ -26,6 +26,7 @@ const DEFAULT_PARAMS = {
   lotka:            { alpha: 2.0,  beta: 1.0,  gamma: 1.0,  delta: 0.5 },
   vanDerPol:        { mu: 0.5 },
   fitzHugh_Nagumo:  { I: 0.5, R: 0.1, a: 0.7, b: 0.8, epsilon: 0.8 },
+  gray_scott:       { F: 0.037, k: 0.06 },
   spiral:           { k: 1.0 },
   saddle_node:      { mu: 0.5 },
   brusselator:      { A: 1.0, B: 3.0 },
@@ -50,6 +51,7 @@ class TwoDimensionalSystems {
     if (c === "vanDerPol")               return { xMin:-6,   xMax:6,    yMin:-4,   yMax:4 };
     if (c === "fitzHugh_Nagumo" || c === "spiral")
                                          return { xMin:-4,   xMax:4,    yMin:-3,   yMax:3 };
+    if (c === "gray_scott") return { xMin: 0, xMax: 1, yMin: 0, yMax: 1 };                                    
     if (c === "saddle_node")             return { xMin:-13,  xMax:13,   yMin:-10,  yMax:10 };
     if (c === "brusselator")             return { xMin:-11,  xMax:11,   yMin:-8,   yMax:8 };
     if (c === "rayleigh" || c === "hopf_normal" || c === "oregonator" || c === "relay")
@@ -70,6 +72,7 @@ class TwoDimensionalSystems {
     if (c === "lotka")            return this.lotka(x,y);
     if (c === "vanDerPol")        return this.vanDerPol(x,y);
     if (c === "fitzHugh_Nagumo")  return this.fitzHugh_Nagumo(x,y);
+    if (c === "gray_scott")       return this.gray_scott(x, y);
     if (c === "spiral")           return this.spiral(x,y);
     if (c === "saddle_node")      return this.saddle_node(x,y);
     if (c === "brusselator")      return this.brusselator(x,y);
@@ -88,6 +91,13 @@ class TwoDimensionalSystems {
     const {I,R,a,b,epsilon}=this.p;
     return [v - (v*v*v)/3 - w + R*I, epsilon*(v + a - b*w)];
   }
+  gray_scott(u, v) {
+  const { F, k } = this.p;
+  const du = F * (1 - u) - u * v * v;
+  const dv = u * v * v - (F + k) * v;
+  return [du, dv];
+}
+
   spiral(x, y){ const {k}=this.p; const r2=x*x+y*y; return [x - y - k*x*r2, x + y - k*y*r2]; }
   saddle_node(x, y){ const {mu}=this.p; return [y, x*x - mu]; }
   brusselator(x, y){ const {A,B}=this.p; return [A - (B+1)*x + x*x*y, B*x - x*x*y]; }
