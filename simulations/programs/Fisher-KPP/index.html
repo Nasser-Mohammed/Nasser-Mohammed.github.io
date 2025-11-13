@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fisher–KPP Reaction–Diffusion Simulator</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a href="../../index.html" class="back-button">← Back</a>
+
+  <div class="wrapper">
+    <h1>Fisher–KPP Reaction–Diffusion</h1>
+    <div style="height: 2px; background-color: black; width: 100%;"></div>
+
+    <div id="mainControl">
+      <div id="controls">
+        <label for="diff">Diffusion \(D\):</label>
+        <input type="range" id="diff" min="0.000" max="0.030" step="0.0005" value="0.008">
+        <span id="diff-val">0.0080</span>
+
+        <label for="growth">Growth \(r\):</label>
+        <input type="range" id="growth" min="0.00" max="2.00" step="0.02" value="0.80">
+        <span id="growth-val">0.80</span>
+
+        <label for="cap">Carrying capacity \(K\):</label>
+        <input type="range" id="cap" min="0.2" max="2.0" step="0.05" value="1.0">
+        <span id="cap-val">1.00</span>
+
+        <label for="bc-select">Boundary condition:</label>
+        <select id="bc-select">
+          <option value="neumann" selected>No-flux (Neumann)</option>
+          <option value="dirichlet">Zero (Dirichlet)</option>
+          <option value="periodic">Periodic</option>
+        </select>
+
+        <label for="speed">Speed (dt factor): <span id="speed-val">0.50×</span></label>
+        <input type="range" id="speed" min="0.10" max="2.00" step="0.05" value="0.50">
+
+        <label for="cmap">Colormap:</label>
+        <select id="cmap">
+          <option value="tri">TriColor (blue → white → red)</option>
+          <option value="viridis">Viridis-like</option>
+          <option value="ocean">Ocean (navy → cyan → white)</option>
+          <option value="gray">Grayscale</option>
+        </select>
+        <label for="brush">Brush shape:</label>
+          <select id="brush">
+            <option value="circle" selected>Circle</option>
+            <option value="square">Square</option>
+            <option value="triangle">Triangle</option>
+            <option value="star">Star</option>
+            <option value="octagon">Octagon</option>
+            <option value="random">Random</option>
+          </select>
+
+
+        <br>
+        <label for="fidelity">Grid size: <span id="fidelity-val">150</span></label>
+        <input type="range" id="fidelity" min="100" max="225" step="1" value="150">
+
+        <button id="seed-front">Seed left half</button>
+        <button id="randomize">Random noise</button>
+        <button id="reset-btn">Reset</button>
+      </div>
+
+      <div id="params">
+        <span id="param-title">Fisher–KPP Equation</span>
+        <p>
+          \[
+            \frac{\partial u}{\partial t} \;=\;
+            D\,\nabla^2 u \;+\; r\,u\left(1-\frac{u}{K}\right)
+          \]
+        </p>
+      </div>
+    </div>
+
+    <span id="tip">
+      TIP: Left-drag adds population (\(u\)); right-drag erases. Hold <b>Shift</b> for a heavier brush.
+    </span>
+
+    <div id="canvas-container">
+      <canvas id="canvas2d"></canvas>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+  <script src="./main.js" defer></script>
+</body>
+</html>
