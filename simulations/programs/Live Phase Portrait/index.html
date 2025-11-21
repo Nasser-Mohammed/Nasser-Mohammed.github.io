@@ -50,6 +50,7 @@
     <option value="lotka">Lotka-Volterra</option>
     <option value="vanDerPol">Van der Pol</option>
     <option value="fitzHugh_Nagumo">FitzHugh–Nagumo</option>
+    <option value="my_model">ODE I derived</option>
     <option value="gray_scott">Gray–Scott (Homogeneous)</option>
     <option value="spiral">Spiral</option>
     <option value="saddle_node">Saddle-Node</option>
@@ -120,6 +121,20 @@
                          a:{min:0.4,max:1,step:0.01,label:"a"},
                          b:{min:0.6,max:1.2,step:0.01,label:"b"},
                          epsilon:{min:0.2,max:1.2,step:0.01,label:"ε"} },
+      my_model: {
+                    g:    { min: 0,  max: 20, step: 0.1,  label: "g (growth rate)" },             // g = 10
+                    m:    { min: 0,  max: 20, step: 0.1,  label: "m (death rate)" },              // m = 4
+                    k1:   { min: 0,  max: 20, step: 0.1,  label: "κ₁ (growth steepness)" },       // k1 = 12
+                    k2:   { min: 0,  max: 20, step: 0.1,  label: "κ₂ (death steepness)" },        // k2 = 12
+                    vc:   { min: 0,  max: 1,  step: 0.01, label: "v_c (growth threshold)" },      // vc = 0.4
+                    vk:   { min: 0,  max: 1,  step: 0.01, label: "v_k (death threshold)" },       // vk = 0.55
+                    r:    { min: 0,  max: 20, step: 0.1,  label: "r (env growth rate)" },         // r = 12
+                    gamma:{ min: 0,  max: 2,  step: 0.01, label: "γ (recovery rate)" },           // γ = 0.6
+                    beta: { min: 0,  max: 20, step: 0.1,  label: "β (env loss rate)" }           // β = 6
+                  },
+
+
+
       gray_scott:   {
                       F: { min: 0.02, max: 0.06, step: 0.001, label: "F" },
                       k: { min: 0.04, max: 0.08, step: 0.001, label: "k" }
@@ -237,6 +252,17 @@
         \dot{v} &= u v^{2} - (F + k)v
         \end{aligned}
         \]`,
+
+    my_model: String.raw`\[
+        \begin{aligned}
+        \dot{x} &= g\, x(1 - x) \cdot \frac{1}{1 + e^{-k_1(y - v_c)}} 
+                - m\, x \cdot \frac{1}{1 + e^{-k_2(v_k - y)}} \\
+        \dot{y} &= r\, y(1 - y)(y - v_c) 
+                + \gamma(1 - y) 
+                - \beta\, x y \\
+        \end{aligned}
+        \]`,
+
 
       spiral: String.raw`\[
     \begin{aligned}

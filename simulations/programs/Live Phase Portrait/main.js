@@ -27,6 +27,17 @@ const DEFAULT_PARAMS = {
   vanDerPol:        { mu: 0.5 },
   fitzHugh_Nagumo:  { I: 0.5, R: 0.1, a: 0.7, b: 0.8, epsilon: 0.8 },
   gray_scott:       { F: 0.037, k: 0.06 },
+  my_model:         {
+                    g: 10.0, // growth rate
+                    m: 4.0, // death rate
+                    k1: 12.0, // growth steepness
+                    k2: 12.0, // death steepness
+                    vc: 0.4, // growth threshold
+                    vk: 0.55, // death threshold
+                    r: 12.0, // env growth rate
+                    gamma: 0.6, // recovery rate
+                    beta: 6.0 // env loss rate
+                    },
   spiral:           { k: 1.0 },
   saddle_node:      { mu: 0.5 },
   brusselator:      { A: 1.0, B: 3.0 },
@@ -51,7 +62,8 @@ class TwoDimensionalSystems {
     if (c === "vanDerPol")               return { xMin:-6,   xMax:6,    yMin:-4,   yMax:4 };
     if (c === "fitzHugh_Nagumo" || c === "spiral")
                                          return { xMin:-4,   xMax:4,    yMin:-3,   yMax:3 };
-    if (c === "gray_scott") return { xMin: 0, xMax: 1, yMin: 0, yMax: 1 };                                    
+    if (c === "gray_scott") return { xMin: 0, xMax: 1, yMin: 0, yMax: 1 };         
+    if(c === "my_model") return {xMin: 0, xMax: 1, yMin: 0, yMax: 1};                           
     if (c === "saddle_node")             return { xMin:-13,  xMax:13,   yMin:-10,  yMax:10 };
     if (c === "brusselator")             return { xMin:-11,  xMax:11,   yMin:-8,   yMax:8 };
     if (c === "rayleigh" || c === "hopf_normal" || c === "oregonator" || c === "relay")
@@ -73,6 +85,7 @@ class TwoDimensionalSystems {
     if (c === "vanDerPol")        return this.vanDerPol(x,y);
     if (c === "fitzHugh_Nagumo")  return this.fitzHugh_Nagumo(x,y);
     if (c === "gray_scott")       return this.gray_scott(x, y);
+    if (c === "my_model")         return this.my_model(x,y);
     if (c === "spiral")           return this.spiral(x,y);
     if (c === "saddle_node")      return this.saddle_node(x,y);
     if (c === "brusselator")      return this.brusselator(x,y);
@@ -96,6 +109,17 @@ class TwoDimensionalSystems {
   const du = F * (1 - u) - u * v * v;
   const dv = u * v * v - (F + k) * v;
   return [du, dv];
+}
+
+  my_model(x, y) {
+  const p = this.p;
+  const G1 = 1 / (1 + Math.exp(-p.k1 * (y - p.vc)));
+  const G2 = 1 / (1 + Math.exp(-p.k2 * (p.vk - y)));
+
+  const dx = p.g * x * (1 - x) * G1 - p.m * x * G2;
+  const dy = p.r * y * (1 - y) * (y - p.vc) + p.gamma * (1 - y) - p.beta * x * y;
+
+  return [dx, dy];
 }
 
   spiral(x, y){ const {k}=this.p; const r2=x*x+y*y; return [x - y - k*x*r2, x + y - k*y*r2]; }
