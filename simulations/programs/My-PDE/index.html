@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Shock-Wave Reaction Diffusion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="controls">
+    <div id="pde-box">
+    <strong>System PDE:</strong>
+    <div class="pde-line">
+        $$u_t = r_u u(1-u)\,G_1(v) - c_u\,u\,G_2(v) + D_u \Delta u$$
+        $$v_t = a\,v(1-v)(v-v_c) + \gamma(1-v) - \alpha u v + D_v \Delta v$$
+    </div>
+
+    <div class="pde-fg">
+        <strong>Switch functions:</strong><br>
+        $$G_1(v) = \frac{1}{1 + e^{-k_1 (v - v_c)}}$$
+        $$G_2(v) = \frac{1}{1 + e^{-k_2 (v_k - v)}}$$
+    </div>
+</div>
+
+
+
+
+
+
+    <label>Init:
+        <select id="init">
+            <option value="random">Random</option>
+            <option value="smooth">Smooth</option>
+            <option value="flat">Flat</option>
+            <option value="pop-sin">Population Sin Wave</option>
+            <option value="pop-sin2d">Population Sin 2D</option>
+            <option value="pop-spiral">Population Spiral</option>
+            <option value="blank">Blank</option>
+        </select>
+    </label>
+
+    <label>View:
+        <select id="view">
+            <option value="u">Population (u)</option>
+            <option value="v">Environment (v)</option>
+        </select>
+    </label>
+    <label>Boundary:
+<select id="bc">
+  <option value="neumann">Neumann</option>
+  <option value="periodic">Periodic</option>
+  <option value="dirichlet">Dirichlet</option>
+</select>
+</label>
+
+
+    <div class="slider">r_u (growth): <span id="ru-val">10</span>
+    <input type="range" min="0" max="20" step="0.1" value="10" id="ru">
+</div>
+
+<div class="slider">v_c (growth threshold): 
+    <span id="v_c-val">0.4</span>
+    <input type="range" min="0" max="1" step="0.01" value="0.4" id="v_c">
+</div>
+
+<div class="slider">v_k (death threshold): 
+    <span id="v_kill-val">0.55</span>
+    <input type="range" min="0" max="1" step="0.01" value="0.55" id="v_kill">
+</div>
+
+
+<div class="slider">a (environment cubic amp): <span id="a-val">12</span>
+    <input type="range" min="0" max="30" step="0.1" value="12" id="a">
+</div>
+
+<div class="slider">alpha (consumption): <span id="alpha-val">3.6</span>
+    <input type="range" min="0" max="20" step="0.1" value="3.6" id="alpha">
+</div>
+
+<div class="slider">gamma (recovery): <span id="gamma-val">0.8</span>
+    <input type="range" min="0" max="5" step="0.01" value="0.8" id="gamma">
+</div>
+
+<div class="slider">Du: <span id="Du-val">0.0005</span>
+    <input type="range" min="0" max="0.01" step="0.0001" value="0.0005" id="Du">
+</div>
+
+<div class="slider">Dv: <span id="Dv-val">0.0001</span>
+    <input type="range" min="0" max="0.02" step="0.0001" value="0.0001" id="Dv">
+</div>
+
+<div class="slider">Speed: <span id="speed-val">1.0</span>
+    <input type="range" min="0.1" max="5" step="0.1" value="1.0" id="speed">
+</div>
+
+
+    <button id="reset">Reset</button>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<script src="main.js"></script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+};
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</body>
+</html>
