@@ -19,7 +19,7 @@
 </head>
 <body>
   <header class="site">
-    <a href="../index.html" class="back">← Back</a>
+    <a href="../../index.html" class="back">← Back</a>
     <h1 class="title">Personal System of PDEs (Reaction-Diffusion)</h1>
   </header>
 
@@ -230,8 +230,19 @@
     <div class="math-block">\[
       \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta v\left(1- \frac{c}{r}\cdot\frac{1+e^{-k_1(v-v_c)}}{1+e^{-k_2(v_k-v)}}\right) = 0\\
     \]</div>
-
-
+    <p>For simplicity, we will denote</p>
+    <div class="math-block">\[
+        \begin{align}
+      G_1(v) &= \frac{1}{1+e^{-k_1(v-v_c)}}\\
+      \\
+      G_2(v) &= \frac{1}{1+e^{-k_2(v_k-v)}}
+      \end{align}
+    \]</div>
+    <p>Then our equation becomes</p>
+    <div class="math-block">\[
+      \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta v\left(1- \frac{c}{r}\cdot \frac{G_1(v)}{G_2(v)}\right)
+        \]
+        </div>
 
 
   </main>
