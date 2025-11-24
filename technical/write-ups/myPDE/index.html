@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Personal PDE System</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">Personal System of PDEs (Reaction-Diffusion)</h1>
+  </header>
+
+  <main>
+    <p>
+      I wanted to extend the concept of the Fisher-KPP, which is probably the most basic reaction-diffusion equation. 
+      It can model the behavior of concentration spread and growth. However, this system is monostable, meaning any non-zero initial 
+      condition will eventually grow to its carrying capacity everywhere. This behavior isn't particularly interesting, 
+      I was looking to capture a cyclic relationship between producers and consumers. By making some assumptions on their 
+      behaviors, I arrived at a minimal model which exhibits a range of unique behaviors.
+    <h2>PDE Derivation</h2>
+    <p>
+        First, I began with the Fisher-KPP.
+    </p>
+    <div class="math-block">\[
+      \frac{\partial u}{\partial t} = D_u\Delta u + r(1-u)
+    \]</div>
+    <p>\(u\) represents a concentration of something, and therefore is naturally 
+        bounded between \(0\) and \(1\). The PDE also enforces this boundary as the 
+        the spatially homogenous ODE is positive at \(0\) and \(0\) at \(1\). Furthermore, diffusion 
+        alone cannot break this limit. As mentioned, this captures two main behaviors.
+        <ol>
+            <li>Diffusion: \(u\) will naturally move from areas of higher concentration to lower concentration.</li>
+            <li>Reaction: The term, \(ru(1-u)\), is known as logistic growth. The solution to the spatially homogenous system is simply the solution to the 
+                logistic equation, which is a sigmoid function. This means that any non-zero population grows according to the sigmoid function to its carrying capacity (\(1\)).
+            </li>
+        </ol>
+        This can be interpreted as follows. For some non-zero initial concentration of \(u\), 
+        it will spread out in space, lowering the concentration of its initial position. However, once a non-zero 
+        concentration touches a point in space that originally had \(0\) concentration, the population will begin 
+        to start growing logistically (according to the reaction term). However, diffusion will still drain it some, if 
+        it has a higher concentration than its neighbors. The logistic term usually overpowers the diffusive term pretty quickly, and 
+        we can observe traveling waves of varying concentration densities.
+    </p>
+    <p>
+        Building on this, I wanted a similar behavior but with more delicate reactions. Depending on the nature of the phenomenon you are 
+        trying to capture, different considerations and assumptions must be placed, even on the same phenomenon. In my case, 
+        I wanted to capture the cyclic relationship of a population that depends on another population for survival. However, in depending on that 
+        other population, they also deplete it. You can think of this as a wolf population living on deer. They naturally lower the deer population to survive, however, 
+        killing all the deer would cause the wolf population to collapse. Many models of this type already exist, most notably the family of 
+        Lotka-Volterra equations with diffusion. However, the underlying ODE produces closed orbits, meaning any initial population will 
+        follow their own closed orbit. I was looking to have a more interesting prey/producer field, and wanted it to have a few features.
+    </p>
+    <p>
+        To clarify, in this new model, \(u\) represents the concentration of the predator/consumer population (field), and 
+        \(v\) represents the concentration of the prey/producer population (field).
+        I wanted the environmental field to exhibit these characteristics:
+        <ol>
+            <li>Slow recovery in time, independent of the predator/consumer population. This is captured by \(v_t = \gamma(1-v)\). This term 
+                essentially says that the population will increase more when the population is low, and increase less when the population is high. 
+                In other words, we see diminishing growth as this population occupies its carrying capacity. 
+            </li>
+            <li>Death of the population (\(v\)) due to the predator population (\(u\)). A common 
+                way to capture this behavior is through the coupling term: \(-\beta u v\). This is consistent with 
+                the depletion term in the Lotka-Volterra equations.
+            </li>
+            <li>Growth surge once a certain threshold is reached. This is the most delicate part of the 
+                equation. However, I decided to capture this through a cubic term: \(\alpha v(1-v)(v-v_c)\). 
+                Where \(\alpha\) is a constant for the rate of growth. \(v_c\) is the threshold that determines when the 
+                cubic growth kicks in. This cubic function has roots at \(0\), \(v_c\), and \(1\). It's negative on the interval
+                \((0, v_c)\), meaning it actually captures that the population dies out if it doesn't reach a "critical mass". 
+                This can be thought of as populations that need other members of that population for survival. A counter example would be 
+                bears, which typically live alone. We can observe this behavior in herd animals, that are easily picked off if they tried living 
+                apart from their population. However, there is a very important balance going on now, which drives the behavior of the PDE. 
+                Although the cubic term will essentially deplete low populations, the linear growth term: \(\gamma(1-v)\) naturally 
+                restores the population. We can think of this as either a sufficient population that leaks into our area, 
+                and therefore providing a consistent replenishment/restoration of the population, or we could consider it like plants that will naturally 
+                repopulate. This makes \(\gamma\), \(v_c\), and \(\alpha\) extremely important the behavior of the system. 
+                For different parameters, we can get complete population death, cyclic populations, or total stability of both populations. 
+                With the parameters I typically use, the linear term is strong enough to get the cubic term to its threshold \(v_c\), but it does so slowly,
+                which was one of the original goals. 
+            </li>
+            <li>Population spread. This is easily captured via the diffusion term: \(D_v\Delta v\).</li>
+        </ol>
+    </p>
+    <p>Putting this all together, our PDE for the prey/producer field is given by</p>
+    <div class="math-block">\[
+      \frac{\partial v}{\partial t} = D_v\Delta v + \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta uv
+    \]</div>
+
+    <p>The consumer field is slightly less complicated. For this, I wanted the following biological characteristics:
+        <ol>
+            <li>Growth, but regulated by the producer/prey population. Basically, the consumer 
+                should grow if population of prey is present, however, we would expect to see slower growth with 
+                less available prey/product. I used a standard logistic growth rate, and then a 
+                threshold activated sigmoid to regulate the rate of this logistic growth. This term is then given by,
+                \(\frac{ru(1-u)}{1+e^{-k_1(v-v_c)}}\). Where \(r\) is the natural growth rate, \(k_1\) is the steepness of the sigmoid, 
+                and \(v_c\) is as before, the threshold for the prey/producer growth boom. The denominator is very large (for my parameters around \(122\)) when \(v=0\). This basically allows the population to grow, but 
+                it does so very slowly. When \(v=0.4\), the denominator is only \(2\), meaning half the logistic rate. Then as \(v\) grows to \(1\), so does the rate at which \(u\) can. 
+            </li>
+            <li>Natural death, but regulated by the producer/prey population. Again, we use the idea of a threshold activated sigmoid. 
+                The idea here is that not only would we expect to see lower growth when the producer/prey population is low, but we would also expect to see more death, especially if the \(u\) population is 
+                already high. This is captured by the term: \(\frac{-c u}{1+e^{-k_2(v_k-v)}}\). Note that the sigmoid threshold here is 
+                opposite to the earlier one. This denominator is around \(1\) when the prey population is low, and gets very large as \(v\to 1\). For my parameters, it is around \(122\) at \(v=1\). 
+                This basically scales the death rate down by a lot when the prey/producer is sufficient. 
+                Furthermore, the \(u\) in this term also regulates the death dependency on its own population. A low \(u\) and \(v\) will basically be zero, but as 
+                \(u\) grows, the need for more \(v\) increases and this is captured by that term. If the 
+                \(u\) population is at \(1\) but \(v=0\), then this term is at its max strength. This is expected and captures that 
+                the population will die most rapidly when there are no resources with a high population. Finally, \(v_k\) is the threshold for the death sigmoid. 
+                Meaning it's the point at which the population starts to die off rapidly (if \(u\) dips below this threshold). 
+            </li>
+            <li>Diffusion, this again just captures the idea that the populations tend to spread out over time. Captured by the term 
+                \(D_u\Delta u\)
+            </li>
+        </ol>
+    </p>
+        <p>Putting this all together, our PDE for the consumer/predator field is given by</p>
+        <div class="math-block">\[
+      \frac{\partial u}{\partial t} = D_u\Delta u + 
+      \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} - \frac{cu}{1+e^{-k_2(v_k-v)}} 
+    \]</div>
+    <p>Therefore, our final system is</p>
+    <div class="math-block">\[
+        \begin{align}
+      \frac{\partial u}{\partial t} &= D_u\Delta u + 
+      \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} - \frac{cu}{1+e^{-k_2(v_k-v)}} \\
+      \\
+      \frac{\partial v}{\partial t} &= D_v\Delta v + \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta uv
+      \end{align}
+    \]</div>
+
+
+    <h2>ODE Analysis</h2>
+    <p>To analyze the behavior of this system, we start by analyzing the spatially homogenous 
+        version. In other words, we see how this system would behave if there was no diffusion. 
+        This reduces the system to 2 ODEs, which we can then analyze using planar ODE techniques.
+    </p>
+    <p>Spatially homogenous system:</p>
+    <div class="math-block">\[
+        \begin{align}
+      \frac{d u}{d t} &=
+      \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} - \frac{cu}{1+e^{-k_2(v_k-v)}} \\
+      \\
+      \frac{d v}{d t} &=  \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta uv
+      \end{align}
+    \]</div>
+    <h3>Fixed Point Analysis</h3>
+    Before we begin our investigation, I will provide the parameters I used initially. 
+        <div class="math-block">\[
+        \begin{align}
+            r &=10\\
+            c &= 4\\
+            k_1 &= 12\\
+            k_2&= 12\\
+            v_c &= 0.4\\
+            v_k &= 0.55\\
+            \alpha &= 12 \\
+            \gamma &= 0.8\\
+            \beta &= 3.6
+      \end{align}
+    \]</div>
+    <p>Starting with the first equation, fixed points occur when \(\frac{du}{dt} = 0\)
+        Therefore, we seek to find when the following equation holds
+    </p>
+    <div class="math-block">\[
+      \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} - \frac{cu}{1+e^{-k_2(v_k-v)}} = 0\\
+    \]</div>
+    <p>Solving, we have</p>
+    <div class="math-block">\[
+      \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} = \frac{cu}{1+e^{-k_2(v_k-v)}}\\
+    \]</div>
+    <p>First, \(u=0\) solve this equation, so that is our first candidate. Now with \(u\neq0\), we can 
+        safely divide both sides by \(u\).
+    </p>
+    <div class="math-block">\[
+      \frac{r(1-u)}{1+e^{-k_1(v-v_c)}} = \frac{c}{1+e^{-k_2(v_k-v)}}\\
+    \]</div>
+    <p>Separating the \(u\) and \(v\)</p>
+        <div class="math-block">\[
+      r(1-u) = c\frac{1+e^{-k_1(v-v_c)}}{1+e^{-k_2(v_k-v)}}\\
+    \]</div>
+    <p>Finally,</p>
+    <div class="math-block">\[
+      u = 1- \frac{c}{r}\cdot\frac{1+e^{-k_1(v-v_c)}}{1+e^{-k_2(v_k-v)}}\\
+    \]</div>
+    <p>This is another candidate.</p>
+
+    <p>Now for \(v\), we have</p>
+    <div class="math-block">\[
+      \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta uv = 0
+    \]</div>
+    <p>If \(u=0\), then</p>
+    <div class="math-block">\[
+      \alpha v(1-v)(v-v_c) + \gamma(1-v) = 0
+    \]</div>
+    <p>It's clear that \(v=1\) satisfies this, so \((0, 1)\) is a fixed point.</p>
+    <p>If \(u=0\) and \(v\neq 1\), then</p>
+    <div class="math-block">\[
+        \begin{align}
+        & \alpha v(1-v)(v-v_c) + \gamma(1-v) = 0\\
+        &\alpha v(v-v_c)+\gamma = 0\\
+        & v^2-v\cdot v_c + \frac{\gamma}{\alpha} = 0
+      \end{align}
+    \]</div>
+    By the quadratic formula, the roots are given by,
+    <div class="math-block">\[
+        \frac{v_c \pm \sqrt{v_c^2 - 4\frac{\gamma}{\alpha}}}{2}
+    \]</div>
+    <p>With our parameters, \(v_c^2 = 0.16, 4\frac{\gamma}{\alpha} = 38.4\). Since 
+        \(v_c^2 < 38.4\), the discriminant is negative and therefore no real roots to this quadratic exist. 
+        Therefore the only fixed point for \(u=1\) is \(v=1\).
+    </p>
+    <p>Now we check for the other possibility that</p>
+        <div class="math-block">\[
+      u = 1- \frac{c}{r}\cdot\frac{1+e^{-k_1(v-v_c)}}{1+e^{-k_2(v_k-v)}}\\
+    \]</div>
+    <p>Plugging this into the equation for \(\frac{dv}{dt}\),</p>
+    <div class="math-block">\[
+      \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta v\left(1- \frac{c}{r}\cdot\frac{1+e^{-k_1(v-v_c)}}{1+e^{-k_2(v_k-v)}}\right) = 0\\
+    \]</div>
+
+
+
+
+  </main>
+</body>
+</html>
