@@ -432,6 +432,24 @@
         However, I have observed some bifurcations, especially when varying \(\gamma\) and \(\beta\).
         As \(\gamma\) increases, the limit cycle shrinks and eventually becomes a stable spiral.
         This is expected, since \(\gamma\) controls the recovery rate of the environment/prey population.
+        Holding all the other parameters constant, the limit cycle is destroyed around 
+        \(\gamma \approx 0.8\), where the interior equilibrium becomes a <strong>stable spiral</strong>,
+        whereas before it was <em>unstable</em>. This is a <strong>supercritical Hopf bifurcation</strong>,
+        since the limit cycle that is created/destroyed is <strong>stable</strong>. You can experiment with this directly above, 
+        try \(\gamma = 0.79\), and you should still see a low amplitude limit cycle. Then try 
+        \(\gamma = 0.80\), and you should see trajectories spiral into a point. With this behavior, the full 
+        PDE will exhibit Turing patterns that have periodic pulses that propogate along their pattern branches. 
+        A video of this can be seen below.
+      </p>
+      <video width="100%" autoplay loop muted>
+        <source src="Turing-vid.mp4" type="video/mp4">
+      </video>
+
+      <p>It behaves similar to a living/breathing network. It also 
+        resembles a neuronal network with action potentials propogating along 
+        each neuron's axon hillock. The pulses can be understood as 
+        temporary surges of local populations. Note that this is only a view of the 
+        consumer field, the producer field behaves similarly though.
       </p>
 
 
