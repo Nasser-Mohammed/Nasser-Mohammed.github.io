@@ -438,6 +438,7 @@
 
   </main>
   <script>
+    let canvasVisible = true;
         const params = {
         r: 10,
         c: 4,
@@ -449,7 +450,7 @@
         gamma: 0.6,  
         beta: 6      
       };
-      const dt = 0.005;
+      const dt = 0.0075;
 
       // ===================== ODE SYSTEM =====================
       function system(u, v) {
@@ -480,6 +481,14 @@
       const ctx = canvas.getContext("2d");
 
       let particles = [];
+      const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          canvasVisible = entry.isIntersecting;
+        }
+      });
+
+      observer.observe(canvas);
+
 
       function brightColor() {
         const hue = Math.floor(Math.random() * 360);
@@ -573,6 +582,11 @@
 
       // ===================== MAIN LOOP =====================
       function draw() {
+        if (!canvasVisible) {
+          requestAnimationFrame(draw);
+          return;
+        }
+
         ctx.fillStyle = "#0f1115";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
