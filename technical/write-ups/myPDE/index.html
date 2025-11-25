@@ -167,8 +167,8 @@
             v_c &= 0.4\\
             v_k &= 0.55\\
             \alpha &= 12 \\
-            \gamma &= 0.8\\
-            \beta &= 3.6
+            \gamma &= 0.6\\
+            \beta &= 6
       \end{align}
     \]</div>
     <p>Starting with the first equation, fixed points occur when \(\frac{du}{dt} = 0\)
@@ -218,8 +218,8 @@
     <div class="math-block">\[
         \frac{v_c \pm \sqrt{v_c^2 - 4\frac{\gamma}{\alpha}}}{2}
     \]</div>
-    <p>With our parameters, \(v_c^2 = 0.16, 4\frac{\gamma}{\alpha} = 38.4\). Since 
-        \(v_c^2 < 38.4\), the discriminant is negative and therefore no real roots to this quadratic exist. 
+    <p>With our parameters, \(v_c^2 = 0.16, 4\frac{\gamma}{\alpha} = 0.2\). Since 
+        \(v_c^2 < 0.2\), the discriminant is negative and therefore no real roots to this quadratic exist. 
         Therefore the only fixed point for \(u=1\) is \(v=1\).
     </p>
     <p>Now we check for the other possibility that</p>
@@ -240,11 +240,377 @@
     \]</div>
     <p>Then our equation becomes</p>
     <div class="math-block">\[
-      \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta v\left(1- \frac{c}{r}\cdot \frac{G_1(v)}{G_2(v)}\right)
+      \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta v\left(1- \frac{c}{r}\cdot \frac{G_2(v)}{G_1(v)}\right) = 0\\
         \]
         </div>
+      <p>This is an implicit equation, and so we can numerically approximate the root. 1 root exists on \([0,1]\),
+        \(v \approx 0.370777994\). Plugging this back into the equaiton for \(u\) yields, \(u \approx 0.13293\), and 
+        therefore our second fixed point is approximately \((0.13293, 0.370777994)\).
+      </p>
+
+      <h3>Stability Analysis</h3>
+      <p>To analyze the stability of these points, we will use standard Jacobian stability analysis.
+        First, I will prove the interval \([0,1]\) is a trapping region for both \(u\) and \(v\).
+      </p>
+
+      <div class="claim-box">
+        <div class="claim-title">Claim:</div>
+        <p>The region \([0,1]^2\) is forward-invariant for the spatially homogeneous system</p>
+          <div class="math-block">\[
+            \begin{align}
+              \frac{d u}{d t} &=
+              \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} - \frac{cu}{1+e^{-k_2(v_k-v)}} \\
+              \\
+              \frac{d v}{d t} &=  \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta uv
+              \end{align}
+            \]</div>
+
+        <div class="proof-title">Proof.</div>
+        <p>
+          At \(u=0\) we have \(\frac{du}{dt} \ge 0\) since both reaction terms vanish.
+          At \(u=1\) the logistic factor \(1-u\) vanishes leaving \(-\frac{c}{1+e^{-k_2(v_k-v)}}\), which is always negative 
+          with positive constant \(c\). So the function is decreasing at \(u=1\). At \(v=1\), the cubic term 
+          and linear terms vanish leaving \(-\beta u\), which is always negative for \(\beta > 0\), since 
+          \(0 \leq u \leq 1\). Finally, at \(v=0\), we are left with \(\frac{dv}{dt} =\gamma\), which is positive when 
+          \(\gamma > 0\). Therefore, the vector field points inward on all sides of the square \([0,1]^2\).
+        </p>
+      </div>
+        <p>
+          Now that we know this region of \(\mathbb{R}^2\) is bounded, we must treat the fixed point 
+          \((0,1)\) carefully, since it lies on the boundary. We can bypass stability analysis via the 
+          Jacobian here, since we can directly analyze the vector field nearby. Consider 
+          \((u, v) = (\epsilon, 1)\) for some small \(\epsilon > 0\) (a point very close to the fixed point 
+          on the boundary). For small \(u\), we have \(1 - u \approx 1\), so \(ru(1 - u) \approx ru\). 
+          Further, \(1 + e^{-k_1(1 - v_c)} = 1 + e^{-12(1 - v_c)} = 1 + e^{-7.2} \approx 1\), so the 
+          denominator in the growth term is essentially \(1\). For the death term, 
+          \(1 + e^{-k_2(v_k - 1)} = 1 + e^{5.4} \approx 222\), which makes the entire death term negligible. 
+          Therefore the vector field is approximately \(\frac{du}{dt} \approx ru\), which is positive for 
+          \(r > 0\). Any small positive perturbation in \(u\) grows, so the fixed point \((0,1)\) is unstable.
+        </p>
+
+        <p>Now for the fixed point \((0.13293, 0.370777994)\), since it lies in the interior of
+          this forward-invariant region, we can safely use the Jacobian for stability analysis. First, let 
+          \(\frac{du}{dt} = F(u,v)\) and \(\frac{dv}{dt} = G(u,v)\).
+          Recall the Jacobian matrix is given by,
+        </p>
+          <div class="math-block">\[
+              J = 
+            \begin{bmatrix}
+              \frac{\partial F}{\partial u} & \frac{\partial F}{\partial v}\\
+              \\
+              \frac{\partial G}{\partial u} & \frac{\partial G}{\partial v}\\
+              \end{bmatrix}
+            \]</div>
+          <p>Computing this term by term, </p>
+              <div class="math-block">\[
+              \begin{align}
+              J_{1,1} &= 
+              \frac{\partial F}{\partial u} = \frac{\partial}{\partial u}\left(\frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} - \frac{cu}{1+e^{-k_2(v_k-v)}}\right)\\
+              &= \frac{r(1-2u)}{1+e^{-k_1(v-v_c)}} - \frac{c}{1+e^{-k_2(v_k-v)}}\\
+              \end{align}
+            \]</div>
+            <div class="math-block">\[
+              \begin{align}
+              J_{1,2} &= 
+              \frac{\partial F}{\partial v} = \frac{\partial}{\partial v}\left(\frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} - \frac{cu}{1+e^{-k_2(v_k-v)}}\right)\\
+              &= ru(1-u)\frac{\partial }{\partial v}\left(\frac{1}{1+e^{-k_1(v-v_c)}}\right) - cu\frac{\partial }{\partial v}\left(\frac{1}{1+e^{-k_2(v_k-v)}}\right)\\
+              &= -ru(1-u)\frac{\frac{\partial }{\partial v}\left(1+e^{-k_1(v-v_c)}\right)}{(1+e^{-k_1(v-v_c)})^2} + cu\frac{\frac{\partial}{\partial v}\left(1+e^{-k_2(v_k-v)} \right)}{(1+e^{-k_2(v_k-v)})^2}\\
+              &= ru(1-u)\frac{k_1e^{-k_1(v-v_c)}}{(1+e^{-k_1(v-v_c)})^2} + cu\frac{k_2e^{-k_2(v_k-v)}}{(1+e^{-k_2(v_k-v)})^2}\\
+              \end{align}
+            \]</div>
+            <div class="math-block">\[
+              \begin{align}
+              J_{2,1} &= 
+              \frac{\partial G}{\partial u} = \frac{\partial}{\partial u}\left(\alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta uv\right)\\
+              &= -\beta v\\
+              \end{align}
+            \]</div>
+          <div class="math-block">\[
+              \begin{align}
+              J_{2,2} &= 
+              \frac{\partial G}{\partial v} = \frac{\partial}{\partial v}\left(\alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta uv\right)\\
+              &= (\alpha- 2\alpha v)(v-v_c)+(\alpha v - \alpha v^2) -\beta u - \gamma\\
+              \end{align}
+            \]</div>
+
+            <p>Then the Jacobian is,</p>
+            <div class="math-block">\[
+              \begin{bmatrix}
+              \frac{r(1-2u)}{1+e^{-k_1(v-v_c)}} - \frac{c}{1+e^{-k_2(v_k-v)}} & ru(1-u)\frac{k_1e^{-k_1(v-v_c)}}{(1+e^{-k_1(v-v_c)})^2} + cu\frac{k_2e^{-k_2(v_k-v)}}{(1+e^{-k_2(v_k-v)})^2}\\\
+              \\
+              -\beta v & (\alpha- 2\alpha v)(v-v_c)+(\alpha v - \alpha v^2) -\beta u - \gamma\\
+              \end{bmatrix}
+            \]</div>
+
+            <p>The associated characteristic polynomial is, </p>
+            <div class="math-block">\[
+              \lambda^2 - \text{tr}(J)\lambda + \det(J) = 0 \\
+              \\ 
+              \implies \lambda^2 - \lambda(J_{1,1} + J_{2,2}) + (J_{1,1}J_{2,2} - J_{1,2}J_{2,1}) = 0
+            \]</div>
+            <p>This is a quadratic in \(\lambda\) therefore, we can use quadratic formula</p>
+            <div class="math-block">\[
+              \lambda_{1,2} = \frac{-\text{tr}(J) \pm \sqrt{\text{tr}(J)^2 - 4\det(J)}}{2}
+            \]</div>
+            <p>The Jacobian evaluate to: </p>
+              <div class="math-block">\[
+              \begin{bmatrix}
+                -0.549506 & 3.9495\\
+                -2.224667964 & 1.311357856
+              \end{bmatrix}
+            \]</div>
+            <p>Plugging this into the formula</p>
+            <div class="math-block">\[
+              \lambda_{1,2} = \frac{0.76185 \pm \sqrt{-33.844081}}{2} = \frac{0.76185 \pm 5.87i}{2} = 0.38 \pm 2.835 i
+            \]</div>
+            <p>Since the real part is positive, and the roots are complex, we have an unstable focus/spiral.</p>
+
+            <p>Now we claim the existence of a limit cycle via the Poincaré–Bendixson theorem.</p>
+
+            <div class="claim-box">
+              <div class="claim-title">Claim:</div>
+              <p>The system admits at least one limit cycle.</p>
+
+              <div class="math-block">\[
+                \begin{aligned}
+                  \frac{du}{dt} &= \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} - \frac{cu}{1+e^{-k_2(v_k-v)}} \\
+                  \\
+                  \frac{dv}{dt} &= \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta uv
+                \end{aligned}
+              \]</div>
+
+              <div class="proof-title">Proof.</div>
+              <p>
+                We have shown that the square \([0,1]^2\) is compact and positively invariant for the flow.
+                The system has two equilibria in this region: the boundary equilibrium \((0,1)\) and the interior
+                equilibrium \((0.13293,\,0.37078)\). The boundary equilibrium is unstable. The interior equilibrium
+                has a Jacobian with complex eigenvalues whose real part is positive, so it is an unstable spiral.
+              </p>
+
+              <p>
+                Because the interior equilibrium is repelling, trajectories starting near it are pushed away from the
+                equilibrium instead of converging to it. Since \([0,1]^2\) is positively invariant, these trajectories
+                cannot leave the square. The boundary equilibrium is also unstable, so no interior trajectory can
+                converge to it.
+              </p>
+
+              <p>
+                Therefore any trajectory beginning in the interior remains in a compact, positively invariant region
+                that contains no attracting fixed points. Its omega-limit set is nonempty, compact, and contains no equilibria. By the Poincaré–Bendixson theorem, this limit set is a
+                periodic orbit. Therefore, the system possesses a limit cycle.
+              </p>
+            </div>
+          <p>I have this planar ODE system simulated on my <a href=https://nasser-mohammed.github.io/simulations/programs/Live%20Phase%20Portrait/index.html>live phase portrait simulation page</a>, named 
+          "ODE I derived". Below is a simplified demo of the limit cycle.</p>
+          <h3>Interactive Phase Portrait of this System</h3>
+          <p>Experiment with the system by clicking inside the square. Adjust γ and β to see how the dynamics change.</p>
+
+          <div style="max-width:500px; margin:0 auto 20px;">
+
+            <label for="gammaSlider">γ (environment recovery): 
+                <span id="gammaValue">0.6</span>
+                  </label>
+                  <input type="range" id="gammaSlider" min="0.1" max="2" step="0.01" value="0.6" style="width:100%;">
+
+                  <label for="betaSlider" style="margin-top:10px; display:block;">
+                    β (consumer pressure): 
+                    <span id="betaValue">6</span>
+                  </label>
+                  <input type="range" id="betaSlider" min="1" max="12" step="0.1" value="6" style="width:100%;">
+                  <button id="resetBtn" class="reset-button" style="margin-right: 15px;">Reset Trajectories</button>
+                  <button id="resetParamsBtn" class="reset-button" style="background:#8d7af7;">Reset Parameters</button>
+          </div>
+
+          <canvas id="phaseCanvas" width="500" height="500"
+                  style="border:1px solid #333; border-radius:8px; display:block; margin:18px auto;">
+          </canvas>
+
+        
+      <p>This concludes the stability analysis of the underlying ODEs.</p>
+      <h3>Bifurcations</h3>
+      <p>The system has nine parameters, and therefore trying to analyze every interaction is complicated. 
+        However, I have observed some bifurcations, especially when varying \(\gamma\) and \(\beta\).
+        As \(\gamma\) increases, the limit cycle shrinks and eventually becomes a stable spiral.
+        This is expected, since \(\gamma\) controls the recovery rate of the environment/prey population.
+      </p>
+
 
 
   </main>
+  <script>
+        const params = {
+        r: 10,
+        c: 4,
+        k1: 12,
+        k2: 12,
+        vc: 0.4,
+        vk: 0.55,
+        alpha: 12,
+        gamma: 0.6,  
+        beta: 6      
+      };
+      const dt = 0.005;
+
+      // ===================== ODE SYSTEM =====================
+      function system(u, v) {
+        const { r, c, k1, k2, vc, vk, alpha, gamma, beta } = params;
+
+        const G1 = 1 / (1 + Math.exp(-k1 * (v - vc)));
+        const G2 = 1 / (1 + Math.exp(-k2 * (vk - v)));
+
+        const du = r * u * (1 - u) * G1 - c * u * G2;
+        const dv = alpha * v * (1 - v) * (v - vc) + gamma * (1 - v) - beta * u * v;
+
+        return [du, dv];
+      }
+
+      function step(u, v) {
+        const [du, dv] = system(u, v);
+        let un = u + dt * du;
+        let vn = v + dt * dv;
+
+        return [
+          Math.min(Math.max(un, 0), 1),
+          Math.min(Math.max(vn, 0), 1)
+        ];
+      }
+
+      // ===================== CANVAS SETUP =====================
+      const canvas = document.getElementById("phaseCanvas");
+      const ctx = canvas.getContext("2d");
+
+      let particles = [];
+
+      function brightColor() {
+        const hue = Math.floor(Math.random() * 360);
+        return `hsl(${hue}, 95%, 60%)`;
+      }
+
+      canvas.addEventListener("click", (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const u = (e.clientX - rect.left) / rect.width;
+        const v = 1 - (e.clientY - rect.top) / rect.height;
+
+        particles.push({
+          u,
+          v,
+          color: brightColor(),
+          path: [{ u, v }]
+        });
+      });
+
+      // ===================== VECTOR FIELD =====================
+      function drawVectorField() {
+        const spacing = 25;
+        ctx.strokeStyle = "rgba(255,255,255,0.08)";
+        ctx.lineWidth = 1;
+
+        for (let px = 0; px < canvas.width; px += spacing) {
+          for (let py = 0; py < canvas.height; py += spacing) {
+            const u = px / canvas.width;
+            const v = 1 - py / canvas.height;
+
+            const [du, dv] = system(u, v);
+
+            const scale = 12;
+            const x2 = px + scale * du;
+            const y2 = py - scale * dv;
+
+            ctx.beginPath();
+            ctx.moveTo(px, py);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // ===================== SLIDER LISTENERS =====================
+      const gammaSlider = document.getElementById("gammaSlider");
+      const betaSlider = document.getElementById("betaSlider");
+
+      const gammaValue = document.getElementById("gammaValue");
+      const betaValue = document.getElementById("betaValue");
+
+      // Update text while dragging
+      gammaSlider.addEventListener("input", (e) => {
+        gammaValue.textContent = parseFloat(e.target.value).toFixed(2);
+      });
+
+      betaSlider.addEventListener("input", (e) => {
+        betaValue.textContent = parseFloat(e.target.value).toFixed(2);
+      });
+
+      gammaSlider.addEventListener("change", (e) => {
+        params.gamma = parseFloat(e.target.value);
+        particles = [];
+      });
+
+      betaSlider.addEventListener("change", (e) => {
+        params.beta = parseFloat(e.target.value);
+        particles = [];
+      });
+      document.getElementById("resetBtn").addEventListener("click", () => {
+          particles = [];
+        });
+        document.getElementById("resetParamsBtn").addEventListener("click", () => {
+            // Restore defaults
+            params.gamma = 0.6;
+            params.beta = 6;
+
+            // Update sliders
+            gammaSlider.value = params.gamma;
+            betaSlider.value = params.beta;
+
+            // Update display values
+            gammaValue.textContent = params.gamma.toFixed(2);
+            betaValue.textContent = params.beta.toFixed(2);
+
+            // Optional: clear trajectories after param change
+            particles.length = 0;
+          });
+
+
+
+      // ===================== MAIN LOOP =====================
+      function draw() {
+        ctx.fillStyle = "#0f1115";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        drawVectorField();
+
+        for (let p of particles) {
+          const [nu, nv] = step(p.u, p.v);
+          p.u = nu;
+          p.v = nv;
+          p.path.push({ u: nu, v: nv });
+
+          ctx.strokeStyle = p.color;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          for (let i = 0; i < p.path.length - 1; i++) {
+            const a = p.path[i];
+            const b = p.path[i + 1];
+            ctx.moveTo(a.u * canvas.width, (1 - a.v) * canvas.height);
+            ctx.lineTo(b.u * canvas.width, (1 - b.v) * canvas.height);
+          }
+          ctx.stroke();
+
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(
+            p.u * canvas.width,
+            (1 - p.v) * canvas.height,
+            4.5,
+            0,
+            2 * Math.PI
+          );
+          ctx.fill();
+        }
+
+        requestAnimationFrame(draw);
+      }
+      draw();
+</script>
+
 </body>
 </html>

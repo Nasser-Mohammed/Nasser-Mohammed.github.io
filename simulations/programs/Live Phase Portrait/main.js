@@ -51,7 +51,7 @@ const DEFAULT_PARAMS = {
 // === Two–Dimensional Systems (2D only) ===
 class TwoDimensionalSystems {
   constructor() {
-    this.choice = "lotka";
+    this.choice = "my_model";
     this.params = JSON.parse(JSON.stringify(DEFAULT_PARAMS));
   }
   get p(){ return this.params[this.choice]; }
