@@ -220,7 +220,7 @@
     \]</div>
     <p>With our parameters, \(v_c^2 = 0.16, 4\frac{\gamma}{\alpha} = 0.2\). Since 
         \(v_c^2 < 0.2\), the discriminant is negative and therefore no real roots to this quadratic exist. 
-        Therefore the only fixed point for \(u=1\) is \(v=1\).
+        Therefore the only fixed point for \(u=0\) is \(v=1\).
     </p>
     <p>Now we check for the other possibility that</p>
         <div class="math-block">\[
@@ -334,7 +334,7 @@
             \]</div>
 
             <p>Then the Jacobian is,</p>
-            <div class="math-block">\[
+            <div class="math-block">\[J =
               \begin{bmatrix}
               \frac{r(1-2u)}{1+e^{-k_1(v-v_c)}} - \frac{c}{1+e^{-k_2(v_k-v)}} & ru(1-u)\frac{k_1e^{-k_1(v-v_c)}}{(1+e^{-k_1(v-v_c)})^2} + cu\frac{k_2e^{-k_2(v_k-v)}}{(1+e^{-k_2(v_k-v)})^2}\\\
               \\
@@ -416,7 +416,12 @@
                     β (consumer pressure): 
                     <span id="betaValue">6</span>
                   </label>
-                  <input type="range" id="betaSlider" min="1" max="12" step="0.1" value="6" style="width:100%;">
+          <input type="range" id="betaSlider" min="1" max="12" step="0.1" value="6" style="width:100%;">
+              <label for="alphaSlider">α (cubic growth rate): 
+                <span id="alphaValue">12</span>
+                  </label>
+                  <input type="range" id="alphaSlider" min="0.1" max="30" step="0.1" value="12" style="width:100%;">
+
                   <button id="resetBtn" class="reset-button" style="margin-right: 15px;">Reset Trajectories</button>
                   <button id="resetParamsBtn" class="reset-button" style="background:#8d7af7;">Reset Parameters</button>
           </div>
@@ -425,8 +430,159 @@
                   style="border:1px solid #333; border-radius:8px; display:block; margin:18px auto;">
           </canvas>
 
+      <h3>Stability Analysis for Different Parameters</h3>
+      <p>I will run through another quick stability analysis for a different set of parameters. I choose 
+        these parameters as they produce Turing-like patterns, and therefore I will attempt to show whether 
+        they are actually Turing patterns in later sections. We already have the Jacobian derived, we just 
+        need to find the fixed points again and run them back through this system
+      </p>
+      <h4>Fixed Points</h4>
+      <p>The new set of parameters to consider are</p>
+      <div class="math-block">\[
+        \begin{align}
+            r &=10\\
+            c &= 4\\
+            k_1 &= 12\\
+            k_2&= 12\\
+            v_c &= 0.4\\
+            v_k &= 0.55\\
+            \alpha &= 20 \\
+            \gamma &= 0.8\\
+            \beta &= 3.6
+      \end{align}
+    \]</div>
+    <p>Repeating earlier arguments, we first find</p>
+      <div class="math-block">\[
+        \begin{align}
+      & \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} - \frac{cu}{1+e^{-k_2(v_k-v)}} = 0\\
+      \\
+      & \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} = \frac{cu}{1+e^{-k_2(v_k-v)}}
+
+      \end{align}
+    \]</div>
+    <p>Again, \(u=0\) solves this. Now if \(u\neq 0\), divide \(u\)</p>
+      <div class="math-block">\[
+        \begin{align}
+      & \frac{r(1-u)}{1+e^{-k_1(v-v_c)}} = \frac{c}{1+e^{-k_2(v_k-v)}}\\
+      \\
+      & u = 1- \frac{c}{r}\cdot\frac{1+e^{-k_1(v-v_c)}}{1+e^{-k_2(v_k-v)}}\\
+
+      \end{align}
+    \]</div>
+    <p>For \(v\), we have that \((0,1)\) is a fixed point regardless of parameters. Now for 
+      \(u=0\) and \(v\neq 1\), we had the other possible values as the result of</p>
+        <div class="math-block">\[
+        \frac{v_c \pm \sqrt{v_c^2 - 4\frac{\gamma}{\alpha}}}{2}
+    \]</div>
+            <p>Plugging in our new parameters,</p>
+      <div class="math-block">\[
+        \frac{v_c \pm \sqrt{0.16 - 4\frac{0.8}{20}}}{2} = \frac{0.4 \pm \sqrt{0.16 - 0.16}}{2} = \frac{0.4}{2} = 0.2
+    \]</div>
+    <p>So we have that \((0, 0.2)\) is a fixed point. Finally, if 
+      \(u = 1- \frac{c}{r}\cdot\frac{1+e^{-k_1(v-v_c)}}{1+e^{-k_2(v_k-v)}}\), then plugging this into the
+      equation for \(v\) yields</p>
+    </p>
+      <div class="math-block">\[
+      \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta v\left(1- \frac{c}{r}\cdot \frac{G_2(v)}{G_1(v)}\right) = 0\\
+        \]
+        </div>
+      <p>We cannot analytically find the roots, but numerically we get that \(v\approx 0.4062134\), this makes 
+        \(u \approx 0.34531\). Therefore our third fixed point is approximately 
+        \((0.34531, 0.4062134)\).
+      </p>
+
+      <h4>Stability Analysis</h4>
+      <p>We already have our Jacobian derived, we just need to numericall compute it.</p>
+        <div class="math-block">\[
+              \begin{bmatrix}
+              \frac{r(1-2u)}{1+e^{-k_1(v-v_c)}} - \frac{c}{1+e^{-k_2(v_k-v)}} & ru(1-u)\frac{k_1e^{-k_1(v-v_c)}}{(1+e^{-k_1(v-v_c)})^2} + cu\frac{k_2e^{-k_2(v_k-v)}}{(1+e^{-k_2(v_k-v)})^2}\\\
+              \\
+              -\beta v & (\alpha- 2\alpha v)(v-v_c)+(\alpha v - \alpha v^2) -\beta u - \gamma\\
+              \end{bmatrix}
+          \]</div>
+      <p>Evaluating at \((0,1)\), we have</p>
+        <div class="math-block">\[
+              \begin{bmatrix}
+              9.974 & 0\\
+              \\
+              -0.8  & -12.8\
+              \end{bmatrix}
+          \]</div>
+      <p>For the point \((0, 0.2)\), the Jacobian is</p>
+      <div class="math-block">\[
+              \begin{bmatrix}
+              -3.109176908 & 0\\\
+              \\
+              -0.72 & 0\\
+              \end{bmatrix}
+          \]</div>
+      <p>For the last point, \((0.34531, 0.4062134)\), the Jacobian is</p>
+        <div class="math-block">\[
+              \begin{bmatrix}
+              -1.790770106 & 8.899317969\\\
+              \\
+              -1.462368 & 2.80427482\\
+              \end{bmatrix}
+          \]</div>
+
+      <p>Recall the characteristic polynomial,</p>
+      <div class="math-block">\[
+              \lambda^2 - \text{tr}(J)\lambda + \det(J) = 0 \\
+              \\ 
+              \implies \lambda^2 - \lambda(J_{1,1} + J_{2,2}) + (J_{1,1}J_{2,2} - J_{1,2}J_{2,1}) = 0
+            \]</div>
+      <p>Evaluating for \((0,1)\), we have</p>
+      <div class="math-block">\[
+        \lambda^2 + 2.8256\lambda - 127.6672 = 0
+      \]</div>
+      <p>Using quadratic formula,</p>
+      <div class="math-block">\[
+        \begin{align}
+        \lambda &= \frac{-2.8256 \pm \sqrt{2.8256^2 + 4\cdot127.6672}}{2} = \frac{-2.8256 \pm 22.77399833}{2}\\
+        \\
+        &\implies \lambda_1 = 9.974199165, \ \ \lambda_2 = -12.799799165
+        \end{align}
+      \]</div>
+      <p>Since one eigenvalue is positive and one is negative, we have that \((0,1)\) is a <strong>hyperbolic saddle.</strong></p>
+
+      <p>For \((0. 0.2)\), we plug these values into the characteristic polynomial</p>
+        <div class="math-block">\[
+        \begin{align}
+        \lambda &= \frac{-3.1091769 \pm \sqrt{3.1091769^2 + 4\cdot0}}{2}\\
+        \\
+         &= \frac{-3.1091768 \pm \sqrt{3.1091769^2}}{2} =  \frac{-3.1091768 \pm 3.1091768}{2} \\
+        \\
+        &\implies \lambda_1 = 0, \ \ \lambda_2 = -3.1091769
+        \end{align}
+      \]</div>
+      <p>Since one eigenvalue is zero and the other is negative, we have that \((0, 0.2)\) is a 
+        <strong>non-hyperbolic fixed point</strong>, meaning the Jacobian cannot determine stability alone.
+        It has a center manifold, which we will find later to determine the nature of this fixed point. For
+        now I will continue with the Jacobian for the last point.</p>
+
+      <p>For \((0.34531, 0.4062134)\), we plug the values into the characteristic polynomial again</p>
+        <div class="math-block">\[
+        \begin{align}
+        \lambda &= \frac{1.013504714 \pm \sqrt{1.027191805 - 31.96906521}}{2} \\
+        &= \frac{1.013504714 \pm \sqrt{-30.9418734}}{2} =  -0.506752357 \pm 2.781270995 \ i\\
+        \\
+        &\implies \lambda_1 = 0.506752357 + 2.781270995 \ i, \\ &\implies \lambda_2 = 0.506752357 - 2.781270995 \ i
+        \end{align}
+      \]</div>
+      <p>So for the final fixed point, we have a <strong>unstable (repelling) spiral/focus</strong>. Trajectories near it will 
+        spiral away from it over time.
+      </p>
+      <p>By earlier logic, the saddle on the boundary repels trajectories inside the unit square. Further, the unstable spiral at \((0.34531, 0.4062134)\)
+        pushes trajectories away. A limit cycle does exist, but to prove it we must rule out the potential 
+        for the fixed point \((0, 0.20)\) to be a global attractor. Once that is established, then we can 
+        use the Poincaré–Bendixson theorem again to prove this limit cycle exists. I briefly mentioned the center manifold, which is a special invariant surface that 
+        can help us understand the stability of this fixed point (since linearization fails here). 
+        Once we show that this manifold is not attracting, then we will automatically have our limit cycle.
+      </p>
+      <p>This concludes the Jacobian based stability analysis of the underlying ODEs.</p>
+
+      <h3>Center Manifold</h3>
         
-      <p>This concludes the stability analysis of the underlying ODEs.</p>
       <h3>Bifurcations</h3>
       <p>The system has nine parameters, and therefore trying to analyze every interaction is complicated. 
         However, I have observed some bifurcations, especially when varying \(\gamma\) and \(\beta\).
@@ -437,20 +593,327 @@
         whereas before it was <em>unstable</em>. This is a <strong>supercritical Hopf bifurcation</strong>,
         since the limit cycle that is created/destroyed is <strong>stable</strong>. You can experiment with this directly above, 
         try \(\gamma = 0.79\), and you should still see a low amplitude limit cycle. Then try 
-        \(\gamma = 0.80\), and you should see trajectories spiral into a point. With this behavior, the full 
-        PDE will exhibit Turing patterns that have periodic pulses that propogate along their pattern branches. 
-        A video of this can be seen below.
+        \(\gamma = 0.80\), and you should see trajectories spiral into a point. </p>
+        <p>For the parameters used so far, we see periodic waves that radiate outwards from a source. This can be 
+          seen in the video below. This setup can produce some interesting features, such as traveling waves, 
+          spatial memory, and hysteresis.
+        </p>
+      <video width="100%" autoplay loop muted>
+        <source src="Normal Params.mp4" type="video/mp4">
+      </video>
+
+        <p>
+        The following set of parameters will behave like excitable media, with periodic pulses that propogate along their pattern branches. 
+        The rest of this analysis will be concerned with these parameters, as they produce more interesting 
+        behaviors. A video of this can be seen below.
       </p>
+      <div class="math-block">\[
+        \begin{align}
+            r &=10\\
+            c &= 4\\
+            k_1 &= 12\\
+            k_2&= 12\\
+            v_c &= 0.4\\
+            v_k &= 0.55\\
+            \alpha &= 20 \\
+            \gamma &= 0.8\\
+            \beta &= 3.6
+      \end{align}
+    \]</div>
+    <p></p>
       <video width="100%" autoplay loop muted>
         <source src="Turing-vid.mp4" type="video/mp4">
       </video>
 
       <p>It behaves similar to a living/breathing network. It also 
         resembles a neuronal network with action potentials propogating along 
-        each neuron's axon hillock. The pulses can be understood as 
+        the neuron's axons. The pulses can be understood as 
         temporary surges of local populations. Note that this is only a view of the 
         consumer field, the producer field behaves similarly though.
       </p>
+  <h2>Linearization of the Reaction–Diffusion System</h2>
+
+          <p>
+          We study the stability of a spatially homogeneous equilibrium 
+          \((u^*, v^*)\) of the system
+          </p>
+
+          <div class="math-block">
+          \[
+          \begin{aligned}
+          u_t &= D_u \Delta u + F(u,v),\\
+          v_t &= D_v \Delta v + G(u,v).
+          \end{aligned}
+          \]
+          </div>
+
+          <p>
+          A homogeneous steady state satisfies
+          \(F(u^*,v^*) = 0\) and \(G(u^*,v^*) = 0\).
+          We investigate how small perturbations evolve.
+          </p>
+
+          <h3>1. Add small perturbations</h3>
+          <p>
+          We let
+          </p>
+
+          <div class="math-block">
+          \[
+          u(x,t) = u^* + \varepsilon\,\hat u(x,t), \qquad
+          v(x,t) = v^* + \varepsilon\,\hat v(x,t),
+          \]
+          </div>
+
+          <p>
+          where \(0 < \varepsilon \ll 1\). We will keep only first–order terms in 
+          \(\varepsilon\).
+          </p>
+
+          <h3>2. Expand time derivatives and Laplacians</h3>
+
+          <div class="math-block">
+          \[
+          u_t = \varepsilon\,\hat u_t, \qquad 
+          v_t = \varepsilon\,\hat v_t,
+          \]
+          \[
+          \Delta u = \varepsilon\,\Delta \hat u, \qquad 
+          \Delta v = \varepsilon\,\Delta \hat v.
+          \]
+          </div>
+
+          <h3>3. Linearize the reaction terms using Taylor expansion</h3>
+
+          <p>
+          We expand around \((u^*,v^*)\):
+          </p>
+
+          <div class="math-block">
+          \[
+          F(u,v) = F_u\,\hat u + F_v\,\hat v + O(\varepsilon^2),
+          \qquad
+          G(u,v) = G_u\,\hat u + G_v\,\hat v + O(\varepsilon^2),
+          \]
+          </div>
+
+          <p>
+          since \(F(u^*,v^*)=G(u^*,v^*)=0\).
+          The partial derivatives form the Jacobian matrix
+          </p>
+
+          <div class="math-block">
+          \[
+          J =
+          \begin{pmatrix}
+          F_u & F_v\\
+          G_u & G_v
+          \end{pmatrix}.
+          \]
+          </div>
+
+          <h3>4. Insert expansions into the PDE and divide by \(\varepsilon\)</h3>
+
+          <div class="math-block">
+          \[
+          \hat u_t = D_u \Delta \hat u + F_u \hat u + F_v \hat v,
+          \]
+          \[
+          \hat v_t = D_v \Delta \hat v + G_u \hat u + G_v \hat v.
+          \]
+          </div>
+
+          <p>
+          This is the linearized reaction–diffusion system.
+          </p>
+
+          <h3>5. Assume Fourier-mode perturbations</h3>
+
+          <p>
+          We look for perturbations of the form
+          </p>
+
+          <div class="math-block">
+          \[
+          \hat u(x,t) = U e^{\lambda t} e^{ikx}, \qquad
+          \hat v(x,t) = V e^{\lambda t} e^{ikx}.
+          \]
+          </div>
+
+          <p>
+          The Laplacian acts on this mode as 
+          </p>
+
+          <div class="math-block">
+          \[
+          \Delta e^{ikx} = -k^2 e^{ikx}.
+          \]
+          </div>
+
+          <h3>6. Substitute the Fourier mode into the linearized PDE</h3>
+
+          <div class="math-block">
+          \[
+          \lambda U = (F_u - D_u k^2)U + F_v V,
+          \]
+          \[
+          \lambda V = G_u U + (G_v - D_v k^2)V.
+          \]
+          </div>
+
+          <p>
+          This can be written in matrix form:
+          </p>
+
+          <div class="math-block">
+          \[
+          \lambda
+          \begin{pmatrix}U\\V\end{pmatrix}
+          =
+          \left(J - k^2 D\right)
+          \begin{pmatrix}U\\V\end{pmatrix},
+          \]
+          </div>
+
+          <p>
+          where 
+          </p>
+
+          <div class="math-block">
+          \[
+          D =
+          \begin{pmatrix}
+          D_u & 0\\
+          0 & D_v
+          \end{pmatrix}.
+          \]
+          </div>
+
+          <h3>7. Eigenvalue problem</h3>
+
+          <p>
+          Nontrivial solutions require
+          </p>
+
+          <div class="math-block">
+          \[
+          \det\!\left[(J - k^2 D) - \lambda I\right] = 0.
+          \]
+          </div>
+
+          <p>
+          Expanding the determinant gives a quadratic polynomial in \(\lambda\):
+          </p>
+
+          <div class="math-block">
+          \[
+          \lambda^2 
+          - \lambda\,T(k)
+          + \Delta(k)
+          = 0,
+          \]
+          </div>
+
+          <p>
+          where
+          </p>
+
+          <div class="math-block">
+          \[
+          T(k) = \text{tr}(J - k^2 D),
+          \qquad
+          \Delta(k) = \det(J - k^2 D).
+          \]
+          </div>
+
+          <p>
+          The growth rates are the eigenvalues
+          </p>
+
+          <div class="math-block">
+          \[
+          \lambda_{1,2}(k)
+          =
+          \frac{
+          T(k) \pm \sqrt{\,T(k)^2 - 4\Delta(k)\,}
+          }{2}.
+          \]
+          </div>
+
+          <p>
+          If the real part of \(\lambda(k)\) is positive for some wavenumber \(k\),
+          the homogeneous equilibrium is unstable to perturbations of that wavelength.
+          </p>
+
+
+
+
+        <h2>Steady-State Analysis</h2>
+            <p>The next step in understanding this system, is to determine potential steady states. These can be thought 
+              of as states that are frozen in time. In other words, the field looks frozen. This can be useful for understanding
+              the long-term behavior of the system. To find these states, we set the time derivatives to zero, and solve the resulting system of elliptic PDEs.
+              The PDE is elliptic since \(D_u, D_v > 0\).
+              Therefore, the steady states of our system satisfy
+            </p>
+            <div class="math-block">\[
+                \begin{align}
+              0 &= D_u\Delta u + 
+              \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} - \frac{cu}{1+e^{-k_2(v_k-v)}} \\
+              \\
+              0 &= D_v\Delta v + \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta uv
+              \end{align}
+            \]</div>
+            <p>Equivalently, </p>
+            <div class="math-block">\[
+                \begin{align}
+              D_u\Delta u &= - 
+              \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} + \frac{cu}{1+e^{-k_2(v_k-v)}} \\
+              \\
+              D_v\Delta v &= -\alpha v(1-v)(v-v_c) - \gamma(1-v) + \beta uv
+              \end{align}
+            \]</div>
+            <p>These equations can be interpreted as a balance between diffusion and reaction terms. In other words, 
+              the system reaches a steady state when the dispersive effects of diffusion are exactly balanced by the 
+              local growth and decay effects of the reaction terms. Again, to think about this qualitatively, 
+              the diffusion term tries to spread out populations evenly, whereas the reaction terms can 
+              create local increases or decreases in population based on the interactions defined earlier. 
+              At steady state, the rate at which the population spreads out is exactly matched by the rate at which 
+              the population is growing/decaying locally. When this occurs, the system freezes in time, and becomes 
+              only a function of space. </p>
+              <p>The stationary modes can be stable or unstable, meaning small perturbations could decay if stable or grow if unstable.
+              </p>
+            <p>Now in 1D, this system reduces to a second order ODE, since \(\Delta u = u_{xx}\) in 1D.</p>
+            <div class="math-block">\[
+                \begin{align}
+              D_u u_{xx} &= - 
+              \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} + \frac{cu}{1+e^{-k_2(v_k-v)}} \\
+              \\
+              D_v v_{xx} &= -\alpha v(1-v)(v-v_c) - \gamma(1-v) + \beta uv
+              \end{align}
+            \]</div>
+          <div class="math-block">\[
+                \begin{align}
+               u_{xx} &= - 
+              \frac{1}{D_u} \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} + \frac{1}{D_u} \frac{cu}{1+e^{-k_2(v_k-v)}} \\
+              \\
+              v_{xx} &= -\frac{1}{D_v} \alpha v(1-v)(v-v_c) - \frac{1}{D_v} \gamma(1-v) + \frac{\beta uv}{D_v}
+              \end{align}
+            \]</div>
+
+
+
+    <h2>TO DO:</h2>
+    <p>
+      <ol>
+        <li>Linearized PDE stability</li>
+        <li>Turing instability analysis</li>
+        <li>Bifurcations in detail</li>
+        <li>Amplitude equations</li>
+        <li>Existence/uniqueness theorems</li>
+        <li>bounds/invariant regions</li>
+        <li>spectral analysis of the laplacian</li>
+      </ol>
+    </p>
 
 
 
@@ -554,9 +1017,13 @@
       // ===================== SLIDER LISTENERS =====================
       const gammaSlider = document.getElementById("gammaSlider");
       const betaSlider = document.getElementById("betaSlider");
+      const alphaSlider = document.getElementById("alphaSlider");
+
 
       const gammaValue = document.getElementById("gammaValue");
       const betaValue = document.getElementById("betaValue");
+      const alphaValue = document.getElementById("alphaValue");
+
 
       // Update text while dragging
       gammaSlider.addEventListener("input", (e) => {
@@ -565,6 +1032,9 @@
 
       betaSlider.addEventListener("input", (e) => {
         betaValue.textContent = parseFloat(e.target.value).toFixed(2);
+      });
+      alphaSlider.addEventListener("input", (e) => {
+        alphaValue.textContent = parseFloat(e.target.value).toFixed(2);
       });
 
       gammaSlider.addEventListener("change", (e) => {
@@ -576,6 +1046,10 @@
         params.beta = parseFloat(e.target.value);
         particles = [];
       });
+      alphaSlider.addEventListener("change", (e) => {
+        params.alpha = parseFloat(e.target.value);
+        particles = [];
+      });
       document.getElementById("resetBtn").addEventListener("click", () => {
           particles = [];
         });
@@ -583,14 +1057,17 @@
             // Restore defaults
             params.gamma = 0.6;
             params.beta = 6;
+            params.alpha = 12;
 
             // Update sliders
             gammaSlider.value = params.gamma;
             betaSlider.value = params.beta;
+            alphaSlider.value = params.alpha;
 
             // Update display values
             gammaValue.textContent = params.gamma.toFixed(2);
             betaValue.textContent = params.beta.toFixed(2);
+            alphaValue.textContent = params.alpha.toFixed(2);
 
             // Optional: clear trajectories after param change
             particles.length = 0;
