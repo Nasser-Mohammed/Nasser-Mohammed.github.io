@@ -13,14 +13,8 @@
 
         <!-- ===================== Top Equation Panel ===================== -->
         <div id="equation-panel">
-            <h2>FitzHugh–Nagumo Bifurcation Explorer</h2>
-            <p>
-                $$\begin{aligned}
-                \frac{dv}{dt} &= v - \frac{v^3}{3} - w + I, \\
-                \\
-                \frac{dw}{dt} &= \varepsilon (v + a - b w)
-                \end{aligned}$$
-            </p>
+            <div id="equation-display"></div>
+
         </div>
 
         <!-- ===================== Main Layout: Canvas + Controls ===================== -->
@@ -28,30 +22,54 @@
           <!-- Controls -->
             <div id="controls-panel">
 
+                <label for="system-select">System</label>
+                <select id="system-select">
+                    <option value="fhn" selected>FitzHugh–Nagumo</option>
+                    <option value="custom">My System</option>
+                </select>
+
                 <h3>Parameters</h3>
 
-                <label for="current">I (input current)</label>
-                <input id="current" type="range" min="-1" max="3" step="0.01" value="0">
-                <div id="current-val">0</div>
+                <!-- FHN PARAMETER GROUP -->
+                <div id="fhn-params">
+                    <label for="current">I (input current)</label>
+                    <input id="current" type="range" min="-1" max="3" step="0.01" value="0">
+                    <div id="current-val">0</div>
 
-                <label for="a">a</label>
-                <input id="a" type="range" min="-5" max="5" step="0.01" value="0.7">
-                <div id="a-val">0.7</div>
+                    <label for="a">a</label>
+                    <input id="a" type="range" min="-5" max="5" step="0.01" value="0.7">
+                    <div id="a-val">0.7</div>
 
-                <label for="b">b</label>
-                <input id="b" type="range" min="-30" max="30" step="0.01" value="0.8">
-                <div id="b-val">0.8</div>
+                    <label for="b">b</label>
+                    <input id="b" type="range" min="-30" max="30" step="0.01" value="0.8">
+                    <div id="b-val">0.8</div>
 
-                <label for="ep">ε</label>
-                <input id="ep" type="range" min="0.01" max="0.5" step="0.01" value="0.08">
-                <div id="ep-val">0.08</div>
+                    <label for="ep">ε</label>
+                    <input id="ep" type="range" min="0.01" max="0.5" step="0.01" value="0.08">
+                    <div id="ep-val">0.08</div>
+                </div>
+
+                <!-- CUSTOM SYSTEM PARAMETER GROUP -->
+                <div id="custom-params" style="display:none;">
+                    <label for="alpha">α</label>
+                    <input id="alpha" type="range" min="0" max="50" step="0.1" value="20">
+                    <div id="alpha-val">20</div>
+
+                    <label for="beta">β</label>
+                    <input id="beta" type="range" min="0" max="10" step="0.1" value="3.6">
+                    <div id="beta-val">3.6</div>
+
+                    <label for="gamma">γ</label>
+                    <input id="gamma" type="range" min="0" max="5" step="0.1" value="0.8">
+                    <div id="gamma-val">0.8</div>
+                </div>
 
                 <button id="reset-btn">Reset</button>
 
                 <div id="equilibria-info"></div>
                 <div id="bif-popup"></div>
-
             </div>
+
 
             <!-- Canvas -->
             <div id="canvas-container">
@@ -63,7 +81,6 @@
     </div> <!-- end wrapper -->
 
     <!-- MathJax -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async
             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 

@@ -1,6 +1,41 @@
 // === Canvas Setup ===
 const canvas = document.getElementById("canvas2d");
 const ctx = canvas.getContext("2d", { alpha: false });
+// NEW: System selector
+let systemChoice = "fhn";
+
+const EQUATION_FHN = `
+<h2>FitzHugh–Nagumo System</h2>
+<p>
+$$
+\\begin{aligned}
+\\frac{dv}{dt} &= v - \\frac{v^3}{3} - w + I \\\\
+\\frac{dw}{dt} &= \\varepsilon (v + a - b w)
+\\end{aligned}
+$$
+</p>
+`;
+
+const EQUATION_CUSTOM = `
+<h2>Custom Biological System</h2>
+<p>
+$$
+\\begin{aligned}
+\\frac{du}{dt} &= 
+\\frac{r u (1-u)}{1 + e^{-k_1 (v - v_c)}} 
+- 
+\\frac{c u}{1 + e^{-k_2 (v_k - v)}} 
+\\\\[6pt]
+\\frac{dv}{dt} &= 
+\\alpha v (1-v)(v - v_c)
++ \\gamma(1-v)
+- \\beta u v
+\\end{aligned}
+$$
+</p>
+`;
+
+
 
 
 // === Simulation Parameters ===
@@ -12,6 +47,27 @@ let b = 0.8;
 let epsilon = 0.08;
 let x_range = [-2, 2];
 let y_range = [-1.5, 1.5];
+let r = 10;
+let c = 4;
+let k1 = 12;
+let k2 = 12;
+let v_c = 0.4;
+let v_k = 0.55;
+let alpha = 20;
+let gamma = 0.8;
+let beta = 3.6;
+
+// System-specific domains
+const domain_FHN = {
+    x: [-2, 2],
+    y: [-1.5, 1.5]
+};
+
+const domain_CUSTOM = {
+    x: [0, 1],
+    y: [0, 1]
+};
+
 
 const columns = 15;
 const rows = 7;
@@ -52,16 +108,71 @@ window.addEventListener("resize", () => {
 });
 
 
+// === Vector fields ===
+
+// Original FHN system
 function fhn(v, w) {
     let dv = v - (v*v*v)/3 - w + I;
     let dw = epsilon * (v + a - b*w);
     return [dv, dw];
 }
 
+// NEW: Placeholder custom system 
+function customSystem(u, v) {
+
+    // du/dt
+    let growthTerm = (r * u * (1 - u)) / (1 + Math.exp(-k1 * (v - v_c)));
+    let predTerm   = (c * u) / (1 + Math.exp(-k2 * (v_k - v)));
+    let du = growthTerm - predTerm;
+
+    // dv/dt
+    let dv = alpha * v * (1 - v) * (v - v_c)
+             + gamma * (1 - v)
+             - beta * u * v;
+
+    return [du, dv];
+}
+
+function updateDomainForSystem() {
+    if (systemChoice === "fhn") {
+        x_range = [...domain_FHN.x];
+        y_range = [...domain_FHN.y];
+    } else {
+        x_range = [...domain_CUSTOM.x];
+        y_range = [...domain_CUSTOM.y];
+    }
+    resizeCanvas();   // recompute pixel transforms
+}
+
+function updateEquationDisplay() {
+    const panel = document.getElementById("equation-display");
+
+    if (systemChoice === "fhn") {
+        panel.innerHTML = EQUATION_FHN;
+    } else {
+        panel.innerHTML = EQUATION_CUSTOM;
+    }
+
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+}
+
+
+
+
+// NEW: dispatcher
+function vectorField(v, w) {
+    if (systemChoice === "fhn") return fhn(v, w);
+    return customSystem(v, w);
+}
+
+
 function step(v, w) {
-    let [dv, dw] = fhn(v, w);
+    let [dv, dw] = vectorField(v, w);
     return [v + dt * dv, w + dt * dw];
 }
+
 
 function drawLine(x1, y1, x2, y2, color) {
     const px1 = (x1 - x_range[0]) / (x_range[1] - x_range[0]) * width;
@@ -132,24 +243,66 @@ function detectBifurcation(eq) {
 }
 
 
-function findEquilibria() {
-    // We solve f(v) = 0 where:
-    // f(v) = v - v^3/3 + I - (v + a)/b
 
+function isStable(v, w) {
+    if (systemChoice === "fhn") return isStableFHN(v, w);
+    return customStability(v, w);
+}
+
+// Original FHN linearization
+function isStableFHN(v, w) {
+    let tr = (1 - v*v) + (-epsilon*b);
+    let det = (1 - v*v)*(-epsilon*b) + epsilon;
+    return (det > 0 && tr < 0);
+}
+
+function customStability(u, v) {
+    const h = 1e-4;
+
+    function sys(x, y) {
+        return customSystem(x, y);
+    }
+
+    let [f0, g0] = sys(u, v);
+
+    let [f_u] = sys(u + h, v);
+    let [f_v] = sys(u, v + h);
+
+    let [, g_u] = sys(u + h, v);
+    let [, g_v] = sys(u, v + h);
+
+    let a = (f_u - f0) / h;
+    let b = (f_v - f0) / h;
+    let c = (g_u - g0) / h;
+    let d = (g_v - g0) / h;
+
+    let tr = a + d;
+    let det = a*d - b*c;
+
+    return det > 0 && tr < 0;
+}
+
+
+
+function findEquilibria() {
+    if (systemChoice === "fhn") {
+        return findEquilibriaFHN();
+    }
+    return customEquilibria();
+}
+
+// Original method only for FHN
+function findEquilibriaFHN() {
     function f(v) {
         return v - (v*v*v)/3 + I - (v + a)/b;
     }
-
-    // numerical sampling + root polishing
     let pts = [];
     let lastV = x_range[0];
     let lastF = f(lastV);
 
     for (let v = x_range[0] + 0.001; v <= x_range[1]; v += 0.001) {
         let fv = f(v);
-
         if (lastF * fv <= 0) {
-            // use bisection to refine
             let lo = lastV;
             let hi = v;
             for (let iter = 0; iter < 25; iter++) {
@@ -162,20 +315,72 @@ function findEquilibria() {
             let wstar = (vstar + a)/b;
             pts.push([vstar, wstar]);
         }
-
         lastV = v;
         lastF = fv;
     }
-
     return pts;
 }
 
-function isStable(v, w) {
-    let tr = (1 - v*v) + (-epsilon*b);
-    let det = (1 - v*v)*(-epsilon*b) + epsilon;
+function customEquilibria() {
+    let pts = [];
 
-    return (det > 0 && tr < 0);
+    // brute force scanning approach
+    let stepU = (x_range[1] - x_range[0]) / 400;
+    let stepV = (y_range[1] - y_range[0]) / 400;
+
+    for (let u = x_range[0]; u <= x_range[1]; u += stepU) {
+        for (let v = y_range[0]; v <= y_range[1]; v += stepV) {
+            let [du, dv] = customSystem(u, v);
+
+            // near equilibrium
+            if (Math.abs(du) < 0.015 && Math.abs(dv) < 0.015) {
+                pts.push([u, v]);
+            }
+        }
+    }
+
+    return mergeNearbyPoints(pts);
 }
+
+// helper to merge clustered points
+function mergeNearbyPoints(points) {
+    let merged = [];
+    let tol = 0.05;
+    for (let p of points) {
+        let found = false;
+        for (let q of merged) {
+            if (Math.hypot(p[0]-q[0], p[1]-q[1]) < tol) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) merged.push(p);
+    }
+    return merged;
+}
+
+
+
+
+function updateEquilibriaInfo(eq) {
+    const info = document.getElementById("equilibria-info");
+
+    if (eq.length === 0) {
+        info.innerHTML = `<b>No equilibria</b>`;
+        return;
+    }
+
+    let html = `<b>Equilibria:</b><br>`;
+    eq.forEach(([v, w]) => {
+        let stable = isStable(v, w);
+        html += `v=${v.toFixed(3)}, w=${w.toFixed(3)} — `;
+        html += stable ? `<span style="color:lime;">stable</span>` :
+                         `<span style="color:red;">unstable</span>`;
+        html += `<br>`;
+    });
+    info.innerHTML = html;
+}
+
 
 function drawEquilibria(eq) {
     for (let [v, w] of eq) {
@@ -199,61 +404,127 @@ function drawEquilibria(eq) {
 }
 
 
-function updateEquilibriaInfo(eq) {
-    const info = document.getElementById("equilibria-info");
-
-    if (eq.length === 0) {
-        info.innerHTML = `<b>No equilibria</b>`;
-        return;
-    }
-
-    let html = `<b>Equilibria:</b><br>`;
-    eq.forEach(([v, w]) => {
-        let stable = isStable(v, w);
-        html += `v=${v.toFixed(3)}, w=${w.toFixed(3)} — `;
-        html += stable ? `<span style="color:lime;">stable</span>` :
-                         `<span style="color:red;">unstable</span>`;
-        html += `<br>`;
-    });
-    info.innerHTML = html;
-}
-
-
-
-
 
 
 function drawNullclines() {
     ctx.lineWidth = 4;
 
-    // === v-nullcline (red):  w = v - v^3/3 + I ===
+    if (systemChoice === "fhn") {
+        // === v-nullcline (red): w = v - v^3/3 + I ===
+        ctx.strokeStyle = "red";
+        ctx.beginPath();
+        let first = true;
+        for (let v = x_range[0]; v <= x_range[1]; v += 0.005) {
+            let w = v - (v*v*v)/3 + I;
+            let px = (v - x_range[0])/(x_range[1]-x_range[0]) * width;
+            let py = height - (w - y_range[0])/(y_range[1]-y_range[0]) * height;
+            if (first) { ctx.moveTo(px, py); first = false; }
+            else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+
+        // === w-nullcline (green): w = (v + a)/b ===
+        ctx.strokeStyle = "lime";
+        ctx.beginPath();
+        first = true;
+        for (let v = x_range[0]; v <= x_range[1]; v += 0.005) {
+            let w = (v + a)/b;
+            let px = (v - x_range[0])/(x_range[1]-x_range[0]) * width;
+            let py = height - (w - y_range[0])/(y_range[1]-y_range[0]) * height;
+            if (first) { ctx.moveTo(px, py); first = false; }
+            else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+    }
+
+    if (systemChoice === "custom") {
+        customNullclines();
+    }
+}
+
+
+function customNullclines() {
+    //------------------------------------------------------------
+    // u-nullcline: du/dt = 0  (red)
+    //------------------------------------------------------------
     ctx.strokeStyle = "red";
     ctx.beginPath();
     let first = true;
-    for (let v = x_range[0]; v <= x_range[1]; v += 0.005) {
-        let w = v - (v*v*v)/3 + I;
-        let px = (v - x_range[0]) / (x_range[1] - x_range[0]) * width;
-        let py = height - (w - y_range[0]) / (y_range[1] - y_range[0]) * height;
 
-        if (first) { ctx.moveTo(px, py); first = false; }
-        else ctx.lineTo(px, py);
+    // sample u finely
+    for (let u = 0; u <= 1; u += 0.001) {
+
+        // solve du/dt = 0 for v via bisection
+        let v_left = 0, v_right = 1;
+        let found = false;
+
+        for (let iter = 0; iter < 40; iter++) {
+            let vm = 0.5*(v_left + v_right);
+
+            let growth = (r * u * (1 - u)) / (1 + Math.exp(-k1 * (vm - v_c)));
+            let pred   = (c * u) / (1 + Math.exp(-k2 * (v_k - vm)));
+            let du = growth - pred;
+
+            // Estimate sign at left
+            let gl = (r * u * (1 - u)) / (1 + Math.exp(-k1 * (v_left - v_c)));
+            let pl = (c * u) / (1 + Math.exp(-k2 * (v_k - v_left)));
+            let du_left = gl - pl;
+
+            if (du_left * du <= 0) {
+                v_right = vm;
+            } else {
+                v_left = vm;
+            }
+        }
+
+        let v_star = 0.5*(v_left + v_right);
+
+        if (v_star >= 0 && v_star <= 1) {
+            let px = (u - x_range[0])/(x_range[1]-x_range[0]) * width;
+            let py = height - (v_star - y_range[0])/(y_range[1]-y_range[0]) * height;
+
+            if (first) { ctx.moveTo(px, py); first = false; }
+            else ctx.lineTo(px, py);
+        }
     }
     ctx.stroke();
 
-    // === w-nullcline (green): w = (v + a)/b ===
+
+
+    //------------------------------------------------------------
+    // v-nullcline: dv/dt = 0 (green)
+    //------------------------------------------------------------
     ctx.strokeStyle = "lime";
     ctx.beginPath();
     first = true;
-    for (let v = x_range[0]; v <= x_range[1]; v += 0.005) {
-        let w = (v + a)/b;
-        let px = (v - x_range[0]) / (x_range[1] - x_range[0]) * width;
-        let py = height - (w - y_range[0]) / (y_range[1] - y_range[0]) * height;
 
-        if (first) { ctx.moveTo(px, py); first = false; }
-        else ctx.lineTo(px, py);
+    // sample v finely, solve for u
+    for (let v = 0; v <= 1; v += 0.001) {
+
+        // solve dv/dt = 0 for u (this is linear in u!)
+        // dv = αv(1-v)(v-v_c) + γ(1-v) - βuv = 0
+        // → u = [ αv(1-v)(v-v_c) + γ(1-v) ] / (βv)
+
+        let denom = beta * v;
+
+        if (Math.abs(denom) > 1e-6) {
+            let numerator = alpha*v*(1-v)*(v-v_c) + gamma*(1-v);
+            let u_star = numerator / denom;
+
+            if (u_star >= 0 && u_star <= 1) {
+                let px = (u_star - x_range[0])/(x_range[1]-x_range[0]) * width;
+                let py = height - (v - y_range[0])/(y_range[1]-y_range[0]) * height;
+
+                if (first) { ctx.moveTo(px, py); first = false; }
+                else ctx.lineTo(px, py);
+            }
+        }
     }
+
     ctx.stroke();
 }
+
+
 
 
 
@@ -311,6 +582,69 @@ document.addEventListener("DOMContentLoaded", () => {
   const bVal = document.getElementById("b-val");
   const epVal = document.getElementById("ep-val");
 
+  // Ensure correct visibility on load
+    document.getElementById("fhn-params").style.display = "block";
+    document.getElementById("custom-params").style.display = "none";
+
+    const alphaSlider = document.getElementById("alpha");
+    const betaSlider = document.getElementById("beta");
+    const gammaSlider = document.getElementById("gamma");
+
+    const alphaVal = document.getElementById("alpha-val");
+    const betaVal = document.getElementById("beta-val");
+    const gammaVal = document.getElementById("gamma-val");
+
+// CUSTOM SYSTEM SLIDERS
+alphaSlider.oninput = e => {
+    alpha = parseFloat(e.target.value);
+    alphaVal.textContent = alpha.toFixed(2);
+    if (systemChoice === "custom") drawPhasePortrait();
+};
+
+betaSlider.oninput = e => {
+    beta = parseFloat(e.target.value);
+    betaVal.textContent = beta.toFixed(2);
+    if (systemChoice === "custom") drawPhasePortrait();
+};
+
+gammaSlider.oninput = e => {
+    gamma = parseFloat(e.target.value);
+    gammaVal.textContent = gamma.toFixed(2);
+    if (systemChoice === "custom") drawPhasePortrait();
+};
+
+
+document.getElementById("system-select").onchange = e => {
+    systemChoice = e.target.value;
+
+    previousEquilibria = [];
+
+    // toggle parameter panels
+    const fhnBox = document.getElementById("fhn-params");
+    const customBox = document.getElementById("custom-params");
+
+    if (systemChoice === "fhn") {
+        fhnBox.style.display = "block";
+        customBox.style.display = "none";
+    } else {
+        fhnBox.style.display = "none";
+        customBox.style.display = "block";
+    }
+
+    updateDomainForSystem();
+    updateEquationDisplay();
+
+    // reset trajectory color cycling
+    colorIndex = 0;
+
+    drawPhasePortrait();
+};
+
+
+
+
+
+
 currSlider.oninput = e => {
     I = parseFloat(e.target.value);
     currVal.textContent = I.toFixed(4);
@@ -336,23 +670,44 @@ epSlider.oninput = e => {
 };
 
   document.getElementById("reset-btn").onclick = () => {
-    I = 0;
-    a = 0.7;
-    b = 0.8;
-    epsilon = 0.08;
 
-    document.getElementById("current").value = 0;
-    document.getElementById("a").value = 0.7;
-    document.getElementById("b").value = 0.8;
-    document.getElementById("ep").value = 0.08;
+    if (systemChoice === "fhn") {
+        // Reset FHN parameters
+        I = 0;
+        a = 0.7;
+        b = 0.8;
+        epsilon = 0.08;
 
-    document.getElementById("current-val").textContent = "0";
-    document.getElementById("a-val").textContent = "0.7";
-    document.getElementById("b-val").textContent = "0.8";
-    document.getElementById("ep-val").textContent = "0.08";
+        document.getElementById("current").value = 0;
+        document.getElementById("a").value = 0.7;
+        document.getElementById("b").value = 0.8;
+        document.getElementById("ep").value = 0.08;
+
+        document.getElementById("current-val").textContent = "0";
+        document.getElementById("a-val").textContent = "0.7";
+        document.getElementById("b-val").textContent = "0.8";
+        document.getElementById("ep-val").textContent = "0.08";
+    } 
+
+    else if (systemChoice === "custom") {
+        // Reset CUSTOM parameters
+        alpha = 20;
+        beta = 3.6;
+        gamma = 0.8;
+
+        document.getElementById("alpha").value = 20;
+        document.getElementById("beta").value = 3.6;
+        document.getElementById("gamma").value = 0.8;
+
+        document.getElementById("alpha-val").textContent = "20";
+        document.getElementById("beta-val").textContent = "3.6";
+        document.getElementById("gamma-val").textContent = "0.8";
+    }
 
     drawPhasePortrait();
 };
+
+    updateEquationDisplay();
 
 
   drawPhasePortrait();
