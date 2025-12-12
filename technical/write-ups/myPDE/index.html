@@ -583,7 +583,74 @@
       </p>
       <p>This concludes the Jacobian based stability analysis of the underlying ODEs.</p>
 
-      <h3>Center Manifold</h3>
+      <h3>Center Manifold Analysis</h3>
+      <p>
+        At the parameter set producing the Turing-like patterns, we identified a non-hyperbolic fixed point at
+        \((u^*, v^*) = (0, 0.2)\). The Jacobian at this point was found to be:
+      </p>
+      <div class="math-block">
+        \[
+          J = \begin{bmatrix} -3.109 & 0 \\ -0.72 & 0 \end{bmatrix}
+        \]
+      </div>
+      <p>
+        The eigenvalues are \(\lambda_s = -3.109\) (stable) and \(\lambda_c = 0\) (center).
+        Because of the zero eigenvalue, the Hartman-Grobman theorem fails, and linearization is insufficient to determine stability.
+        We must apply <strong>Center Manifold Theory</strong> to reduce the system to its essential dynamics.
+      </p>
+
+      <h4>1. Coordinate Transformation</h4>
+      <p>
+        First, we shift the equilibrium to the origin. Let:
+        \[ \tilde{u} = u, \quad \tilde{v} = v - 0.2 \]
+        The eigenvector associated with the stable eigenvalue \(\lambda_s\) is \(\mathbf{w}_s \approx [4.31, 1]^T\), and the eigenvector
+        associated with the center eigenvalue \(\lambda_c\) is \(\mathbf{w}_c = [0, 1]^T\).
+      </p>
+      <p>
+        Since \(\mathbf{w}_c\) lies exactly on the \(\tilde{v}\)-axis (and the matrix is lower triangular),
+        the center manifold is tangent to the line \(\tilde{u} = 0\). The dynamics of \(\tilde{u}\) are fast (decaying at rate \(e^{-3.1t}\)),
+        while the dynamics of \(\tilde{v}\) are slow. By the <strong>Slaving Principle</strong>, the system quickly settles onto the center manifold.
+        Since the coupling term \(J_{1,2}\) (top right of Jacobian) is exactly zero, and \(u=0\) is an invariant manifold for the
+        first equation, the center manifold is simply \(u = 0\) exactly.
+      </p>
+
+      <h4>2. Reduced Dynamics</h4>
+      <p>
+        We substitute \(u=0\) into the equation for \(\dot{v}\) to find the flow on the center manifold.
+        Recall the \(v\)-nullcline equation for \(u=0\):
+        \[ f(v) = \alpha v(1-v)(v-v_c) + \gamma(1-v) \]
+        We expand this function as a Taylor series around the fixed point \(v^* = 0.2\).
+        We know that \(f(0.2) = 0\) and \(f'(0.2) = 0\).
+        Therefore, the leading order term is the second derivative (quadratic).
+      </p>
+      <div class="math-block">
+        \[ \dot{\tilde{v}} \approx \frac{1}{2} f''(0.2) \tilde{v}^2 \]
+      </div>
+      <p>
+        Computing the second derivative of the producer dynamics:
+        \[ f(v) = -\alpha v^3 + \alpha(1+v_c)v^2 - \alpha v_c v + \gamma(1-v) \]
+        \[ f'(v) = -3\alpha v^2 + 2\alpha(1+v_c)v - (\alpha v_c + \gamma) \]
+        \[ f''(v) = -6\alpha v + 2\alpha(1+v_c) \]
+        Substituting \(\alpha = 20, v = 0.2, v_c = 0.4\):
+        \[ f''(0.2) = -120(0.2) + 40(1.4) = -24 + 56 = +32 \]
+      </p>
+
+      <h4>3. Stability Conclusion</h4>
+      <p>
+        The reduced equation on the center manifold is approximately:
+        \[ \dot{\tilde{v}} = 16 \tilde{v}^2 \]
+      </p>
+      <p>
+        This represents a <strong>semi-stable</strong> fixed point (specifically, a saddle-node point):
+      </p>
+      <ul>
+        <li>If \(\tilde{v} < 0\) (meaning \(v < 0.2\)): \(\dot{\tilde{v}}\) is positive. The flow moves <strong>up</strong> towards the fixed point. (Attracting from below).</li>
+        <li>If \(\tilde{v} > 0\) (meaning \(v > 0.2\)): \(\dot{\tilde{v}}\) is positive. The flow moves <strong>up</strong> away from the fixed point. (Repelling from above).</li>
+      </ul>
+      <p>
+        <strong>Physical Interpretation:</strong> This explains the "threshold" behavior observed in the simulation.
+        Populations below 0.2 recover up to this floor, but once they cross it (due to noise or diffusion), they are pushed rapidly away toward the oscillating limit cycle.
+      </p>
         
       <h3>Bifurcations</h3>
       <p>The system has nine parameters, and therefore trying to analyze every interaction is complicated. 
@@ -600,7 +667,7 @@
           seen in the video below. This setup can produce some interesting features, such as traveling waves, 
           spatial memory, and hysteresis.
         </p>
-      <video width="100%" autoplay loop muted>
+      <video width="100%" controls autoplay loop muted>
         <source src="Normal Params.mp4" type="video/mp4">
       </video>
 
