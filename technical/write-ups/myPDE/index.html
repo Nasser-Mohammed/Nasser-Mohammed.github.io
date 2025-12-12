@@ -634,287 +634,220 @@
         temporary surges of local populations. Note that this is only a view of the 
         consumer field, the producer field behaves similarly though.
       </p>
-  <h2>Linearization of the Reaction–Diffusion System</h2>
+        <h2>Steady-State Analysis</h2>
+        <p>
+          To understand the long-term behavior of the system, we look for <strong>steady states</strong>—configurations where the 
+          concentrations do not change with time (\(\partial u/\partial t = \partial v/\partial t = 0\)). 
+          These states satisfy the system of elliptic PDEs:
+        </p>
 
-          <p>
-          We study the stability of a spatially homogeneous equilibrium 
-          \((u^*, v^*)\) of the system
-          </p>
-
-          <div class="math-block">
+        <div class="math-block">
           \[
           \begin{aligned}
-          u_t &= D_u \Delta u + F(u,v),\\
-          v_t &= D_v \Delta v + G(u,v).
+            0 &= D_u \Delta u + F(u,v), \\
+            0 &= D_v \Delta v + G(u,v).
           \end{aligned}
           \]
-          </div>
+        </div>
 
+        <p>
+          This represents a balance where the dispersive effects of diffusion are exactly counteracted by the local reaction kinetics.
+        </p>
+
+        <h3>1. Boundary Conditions</h3>
+        <p>
+          For this system to be well-posed, we must specify boundary conditions. 
+          Biologically, we assume the system is isolated, meaning no biomass flows in or out of the domain edges. 
+          This corresponds to <strong>homogeneous Neumann boundary conditions</strong>:
+        </p>
+        <div class="math-block">
+          \[ \nabla u \cdot \mathbf{n} = 0, \quad \nabla v \cdot \mathbf{n} = 0 \quad \text{on } \partial \Omega \]
+        </div>
+        <p>
+          where \(\mathbf{n}\) is the outward normal vector. 
+          Note that any spatially homogeneous fixed point \((u^*, v^*)\) derived in the ODE section satisfies both the elliptic equations 
+          (since \(\Delta u^* = 0\)) and the boundary conditions.
+        </p>
+
+        <h3>2. 1D Spatial Dynamics</h3>
+        <p>
+          In a one-dimensional domain, the steady-state system reduces to a set of second-order ODEs in space. 
+          Rearranging terms, we get:
+        </p>
+
+        <div class="math-block">
+          \[
+          \begin{aligned}
+            \frac{d^2 u}{dx^2} &= -\frac{1}{D_u} F(u,v), \\
+            \frac{d^2 v}{dx^2} &= -\frac{1}{D_v} G(u,v).
+          \end{aligned}
+          \]
+        </div>
+
+        <p>
+          This can be viewed as a 4-dimensional dynamical system where the spatial coordinate \(x\) plays the role of "time." 
+          While the constant solutions \((u^*, v^*)\) are trivial solutions to this system, we are interested in 
+          <strong>non-trivial spatially heterogeneous solutions</strong> (patterns). 
+          Finding these usually requires numerical techniques (such as Shooting Methods or Newton-Raphson iteration on the discretized Laplacian), 
+          as analytical solutions for coupled nonlinear elliptic systems are rarely possible.
+        </p>
+
+
+      <h2>Existence and Uniqueness</h2>
+        <p>
+          To ensure our system is physically meaningful, we must verify that the system is "well-posed." 
+          Specifically, we need to prove that for valid initial conditions, a solution exists, it is unique, 
+          and the concentrations \(u\) and \(v\) remain within the biological bounds \([0,1]\) for all time \(t > 0\).
+        </p>
+
+        <div class="claim-box">
+          <div class="claim-title">Theorem: Global Existence and Invariant Regions</div>
           <p>
-          A homogeneous steady state satisfies
-          \(F(u^*,v^*) = 0\) and \(G(u^*,v^*) = 0\).
-          We investigate how small perturbations evolve.
+            <strong>Statement:</strong> Let \(\Omega\) be a bounded domain with smooth boundary and homogeneous Neumann boundary conditions. 
+            Suppose the initial data \((u_0, v_0)\) lies in the rectangle \(\Sigma = [0,1] \times [0,1]\).
+            Then, there exists a unique global solution \((u(x,t), v(x,t))\) such that \((u,v) \in \Sigma\) for all \(t > 0\).
           </p>
 
-          <h3>1. Add small perturbations</h3>
+          <div class="proof-title">Proof Argument.</div>
           <p>
-          We let
+            We rely on the <strong>Maximum Principle</strong> for reaction-diffusion systems.
+            The vector field points inward on the boundary of \(\Sigma\), as proven in our ODE analysis:
           </p>
-
-          <div class="math-block">
-          \[
-          u(x,t) = u^* + \varepsilon\,\hat u(x,t), \qquad
-          v(x,t) = v^* + \varepsilon\,\hat v(x,t),
-          \]
-          </div>
-
+          <ul>
+            <li>\(\frac{\partial u}{\partial t} \big|_{u=0} \ge 0\) and \(\frac{\partial u}{\partial t} \big|_{u=1} < 0\)</li>
+            <li>\(\frac{\partial v}{\partial t} \big|_{v=0} > 0\) and \(\frac{\partial v}{\partial t} \big|_{v=1} \le 0\)</li>
+          </ul>
           <p>
-          where \(0 < \varepsilon \ll 1\). We will keep only first–order terms in 
-          \(\varepsilon\).
+            Since the reaction field points inward and the diffusion matrix is diagonal with positive entries, 
+            diffusion acts as a smoothing operator and cannot transport the solution outside this region (Smoller, 1983).
+            Therefore, the bounds \(0 \le u, v \le 1\) hold for all time. Since the solution is bounded, it cannot blow up in finite time, guaranteeing global existence.
           </p>
+        </div>
 
-          <h3>2. Expand time derivatives and Laplacians</h3>
+        <h2>Linear Stability & Fourier Analysis</h2>
+        <p>
+            We now investigate the stability of a spatially homogeneous equilibrium \((u^*, v^*)\).
+            While the Fourier Transform cannot be easily applied to the full nonlinear system, we can apply it to the 
+            <strong>linearized system</strong> to determine which spatial frequencies (wavenumbers) are unstable.
+        </p>
 
-          <div class="math-block">
-          \[
-          u_t = \varepsilon\,\hat u_t, \qquad 
-          v_t = \varepsilon\,\hat v_t,
-          \]
-          \[
-          \Delta u = \varepsilon\,\Delta \hat u, \qquad 
-          \Delta v = \varepsilon\,\Delta \hat v.
-          \]
-          </div>
+        <h3>1. Linearization</h3>
+        <p>
+            We introduce small perturbations of the form 
+            \(u = u^* + \varepsilon \hat{u}\) and \(v = v^* + \varepsilon \hat{v}\).
+            Substituting these into the PDE and keeping only first-order terms in \(\varepsilon\), we obtain the linear system:
+        </p>
 
-          <h3>3. Linearize the reaction terms using Taylor expansion</h3>
+        <div class="math-block">
+        \[
+        \begin{pmatrix} \hat{u}_t \\ \hat{v}_t \end{pmatrix} 
+        = 
+        \begin{pmatrix} D_u & 0 \\ 0 & D_v \end{pmatrix} \nabla^2 \begin{pmatrix} \hat{u} \\ \hat{v} \end{pmatrix} 
+        + J \begin{pmatrix} \hat{u} \\ \hat{v} \end{pmatrix}
+        \]
+        </div>
 
+        <p>
+            Where \(J\) is the Jacobian matrix evaluated at the fixed point \((u^*, v^*)\).
+        </p>
+
+        <h3>2. Spectral Analysis (Dispersion Relation)</h3>
+        <p>
+            We assume solutions of the form \( \mathbf{w} \sim e^{\lambda t} e^{ikx} \). 
+            Substituting this ansatz into the linearized PDE is equivalent to taking the Fourier Transform, 
+            where \(\nabla^2 \to -k^2\). This yields the characteristic equation:
+        </p>
+
+        <div class="math-block">
+        \[ \det(J - k^2 D - \lambda I) = 0 \]
+        </div>
+
+        <p>
+            Expanding this determinant gives the <strong>Dispersion Relation</strong>, which relates the temporal growth rate \(\lambda\) 
+            to the spatial wavenumber \(k\):
+        </p>
+
+        <div class="math-block">
+        \[ \lambda^2 - \text{tr}(M_k)\lambda + \det(M_k) = 0 \]
+        </div>
+
+        <p>
+            Where \(M_k = J - k^2 D\). The eigenvalues are given by:
+        </p>
+
+        <div class="math-block">
+        \[ \lambda_{1,2}(k) = \frac{\text{tr}(J) - k^2(D_u + D_v) \pm \sqrt{(\text{tr}(J) - k^2(D_u+D_v))^2 - 4\det(M_k)}}{2} \]
+        </div>
+
+        <h3>3. Turing Instability Conditions</h3>
+        <p>
+            The patterns observed in the simulation (Turing patterns) arise when the system is stable to uniform perturbations (\(k=0\)) 
+            but unstable to specific spatial perturbations (\(k \neq 0\)). This requires four conditions:
+        </p>
+
+        <ol>
+            <li>
+                <strong>ODE Stability:</strong> The homogeneous state must be stable in the absence of diffusion.
+                \[ \text{tr}(J) < 0 \quad \text{and} \quad \det(J) > 0 \]
+            </li>
+            <li>
+                <strong>Differential Diffusion:</strong> The inhibitor must diffuse faster than the activator.
+                \[ D_v \neq D_u \]
+            </li>
+            <li>
+                <strong>Destabilization:</strong> Diffusion must be strong enough to destabilize the trace or determinant.
+                \[ D_v J_{11} + D_u J_{22} > 0 \]
+            </li>
+            <li>
+                <strong>Critical Wavenumber:</strong> The minimum of the determinant \(\det(M_k)\) must be negative, creating a band of unstable modes.
+                \[ (D_v J_{11} + D_u J_{22})^2 > 4 D_u D_v \det(J) \]
+            </li>
+        </ol>
+        
+        <p>
+            If these inequalities hold, the system will spontaneously select a wavelength corresponding to \(k_{max}\), 
+            resulting in the static spots or stripes seen in the simulation.
+        </p>
+
+        <h3>Verification: Is this a Turing Pattern?</h3>
+        <p>
+          We can now apply these conditions to the parameters analyzed in the "Stability Analysis" section 
+          (\(r=10, \alpha=20, \gamma=0.8, \beta=3.6\)) to see if the observed patterns are strictly "Turing" patterns.
+        </p>
+
+        <div class="claim-box">
+          <div class="claim-title">Check: Condition 1 (Homogeneous Stability)</div>
           <p>
-          We expand around \((u^*,v^*)\):
+            <strong>Requirement:</strong> For a Turing instability, the spatially homogeneous fixed point must be stable in the absence of diffusion.
+            Mathematically, this requires the real part of the Jacobian eigenvalues to be negative: 
+            \(\text{Re}(\lambda) < 0\).
           </p>
-
-          <div class="math-block">
-          \[
-          F(u,v) = F_u\,\hat u + F_v\,\hat v + O(\varepsilon^2),
-          \qquad
-          G(u,v) = G_u\,\hat u + G_v\,\hat v + O(\varepsilon^2),
-          \]
-          </div>
-
           <p>
-          since \(F(u^*,v^*)=G(u^*,v^*)=0\).
-          The partial derivatives form the Jacobian matrix
+            <strong>Observation:</strong> In our earlier ODE analysis for the fixed point \((0.345, 0.406)\), we calculated the eigenvalues:
+            \[ \lambda \approx 0.507 \pm 2.78 i \]
           </p>
-
-          <div class="math-block">
-          \[
-          J =
-          \begin{pmatrix}
-          F_u & F_v\\
-          G_u & G_v
-          \end{pmatrix}.
-          \]
-          </div>
-
-          <h3>4. Insert expansions into the PDE and divide by \(\varepsilon\)</h3>
-
-          <div class="math-block">
-          \[
-          \hat u_t = D_u \Delta \hat u + F_u \hat u + F_v \hat v,
-          \]
-          \[
-          \hat v_t = D_v \Delta \hat v + G_u \hat u + G_v \hat v.
-          \]
-          </div>
-
           <p>
-          This is the linearized reaction–diffusion system.
+            <strong>Conclusion:</strong> Since \(\text{Re}(\lambda) \approx 0.507 > 0\), the homogeneous system is <strong>already unstable</strong> before diffusion is even added. 
+            Therefore, <strong>Condition 1 is violated.</strong>
           </p>
+        </div>
 
-          <h3>5. Assume Fourier-mode perturbations</h3>
-
-          <p>
-          We look for perturbations of the form
-          </p>
-
-          <div class="math-block">
-          \[
-          \hat u(x,t) = U e^{\lambda t} e^{ikx}, \qquad
-          \hat v(x,t) = V e^{\lambda t} e^{ikx}.
-          \]
-          </div>
-
-          <p>
-          The Laplacian acts on this mode as 
-          </p>
-
-          <div class="math-block">
-          \[
-          \Delta e^{ikx} = -k^2 e^{ikx}.
-          \]
-          </div>
-
-          <h3>6. Substitute the Fourier mode into the linearized PDE</h3>
-
-          <div class="math-block">
-          \[
-          \lambda U = (F_u - D_u k^2)U + F_v V,
-          \]
-          \[
-          \lambda V = G_u U + (G_v - D_v k^2)V.
-          \]
-          </div>
-
-          <p>
-          This can be written in matrix form:
-          </p>
-
-          <div class="math-block">
-          \[
-          \lambda
-          \begin{pmatrix}U\\V\end{pmatrix}
-          =
-          \left(J - k^2 D\right)
-          \begin{pmatrix}U\\V\end{pmatrix},
-          \]
-          </div>
-
-          <p>
-          where 
-          </p>
-
-          <div class="math-block">
-          \[
-          D =
-          \begin{pmatrix}
-          D_u & 0\\
-          0 & D_v
-          \end{pmatrix}.
-          \]
-          </div>
-
-          <h3>7. Eigenvalue problem</h3>
-
-          <p>
-          Nontrivial solutions require
-          </p>
-
-          <div class="math-block">
-          \[
-          \det\!\left[(J - k^2 D) - \lambda I\right] = 0.
-          \]
-          </div>
-
-          <p>
-          Expanding the determinant gives a quadratic polynomial in \(\lambda\):
-          </p>
-
-          <div class="math-block">
-          \[
-          \lambda^2 
-          - \lambda\,T(k)
-          + \Delta(k)
-          = 0,
-          \]
-          </div>
-
-          <p>
-          where
-          </p>
-
-          <div class="math-block">
-          \[
-          T(k) = \text{tr}(J - k^2 D),
-          \qquad
-          \Delta(k) = \det(J - k^2 D).
-          \]
-          </div>
-
-          <p>
-          The growth rates are the eigenvalues
-          </p>
-
-          <div class="math-block">
-          \[
-          \lambda_{1,2}(k)
-          =
-          \frac{
-          T(k) \pm \sqrt{\,T(k)^2 - 4\Delta(k)\,}
-          }{2}.
-          \]
-          </div>
-
-          <p>
-          If the real part of \(\lambda(k)\) is positive for some wavenumber \(k\),
-          the homogeneous equilibrium is unstable to perturbations of that wavelength.
-          </p>
-
-
-
-
-        <h2>Steady-State Analysis</h2>
-            <p>The next step in understanding this system, is to determine potential steady states. These can be thought 
-              of as states that are frozen in time. In other words, the field looks frozen. This can be useful for understanding
-              the long-term behavior of the system. To find these states, we set the time derivatives to zero, and solve the resulting system of elliptic PDEs.
-              The PDE is elliptic since \(D_u, D_v > 0\).
-              Therefore, the steady states of our system satisfy
-            </p>
-            <div class="math-block">\[
-                \begin{align}
-              0 &= D_u\Delta u + 
-              \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} - \frac{cu}{1+e^{-k_2(v_k-v)}} \\
-              \\
-              0 &= D_v\Delta v + \alpha v(1-v)(v-v_c) + \gamma(1-v) - \beta uv
-              \end{align}
-            \]</div>
-            <p>Equivalently, </p>
-            <div class="math-block">\[
-                \begin{align}
-              D_u\Delta u &= - 
-              \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} + \frac{cu}{1+e^{-k_2(v_k-v)}} \\
-              \\
-              D_v\Delta v &= -\alpha v(1-v)(v-v_c) - \gamma(1-v) + \beta uv
-              \end{align}
-            \]</div>
-            <p>These equations can be interpreted as a balance between diffusion and reaction terms. In other words, 
-              the system reaches a steady state when the dispersive effects of diffusion are exactly balanced by the 
-              local growth and decay effects of the reaction terms. Again, to think about this qualitatively, 
-              the diffusion term tries to spread out populations evenly, whereas the reaction terms can 
-              create local increases or decreases in population based on the interactions defined earlier. 
-              At steady state, the rate at which the population spreads out is exactly matched by the rate at which 
-              the population is growing/decaying locally. When this occurs, the system freezes in time, and becomes 
-              only a function of space. </p>
-              <p>The stationary modes can be stable or unstable, meaning small perturbations could decay if stable or grow if unstable.
-              </p>
-            <p>Now in 1D, this system reduces to a second order ODE, since \(\Delta u = u_{xx}\) in 1D.</p>
-            <div class="math-block">\[
-                \begin{align}
-              D_u u_{xx} &= - 
-              \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} + \frac{cu}{1+e^{-k_2(v_k-v)}} \\
-              \\
-              D_v v_{xx} &= -\alpha v(1-v)(v-v_c) - \gamma(1-v) + \beta uv
-              \end{align}
-            \]</div>
-          <div class="math-block">\[
-                \begin{align}
-               u_{xx} &= - 
-              \frac{1}{D_u} \frac{ru(1-u)}{1+e^{-k_1(v-v_c)}} + \frac{1}{D_u} \frac{cu}{1+e^{-k_2(v_k-v)}} \\
-              \\
-              v_{xx} &= -\frac{1}{D_v} \alpha v(1-v)(v-v_c) - \frac{1}{D_v} \gamma(1-v) + \frac{\beta uv}{D_v}
-              \end{align}
-            \]</div>
+        <p>
+          <strong>Interpretation:</strong> 
+          Because the real part is positive and the eigenvalues are complex, the system is undergoing a <strong>Hopf Bifurcation</strong>, not a Turing Bifurcation.
+          The patterns appearing in the simulation are not stationary Turing patterns (frozen spots), but rather <strong>traveling waves</strong> or 
+          <strong>spatiotemporal chaos</strong> driven by the local oscillatory dynamics of the reaction terms.
+          While visually similar to Turing patterns, these are dynamically distinct, resembling "excitable media" (like cardiac tissue or forest fires) 
+          rather than stationary morphogensis.
+        </p>
 
 
 
     <h2>TO DO:</h2>
     <p>
       <ol>
-        <li>Linearized PDE stability</li>
-        <li>Turing instability analysis</li>
         <li>Bifurcations in detail</li>
         <li>Amplitude equations</li>
-        <li>Existence/uniqueness theorems</li>
-        <li>bounds/invariant regions</li>
-        <li>spectral analysis of the laplacian</li>
       </ol>
     </p>
 
