@@ -187,6 +187,7 @@ nameMap.set("shimizu", "Shimizu-Morioka System");
 nameMap.set("arneodo", "Arneodo-Coullet System");
 nameMap.set("threeScroll", "Three-Scroll Attractor");
 nameMap.set("dequanLi", "Dequan-Li Attractor");
+nameMap.set("duffing", "Duffing Oscillator");
 
 
 const equationMap = new Map();
@@ -210,6 +211,7 @@ equationMap.set("shimizu", "\\[\\begin{align*} \\frac{dx}{dt} &= y\\\\ \\\\ \\fr
 equationMap.set("arneodo", "\\[\\begin{align*} \\frac{dx}{dt} &= y\\\\ \\\\ \\frac{dy}{dt} &= z\\\\ \\\\ \\frac{dz}{dt} &=  -\\alpha x - \\beta y - z + \\lambda x^3\\end{align*}\\]");
 equationMap.set("threeScroll", "\\[\\begin{align*} \\frac{dx}{dt} &= \\alpha(y-x)+ \\delta z\\\\ \\\\ \\frac{dy}{dt} &= \\beta x -xz + \\lambda y\\\\ \\\\ \\frac{dz}{dt} &=  xy-\\sigma z\\end{align*}\\]");
 equationMap.set("dequanLi", "\\[\\begin{align*} \\frac{dx}{dt} &= a(y-x)+cxz\\\\ \\\\ \\frac{dy}{dt} &= ex+fy-xz\\\\ \\\\ \\frac{dz}{dt} &=  bz+xy-dx^2\\end{align*}\\]");
+equationMap.set("duffing", "\\[\\begin{align*} \\frac{dx}{dt} &= y \\\\ \\\\ \\frac{dy}{dt} &= \\gamma \\cos(\\tau) - \\delta y - \\alpha x - \\beta x^3 \\\\ \\\\ \\frac{d\\tau}{dt} &=  \\omega \\end{align*}\\]");
 
 
 
@@ -234,6 +236,7 @@ equationParamMap.set("shimizu", ["\\alpha", "\\beta", "\\lambda"]);
 equationParamMap.set("arneodo", ["\\alpha", "\\beta", "\\lambda"]);
 equationParamMap.set("threeScroll", ["\\alpha", "\\beta", "\\lambda"]);
 equationParamMap.set("dequanLi", ["a", "b", "c"]);
+equationParamMap.set("duffing", ["\\gamma", "\\delta", "\\alpha", "beta", "\\omega"]);
 
  // smooth camera movement
 
@@ -260,7 +263,8 @@ class ThreeDimensionalSystems {
       ["shimizu", (x,y,z) => this.shimizu(x,y,z)],
       ["arneodo", (x,y,z) => this.arneodo(x,y,z)],
       ["threeScroll", (x,y,z) => this.threeScroll(x,y,z)],
-      ["dequanLi", (x,y,z) => this.dequanLi(x,y,z)]
+      ["dequanLi", (x,y,z) => this.dequanLi(x,y,z)],
+      ["duffing", (x,y,z) => this.duffing(x,y,z)]
 
     ]);
 
@@ -284,7 +288,8 @@ class ThreeDimensionalSystems {
       ["shimizu", 7],
       ["arneodo", 3],
       ["threeScroll", 0.5],
-      ["dequanLi", 0.15]
+      ["dequanLi", 0.15],
+      ["duffing", 1]
     ]);
 
     this.initParams = new Map([
@@ -307,7 +312,8 @@ class ThreeDimensionalSystems {
       ["shimizu", [0.75, 0.428, 0]],
       ["arneodo", [5.5, 3.5, 1]],
       ["threeScroll", [40, 40, 20]],
-      ["dequanLi", [40, 1.833, 0.16]]
+      ["dequanLi", [40, 1.833, 0.16]],
+      ["duffing", [0.35, 0.2, -1, 1, 1.4]]
 
     ]);
 
@@ -331,7 +337,8 @@ class ThreeDimensionalSystems {
       ["shimizu", [0.75, 0.428, 0]],
       ["arneodo", [5.5, 3.5, 1]],
       ["threeScroll", [40, 40, 20]],
-      ["dequanLi", [40, 1.833, 0.16]]
+      ["dequanLi", [40, 1.833, 0.16]],
+      ["duffing", [0.35, 0.2, -1, 1, 1.4]]
 
 
     ]);
@@ -356,7 +363,8 @@ class ThreeDimensionalSystems {
       ["shimizu", [[0.18, 1.2], [0.1, 1.8], [0, 0]]],
       ["arneodo", [[1, 6], [2.25, 4], [0.5, 5]]],
       ["threeScroll", [[30, 60], [0, 70], [10, 26]]],
-      ["dequanLi", [[35, 60], [0.25, 3], [0.15, 0.165]]]
+      ["dequanLi", [[35, 60], [0.25, 3], [0.15, 0.165]]],
+      ["duffing", [[0.1, 0.6], [0.1, 0.4], [-2, 2], [-2, 2], [1, 2]]]
 
     ]);
 
@@ -380,7 +388,8 @@ class ThreeDimensionalSystems {
       ["shimizu", 1],
       ["arneodo", 0.75],
       ["threeScroll", 0.015],
-      ["dequanLi", 0.01]
+      ["dequanLi", 0.01],
+      ["duffing", 0.6]
     ]);
 //[1, 1, 1], [2, 3, 4], [2.5,2,3], [1.5, -3, 0], [-0.5, 0.9, 1.25], [-2, 0.9, 0.75]
     this.initialConditions = new Map([
@@ -403,8 +412,8 @@ class ThreeDimensionalSystems {
       ["shimizu", [[0, 0.4,  0.1], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
       ["arneodo", [[0.5, 0.01, 0.2], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
       ["threeScroll", [[0.5, 0.01, 0.2], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]],
-      ["dequanLi", [[0.5, 0.01, 0.2], [3, 0.4, 5], [1, 5, 0.15], [6, 5, 0.16], [5, 0.53, 3.6], [-0.2, 0.53, 1.7]]]
-
+      ["dequanLi", [[0.5, 0.01, 0.2], [3, 0.4, 5], [1, 5, 0.15], [6, 5, 0.16], [5, 0.53, 3.6], [-0.2, 0.53, 1.7]]],
+      ["duffing", [[0.5, 0.01, 0.2], [-0.2, 0.4, 0.1], [-0.2, 0.5, 0.15], [-0.2, 0.52, 0.16], [-0.21, 0.53, 0.16], [-0.2, 0.53, 0.17]]]
     
     ]);
 
@@ -597,6 +606,24 @@ class ThreeDimensionalSystems {
     const dz = b*z+x*y-d*x**2;
     return [dx, dy, dz];
   }
+
+duffing(x,y,tau){
+    // Parameters are: [gamma(F), delta(Damping), alpha(Linear Stiffness), beta(Cubic Stiffness), omega(Frequency)]
+    const [gamma, delta, alpha, beta, omega] = this.params.get("duffing");
+    
+    // 1. dx/dt (Rate of Position Change) is Velocity (y)
+    const dx = y; 
+    
+    // 2. dy/dt (Rate of Velocity Change/Acceleration) is the Dynamics:
+    //    F_ext*cos(tau) - Damping*y - LinearStiffness*x - CubicStiffness*x^3
+    //    Note: alpha is multiplied by x (position), beta is multiplied by x**3 (position cubed).
+    const dy = gamma * Math.cos(tau) - delta * y - alpha * x - beta * x**3;
+    
+    // 3. dtau/dt (Rate of Phase Change) is the Frequency (omega)
+    const dtau = omega;
+    
+    return [dx, dy, dtau];
+}
   // Euler method is currently archived, switched to rk4 below
   eulerStep(x, y, z) {
     const fn = this.options.get(this.choice);
@@ -760,6 +787,18 @@ function animate() {
       [x4,y4,z4] = system.rk4Step(x4,y4,z4);
       [x5,y5,z5] = system.rk4Step(x5, y5, z5);
 
+      if (system.choice === 'duffing') {
+          const twoPi = 2 * Math.PI;
+
+          // Only apply the phase wrap (modulus) to the z-coordinate (tau) 
+          // for the Duffing oscillator visualization
+          z1 = z1 % twoPi;
+          z2 = z2 % twoPi;
+          z3 = z3 % twoPi;
+          z4 = z4 % twoPi;
+          z5 = z5 % twoPi;
+          // z6 = z6 % twoPi;
+      }
       //[x6, y6, z6] = system.eulerStep(x6, y6, z6);
 
       ball1.position.set(x1 * scale, y1 * scale, z1 * scale);
