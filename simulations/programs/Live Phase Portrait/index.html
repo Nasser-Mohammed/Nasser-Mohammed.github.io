@@ -116,11 +116,11 @@
                gamma:{min:0.5,max:2,step:0.02,label:"γ (predator death)"},
                delta:{min:0.20,max:1.2,step:0.01,label:"δ (predator growth)"} },
       vanDerPol: { mu:{min:0.05,max:3,step:0.01,label:"μ"} },
-      fitzHugh_Nagumo: { I:{min:0,max:1.5,step:0.01,label:"I"},
-                         R:{min:0,max:0.5,step:0.01,label:"R"},
-                         a:{min:0.4,max:1,step:0.01,label:"a"},
-                         b:{min:0.6,max:1.2,step:0.01,label:"b"},
-                         epsilon:{min:0.2,max:1.2,step:0.01,label:"ε"} },
+      fitzHugh_Nagumo: { I:{min:-1.5,max:1.5,step:0.01,label:"I"},
+                         R:{min:0,max:1,step:0.01,label:"R"},
+                         a:{min:0.,max:1.25,step:0.01,label:"a"},
+                         b:{min:0.,max:1.2,step:0.01,label:"b"},
+                         epsilon:{min:0,max:1.2,step:0.01,label:"ε"} },
       my_model: {
                     g:    { min: 0,  max: 20, step: 0.1,  label: "g (growth rate)" },             // g = 10
                     m:    { min: 0,  max: 20, step: 0.1,  label: "m (death rate)" },              // m = 4
