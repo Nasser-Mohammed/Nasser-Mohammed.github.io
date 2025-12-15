@@ -760,53 +760,66 @@
         </p>
 
 
-      <h2>Existence and Uniqueness</h2>
+<h2>Existence and Uniqueness</h2>
 <p>
-  To ensure our system is physically meaningful, we must verify that the system is "well-posed." 
-  Specifically, we establish that for valid initial conditions, a unique solution exists locally, 
-  and that the concentrations \(u\) and \(v\) remain within the biological bounds \([0,1]\) for all time \(t > 0\), 
-  which guarantees global existence.
+  To ensure our system is physically meaningful, we must verify that it is "well-posed." 
+  Specifically, we establish that for valid initial conditions, a unique solution exists, 
+  and that the concentrations remain non-negative and bounded for all time \(t > 0\).
 </p>
 
 <div class="claim-box">
-  <div class="claim-title">Theorem: Global Existence and Invariant Regions</div>
+  <div class="claim-title">Theorem: Global Existence and Boundedness</div>
   <p>
     <strong>Statement:</strong> Let \(\Omega\) be a bounded domain with smooth boundary and homogeneous Neumann boundary conditions. 
-    Suppose the initial data \((u_0, v_0)\) lies in the rectangle \(\Sigma = [0,1] \times [0,1]\).
-    Then, there exists a unique global solution \((u(x,t), v(x,t))\) such that \((u,v) \in \Sigma\) for all \(t > 0\).
+    Suppose the initial data \((u_0, v_0)\) are non-negative and bounded.
+    Then, there exists a unique global solution \((u(x,t), v(x,t))\) for all \(t > 0\), and the solution remains uniformly bounded.
   </p>
 
   <div class="proof-title">Proof Argument.</div>
+  
   <p>
-    <strong>1. Local Existence:</strong> First, we observe that the reaction kinetics are continuously differentiable (\(C^1\)) functions of \(u\) and \(v\). 
-    By the standard theory for semilinear parabolic equations, this guarantees the existence and uniqueness of a local solution on a maximal time interval \([0, T_{\max})\).
+    <strong>1. Local Existence and Uniqueness:</strong> 
+    First, we observe that the reaction kinetics are continuously differentiable (\(C^1\)) functions of \(u\) and \(v\). 
+    Since the domain of interest is bounded, the reaction terms are <strong>locally Lipschitz continuous</strong>.
+    By the standard theory for semilinear parabolic equations, this guarantees the existence of a unique local solution on a maximal time interval \([0, T_{\max})\).
   </p>
+
   <p>
-    <strong>2. Invariant Region:</strong> To show global existence (\(T_{\max} = \infty\)), we rely on the <strong>Maximum Principle</strong> for reaction-diffusion systems. 
-    We demonstrate that the rectangle \(\Sigma\) is an invariant region by verifying the vector field on the boundary \(\partial \Sigma\):
+    <strong>2. Positivity (Lower Bounds):</strong> 
+    We verify that non-negative initial conditions lead to non-negative solutions (biological viability).
   </p>
   <ul>
     <li>
-      <strong>At \(u=0\):</strong> \(\frac{\partial u}{\partial t} = 0\). Since the rate is zero, the solution cannot cross below 0.
+      <strong>At \(u=0\):</strong> The reaction term is strictly zero (\(f(0,v) = 0\)). Thus \(\partial u / \partial t = 0\), and \(u\) cannot become negative.
     </li>
     <li>
-      <strong>At \(u=1\):</strong> The logistic term vanishes, leaving \(\frac{\partial u}{\partial t} < 0\). The flow points strictly inward.
-    </li>
-    <li>
-      <strong>At \(v=0\):</strong> \(\frac{\partial v}{\partial t} = \gamma > 0\). The flow points strictly inward.
-    </li>
-    <li>
-      <strong>At \(v=1\):</strong> \(\frac{\partial v}{\partial t} = -\beta u \le 0\) (given \(u \ge 0\)). The flow points inward or is tangent to the boundary.
+      <strong>At \(v=0\):</strong> The reaction term simplifies to \(\gamma > 0\). The vector field points strictly inward, preventing \(v\) from crossing below zero.
     </li>
   </ul>
+
   <p>
-    Since the reaction field points inward and the diffusion matrix is diagonal with positive entries, 
-    diffusion acts as a smoothing operator and cannot transport the solution outside this region (Smoller, 1983).
-    Therefore, the bounds \(0 \le u, v \le 1\) hold for all time.
+    <strong>3. Global Boundedness (Prevention of Blow-up):</strong> 
+    To prove global existence (\(T_{\max} = \infty\)), we must show the solution does not diverge to infinity in finite time.
   </p>
+  <ul>
+    <li>
+      <strong>Bound for \(u\):</strong> At \(u=1\), the logistic term vanishes, and the decay term dominates:
+      \[ \frac{\partial u}{\partial t} = - \frac{cu}{1+e^{-k_2(v_k-v)}} < 0 \]
+      Thus, \(u\) is strictly bounded by \(u \le 1\) for all time.
+    </li>
+    <li>
+      <strong>Bound for \(v\):</strong> We do not strictly enforce \(v \le 1\), but rather show \(v\) is bounded by some large constant \(M\). 
+      For sufficiently large \(v\), the cubic term \(-\alpha v^3\) dominates the reaction kinetics. 
+      Since \(u \ge 0\), the term \(-\beta u v \le 0\) acts as a sink. 
+      Therefore, for very large \(v\), \(\frac{\partial v}{\partial t} < 0\). 
+      This implies there exists a large invariant rectangle \([0,1] \times [0, M]\) from which the solution cannot escape.
+    </li>
+  </ul>
+
   <p>
-    <strong>Conclusion:</strong> Since the solution remains uniformly bounded in \(\Sigma\), it cannot blow up in finite time. 
-    Thus, \(T_{\max} = \infty\), guaranteeing unique global existence.
+    <strong>Conclusion:</strong> 
+    Since the solution is confined within a bounded region (invariant rectangle) and cannot blow up, it can be extended for all time. 
+    Therefore, a unique global solution exists.
   </p>
 </div>
 
