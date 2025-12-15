@@ -761,35 +761,54 @@
 
 
       <h2>Existence and Uniqueness</h2>
-        <p>
-          To ensure our system is physically meaningful, we must verify that the system is "well-posed." 
-          Specifically, we need to prove that for valid initial conditions, a solution exists, it is unique, 
-          and the concentrations \(u\) and \(v\) remain within the biological bounds \([0,1]\) for all time \(t > 0\).
-        </p>
+<p>
+  To ensure our system is physically meaningful, we must verify that the system is "well-posed." 
+  Specifically, we establish that for valid initial conditions, a unique solution exists locally, 
+  and that the concentrations \(u\) and \(v\) remain within the biological bounds \([0,1]\) for all time \(t > 0\), 
+  which guarantees global existence.
+</p>
 
-        <div class="claim-box">
-          <div class="claim-title">Theorem: Global Existence and Invariant Regions</div>
-          <p>
-            <strong>Statement:</strong> Let \(\Omega\) be a bounded domain with smooth boundary and homogeneous Neumann boundary conditions. 
-            Suppose the initial data \((u_0, v_0)\) lies in the rectangle \(\Sigma = [0,1] \times [0,1]\).
-            Then, there exists a unique global solution \((u(x,t), v(x,t))\) such that \((u,v) \in \Sigma\) for all \(t > 0\).
-          </p>
+<div class="claim-box">
+  <div class="claim-title">Theorem: Global Existence and Invariant Regions</div>
+  <p>
+    <strong>Statement:</strong> Let \(\Omega\) be a bounded domain with smooth boundary and homogeneous Neumann boundary conditions. 
+    Suppose the initial data \((u_0, v_0)\) lies in the rectangle \(\Sigma = [0,1] \times [0,1]\).
+    Then, there exists a unique global solution \((u(x,t), v(x,t))\) such that \((u,v) \in \Sigma\) for all \(t > 0\).
+  </p>
 
-          <div class="proof-title">Proof Argument.</div>
-          <p>
-            We rely on the <strong>Maximum Principle</strong> for reaction-diffusion systems.
-            The vector field points inward on the boundary of \(\Sigma\), as proven in our ODE analysis:
-          </p>
-          <ul>
-            <li>\(\frac{\partial u}{\partial t} \big|_{u=0} \ge 0\) and \(\frac{\partial u}{\partial t} \big|_{u=1} < 0\)</li>
-            <li>\(\frac{\partial v}{\partial t} \big|_{v=0} > 0\) and \(\frac{\partial v}{\partial t} \big|_{v=1} \le 0\)</li>
-          </ul>
-          <p>
-            Since the reaction field points inward and the diffusion matrix is diagonal with positive entries, 
-            diffusion acts as a smoothing operator and cannot transport the solution outside this region (Smoller, 1983).
-            Therefore, the bounds \(0 \le u, v \le 1\) hold for all time. Since the solution is bounded, it cannot blow up in finite time, guaranteeing global existence.
-          </p>
-        </div>
+  <div class="proof-title">Proof Argument.</div>
+  <p>
+    <strong>1. Local Existence:</strong> First, we observe that the reaction kinetics are continuously differentiable (\(C^1\)) functions of \(u\) and \(v\). 
+    By the standard theory for semilinear parabolic equations, this guarantees the existence and uniqueness of a local solution on a maximal time interval \([0, T_{\max})\).
+  </p>
+  <p>
+    <strong>2. Invariant Region:</strong> To show global existence (\(T_{\max} = \infty\)), we rely on the <strong>Maximum Principle</strong> for reaction-diffusion systems. 
+    We demonstrate that the rectangle \(\Sigma\) is an invariant region by verifying the vector field on the boundary \(\partial \Sigma\):
+  </p>
+  <ul>
+    <li>
+      <strong>At \(u=0\):</strong> \(\frac{\partial u}{\partial t} = 0\). Since the rate is zero, the solution cannot cross below 0.
+    </li>
+    <li>
+      <strong>At \(u=1\):</strong> The logistic term vanishes, leaving \(\frac{\partial u}{\partial t} < 0\). The flow points strictly inward.
+    </li>
+    <li>
+      <strong>At \(v=0\):</strong> \(\frac{\partial v}{\partial t} = \gamma > 0\). The flow points strictly inward.
+    </li>
+    <li>
+      <strong>At \(v=1\):</strong> \(\frac{\partial v}{\partial t} = -\beta u \le 0\) (given \(u \ge 0\)). The flow points inward or is tangent to the boundary.
+    </li>
+  </ul>
+  <p>
+    Since the reaction field points inward and the diffusion matrix is diagonal with positive entries, 
+    diffusion acts as a smoothing operator and cannot transport the solution outside this region (Smoller, 1983).
+    Therefore, the bounds \(0 \le u, v \le 1\) hold for all time.
+  </p>
+  <p>
+    <strong>Conclusion:</strong> Since the solution remains uniformly bounded in \(\Sigma\), it cannot blow up in finite time. 
+    Thus, \(T_{\max} = \infty\), guaranteeing unique global existence.
+  </p>
+</div>
 
         <h2>Linear Stability & Fourier Analysis</h2>
         <p>
@@ -848,8 +867,7 @@
 
         <h3>3. Turing Instability Conditions</h3>
         <p>
-            The patterns observed in the simulation (Turing patterns) arise when the system is stable to uniform perturbations (\(k=0\)) 
-            but unstable to specific spatial perturbations (\(k \neq 0\)). This requires four conditions:
+            Turing patterns require four conditions:
         </p>
 
         <ol>
@@ -872,8 +890,7 @@
         </ol>
         
         <p>
-            If these inequalities hold, the system will spontaneously select a wavelength corresponding to \(k_{max}\), 
-            resulting in the static spots or stripes seen in the simulation.
+            If these inequalities hold, the system will form static spots or stripes.
         </p>
 
         <h3>Verification: Is this a Turing Pattern?</h3>
