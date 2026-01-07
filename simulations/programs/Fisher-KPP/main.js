@@ -216,19 +216,19 @@ function cmapTri(g) {
   g = clamp01(g);
 
   if (g < 0.5) {
-    // 0..0.5: Blue → Green
+    // 0..0.5: Blue -> Green
     const t = g / 0.5;
     return rgb(
       lerp(0,   0,   t),   // R: stays 0
-      lerp(0,   255, t),   // G: 0 → 255
-      lerp(255, 0,   t)    // B: 255 → 0
+      lerp(0,   255, t),   // G: 0 -> 255
+      lerp(255, 0,   t)    // B: 255 -> 0
     );
   } else {
-    // 0.5..1: Green → Red
+    // 0.5..1: Green -> Red
     const t = (g - 0.5) / 0.5;
     return rgb(
-      lerp(0,   255, t),   // R: 0 → 255
-      lerp(255, 0,   t),   // G: 255 → 0
+      lerp(0,   255, t),   // R: 0 -> 255
+      lerp(255, 0,   t),   // G: 255 -> 0
       lerp(0,   0,   t)    // B: stays 0
     );
   }
@@ -374,7 +374,7 @@ canvas.addEventListener("mousemove", e => {
 });
 
 function paintAt(x, y, heavy) {
-  // Convert canvas coordinates → grid indices
+  // Convert canvas coordinates -> grid indices
   const rect = canvas.getBoundingClientRect();
   const gx = Math.floor((x / rect.width) * N) + 1;
   const gy = Math.floor((y / rect.height) * N) + 1;

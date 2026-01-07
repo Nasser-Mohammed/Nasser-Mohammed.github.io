@@ -86,7 +86,7 @@ function initGraph() {
     options: {
       responsive: true,
       interaction: {
-        mode: 'none'  // 👈 Prevents clicking/zoom effects
+        mode: 'none'  //  Prevents clicking/zoom effects
       },
       plugins: {
         legend: { display: false },
@@ -215,10 +215,10 @@ function handlePreyChange() {
   // Update dropdown preview image
   document.getElementById("prey-image").src = `${currentPrey}.png`;
 
-  // ✅ Update icon in counter section
+  //  Update icon in counter section
   document.getElementById("prey-icon").src = `${currentPrey}.png`;
 
-  // ✅ Update the small input icon next to population input
+  //  Update the small input icon next to population input
   document.getElementById("prey-input-image").src = `${currentPrey}.png`;
 
   updateDisplay();
@@ -232,13 +232,13 @@ function handlePredatorChange() {
 
   const emoji = getEmoji(currentPredator);
 
-  // ✅ Update the preview image beside dropdown
+  //  Update the preview image beside dropdown
   document.getElementById("predator-image").src = `${currentPredator}.png`;
 
-  // ✅ Update icon in counter section
+  //  Update icon in counter section
   document.getElementById("predator-icon").src = `${currentPredator}.png`;
 
-  // ✅ Update the small input icon (next to input box)
+  //  Update the small input icon (next to input box)
   document.getElementById("predator-input-image").src = `${currentPredator}.png`;
 
   updateDisplay();
@@ -348,7 +348,7 @@ function loop() {
     predatorCount = Math.max(0, newPredators);
 
 
-    // ⏱️ Track extinction durations
+    // ⏱ Track extinction durations
     if (Math.floor(preyCount) === 0) {
       preyExtinctTime += 0.5;
     } else {
