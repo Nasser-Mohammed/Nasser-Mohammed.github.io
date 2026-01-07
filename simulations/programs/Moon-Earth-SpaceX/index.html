@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gravity Field Navigator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="../../index.html" class="back-link">← Terminal Exit</a>
+        <h1>Space Exploration Console</h1>
+        <p class="subtitle">Symplectic Euler Orbital Integrator</p>
+      </div>
+
+      <div class="control-section">
+
+        <!-- Global Controls -->
+        <div class="status-card">
+          <span class="label">Global Controls</span>
+
+          <button id="start-simulation" class="btn-primary" style="background-color: #fffb1f">
+            Pause System
+          </button>
+
+          <button id="reset-global" class="btn-danger global-reset">
+            Global Reset
+          </button>
+        </div>
+
+        <!-- Vehicle Type -->
+        <div class="status-card vehicle-card">
+          <span class="label">Vehicle Type</span>
+
+          <div class="vehicle-option active" data-vehicle="satellite">
+            Satellite
+          </div>
+
+          <div class="vehicle-option" data-vehicle="telescope">
+            Telescope
+          </div>
+
+          <div class="vehicle-option" data-vehicle="probe">
+            Probe
+          </div>
+
+          <div class="vehicle-option" data-vehicle="rocket">
+            Rocket
+          </div>
+        </div>
+
+        <!-- Launch Controls -->
+        <div class="status-card mission-card">
+          <span class="label">Launch Controls</span>
+
+          <div class="mission-option active" data-mission="leo">
+            Low Earth Orbit
+          </div>
+          <div class="mission-option" data-mission="heo">
+            High Earth Orbit
+          </div>
+          <div class="mission-option" data-mission="moon">
+            Moon Surface
+          </div>
+          <div class="mission-option" data-mission="moon-orbit">
+            Moon Orbit
+          </div>
+          <div class="mission-option" data-mission="l1">
+            L1 Transfer
+          </div>
+          <div class="mission-option" data-mission="l2">
+            L2 Transfer
+          </div>
+        <div class="mission-option" data-mission="l4">
+            L4 Transfer
+          </div>
+
+        <div class="mission-option" data-mission="l5">
+            L5 Transfer
+          </div>
+        </div>
+
+
+        <!-- Control Law -->
+      <div class="status-card control-law-card">
+        <span class="label">Control Law</span>
+
+        <div class="control-option active" data-control="pid">
+          PID Controller
+        </div>
+
+        <div class="control-option" data-control="open-loop">
+          Open Loop
+        </div>
+
+        <button id="launch" class="btn-primary mission-launch">
+          Execute Launch
+        </button>
+      </div>
+
+
+      <!-- Active Missions (injected dynamically) -->
+      <div id="missions-container"></div>
+
+
+        <!-- Mission Time -->
+        <div class="status-card">
+          <span class="label">Mission Time</span>
+          <div id="time-display">T+ 00:00:01 (Month 1)</div>
+        </div>
+
+
+      </div>
+
+
+
+      
+      <div class="info-footer">
+        <p>Newton's Law of Gravity and Force Approximated via Symplectic Euler</p>
+        <p>Grid Resolution: High</p>
+        <p>Potential Field: Deactivated</p>
+      </div>
+    </aside>
+
+    <main class="viewport">
+      <canvas id="simCanvas"></canvas>
+      <div class="overlay-hud">
+        <p id="fps-display">Simulation Active: -- FPS</p>
+      </div>
+    </main>
+  </div>
+    <div id="launch-warning" class="overlay hidden">
+    <div class="overlay-card">
+      Initiate system first
+    </div>
+  </div>
+
+
+  <script src="main.js?v=2"></script>
+</body>
+</html>

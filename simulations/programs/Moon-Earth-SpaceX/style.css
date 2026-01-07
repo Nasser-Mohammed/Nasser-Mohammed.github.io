@@ -1,0 +1,274 @@
+:root {
+  --bg-deep: #05060a;
+  --bg-panel: rgba(15, 17, 26, 0.98);
+  --accent-blue: #00d2ff;
+  --accent-red: #ff3e3e;
+  --text-main: #e0e6ed;
+  --border-glow: rgba(0, 210, 255, 0.2);
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 20vw;
+  min-width: 240px;
+  max-width: 500px;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border-glow);
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 10;
+  overflow-y: auto; /*scrollable*/
+}
+
+.back-link {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+h1 {
+  font-size: 1.4rem;
+  margin: 15px 0 5px;
+  color: #fff;
+}
+
+.subtitle {
+  font-size: 0.7rem;
+  color: #6a7282;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+}
+
+.status-card {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 6px;
+  border-left: 2px solid var(--accent-blue);
+  margin-bottom: 25px;
+}
+
+.label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+  display: block;
+  margin-bottom: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--accent-blue);
+  color: #05060a;
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--accent-red);
+  border: 1px solid var(--accent-red);
+  margin-top: 15px;
+}
+
+.viewport {
+  flex: 1;
+  position: relative;
+  background: radial-gradient(circle at center, #0d101a 0%, #05060a 100%);
+}
+
+#simCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.overlay-hud {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: rgba(0, 210, 255, 0.4);
+}
+
+.info-footer {
+  font-size: 0.7rem;
+  color: #4a5262;
+  line-height: 1.4;
+}
+
+.mission-card {
+  margin-bottom: 25px;
+}
+
+.mission-option {
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.25);
+  border-left: 2px solid transparent;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mission-option:hover {
+  background: rgba(0, 210, 255, 0.1);
+}
+
+.mission-option.active {
+  border-left-color: var(--accent-blue);
+  background: rgba(0, 210, 255, 0.15);
+}
+
+.mission-launch {
+  margin-top: 12px;
+}
+
+.global-reset {
+  margin-top: 20px;
+  opacity: 0.85;
+}
+
+.global-reset:hover {
+  opacity: 1;
+}
+.vehicle-card {
+  margin-bottom: 25px;
+}
+
+.vehicle-option {
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.25);
+  border-left: 2px solid transparent;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.vehicle-option:hover {
+  background: rgba(0, 210, 255, 0.1);
+}
+
+.vehicle-option.active {
+  border-left-color: var(--accent-blue);
+  background: rgba(0, 210, 255, 0.15);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 6, 10, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-card {
+  background: rgba(15, 17, 26, 0.98);
+  padding: 20px 28px;
+  border-radius: 6px;
+  border-left: 3px solid var(--accent-red);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+}
+.control-option {
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.25);
+  border-left: 2px solid transparent;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.control-option:hover {
+  background: rgba(0, 210, 255, 0.1);
+}
+
+.control-option.active {
+  border-left-color: var(--accent-blue);
+  background: rgba(0, 210, 255, 0.15);
+}
+
+.mission-list {
+  max-height: 150px; 
+  overflow-y: auto;
+  padding-right: 4px; /* avoids scrollbar overlap */
+}
+
+/* Optional: subtle scrollbar styling */
+.mission-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mission-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mission-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 210, 255, 0.25);
+  border-radius: 3px;
+}
+
+.mission-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 210, 255, 0.4);
+}
+
+.mission-item {
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.28);
+  border-left: 2px solid rgba(0, 210, 255, 0.35);
+}
+
+.mission-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.mission-meta {
+  margin-top: 2px;
+  font-size: 0.65rem;
+  color: #6a7282;
+  letter-spacing: 0.3px;
+}
