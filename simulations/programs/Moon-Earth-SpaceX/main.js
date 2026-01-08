@@ -53,7 +53,7 @@ bodies.set('Earth', {m: 810, pctX: 0.25, pctY: 0, color: '#00d2ff', trailColor: 
 bodies.set('Moon', {m: 10, pctX: 0.30, pctY: 0, color: '#ffffff', trailColor: "#ffffff", radius: 28, physicalRadius: 40 });
 //bodies.set('Mars', {m: 45, pctX: 0.45, pctY: 0, color: '#c75614', radius: 11 });
 
-const names = ['Earth', 'Moon'];
+let names = ['Earth', 'Moon'];
 
 const objects = []; // these are things that move according to the dynamics but dont necessarily exert force
 // we use "names" to refer to bodies that exert force
@@ -278,9 +278,6 @@ function addMission(vehicle, mission, controller) {
   console.log("Mission added:", missionObj);
 }
 
-function getTargetPosition(missionType){
-
-}
 
 function leoController(bodyName, targetOrbitRadius) {
     const earth = state.get("Earth");
@@ -541,6 +538,7 @@ function computeControlAcceleration(bodyName) {
 
 function symplecticEulerStep(bodyName, currentState){
     const bodyState = currentState.get(bodyName);
+    if (!bodyState) return null;
     const futureState = { ...bodyState}; // Copy current state
 
     // Compute net gravitational force from other bodies, by using gravitational law and summing each interaction. 
@@ -618,6 +616,7 @@ function updatePhysics() {
         const bodyName = names[i];
 
         const newState = symplecticEulerStep(bodyName, currentState);
+        if (!newState) continue;
         newStates.push(newState);
     }
 
@@ -685,7 +684,7 @@ function render(now= performance.now()){
         const img = b.img;
         const imgWidth = b.radius * 2;
         const imgHeight = b.radius * 2;
-        console.log(x, y);
+        //console.log(x, y);
         ctx.drawImage(img, x - b.radius, y - b.radius, imgWidth, imgHeight);     
         }
   });
@@ -718,9 +717,13 @@ function computeEscapeVelocity(mass, point1, point2){
 }
 
 function globalReset(startBtn){
+    isRunning = false;
+    bodies = new Map();
+    bodies.set('Earth', {m: 810, pctX: 0.25, pctY: 0, color: '#00d2ff', trailColor: "#00d2ff", radius: 60 , physicalRadius: 75});
+    bodies.set('Moon', {m: 10, pctX: 0.30, pctY: 0, color: '#ffffff', trailColor: "#ffffff", radius: 28, physicalRadius: 40 });
+    names = ['Earth', 'Moon'];
     state = new Map(initState);
     time = 0;
-    isRunning = false;
     startBtn.innerText = "Initiate System";
     startBtn.style.backgroundColor = "#15ff00";
     missions = new Map();
@@ -729,11 +732,6 @@ function globalReset(startBtn){
     rocketCount = 0;
     satelliteCount = 0;
     telescopeCount = 0;
-
-    bodies = new Map();
-    bodies.set('Earth', {m: 810, pctX: 0.25, pctY: 0, color: '#00d2ff', trailColor: "#00d2ff", radius: 48 });
-    bodies.set('Moon', {m: 10, pctX: 0.30, pctY: 0, color: '#ffffff', trailColor: "#ffffff", radius: 12 });
-    names = ['Earth', 'Moon'];
 
     renderMissionsCard();
 }
