@@ -371,7 +371,7 @@ function guidanceController(bodyName, targetPos, targetVel) {
 
     // Gains (tuned for our scale)
     const Kp = 0.01;
-    const Kd = 0.02;
+    const Kd = 0.045;
 
     let ax = Kp * ex + Kd * evx;
     let ay = Kp * ey + Kd * evy;
