@@ -40,6 +40,13 @@ let probeCount = 0;
 let rocketCount = 0;
 let telescopeCount = 0;
 
+let l1Pos = {x: 0, y: 0};
+let l2Pos = {x: 0, y: 0};
+let l4Pos = {x: 0, y: 0};
+let l5Pos = {x: 0, y: 0};
+
+let moonOrbitAltitude = 75; // distance from moon center to orbit, add radius of moon to get distance
+
 let bodies = new Map();
 //bodies.set('Sun', {m: 5000, pctX: 0, pctY: 0, color: '#ffcc00', radius: 35 });
 bodies.set('Earth', {m: 810, pctX: 0.25, pctY: 0, color: '#00d2ff', trailColor: "#00d2ff", radius: 60 , physicalRadius: 75});
@@ -246,9 +253,10 @@ function addMission(vehicle, mission, controller) {
     return;
   }
   let earthState = state.get("Earth");
+  let earthBody = bodies.get("Earth");
   let moonState = state.get("Moon");
   const vehicleName = `${vehicle}-${count}`;
-  const startState = {x: earthState.x, y: earthState.y, vx: 0, vy: 0};
+  const startState = {x: earthState.x + earthBody.physicalRadius, y: earthState.y, vx: 0, vy: 0};
 
   const missionObj = {
     vehicleName: vehicleName,
@@ -257,6 +265,7 @@ function addMission(vehicle, mission, controller) {
     missionType: mission,
     controlLaw: controller,
     sprite: sprite, 
+    phase: "launch",
     dynamicState: { ...startState }
   };
 
@@ -273,40 +282,261 @@ function getTargetPosition(missionType){
 
 }
 
-function computeControlAcceleration(bodyName, bodyState, currentState) {
+function leoController(bodyName, targetOrbitRadius) {
+    const earth = state.get("Earth");
+    const body = state.get(bodyName);
+    const mission = missions.get(bodyName);
+
+    const dx = body.x - earth.x;
+    const dy = body.y - earth.y;
+    const r = Math.hypot(dx, dy) || 1e-6;
+
+    const rx = dx / r;
+    const ry = dy / r;
+
+    const tx = -ry;
+    const ty =  rx;
+
+    const mu = G * bodies.get("Earth").m;
+
+    if (!mission.phase) mission.phase = "approach";
+
+    /* ---------- Phase 1: radial approach ---------- */
+    if (mission.phase === "approach") {
+        const vRadial = body.vx * rx + body.vy * ry;
+
+        const Kp = 0.01;
+        const Kd = 0.05;
+
+        const er = r - targetOrbitRadius;
+
+        if (Math.abs(er) < 2 && Math.abs(vRadial) < 0.05) {
+            mission.phase = "insert";
+        }
+
+        return {
+            x: -(Kp * er + Kd * vRadial) * rx,
+            y: -(Kp * er + Kd * vRadial) * ry
+        };
+    }
+
+    /* ---------- Phase 2: orbit insertion (ONE TIME) ---------- */
+    if (mission.phase === "insert") {
+        const vCirc = Math.sqrt(mu / r);
+
+        body.vx = earth.vx + vCirc * tx;
+        body.vy = earth.vy + vCirc * ty;
+
+        mission.phase = "orbit";
+        return { x: 0, y: 0 };
+    }
+
+    /* ---------- Phase 3: orbit maintenance ---------- */
+    if (mission.phase === "orbit") {
+        const vRadial =
+            (body.vx - earth.vx) * rx +
+            (body.vy - earth.vy) * ry;
+
+        const er = r - targetOrbitRadius;
+
+        const Kp = 0.002;
+        const Kd = 0.01;
+
+        return {
+            x: -(Kp * er + Kd * vRadial) * rx,
+            y: -(Kp * er + Kd * vRadial) * ry
+        };
+    }
+
+    return { x: 0, y: 0 };
+}
+
+
+
+function guidanceController(bodyName, targetPos, targetVel) {
+    const body = state.get(bodyName);
+    if (!body || !targetPos) {
+        return { x: 0, y: 0 };
+    }
+
+    // Default velocity target (used for landing only)
+    if (!targetVel) {
+        targetVel = { x: 0, y: 0 };
+    }
+
+    // Position error
+    const ex = targetPos.x - body.x;
+    const ey = targetPos.y - body.y;
+
+    // Velocity error
+    const evx = targetVel.x - body.vx;
+    const evy = targetVel.y - body.vy;
+
+    // Gains (tuned for our scale)
+    const Kp = 0.01;
+    const Kd = 0.02;
+
+    let ax = Kp * ex + Kd * evx;
+    let ay = Kp * ey + Kd * evy;
+
+    // Hard acceleration clamp (critical)
+    const aMax = 0.25;
+    const mag = Math.hypot(ax, ay);
+    if (mag > aMax) {
+        ax *= aMax / mag;
+        ay *= aMax / mag;
+    }
+
+    return { x: ax, y: ay };
+}
+
+
+
+function getMoonLandingTarget(altitude = 5) {
+    const moon = state.get("Moon");
+    const earth = state.get("Earth");
+    if (!moon || !earth) return null;
+
+    const dx = earth.x - moon.x;
+    const dy = earth.y - moon.y;
+    const r = Math.hypot(dx, dy) || 1;
+
+    const rx = dx / r;
+    const ry = dy / r;
+
+    const Rm = bodies.get("Moon").physicalRadius;
+
+    return {
+        pos: {
+            x: moon.x + rx * (Rm + altitude),
+            y: moon.y + ry * (Rm + altitude)
+        },
+        vel: {
+            x: moon.vx,
+            y: moon.vy
+        }
+    };
+}
+
+
+function getLagrangeTarget(type) {
+    const earth = state.get("Earth");
+    const moon = state.get("Moon");
+    if (!earth || !moon) return null;
+
+    const dx = moon.x - earth.x;
+    const dy = moon.y - earth.y;
+    const r = Math.hypot(dx, dy);
+
+    const ex = dx / r;
+    const ey = dy / r;
+    const tx = -ey;
+    const ty = ex;
+
+    let x, y;
+
+    switch (type) {
+        case "l1":
+            x = moon.x - 0.15 * r * ex;
+            y = moon.y - 0.15 * r * ey;
+            break;
+        case "l2":
+            x = moon.x + 0.15 * r * ex;
+            y = moon.y + 0.15 * r * ey;
+            break;
+        case "l4":
+            x = earth.x + r * (0.5 * ex + Math.sqrt(3)/2 * tx);
+            y = earth.y + r * (0.5 * ey + Math.sqrt(3)/2 * ty);
+            break;
+        case "l5":
+            x = earth.x + r * (0.5 * ex - Math.sqrt(3)/2 * tx);
+            y = earth.y + r * (0.5 * ey - Math.sqrt(3)/2 * ty);
+            break;
+        default:
+            return null;
+    }
+
+    // Angular velocity of Earth–Moon system
+    const mu = G * (bodies.get("Earth").m + bodies.get("Moon").m);
+    const omega = Math.sqrt(mu / (r*r*r));
+
+    return {
+        pos: { x, y },
+        vel: {
+            x: -omega * (y - earth.y),
+            y:  omega * (x - earth.x)
+        }
+    };
+}
+
+
+function getMoonOrbitTarget(bodyName, orbitRadius) {
+    const moon = state.get("Moon");
+    const body = state.get(bodyName);
+    if (!moon || !body) return null;
+
+    const dx = body.x - moon.x;
+    const dy = body.y - moon.y;
+    const r = Math.hypot(dx, dy) || 1;
+
+    const rx = dx / r;
+    const ry = dy / r;
+
+    const tx = -ry;
+    const ty = rx;
+
+    const mu = G * bodies.get("Moon").m;
+    const vCirc = Math.sqrt(mu / orbitRadius);
+
+    return {
+        pos: {
+            x: moon.x + rx * orbitRadius,
+            y: moon.y + ry * orbitRadius
+        },
+        vel: {
+            x: moon.vx + tx * vCirc,
+            y: moon.vy + ty * vCirc
+        }
+    };
+}
+
+
+
+
+function computeControlAcceleration(bodyName) {
     if (bodyName === "Earth" || bodyName === "Moon") {
         return { x: 0, y: 0 };
     }
 
     const mission = missions.get(bodyName);
-    if (!mission) {
-        return { x: 0, y: 0 };
+    if (!mission) return { x: 0, y: 0 };
+
+    switch (mission.missionType) {
+
+        case "moon": {
+            const target = getMoonLandingTarget(0);
+            return target ? guidanceController(bodyName, target.pos, target.vel) : { x: 0, y: 0 };
+        }
+
+        case "moon-orbit": {
+            const target = getMoonOrbitTarget(bodyName, 110);
+            return target ? guidanceController(bodyName, target.pos, target.vel) : { x: 0, y: 0 };
+        }
+
+        case "l1":
+        case "l2":
+        case "l4":
+        case "l5": {
+            const target = getLagrangeTarget(mission.missionType);
+            return target ? guidanceController(bodyName, target.pos, target.vel) : { x: 0, y: 0 };
+        }
+
+        default:
+            return { x: 0, y: 0 };
     }
-
-    if (mission.controlLaw !== "pid") {
-        return { x: 0, y: 0 };
-    }
-
-    // Moon-relative targeting
-    const moonState = currentState.get("Moon");
-
-    // Relative position
-    const rx = bodyState.x - moonState.x;
-    const ry = bodyState.y - moonState.y;
-
-    // Relative velocity
-    const rvx = bodyState.vx - moonState.vx;
-    const rvy = bodyState.vy - moonState.vy;
-
-    // Gains (tune these)
-    const Kp = 0.0005;
-    const Kd = 0.05;
-
-    return {
-        x: -Kp * rx - Kd * rvx,
-        y: -Kp * ry - Kd * rvy
-    };
 }
+
+
 
 
 function symplecticEulerStep(bodyName, currentState){
