@@ -375,7 +375,9 @@ function render(now= performance.now()){
     // update physics of aircraft wrt Saturn's gravity
     // symplectic euler integration
     for (let i = 0; i < updateSteps; i++){
+        if (missionActive){
         symplecticEuler();
+        }
         updateRocks();
     }
   }
