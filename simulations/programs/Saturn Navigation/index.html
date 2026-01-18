@@ -63,6 +63,32 @@
         </button>
       </div>
 
+      <div class="status-card legend-card">
+      <span class="label">Visualization Legend</span>
+
+      <div class="legend-item">
+        <span class="legend-line orbit"></span>
+        <span class="legend-text">Target Orbit (reference trajectory)</span>
+      </div>
+
+      <div class="legend-item">
+        <span class="legend-circle vision"></span>
+        <span class="legend-text">Sensor / Vision Radius</span>
+      </div>
+
+
+      <div class="legend-item">
+        <span class="legend-line danger"></span>
+        <span class="legend-text">Collision Threat (rock within danger zone)</span>
+      </div>
+
+      <div class="legend-item">
+        <span class="legend-line velocity"></span>
+        <span class="legend-text">Velocity Direction</span>
+      </div>
+    </div>
+
+
 
       <!-- Active Missions (injected dynamically) -->
       <div id="missions-container"></div>
@@ -74,13 +100,13 @@
           <div id="time-display">T+ 00:00:01 (Month 1)</div>
         </div>
 
-
       </div>
 
 
 
       
       <div class="info-footer">
+        
         <p>Newton's Law of Gravity and Force Approximated via Symplectic Euler</p>
         <p>Grid Resolution: High</p>
         <p>Potential Field: Deactivated</p>

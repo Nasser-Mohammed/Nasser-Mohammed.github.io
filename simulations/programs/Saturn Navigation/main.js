@@ -715,6 +715,30 @@ function render(now= performance.now()){
 
         ctx.fill();
         drawDangerLines();
+        // --- VELOCITY DIRECTION ARROW ---
+        const vx = starship.vx;
+        const vy = starship.vy;
+        const speed = Math.hypot(vx, vy);
+
+        if (speed > 1e-3) {
+          const arrowScale = 40; // visual length
+          const ex = starship.x + arrowScale * vx / speed;
+          const ey = starship.y + arrowScale * vy / speed;
+
+          const [exC, eyC] = pos2Coords(ex, ey);
+
+          ctx.save();
+          ctx.strokeStyle = "rgba(0, 255, 120, 0.8)";
+          ctx.lineWidth = 2;
+          ctx.setLineDash([6, 4]);
+
+          ctx.beginPath();
+          ctx.moveTo(sx, sy);
+          ctx.lineTo(exC, eyC);
+          ctx.stroke();
+
+          ctx.restore();
+        }
 
 
         // Draw small starship

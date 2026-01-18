@@ -272,3 +272,52 @@ button {
   color: #6a7282;
   letter-spacing: 0.3px;
 }
+
+.legend-card {
+  margin-top: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #ddd;
+}
+
+.legend-line {
+  width: 28px;
+  height: 0;
+  border-top: 2px solid;
+  opacity: 0.9;
+}
+
+/* Target orbit (dashed gray) */
+.legend-line.orbit {
+  border-top: 2px dashed rgb(71, 78, 71);
+}
+
+.legend-circle {
+  display: inline-block;  
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.legend-circle.vision {
+  border: 2px #08e900;
+  background: rgba(8, 233, 0, 0.15);
+}
+
+
+/* Danger connection (red dashed) */
+.legend-line.danger {
+  border-top: 2px dashed rgba(255, 80, 80, 0.8);
+}
+
+/* Velocity vector (green dashed arrow analogue) */
+.legend-line.velocity {
+  border-top: 2px dashed rgba(0, 255, 120, 0.9);
+}
