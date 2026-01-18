@@ -51,7 +51,7 @@ const starShipImg = new Image();
 starShipImg.src = "images/spaceCraft.png";
 const initialStarshipX = -700;
 const initialStarshipY = 500;
-const starship = {x: initialStarshipX, y: initialStarshipY, vx:0, vy:0, w: 20, h: 20, mass: 5, visionRadius: 35, nearbyRocks: [], img: starShipImg};
+const starship = {x: initialStarshipX, y: initialStarshipY, vx:0, vy:0, w: 20, h: 20, mass: 5, visionRadius: 25, nearbyRocks: [], img: starShipImg};
 
 
 const freighterImg = new Image();
@@ -100,6 +100,8 @@ const THRUST_MAG = 0.01;
 const THRUST_CRUISE = 0.015;
 const THRUST_PANIC  = 0.05;
 const THRUST_HARD   = 0.08; // Saturn exclusion
+const V_MAX = 0.18;
+
 
 
 const THRUST_DIRS = [
@@ -359,17 +361,26 @@ function proximityController() {
   const r = Math.hypot(sx, sy);
   const rDesired = desiredOrbitRadius();
 
+  // radial correction (position)
   ax += -0.02 * (r - rDesired) * (sx / r);
   ay += -0.02 * (r - rDesired) * (sy / r);
 
-  ax += 0.02 * (-sy / r);
-  ay += 0.02 * ( sx / r);
+  // radial damping (velocity)
+  const vr = (vx * sx + vy * sy) / r;
+  ax += -0.6 * vr * (sx / r);
+  ay += -0.6 * vr * (sy / r);
 
-  // ============================
-  // SPEED DAMPING
-  // ============================
-  ax += -0.45 * vx;
-  ay += -0.45 * vy;
+  // tangential speed control
+  const v = Math.hypot(vx, vy);
+  const vOrbit = Math.sqrt(G * saturn.m / r);
+  const dv = vOrbit - v;
+
+  const tx = -sy / r;
+  const ty =  sx / r;
+
+  ax += 0.35 * dv * tx;
+  ay += 0.35 * dv * ty;
+
 
   return quantizeThrust(ax, ay, THRUST_CRUISE);
 }
@@ -453,22 +464,144 @@ function trajectoryController() {
   const r = Math.hypot(sx, sy);
   const rDesired = desiredOrbitRadius();
 
+  // radial correction (position)
   ax += -0.02 * (r - rDesired) * (sx / r);
   ay += -0.02 * (r - rDesired) * (sy / r);
 
-  ax += 0.02 * (-sy / r);
-  ay += 0.02 * ( sx / r);
+  // radial damping (velocity)
+  const vr = (vx * sx + vy * sy) / r;
+  ax += -0.6 * vr * (sx / r);
+  ay += -0.6 * vr * (sy / r);
 
-  // ============================
-  // SPEED DAMPING
-  // ============================
-  ax += -0.45 * vx;
-  ay += -0.45 * vy;
+  // tangential speed control
+  const v = Math.hypot(vx, vy);
+  const vOrbit = Math.sqrt(G * saturn.m / r);
+  const dv = vOrbit - v;
+
+  const tx = -sy / r;
+  const ty =  sx / r;
+
+  ax += 0.35 * dv * tx;
+  ay += 0.35 * dv * ty;
+
+
 
   return quantizeThrust(ax, ay, THRUST_CRUISE);
 }
 
 
+function trajectoryAvoidanceWithVelocityRefController() {
+  const sx = starship.x;
+  const sy = starship.y;
+  const vx = starship.vx;
+  const vy = starship.vy;
+
+  const shipRadius = 0.5 * Math.max(starship.w, starship.h);
+
+  // ============================
+  // PARAMETERS
+  // ============================
+  const V_MAX = 0.18;        // absolute safe speed
+  const velGain = 1.2;       // how aggressively velocity is tracked
+  const lookaheadTime = 2.5; // seconds to predict collisions
+
+  let vTargetX = 0;
+  let vTargetY = 0;
+
+  // ============================
+  // HARD SATURN EXCLUSION
+  // ============================
+  const dxS = sx - saturn.x;
+  const dyS = sy - saturn.y;
+  const rS  = Math.hypot(dxS, dyS);
+
+  if (rS < saturnHardRadius) {
+    return quantizeThrust(dxS, dyS, THRUST_HARD);
+  }
+
+  // ============================
+  // BASE TARGET VELOCITY (ORBIT)
+  // ============================
+  const r = Math.hypot(sx, sy);
+  if (r < 1e-6) return [0, 0];
+
+  // Tangential direction
+  const tx = -sy / r;
+  const ty =  sx / r;
+
+  // Start with safe cruising velocity
+  vTargetX = V_MAX * tx;
+  vTargetY = V_MAX * ty;
+
+  // ============================
+  // RADIAL ORBIT CORRECTION
+  // ============================
+  const rDesired = desiredOrbitRadius();
+  const radialError = r - rDesired;
+
+  const radialGain = 0.04;
+
+  vTargetX += -radialGain * radialError * (sx / r);
+  vTargetY += -radialGain * radialError * (sy / r);
+
+  // ============================
+  // TRAJECTORY-BASED ROCK AVOIDANCE
+  // ============================
+  const speed2 = vx * vx + vy * vy;
+
+  if (speed2 > 1e-6) {
+    for (const rock of starship.nearbyRocks) {
+      const rx = rock.x - sx;
+      const ry = rock.y - sy;
+
+      // Only consider rocks we're moving toward
+      const vdot = rx * vx + ry * vy;
+      if (vdot <= 0) continue;
+
+      const t = vdot / speed2;
+      if (t > lookaheadTime) continue;
+
+      // Closest approach
+      const cx = rx - vx * t;
+      const cy = ry - vy * t;
+      const d  = Math.hypot(cx, cy);
+
+      const safe =
+        shipRadius +
+        rock.radius +
+        18;
+
+      if (d < safe) {
+        // Steer target velocity sideways around obstacle
+        const nx = cx / d;
+        const ny = cy / d;
+
+        vTargetX += 0.6 * nx;
+        vTargetY += 0.6 * ny;
+      }
+    }
+  }
+
+  // ============================
+  // SPEED CLAMP (CRITICAL)
+  // ============================
+  const vMag = Math.hypot(vTargetX, vTargetY);
+  if (vMag > V_MAX) {
+    vTargetX *= V_MAX / vMag;
+    vTargetY *= V_MAX / vMag;
+  }
+
+  // ============================
+  // VELOCITY TRACKING CONTROL
+  // ============================
+  const ax = velGain * (vTargetX - vx);
+  const ay = velGain * (vTargetY - vy);
+
+  // ============================
+  // QUANTIZED THRUST OUTPUT
+  // ============================
+  return quantizeThrust(ax, ay, THRUST_CRUISE);
+}
 
 
 
@@ -482,6 +615,9 @@ function controller(){
       break;
     case "trajectoryAvoidance":
       [Ux, Uy] = trajectoryController();
+      break;
+    case "trajectoryAvoidanceWithVelocityRef":
+      [Ux, Uy] = trajectoryAvoidanceWithVelocityRefController();
       break;
 
     default:
