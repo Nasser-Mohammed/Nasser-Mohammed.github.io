@@ -97,8 +97,8 @@ const orbitMidGap =
 const ECC = 0.9;
 
 const THRUST_MAG = 0.01;
-const THRUST_CRUISE = 0.015;
-const THRUST_PANIC  = 0.05;
+const THRUST_CRUISE = 0.02;
+const THRUST_PANIC  = 0.125;
 const THRUST_HARD   = 0.08; // Saturn exclusion
 const V_MAX = 0.18;
 
