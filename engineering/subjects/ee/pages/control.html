@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../../../pictures/eeIcon.png" sizes="48x48">
+  <title>Control Theory</title>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      },
+      options: { renderActions: { addMenu: [] } }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 class="title">Control Theory</h1>
+  </header>
+
+  <main>
+
+  <p>
+    Control theory is concerned with influencing the behavior of dynamical systems through
+    external inputs. In electrical engineering, circuits naturally serve as controlled systems,
+    with voltages or currents acting as inputs and measurable quantities such as voltages or
+    currents acting as outputs.
+  </p>
+
+  <p>
+    From this perspective, control theory builds directly on the dynamical systems viewpoint.
+    Once a circuit has been modeled using ordinary differential equations, control questions
+    can be posed in a precise mathematical way.
+  </p>
+
+  <h2>Controlled Dynamical Systems</h2>
+
+  <p>
+    A controlled dynamical system may be written abstractly as
+  </p>
+
+  <div class="math-block">
+  \[
+    \dot{x}(t) = f(x(t), u(t)),
+  \]
+  </div>
+
+  <p>
+    where \(x(t)\) represents the state of the system and \(u(t)\) represents an externally
+    applied control input. In electrical circuits, the state typically consists of capacitor
+    voltages and inductor currents, while the input may be a voltage or current source.
+  </p>
+
+  <h2>Linear Control Systems</h2>
+
+  <p>
+    When circuit elements obey linear constitutive relations, the resulting controlled system
+    takes the form
+  </p>
+
+  <div class="math-block">
+  \[
+    \dot{x}(t) = A x(t) + B u(t),
+  \]
+  </div>
+
+  <p>
+    where the matrix \(A\) encodes the internal dynamics of the circuit and the matrix \(B\)
+    describes how inputs influence the state. This formulation is known as the
+    <strong>state-space representation</strong>.
+  </p>
+
+  <p>
+    An output equation is often introduced,
+  </p>
+
+  <div class="math-block">
+  \[
+    y(t) = C x(t) + D u(t),
+  \]
+  </div>
+
+  <p>
+    where \(y(t)\) represents a measured output of interest, such as a capacitor voltage or
+    branch current.
+  </p>
+
+  <h2>Feedback Control</h2>
+
+  <p>
+    In feedback control, the input \(u(t)\) is chosen as a function of the system’s current
+    state or output. A common choice is linear state feedback,
+  </p>
+
+  <div class="math-block">
+  \[
+    u(t) = -K x(t),
+  \]
+  </div>
+
+  <p>
+    which yields the closed-loop system
+  </p>
+
+  <div class="math-block">
+  \[
+    \dot{x}(t) = (A - BK)x(t).
+  \]
+  </div>
+
+  <p>
+    By selecting the gain matrix \(K\), the eigenvalues of the closed-loop system matrix
+    \(A - BK\) may be shaped to achieve desired stability and performance properties.
+  </p>
+
+  <h2>Stability and Poles</h2>
+
+  <p>
+    Stability of an electrical control system is determined by the location of the system’s
+    poles. In the state-space formulation, poles correspond to the eigenvalues of the system
+    matrix. In the Laplace domain, they correspond to the roots of the characteristic equation.
+  </p>
+
+  <p>
+    Feedback control allows these poles to be shifted, enabling engineers to stabilize
+    otherwise unstable circuits or modify transient response characteristics such as settling
+    time and overshoot.
+  </p>
+
+  <h2>Control Interpretation of Circuits</h2>
+
+  <p>
+    Many familiar circuit behaviors can be reinterpreted through a control-theoretic lens.
+    Resistance introduces damping, capacitance and inductance introduce energy storage, and
+    feedback loops arise naturally in amplifiers, oscillators, and power electronics.
+  </p>
+
+  <p>
+    From this viewpoint, circuit design becomes the problem of shaping system dynamics through
+    feedback and input design rather than simply solving equations.
+  </p>
+
+  <h2>Beyond Linear Control</h2>
+
+  <p>
+    When nonlinear elements are present, the system dynamics become nonlinear. Control theory
+    still applies, but analysis typically relies on linearization, Lyapunov methods, or
+    numerical simulation. The underlying state-space structure, however, remains unchanged.
+  </p>
+
+  <p>
+    Control theory therefore provides a unifying framework connecting circuit analysis,
+    dynamical systems, and system-level design.
+  </p>
+
+
+</main>
+
+
+
+</body>
+</html>
