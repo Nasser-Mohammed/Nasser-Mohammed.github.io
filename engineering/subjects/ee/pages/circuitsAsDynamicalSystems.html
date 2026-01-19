@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../../../pictures/eeIcon.png" sizes="48x48">
+  <title>Circuits as Dynamical Systems</title>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'none'
+      },
+      options: { renderActions: { addMenu: [] } }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site">
+    <a href="circuits-home.html" class="back">← Back</a>
+    <h1 class="title">Circuits as Dynamical Systems</h1>
+  </header>
+
+  <main>
+
+  <main>
+
+  <p>
+    Lumped electrical circuits can be viewed naturally as dynamical systems governed by ordinary
+    differential equations. The state of a circuit is determined by its energy-storing elements,
+    while resistive elements introduce dissipation but no additional state.
+  </p>
+
+  <p>
+    In particular, capacitors store energy in electric fields and introduce state variables
+    associated with voltage, while inductors store energy in magnetic fields and introduce state
+    variables associated with current. Once these state variables are identified, the remaining
+    circuit equations follow from Kirchhoff’s laws and element constitutive relations.
+  </p>
+
+  <h2>State Variables in Circuits</h2>
+
+  <p>
+    Each independent capacitor voltage and inductor current corresponds to a state variable.
+    A circuit with no capacitors or inductors is purely algebraic, while a circuit containing
+    energy storage elements gives rise to differential equations.
+  </p>
+
+  <p>
+    The number of independent state variables determines the order of the resulting dynamical
+    system. RC circuits produce first-order dynamics, while RLC circuits produce second-order
+    dynamics. More complex circuits give rise to higher-dimensional systems.
+  </p>
+
+  <h2>Series Connections</h2>
+
+  <p>
+    When elements are connected in series, they share the same current. From a dynamical systems
+    perspective, series connections typically modify existing state equations rather than
+    introducing new state variables.
+  </p>
+
+  <p>
+    For example, adding a resistor in series with an RLC circuit increases dissipation, while
+    adding an inductor in series increases effective inertia. The structure of the governing
+    equations remains the same, but the functional form or parameters may change.
+  </p>
+
+  <p>
+    In this sense, series connections act by adding terms or modifying relations within an
+    existing dynamical system rather than increasing its dimension.
+  </p>
+
+  <p>
+  Capacitors connected in series do not generally introduce additional state variables, since their
+  charges are constrained to be equal and their voltages are algebraically related. As a result,
+  a series combination of capacitors can be represented by a single effective capacitance with one
+  associated state variable.
+  </p>
+
+
+  <h2>Parallel Connections</h2>
+
+  <p>
+    Parallel connections share the same voltage but allow current to split into multiple paths.
+    When energy-storing elements are connected in parallel, each branch may carry its own
+    independent state variable, leading to additional differential equations.
+  </p>
+
+  <p>
+    For example, inductors connected in parallel each introduce their own current state, requiring
+    additional equations to describe the system. In this case, the system dimension increases,
+    and the circuit must be modeled using a vector-valued state.
+  </p>
+
+  <p>
+    Parallel capacitors, by contrast, share a common voltage and therefore combine into a single
+    effective capacitance without increasing the number of state variables.
+  </p>
+
+  <h2>Circuits as ODE Systems</h2>
+
+  <p>
+    Once state variables are chosen, circuit equations can be written in standard dynamical systems
+    form. Kirchhoff’s laws provide algebraic constraints, while capacitor and inductor relations
+    introduce time derivatives.
+  </p>
+
+  <p>
+    If all circuit elements obey linear constitutive relations, the resulting system is a linear
+    system of ordinary differential equations. When nonlinear elements are present, the same
+    modeling procedure leads instead to nonlinear differential equations. In both cases, the
+    underlying state-space structure remains unchanged.
+  </p>
+
+  <p>
+    From this perspective, circuit analysis becomes an exercise in identifying state variables,
+    writing conservation laws, and assembling a system of ordinary differential equations. This
+    viewpoint makes explicit the close connection between electrical circuits, mechanical systems,
+    and control theory.
+  </p>
+
+  <h2>Summary: When Does a Circuit Element Add a State?</h2>
+
+<p>
+In lumped electrical circuits, state variables arise from <strong>independent energy storage</strong>.
+Capacitors store energy in electric fields and introduce state variables associated with voltage,
+while inductors store energy in magnetic fields and introduce state variables associated with
+current.
+</p>
+
+<p>
+An energy-storing element contributes a new state variable <strong>only if its voltage or current is
+not algebraically constrained</strong> by Kirchhoff’s laws and the circuit topology. If the voltage or
+current of an element can be eliminated using algebraic relations alone, then no additional state
+is introduced.
+</p>
+
+<ul>
+  <li>Capacitors in series share the same charge and do not introduce independent voltage states.</li>
+  <li>Capacitors in parallel share the same voltage and do not introduce independent voltage states.</li>
+  <li>Inductors in series share the same current and do not introduce independent current states.</li>
+  <li>Inductors in parallel carry independent currents and therefore introduce additional state variables.</li>
+</ul>
+
+<p>
+More generally, new state variables appear whenever energy-storing elements are separated by circuit
+configurations that break algebraic constraints, such as inductors between capacitors, capacitors
+between inductors, nonlinear elements, or switching elements.
+</p>
+
+<p>
+In summary, <strong>series and parallel connections are useful heuristics</strong>, but the true criterion
+for adding state is the presence of <strong>independent energy storage modes</strong>.
+</p>
+
+
+
+</main>
+
+
+
+</body>
+</html>
