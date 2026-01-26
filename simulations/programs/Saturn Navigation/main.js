@@ -777,7 +777,6 @@ function globalReset(startBtn){
     rocks = []; // resets rocks
     generateRocks(); // refills rocks array
     missionActive = false; // removes view of starship
-    selectedPath = "lowSaturnOrbit";
     // Reset position and velocity of ship
     starship.x = initialStarshipX;
     starship.y = initialStarshipY;
