@@ -44,14 +44,14 @@ let rocks = [];
 let selectedPath = "lowSaturnOrbit";
 
 // Control Law
-let controlLaw = "proximityAvoidance";
+let controlLaw = "3Layer";
 
 // Freighter and starship
 const starShipImg = new Image();
 starShipImg.src = "images/spaceCraft.png";
 const initialStarshipX = -700;
 const initialStarshipY = 500;
-const starship = {x: initialStarshipX, y: initialStarshipY, vx:0, vy:0, w: 20, h: 20, mass: 5, visionRadius: 25, nearbyRocks: [], img: starShipImg};
+const starship = {x: initialStarshipX, y: initialStarshipY, vx:0, vy:0, w: 20, h: 20, mass: 5, visionRadius: 32, nearbyRocks: [], img: starShipImg};
 
 
 const freighterImg = new Image();
@@ -72,6 +72,20 @@ let controlUy = 0;
 
 const shipRadius = 0.5 * Math.max(starship.w, starship.h);
 const saturnHardRadius = saturn.radius + shipRadius + 30;
+
+const A_MAX = 0.25;        // max thrust acceleration
+const ALPHA = 1.0;        // barrier aggressiveness
+
+const SATURN_SAFE_RADIUS = saturn.radius + shipRadius + 30;
+
+let omegaScale = 1.0;     // ∈ (0,1], scales reference speed
+const OMEGA_MIN = 0.25;
+const OMEGA_RECOVER = 0.6;
+const OMEGA_SLOW = 6.0;
+
+let orbitPhase = 0;
+
+let lastThreat = 0;
 
 
 
@@ -95,32 +109,6 @@ const orbitMidGap =
   ring2.inner + 0.5 * (ring2.outer - ring2.inner);
 
 const ECC = 0.9;
-
-const THRUST_MAG = 0.01;
-const THRUST_CRUISE = 0.02;
-const THRUST_PANIC  = 0.125;
-const THRUST_HARD   = 0.08; // Saturn exclusion
-const V_MAX = 0.18;
-
-
-
-const THRUST_DIRS = [
-  [ 1,  0],  // right
-  [-1,  0],  // left
-  [ 0,  1],  // up
-  [ 0, -1],  // down
-
-  [ 1,  1],  // up-right
-  [-1,  1],  // up-left
-  [ 1, -1],  // down-right
-  [-1, -1],  // down-left
-].map(([x, y]) => {
-  const n = Math.hypot(x, y);
-  return [THRUST_MAG * x / n, THRUST_MAG * y / n];
-});
-
-
-
 
 function loadImage(imgObject, src) {
   imgObject.onload = () => {
@@ -250,382 +238,247 @@ function desiredOrbitRadius() {
   return 0.5 * (a + b);
 }
 
+function desiredOrbitState() {
+  const { a, b } = getReferenceOrbitParams();
 
-function quantizeThrust(ax, ay, thrust) {
-  // No command
-  if (ax === 0 && ay === 0) return [0, 0];
+  const theta = orbitPhase;
 
-  // Angle of desired acceleration
-  const theta = Math.atan2(ay, ax);
+  const xd = a * Math.cos(theta);
+  const yd = b * Math.sin(theta);
 
-  // 8 directions (45° increments)
-  const dirs = [
-    [ 1,  0],  // E
-    [ 1,  1],  // NE
-    [ 0,  1],  // N
-    [-1,  1],  // NW
-    [-1,  0],  // W
-    [-1, -1],  // SW
-    [ 0, -1],  // S
-    [ 1, -1],  // SE
-  ];
+  // Tangent velocity
+  const { a: aa } = getReferenceOrbitParams();
+  const omegaNom = 5 * Math.sqrt(G * saturn.m / (aa * aa * aa));
+  const omega = omegaScale * omegaNom;
 
-  let best = [0, 0];
-  let bestDot = -Infinity;
+  const vxd = -a * omega * Math.sin(theta);
+  const vyd =  b * omega * Math.cos(theta);
 
-  for (const [dx, dy] of dirs) {
-    const mag = Math.hypot(dx, dy);
-    const ux = dx / mag;
-    const uy = dy / mag;
-
-    const dot = ux * Math.cos(theta) + uy * Math.sin(theta);
-    if (dot > bestDot) {
-      bestDot = dot;
-      best = [ux, uy];
-    }
-  }
-
-  return [thrust * best[0], thrust * best[1]];
+  return { xd, yd, vxd, vyd };
 }
 
 
+function drawTargetPoint() {
+  const { xd, yd } = desiredOrbitState();
+  const [cx, cy] = pos2Coords(xd, yd);
 
-function proximityController() {
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx, cy, 5, 0, Math.PI * 2);
+  ctx.fillStyle = "#00ff66";
+  ctx.shadowBlur = 10;
+  ctx.shadowColor = "#00ff66";
+  ctx.fill();
+  ctx.restore();
+}
+
+function velocitySafetyFilter(axNom, ayNom) {
+  const vx = starship.vx;
+  const vy = starship.vy;
+
+  const v2 = vx*vx + vy*vy;
+  const R  = starship.visionRadius;
+
+  // Barrier RHS
+  const rhs = A_MAX * R - 0.5 * ALPHA * v2;
+
+  // If already safe, do nothing
+  const dot = vx * axNom + vy * ayNom;
+  if (dot <= rhs) {
+    return [axNom, ayNom];
+  }
+
+  // Otherwise project acceleration
+  const vNorm2 = v2 + 1e-6;
+  const lambda = (dot - rhs) / vNorm2;
+
+  const axSafe = axNom - lambda * vx;
+  const aySafe = ayNom - lambda * vy;
+
+  return [axSafe, aySafe];
+}
+
+function rockSafetyFilter(ax, ay) {
+  let axSafe = ax;
+  let aySafe = ay;
+
   const sx = starship.x;
   const sy = starship.y;
   const vx = starship.vx;
   const vy = starship.vy;
 
-  const speed = Math.hypot(vx, vy);
-  const shipRadius = 0.5 * Math.max(starship.w, starship.h);
-
-  let ax = 0;
-  let ay = 0;
-
-  // ============================
-  // HARD SATURN EXCLUSION
-  // ============================
-  const dxS = sx - saturn.x;
-  const dyS = sy - saturn.y;
-  const rS  = Math.hypot(dxS, dyS);
-
-  if (rS < saturnHardRadius) {
-    return quantizeThrust(dxS, dyS, THRUST_HARD);
-  }
-
-  // ============================
-  // ROCK PANIC ZONE (DISTANCE)
-  // ============================
-  let panicAx = 0;
-  let panicAy = 0;
-  let rockThreat = false;
+  const dMin = 18;     // safety distance
+  const alpha = 1.2;   // barrier gain
 
   for (const rock of starship.nearbyRocks) {
-    const dx = sx - rock.x;
-    const dy = sy - rock.y;
-    const r  = Math.hypot(dx, dy);
+    const rx = sx - rock.x;
+    const ry = sy - rock.y;
+    const r2 = rx*rx + ry*ry;
+
+    if (r2 < 1e-6) continue;
+
+    const dvx = vx;   // rock velocity approx zero (or fill in)
+    const dvy = vy;
+
+    const rhs =
+      -(dvx*dvx + dvy*dvy)
+      - alpha * (rx*dvx + ry*dvy);
+
+    const dot = rx*axSafe + ry*aySafe;
+
+    if (dot < rhs) {
+      const norm2 = r2 + 1e-6;
+      const lambda = (rhs - dot) / norm2;
+
+      axSafe += lambda * rx;
+      aySafe += lambda * ry;
+    }
+  }
+  // === Saturn safety barrier ===
+  const rx = starship.x - saturn.x;
+  const ry = starship.y - saturn.y;
+  const r2 = rx*rx + ry*ry;
+
+  if (r2 > 1e-6) {
+    const vx = starship.vx;
+    const vy = starship.vy;
+
+    const dMin2 = SATURN_SAFE_RADIUS * SATURN_SAFE_RADIUS;
+
+    // Only activate barrier when near Saturn
+    if (r2 < dMin2 * 1.5) {
+      const alpha = 2.0;
+
+      const rhs =
+        -(vx*vx + vy*vy)
+        - alpha * (rx*vx + ry*vy);
+
+      const dot = rx*axSafe + ry*aySafe;
+
+      if (dot < rhs) {
+        const lambda = (rhs - dot) / (r2 + 1e-6);
+        axSafe += lambda * rx;
+        aySafe += lambda * ry;
+      }
+    }
+  }
+
+
+  // === Tangential bias to break deadlocks ===
+  const BIAS_GAIN = 0.01;  // small, constant
+
+  const r = Math.hypot(starship.x, starship.y);
+  if (r > 1e-6) {
+    const tx = -starship.y / r;
+    const ty =  starship.x / r;
+
+    axSafe += BIAS_GAIN * tx;
+    aySafe += BIAS_GAIN * ty;
+  }
+
+
+  return [axSafe, aySafe];
+}
+
+function referenceGovernor() {
+  const sx = starship.x;
+  const sy = starship.y;
+  const vx = starship.vx;
+  const vy = starship.vy;
+
+  const vMag = Math.hypot(vx, vy);
+
+  // Allow recovery even when slow
+  if (vMag < 1e-3) {
+    omegaScale += OMEGA_RECOVER * dt;
+    omegaScale = Math.min(1.0, omegaScale);
+    lastThreat = 0;
+    return;
+  }
+
+
+  const vHatX = vx / vMag;
+  const vHatY = vy / vMag;
+
+  let threat = 0;
+
+  // ===== ROCKS =====
+  for (const rock of starship.nearbyRocks) {
+    const rx = rock.x - sx;
+    const ry = rock.y - sy;
+    const r  = Math.hypot(rx, ry);
     if (r < 1e-6) continue;
 
-    const safe =
-      shipRadius + rock.radius
-      + 20
-      + 2.5 * Math.hypot(vx, vy)
-      + 0.5 * updateSteps * dt * Math.hypot(vx, vy);
+    const cosAngle = (rx * vHatX + ry * vHatY) / r;
+    if (cosAngle < 0.6) continue;
 
+    // AMPLIFIED threat
+    threat += 3.0 * cosAngle / (r + 5);
+  }
 
-    if (r < safe) {
-      rockThreat = true;
-
-      const nx = dx / r;
-      const ny = dy / r;
-
-      panicAx += 1.4 * nx;
-      panicAy += 1.4 * ny;
-
-      // Brake if moving toward rock
-      if (vx * dx + vy * dy < 0) {
-        panicAx += -1.6 * vx;
-        panicAy += -1.6 * vy;
+  // ===== SATURN =====
+  {
+    const rx = -sx;
+    const ry = -sy;
+    const r  = Math.hypot(rx, ry);
+    if (r > 1e-6) {
+      const cosAngle = (rx * vHatX + ry * vHatY) / r;
+      if (cosAngle > 0.6 && r < 250) {
+        threat += 6.0 / (r + 5);
       }
     }
   }
 
-  // --- PANIC OVERRIDE ---
-  if (rockThreat) {
-    return quantizeThrust(panicAx, panicAy, THRUST_PANIC);
+  lastThreat = threat;
+
+  // ===== GOVERNOR DYNAMICS =====
+  if (threat > 0.005) {
+    omegaScale -= OMEGA_SLOW * threat * dt;
+  } else {
+    omegaScale += OMEGA_RECOVER * dt;
   }
 
-  // ============================
-  // ORBIT FOLLOW (CALM MODE)
-  // ============================
-  const r = Math.hypot(sx, sy);
-  const rDesired = desiredOrbitRadius();
-
-  // radial correction (position)
-  ax += -0.02 * (r - rDesired) * (sx / r);
-  ay += -0.02 * (r - rDesired) * (sy / r);
-
-  // radial damping (velocity)
-  const vr = (vx * sx + vy * sy) / r;
-  ax += -0.6 * vr * (sx / r);
-  ay += -0.6 * vr * (sy / r);
-
-  // tangential speed control
-  const v = Math.hypot(vx, vy);
-  const vOrbit = Math.sqrt(G * saturn.m / r);
-  const dv = vOrbit - v;
-
-  const tx = -sy / r;
-  const ty =  sx / r;
-
-  ax += 0.35 * dv * tx;
-  ay += 0.35 * dv * ty;
-
-
-  return quantizeThrust(ax, ay, THRUST_CRUISE);
+  omegaScale = Math.max(OMEGA_MIN, Math.min(1.0, omegaScale));
 }
 
 
 
-function trajectoryController() {
+
+function orbitalPDControl() {
   const sx = starship.x;
   const sy = starship.y;
   const vx = starship.vx;
   const vy = starship.vy;
 
-  const speed2 = vx*vx + vy*vy;
-  const shipRadius = 0.5 * Math.max(starship.w, starship.h);
+  const { xd, yd, vxd, vyd } = desiredOrbitState();
 
-  let ax = 0;
-  let ay = 0;
+  const ex = sx - xd;
+  const ey = sy - yd;
 
-  // ============================
-  // HARD SATURN EXCLUSION
-  // ============================
-  const dxS = sx - saturn.x;
-  const dyS = sy - saturn.y;
-  const rS  = Math.hypot(dxS, dyS);
+  const evx = vx - vxd;
+  const evy = vy - vyd;
 
-  if (rS < saturnHardRadius) {
-    return quantizeThrust(dxS, dyS, THRUST_HARD);
-  }
+  const Kp = 0.01;
+  const Kv = 0.18;
 
-  // ============================
-  // TRAJECTORY COLLISION CHECK
-  // ============================
-  let panicAx = 0;
-  let panicAy = 0;
-  let collisionThreat = false;
+  const ax = -Kp * ex - Kv * evx;
+  const ay = -Kp * ey - Kv * evy;
 
-  if (speed2 > 1e-6) {
-    for (const rock of starship.nearbyRocks) {
-      const rx = rock.x - sx;
-      const ry = rock.y - sy;
-
-      const vdot = rx * vx + ry * vy;
-      if (vdot <= 0) continue; // not heading toward
-
-      const t = vdot / speed2;
-      if (t > 3.0) continue; // too far in future
-
-      const cx = rx - vx * t;
-      const cy = ry - vy * t;
-      const d  = Math.hypot(cx, cy);
-
-      const safe =
-        shipRadius + rock.radius
-        + 20
-        + 2.5 * Math.hypot(vx, vy)
-        + 0.5 * updateSteps * dt * Math.hypot(vx, vy);
-
-
-      if (d < safe) {
-        collisionThreat = true;
-
-        const nx = cx / d;
-        const ny = cy / d;
-        const tx = -ny;
-        const ty =  nx;
-
-        panicAx += 0.7 * nx + 0.3 * tx;
-        panicAy += 0.7 * ny + 0.3 * ty;
-      }
-    }
-  }
-
-  // --- PANIC OVERRIDE ---
-  if (collisionThreat) {
-    return quantizeThrust(panicAx, panicAy, THRUST_PANIC);
-  }
-
-  // ============================
-  // ORBIT FOLLOW (CALM MODE)
-  // ============================
-  const r = Math.hypot(sx, sy);
-  const rDesired = desiredOrbitRadius();
-
-  // radial correction (position)
-  ax += -0.02 * (r - rDesired) * (sx / r);
-  ay += -0.02 * (r - rDesired) * (sy / r);
-
-  // radial damping (velocity)
-  const vr = (vx * sx + vy * sy) / r;
-  ax += -0.6 * vr * (sx / r);
-  ay += -0.6 * vr * (sy / r);
-
-  // tangential speed control
-  const v = Math.hypot(vx, vy);
-  const vOrbit = Math.sqrt(G * saturn.m / r);
-  const dv = vOrbit - v;
-
-  const tx = -sy / r;
-  const ty =  sx / r;
-
-  ax += 0.35 * dv * tx;
-  ay += 0.35 * dv * ty;
-
-
-
-  return quantizeThrust(ax, ay, THRUST_CRUISE);
-}
-
-
-function trajectoryAvoidanceWithVelocityRefController() {
-  const sx = starship.x;
-  const sy = starship.y;
-  const vx = starship.vx;
-  const vy = starship.vy;
-
-  const shipRadius = 0.5 * Math.max(starship.w, starship.h);
-
-  // ============================
-  // PARAMETERS
-  // ============================
-  const V_MAX = 0.18;        // absolute safe speed
-  const velGain = 1.2;       // how aggressively velocity is tracked
-  const lookaheadTime = 2.5; // seconds to predict collisions
-
-  let vTargetX = 0;
-  let vTargetY = 0;
-
-  // ============================
-  // HARD SATURN EXCLUSION
-  // ============================
-  const dxS = sx - saturn.x;
-  const dyS = sy - saturn.y;
-  const rS  = Math.hypot(dxS, dyS);
-
-  if (rS < saturnHardRadius) {
-    return quantizeThrust(dxS, dyS, THRUST_HARD);
-  }
-
-  // ============================
-  // BASE TARGET VELOCITY (ORBIT)
-  // ============================
-  const r = Math.hypot(sx, sy);
-  if (r < 1e-6) return [0, 0];
-
-  // Tangential direction
-  const tx = -sy / r;
-  const ty =  sx / r;
-
-  // Start with safe cruising velocity
-  vTargetX = V_MAX * tx;
-  vTargetY = V_MAX * ty;
-
-  // ============================
-  // RADIAL ORBIT CORRECTION
-  // ============================
-  const rDesired = desiredOrbitRadius();
-  const radialError = r - rDesired;
-
-  const radialGain = 0.04;
-
-  vTargetX += -radialGain * radialError * (sx / r);
-  vTargetY += -radialGain * radialError * (sy / r);
-
-  // ============================
-  // TRAJECTORY-BASED ROCK AVOIDANCE
-  // ============================
-  const speed2 = vx * vx + vy * vy;
-
-  if (speed2 > 1e-6) {
-    for (const rock of starship.nearbyRocks) {
-      const rx = rock.x - sx;
-      const ry = rock.y - sy;
-
-      // Only consider rocks we're moving toward
-      const vdot = rx * vx + ry * vy;
-      if (vdot <= 0) continue;
-
-      const t = vdot / speed2;
-      if (t > lookaheadTime) continue;
-
-      // Closest approach
-      const cx = rx - vx * t;
-      const cy = ry - vy * t;
-      const d  = Math.hypot(cx, cy);
-
-      const safe =
-        shipRadius +
-        rock.radius +
-        18;
-
-      if (d < safe) {
-        // Steer target velocity sideways around obstacle
-        const nx = cx / d;
-        const ny = cy / d;
-
-        vTargetX += 0.6 * nx;
-        vTargetY += 0.6 * ny;
-      }
-    }
-  }
-
-  // ============================
-  // SPEED CLAMP (CRITICAL)
-  // ============================
-  const vMag = Math.hypot(vTargetX, vTargetY);
-  if (vMag > V_MAX) {
-    vTargetX *= V_MAX / vMag;
-    vTargetY *= V_MAX / vMag;
-  }
-
-  // ============================
-  // VELOCITY TRACKING CONTROL
-  // ============================
-  const ax = velGain * (vTargetX - vx);
-  const ay = velGain * (vTargetY - vy);
-
-  // ============================
-  // QUANTIZED THRUST OUTPUT
-  // ============================
-  return quantizeThrust(ax, ay, THRUST_CRUISE);
+  return [ax, ay];
 }
 
 
 
 
 
-function controller(){
-  let [Ux, Uy] = [0, 0];
-  switch (controlLaw){
-    case "proximityAvoidance":
-      [Ux, Uy] = proximityController();
-      break;
-    case "trajectoryAvoidance":
-      [Ux, Uy] = trajectoryController();
-      break;
-    case "trajectoryAvoidanceWithVelocityRef":
-      [Ux, Uy] = trajectoryAvoidanceWithVelocityRefController();
-      break;
-
-    default:
-      [Ux, Uy] = proximityController();
-  }
-
-  return [Ux, Uy];
+function controller() {
+  let [ax, ay] = orbitalPDControl();
+  [ax, ay] = velocitySafetyFilter(ax, ay);
+  [ax, ay] = rockSafetyFilter(ax, ay);
+  return [ax, ay];
 }
+
+
 
 function isRockDangerous(rock) {
   const sx = starship.x;
@@ -716,12 +569,6 @@ function symplecticEuler() {
   // --- Gravity attenuation near Saturn ---
   let gravityScale = 1.0;
 
-  if (r < saturnHardRadius) {
-    gravityScale = 0.0; // absolute no-pull zone
-  } else if (r < saturnHardRadius + 80) {
-    gravityScale = (r - saturnHardRadius) / 80;
-  }
-
   // --- Gravitational acceleration ---
   const factor = gravityScale * G * saturn.m / (r * r * r);
   const ax = factor * dx + controlUx;
@@ -746,7 +593,7 @@ function updateRocks(){
     const dx = n.x - satPos[0];
     const dy = n.y - satPos[1];
     const dist = Math.sqrt(dx*dx + dy*dy);
-    const orbitalVelocity = Math.sqrt(G*saturn.m/dist);
+    const orbitalVelocity = 3*Math.sqrt(G*saturn.m/dist);
     // Compute tangential unit vector
     const tx = -dy/dist;
     const ty = dx/dist;
@@ -777,6 +624,7 @@ function render(now= performance.now()){
 
   if (missionActive && isRunning) {
     starship.nearbyRocks = getVisibleRocks();
+    referenceGovernor(); 
     [controlUx, controlUy] = controller();
 }
 
@@ -784,11 +632,17 @@ function render(now= performance.now()){
     // update physics of aircraft wrt Saturn's gravity
     // symplectic euler integration
     for (let i = 0; i < updateSteps; i++){
-        if (missionActive){
+      if (missionActive){
+        // --- advance reference PHASE ---
+        const { a } = getReferenceOrbitParams();
+        const omegaNom = 5 * Math.sqrt(G * saturn.m / (a * a * a));
+        orbitPhase += omegaScale * omegaNom * dt;
+
         symplecticEuler();
-        }
-        updateRocks();
+      }
+      updateRocks();
     }
+
   }
 
 
@@ -796,9 +650,12 @@ function render(now= performance.now()){
   ctx.fillStyle = '#05060a'; 
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+
+
   // Draw trajectory target
   dashPhase -= 0.2;  // speed
   drawReferenceOrbit();
+  drawTargetPoint();
 
   // Draw Saturn
     const [satX, satY] = pos2Coords(satPos[0], satPos[1]);
@@ -833,6 +690,14 @@ function render(now= performance.now()){
     freighter.w,
     freighter.h
     );
+
+    // === Debug: Reference Governor ===
+    ctx.save();
+    ctx.fillStyle = "#00ff66";
+    ctx.font = "14px monospace";
+    ctx.fillText(`ω-scale: ${omegaScale.toFixed(2)}`, 100, 40);
+    ctx.fillText(`threat: ${lastThreat.toFixed(3)}`, 100, 60);
+    ctx.restore();
 
 
     if(missionActive){

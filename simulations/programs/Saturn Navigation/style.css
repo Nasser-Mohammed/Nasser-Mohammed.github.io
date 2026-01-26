@@ -321,3 +321,21 @@ button {
 .legend-line.velocity {
   border-top: 2px dashed rgba(0, 255, 120, 0.9);
 }
+.control-list {
+  margin: 6px 0 0 16px;
+  padding: 0;
+  font-size: 0.9em;
+  color: #cfd8cf;
+}
+
+.control-list li {
+  margin: 2px 0;
+}
+.legend-circle.reference {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #00ff66;
+  box-shadow: 0 0 8px #00ff66;
+  display: inline-block;
+}

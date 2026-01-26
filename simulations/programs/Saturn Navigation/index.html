@@ -50,15 +50,13 @@
         <!-- Control Law -->
       <div class="status-card control-law-card">
         <span class="label">Control Law</span>
-
-        <div class="control-option active" data-control="proximityAvoidance">
-          Proximity Based Avoidance
-        </div>
-        <div class="control-option" data-control="trajectoryAvoidance">
-          Trajectory Based Avoidance
-        </div>
-        <div class="control-option" data-control="trajectoryAvoidanceWithVelocityRef">
-          (Not yet functional) Trajectory Based Avoidance with Reference Velocity
+        <div class="control-option active" data-control="3Layer">
+          <strong>3-Layer Controller</strong>
+          <ul class="control-list">
+            <li>PD controller for orbit tracking</li>
+            <li>Control Barrier Function for object avoidance</li>
+            <li>Reference governor for reference modulation</li>
+          </ul>
         </div>
 
         <button id="launch" class="btn-primary mission-launch">
@@ -73,6 +71,12 @@
         <span class="legend-line orbit"></span>
         <span class="legend-text">Target Orbit (reference trajectory)</span>
       </div>
+
+      <div class="legend-item">
+        <span class="legend-circle reference"></span>
+        <span class="legend-text">Reference Point (moving target along orbit)</span>
+      </div>
+
 
       <div class="legend-item">
         <span class="legend-circle vision"></span>
