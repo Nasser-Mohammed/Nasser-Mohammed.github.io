@@ -1,7 +1,7 @@
 
 let canvas;
 let ctx;
-const dt = 0.001;
+const dt = 0.005;
 const G = 1;
 let time = 0;
 let width;
@@ -22,7 +22,7 @@ let fpsDisplay;
 let timeDisplay;
 
 // Number of physics updates per render frame
-const updateSteps = 100;
+const updateSteps = 10;
 
 // Physical space dimensions
 const finiteWidth = 1600; // Width of finite space we are considering
@@ -34,7 +34,7 @@ const saturnMass = 100;
 const saturn = {m: saturnMass, x: 0, y: 0, color: '#d1c596', radius: 60 , physicalRadius: 90};
 
 // Rocks
-const maxRocks = 500;
+const maxRocks = 1000;
 const radiusRange = [2, 5];
 const colorRange = ['#888888', '#bbbbbb', '#dddddd', '#aaaaaa', '#777777'];
 const variation = 0.25; // How much deviation along the boundary of the rock
@@ -44,7 +44,7 @@ let rocks = [];
 let selectedPath = "lowSaturnOrbit";
 
 // Control Law
-let controlLaw = "3Layer";
+let controlLaw = "2Layer";
 
 // Freighter and starship
 const starShipImg = new Image();
@@ -87,6 +87,35 @@ let orbitPhase = 0;
 
 let lastThreat = 0;
 
+let governedReference = null;  // { x, y } or null
+
+const ACC_EPS = 1e-4;
+const VEL_EPS = 0.02;
+let escapeExistsDebug = true;
+
+const RG_CAPTURE_RADIUS = 25;   // position tolerance
+const RG_CAPTURE_SPEED = 0.15; // velocity tolerance
+
+const JITTER = 0.65;
+
+const RG_MIN_DISTANCE = 15;   // must be > capture radius
+const CBF_BUFFER = 7.5;   // small, physical safety buffer
+
+let deadlockScore = 0;
+let deadlockDetected = false;
+
+// tuning
+const DEADLOCK_SCORE_TRIGGER = 1.0;
+const DEADLOCK_SCORE_DECAY   = 0.5;   // per second
+const DEADLOCK_SCORE_GAIN    = 2.0;   // per second
+
+let lastBlockingSet = [];
+let blockingPersistence = 0;
+
+const BLOCKING_GAIN  = 2.0;  // per second
+const BLOCKING_DECAY = 1.0;
+
+const VMAX = 6.0;
 
 
 const ring1 = {
@@ -96,7 +125,7 @@ const ring1 = {
 
 const ring2 = {
   inner: ringDist2,
-  outer: ringDist2 + 550
+  outer: ringDist2 + 450
 };
 
 const orbitLowSaturn =
@@ -155,6 +184,7 @@ function pos2Coords(posX, posY){
   return [posX, posY]
 }
 
+let rockIdCounter = 0;
 function generateRocks(){
     let ringDist = ringDist1;
     let color = "#ac9393"
@@ -163,7 +193,7 @@ function generateRocks(){
         if (i > maxRocks/10 && i <= 2*maxRocks/3){
             ringDist = ringDist2;
             color = '#ebe2e2'
-            bandWidth = 550;
+            bandWidth = ring2.outer - ring2.inner;
         }
         else if(i > 2*maxRocks/3){
             //ringDist = 560;
@@ -176,7 +206,12 @@ function generateRocks(){
         const y = satPos[1] + dist * Math.sin(angle);
         const radius = radiusRange[0] + Math.random()*(radiusRange[1]-radiusRange[0]);
         //const color = colorRange[Math.floor(Math.random()*colorRange.length)];
-        rocks.push({x, y, radius, color});
+
+        rocks.push({
+          id: rockIdCounter++,
+          x, y, radius, color
+        });
+
     }
     console.log("Successfully implemented ", rocks.length, " rocks in Saturn's orbit");
 }
@@ -248,7 +283,7 @@ function desiredOrbitState() {
 
   // Tangent velocity
   const { a: aa } = getReferenceOrbitParams();
-  const omegaNom = 5 * Math.sqrt(G * saturn.m / (aa * aa * aa));
+  const omegaNom = 1.5 * Math.sqrt(G * saturn.m / (aa * aa * aa));
   const omega = omegaScale * omegaNom;
 
   const vxd = -a * omega * Math.sin(theta);
@@ -272,31 +307,283 @@ function drawTargetPoint() {
   ctx.restore();
 }
 
-function velocitySafetyFilter(axNom, ayNom) {
-  const vx = starship.vx;
-  const vy = starship.vy;
+function drawGovernedReference() {
+  if (!governedReference) return;
 
-  const v2 = vx*vx + vy*vy;
-  const R  = starship.visionRadius;
+  const [x, y] = pos2Coords(
+    governedReference.x,
+    governedReference.y
+  );
 
-  // Barrier RHS
-  const rhs = A_MAX * R - 0.5 * ALPHA * v2;
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(x, y, 6, 0, Math.PI * 2);
+  ctx.fillStyle = "#ff9f1c"; // orange
+  ctx.shadowBlur = 12;
+  ctx.shadowColor = "#ff9f1c";
+  ctx.fill();
+  ctx.restore();
+}
 
-  // If already safe, do nothing
-  const dot = vx * axNom + vy * ayNom;
-  if (dot <= rhs) {
-    return [axNom, ayNom];
+
+function updateDeadlockDetector() {
+  const currentSet = getBlockingRockSet();
+
+  const sameAsLast =
+    currentSet.some(v => v === 1) &&
+    currentSet.length === lastBlockingSet.length &&
+    currentSet.every((v, i) => v === lastBlockingSet[i]);
+
+
+  const blockedCount = currentSet.reduce((s, v) => s + v, 0);
+
+    if (sameAsLast) {
+      blockingPersistence += BLOCKING_GAIN * dt/5;
+    } else if (blockedCount === 0) {
+      // completely free: decay fast
+      blockingPersistence -= 1 * BLOCKING_DECAY * dt/2.5;
+    } else {
+      // partially constrained: decay slowly
+      blockingPersistence -= BLOCKING_DECAY * dt;
+    }
+
+
+  blockingPersistence = Math.max(
+      0,
+      Math.min(1.0, blockingPersistence)
+    );
+
+  deadlockDetected = blockingPersistence >= DEADLOCK_SCORE_TRIGGER;
+
+  lastBlockingSet = currentSet;
+}
+
+
+
+
+function getBlockingRockSet() {
+  const sx = starship.x;
+  const sy = starship.y;
+
+  const ANGLE_BINS = 12;
+  const bins = new Array(ANGLE_BINS).fill(0);
+
+  for (const rock of starship.nearbyRocks) {
+    const dx = rock.x - sx;
+    const dy = rock.y - sy;
+    const dist = Math.hypot(dx, dy);
+
+    // DEADLOCK operates on vision scale, not collision scale
+    if (dist < starship.visionRadius * 0.9) {
+      const ang = Math.atan2(dy, dx);
+      const bin = Math.floor(
+        ((ang + Math.PI) / (2 * Math.PI)) * ANGLE_BINS
+      );
+
+      bins[Math.max(0, Math.min(ANGLE_BINS - 1, bin))] = 1;
+    }
   }
 
-  // Otherwise project acceleration
-  const vNorm2 = v2 + 1e-6;
-  const lambda = (dot - rhs) / vNorm2;
-
-  const axSafe = axNom - lambda * vx;
-  const aySafe = ayNom - lambda * vy;
-
-  return [axSafe, aySafe];
+  return bins;
 }
+
+
+
+
+
+function isReferenceFeasible(xd, yd) {
+  const shipRadius = 0.5 * Math.max(starship.w, starship.h);
+  const BUFFER = 15;
+
+  // Check rocks
+  for (const rock of starship.nearbyRocks) {
+    const dx = xd - rock.x;
+    const dy = yd - rock.y;
+    const dist = Math.hypot(dx, dy);
+
+    if (dist < rock.radius + shipRadius + BUFFER) {
+      return false;
+    }
+  }
+
+  // Check Saturn (treated as big rock)
+  {
+    const dx = xd - saturn.x;
+    const dy = yd - saturn.y;
+    const dist = Math.hypot(dx, dy);
+
+    if (dist < saturn.radius + shipRadius + BUFFER) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function isDirectionClear(dx, dy) {
+  const sx = starship.x;
+  const sy = starship.y;
+
+  const len = Math.hypot(dx, dy);
+  if (len < 1e-6) return false;
+
+  const ux = dx / len;
+  const uy = dy / len;
+
+  const shipRadius = 0.5 * Math.max(starship.w, starship.h);
+  const BUFFER = 15;
+
+  // Test rocks
+  for (const rock of starship.nearbyRocks) {
+    const rx = rock.x - sx;
+    const ry = rock.y - sy;
+
+    const proj = rx * ux + ry * uy;
+    if (proj < 0) continue;
+
+    const closest2 =
+      rx*rx + ry*ry - proj*proj;
+
+    const rInflated =
+      rock.radius + shipRadius + CBF_BUFFER;
+
+
+
+    if (closest2 < rInflated * rInflated) {
+      return false;
+    }
+  }
+
+  // Saturn as big obstacle
+  {
+    const rx = saturn.x - sx;
+    const ry = saturn.y - sy;
+    const proj = rx * ux + ry * uy;
+    if (proj > 0) {
+      const closest2 =
+        rx*rx + ry*ry - proj*proj;
+
+      const rInflated =
+        saturn.radius + shipRadius + BUFFER;
+
+      if (closest2 < rInflated * rInflated) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+function shouldReleaseGovernedReference() {
+  if (!governedReference) return false;
+
+  const dx = starship.x - governedReference.x;
+  const dy = starship.y - governedReference.y;
+  const dist = Math.hypot(dx, dy);
+
+  const speed = Math.hypot(starship.vx, starship.vy);
+    if (speed > VMAX) {
+      const scale = VMAX / speed;
+      starship.vx *= scale;
+      starship.vy *= scale;
+    }
+
+  return (
+    dist < RG_CAPTURE_RADIUS
+  );
+}
+
+
+
+function positionReferenceGovernor() {
+  const sx = starship.x;
+  const sy = starship.y;
+
+  const shipRadius = 0.5 * Math.max(starship.w, starship.h);
+  const BUFFER = 15;
+
+  const LOOKAHEAD = 120;
+  const NUM_DIRS = 32;
+
+  let bestScore = -Infinity;
+  let bestDir = null;
+
+  for (let i = 0; i < NUM_DIRS; i++) {
+    const ang = (2 * Math.PI * i) / NUM_DIRS;
+    const ux = Math.cos(ang);
+    const uy = Math.sin(ang);
+
+    let minClearance = Infinity;
+    let blocked = false;
+
+    // --- check rocks ---
+    for (const rock of starship.nearbyRocks) {
+      const rx = rock.x - sx;
+      const ry = rock.y - sy;
+
+      const proj = rx * ux + ry * uy;
+      if (proj < 0) continue;
+
+      const closest2 = rx*rx + ry*ry - proj*proj;
+      const clearance =
+        Math.sqrt(Math.max(closest2, 0)) -
+        (rock.radius + shipRadius + BUFFER);
+
+      minClearance = Math.min(minClearance, clearance);
+      if (clearance < 0) {
+        blocked = true;
+        break;
+      }
+    }
+
+    if (blocked) continue;
+
+    // --- Saturn check ONLY at reference point ---
+    const px = sx + LOOKAHEAD * ux;
+    const py = sy + LOOKAHEAD * uy;
+
+    const ds = Math.hypot(px - saturn.x, py - saturn.y);
+    if (ds < saturn.radius + shipRadius + BUFFER) continue;
+
+    // --- score: prefer directions that increase clearance ---
+    const score = minClearance;
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestDir = { ux, uy };
+    }
+  }
+
+  if (bestDir) {
+    let gx = sx + LOOKAHEAD * bestDir.ux;
+    let gy = sy + LOOKAHEAD * bestDir.uy;
+
+    // --- enforce minimum displacement ---
+    const dx = gx - sx;
+    const dy = gy - sy;
+    const d  = Math.hypot(dx, dy);
+
+    if (d < RG_MIN_DISTANCE) {
+      const scale = RG_MIN_DISTANCE / (d + 1e-6);
+      gx = sx + dx * scale;
+      gy = sy + dy * scale;
+    }
+
+    governedReference = { x: gx, y: gy };
+
+  } else {
+    governedReference = {
+      x: RG_MIN_DISTANCE,
+      y: RG_MIN_DISTANCE
+    };
+  }
+
+}
+
+
+
+
 
 function rockSafetyFilter(ax, ay) {
   let axSafe = ax;
@@ -307,140 +594,65 @@ function rockSafetyFilter(ax, ay) {
   const vx = starship.vx;
   const vy = starship.vy;
 
-  const dMin = 18;     // safety distance
-  const alpha = 1.2;   // barrier gain
+  const shipRadius = 0.5 * Math.max(starship.w, starship.h);
+  const ALPHA  = 2.0;
+
+  // Build obstacle list: rocks + Saturn
+  const obstacles = [];
 
   for (const rock of starship.nearbyRocks) {
-    const rx = sx - rock.x;
-    const ry = sy - rock.y;
-    const r2 = rx*rx + ry*ry;
+    obstacles.push({
+      x: rock.x,
+      y: rock.y,
+      radius: rock.radius
+    });
+  }
 
-    if (r2 < 1e-6) continue;
+  // Treat Saturn as a big rock
+  obstacles.push({
+    x: saturn.x,
+    y: saturn.y,
+    radius: saturn.radius + 15
+  });
 
-    const dvx = vx;   // rock velocity approx zero (or fill in)
-    const dvy = vy;
+  for (const obs of obstacles) {
+    const dx = sx - obs.x;
+    const dy = sy - obs.y;
 
+    const r2 = dx*dx + dy*dy;
+    if (r2 < 1e-8) continue;
+
+    const rInflated =
+      obs.radius + shipRadius + CBF_BUFFER;
+
+    const h = r2 - rInflated * rInflated;
+
+    // Only enforce near boundary
+    if (h > 0.05 * rInflated * rInflated) continue;
+
+
+    // ḣ = 2 r · v
+    const hDot = 2 * (dx * vx + dy * vy);
+
+    // ḧ = 2 v·v + 2 r·a
     const rhs =
-      -(dvx*dvx + dvy*dvy)
-      - alpha * (rx*dvx + ry*dvy);
+      -2 * (vx*vx + vy*vy)
+      - ALPHA * hDot
+      - ALPHA * ALPHA * h;
 
-    const dot = rx*axSafe + ry*aySafe;
+    const dot = 2 * (dx * axSafe + dy * aySafe);
 
     if (dot < rhs) {
-      const norm2 = r2 + 1e-6;
-      const lambda = (rhs - dot) / norm2;
+      const denom = 2 * r2 + 1e-8;
+      const lambda = (rhs - dot) / denom;
 
-      axSafe += lambda * rx;
-      aySafe += lambda * ry;
+      axSafe += lambda * dx;
+      aySafe += lambda * dy;
     }
   }
-  // === Saturn safety barrier ===
-  const rx = starship.x - saturn.x;
-  const ry = starship.y - saturn.y;
-  const r2 = rx*rx + ry*ry;
-
-  if (r2 > 1e-6) {
-    const vx = starship.vx;
-    const vy = starship.vy;
-
-    const dMin2 = SATURN_SAFE_RADIUS * SATURN_SAFE_RADIUS;
-
-    // Only activate barrier when near Saturn
-    if (r2 < dMin2 * 1.5) {
-      const alpha = 2.0;
-
-      const rhs =
-        -(vx*vx + vy*vy)
-        - alpha * (rx*vx + ry*vy);
-
-      const dot = rx*axSafe + ry*aySafe;
-
-      if (dot < rhs) {
-        const lambda = (rhs - dot) / (r2 + 1e-6);
-        axSafe += lambda * rx;
-        aySafe += lambda * ry;
-      }
-    }
-  }
-
-
-  // === Tangential bias to break deadlocks ===
-  const BIAS_GAIN = 0.01;  // small, constant
-
-  const r = Math.hypot(starship.x, starship.y);
-  if (r > 1e-6) {
-    const tx = -starship.y / r;
-    const ty =  starship.x / r;
-
-    axSafe += BIAS_GAIN * tx;
-    aySafe += BIAS_GAIN * ty;
-  }
-
 
   return [axSafe, aySafe];
 }
-
-function referenceGovernor() {
-  const sx = starship.x;
-  const sy = starship.y;
-  const vx = starship.vx;
-  const vy = starship.vy;
-
-  const vMag = Math.hypot(vx, vy);
-
-  // Allow recovery even when slow
-  if (vMag < 1e-3) {
-    omegaScale += OMEGA_RECOVER * dt;
-    omegaScale = Math.min(1.0, omegaScale);
-    lastThreat = 0;
-    return;
-  }
-
-
-  const vHatX = vx / vMag;
-  const vHatY = vy / vMag;
-
-  let threat = 0;
-
-  // ===== ROCKS =====
-  for (const rock of starship.nearbyRocks) {
-    const rx = rock.x - sx;
-    const ry = rock.y - sy;
-    const r  = Math.hypot(rx, ry);
-    if (r < 1e-6) continue;
-
-    const cosAngle = (rx * vHatX + ry * vHatY) / r;
-    if (cosAngle < 0.6) continue;
-
-    // AMPLIFIED threat
-    threat += 3.0 * cosAngle / (r + 5);
-  }
-
-  // ===== SATURN =====
-  {
-    const rx = -sx;
-    const ry = -sy;
-    const r  = Math.hypot(rx, ry);
-    if (r > 1e-6) {
-      const cosAngle = (rx * vHatX + ry * vHatY) / r;
-      if (cosAngle > 0.6 && r < 250) {
-        threat += 6.0 / (r + 5);
-      }
-    }
-  }
-
-  lastThreat = threat;
-
-  // ===== GOVERNOR DYNAMICS =====
-  if (threat > 0.005) {
-    omegaScale -= OMEGA_SLOW * threat * dt;
-  } else {
-    omegaScale += OMEGA_RECOVER * dt;
-  }
-
-  omegaScale = Math.max(OMEGA_MIN, Math.min(1.0, omegaScale));
-}
-
 
 
 
@@ -450,8 +662,18 @@ function orbitalPDControl() {
   const vx = starship.vx;
   const vy = starship.vy;
 
-  const { xd, yd, vxd, vyd } = desiredOrbitState();
+  // --- GET NOMINAL ORBIT REFERENCE ---
+  const orbitRef = desiredOrbitState();
 
+  // --- OVERRIDE POSITION IF RG IS ACTIVE ---
+  const xd = governedReference ? governedReference.x : orbitRef.xd;
+  const yd = governedReference ? governedReference.y : orbitRef.yd;
+
+  // For a position RG, we intentionally zero the reference velocity
+  const vxd = governedReference ? 0 : orbitRef.vxd;
+  const vyd = governedReference ? 0 : orbitRef.vyd;
+
+  // --- PD ERRORS ---
   const ex = sx - xd;
   const ey = sy - yd;
 
@@ -461,8 +683,19 @@ function orbitalPDControl() {
   const Kp = 0.01;
   const Kv = 0.18;
 
-  const ax = -Kp * ex - Kv * evx;
-  const ay = -Kp * ey - Kv * evy;
+  const SPEED_DAMPING = 0.2;   // try 0.4–0.8
+
+  const speed = Math.hypot(vx, vy);
+  const vxUnit = speed > 1e-6 ? vx / speed : 0;
+  const vyUnit = speed > 1e-6 ? vy / speed : 0;
+
+  // oppose motion proportional to speed
+  const axDamp = -SPEED_DAMPING * speed * vxUnit;
+  const ayDamp = -SPEED_DAMPING * speed * vyUnit;
+
+  const ax = -Kp * ex - Kv * evx + axDamp;
+  const ay = -Kp * ey - Kv * evy + ayDamp;
+
 
   return [ax, ay];
 }
@@ -471,10 +704,27 @@ function orbitalPDControl() {
 
 
 
+
 function controller() {
-  let [ax, ay] = orbitalPDControl();
-  [ax, ay] = velocitySafetyFilter(ax, ay);
-  [ax, ay] = rockSafetyFilter(ax, ay);
+  let [ax,ay] = [0,0];
+  switch (controlLaw){
+    case "2Layer": 
+      [ax, ay] = orbitalPDControl();
+      [ax, ay] = rockSafetyFilter(ax, ay);
+      break;
+
+    case "3Layer":
+      [ax, ay] = orbitalPDControl();
+      [ax, ay] = rockSafetyFilter(ax, ay);
+      break;
+    case "3Layer-trajectory":
+      [ax, ay] = orbitalPDControl();
+      [ax, ay] = rockSafetyFilter(ax, ay);
+      break;
+
+    default:
+      [ax,ay] = [0,0];
+  }
   return [ax, ay];
 }
 
@@ -593,7 +843,7 @@ function updateRocks(){
     const dx = n.x - satPos[0];
     const dy = n.y - satPos[1];
     const dist = Math.sqrt(dx*dx + dy*dy);
-    const orbitalVelocity = 3*Math.sqrt(G*saturn.m/dist);
+    const orbitalVelocity = 5*Math.sqrt(G*saturn.m/dist);
     // Compute tangential unit vector
     const tx = -dy/dist;
     const ty = dx/dist;
@@ -622,11 +872,33 @@ function render(now= performance.now()){
     fpsDisplay.innerText = `Simulation Active: ${fps} FPS`;
   }
 
-  if (missionActive && isRunning) {
+ if (missionActive && isRunning) {
+
+    // 1. Sense
     starship.nearbyRocks = getVisibleRocks();
-    referenceGovernor(); 
+
+    // 2. Analyze constraint state
+    updateDeadlockDetector();
+
+    // 3. Supervisory decision (REFERENCE logic)
+    if (
+      (controlLaw === "3Layer" || controlLaw === "3Layer-trajectory") &&
+      deadlockDetected
+    ) {
+      positionReferenceGovernor();
+      blockingPersistence *= 0; //  reset
+    }
+
+    if (governedReference && shouldReleaseGovernedReference()) {
+      governedReference = null;
+    }
+
+    // 4. Control synthesis (ACTUATION logic)
     [controlUx, controlUy] = controller();
-}
+  }
+
+
+
 
     if(isRunning){
     // update physics of aircraft wrt Saturn's gravity
@@ -635,8 +907,10 @@ function render(now= performance.now()){
       if (missionActive){
         // --- advance reference PHASE ---
         const { a } = getReferenceOrbitParams();
-        const omegaNom = 5 * Math.sqrt(G * saturn.m / (a * a * a));
+        const omegaNom = 1.5 * Math.sqrt(G * saturn.m / (a * a * a));
         orbitPhase += omegaScale * omegaNom * dt;
+
+
 
         symplecticEuler();
       }
@@ -652,10 +926,14 @@ function render(now= performance.now()){
 
 
 
+
+
+
   // Draw trajectory target
   dashPhase -= 0.2;  // speed
   drawReferenceOrbit();
   drawTargetPoint();
+  drawGovernedReference();
 
   // Draw Saturn
     const [satX, satY] = pos2Coords(satPos[0], satPos[1]);
@@ -681,6 +959,44 @@ function render(now= performance.now()){
     ctx.shadowBlur = 0;
   });
 
+  // === Debug: Deadlock & RG ===
+  ctx.save();
+  ctx.font = "14px monospace";
+
+  const y0 = 20;
+  const dy = 18;
+
+  // Deadlock score
+  ctx.fillStyle = deadlockDetected ? "#ff4444" : "#ffaa00";
+  ctx.fillText(
+    `deadlock score: ${blockingPersistence.toFixed(2)}`,
+    200, y0 + dy
+  );
+
+  // Deadlock flag
+  ctx.fillStyle = deadlockDetected ? "#ff4444" : "#888888";
+  ctx.fillText(
+    `deadlock detected: ${deadlockDetected ? "YES" : "NO"}`,
+    200, y0 + 2 * dy
+  );
+
+    ctx.fillStyle = "#ff7777";
+    ctx.fillText(
+      `blocking bins: ${lastBlockingSet.join("")}`,
+      200, y0 + 3 * dy
+    );
+
+
+  // RG state
+  ctx.fillStyle = governedReference ? "#ff9f1c" : "#888888";
+  ctx.fillText(
+    `RG active: ${governedReference ? "YES" : "NO"}`,
+    200, y0 + 4 * dy
+  );
+
+  ctx.restore();
+
+
 
   const [freighterX, freighterY] = pos2Coords(freighter.x, freighter.y);
   ctx.drawImage(
@@ -691,13 +1007,6 @@ function render(now= performance.now()){
     freighter.h
     );
 
-    // === Debug: Reference Governor ===
-    ctx.save();
-    ctx.fillStyle = "#00ff66";
-    ctx.font = "14px monospace";
-    ctx.fillText(`ω-scale: ${omegaScale.toFixed(2)}`, 100, 40);
-    ctx.fillText(`threat: ${lastThreat.toFixed(3)}`, 100, 60);
-    ctx.restore();
 
 
     if(missionActive){
@@ -782,6 +1091,9 @@ function globalReset(startBtn){
     starship.y = initialStarshipY;
     starship.vx = 0;
     starship.vy = 0;
+    governedReference = null;
+    deadlockScore = 0;
+    deadlockDetected = false;
     //
     const launchBtn = document.getElementById("launch");
     launchBtn.style.display = "inline-block";

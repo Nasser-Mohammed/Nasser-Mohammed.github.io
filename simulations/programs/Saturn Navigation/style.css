@@ -339,3 +339,11 @@ button {
   box-shadow: 0 0 8px #00ff66;
   display: inline-block;
 }
+.legend-circle.tempRef {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff9f1c;
+  box-shadow: 0 0 8px #ff9f1c;
+  display: inline-block;
+}

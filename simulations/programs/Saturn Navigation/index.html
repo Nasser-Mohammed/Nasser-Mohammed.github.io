@@ -33,7 +33,7 @@
 
         <!-- Launch Controls -->
         <div class="status-card mission-card">
-          <span class="label">Launch Controls</span>
+          <span class="label">Desired Orbit</span>
 
           <div class="mission-option active" data-mission="lowSaturnOrbit">
             Low Saturn Orbit
@@ -49,13 +49,45 @@
 
         <!-- Control Law -->
       <div class="status-card control-law-card">
-        <span class="label">Control Law</span>
-        <div class="control-option active" data-control="3Layer">
-          <strong>3-Layer Controller</strong>
+        <span class="label">Experiment with Different Guidance and Navigation Systems (GNC)</span>
+        <div class="control-option active" data-control="2Layer">
+          <strong>Naive 2-Layer Controller</strong>
           <ul class="control-list">
             <li>PD controller for orbit tracking</li>
             <li>Control Barrier Function for object avoidance</li>
-            <li>Reference governor for reference modulation</li>
+          </ul>
+          <p>Features of this guidance system:</p>
+          <ul class="control-list">
+            <li>Can get stuck between rocks (deadlock)</li>
+            <li>Only cares about getting to the desired position, and avoiding rocks and Saturn</li>
+          </ul>
+        </div>
+        <div class="control-option" data-control="3Layer">
+          <strong>Naive 3-Layer Controller</strong>
+          <ul class="control-list">
+            <li>PD controller for orbit tracking</li>
+            <li>Reference Governor for position (escape deadlock)</li>
+            <li>Control Barrier Function for object avoidance</li>
+          </ul>
+          <p>Features of this guidance system:</p>
+          <ul class="control-list">
+            <li>Can temporarily follow a generated reference point different from the original reference</li>
+            <li>Can escape stuck positions (deadlock)</li>
+          </ul>
+        </div>
+
+      <div class="control-option" data-control="3Layer-trajectory">
+          <strong>Smarter 3-Layer Controller (Not yet functional)</strong>
+          <ul class="control-list">
+            <li>PD controller for <strong>look-ahead tracking</strong></li>
+            <li>Reference Governor for position (escape deadlock)</li>
+            <li>Control Barrier Function for object avoidance</li>
+          </ul>
+          <p>Features of this guidance system:</p>
+          <ul class="control-list">
+            <li>Can temporarily follow a generated reference point different from the original reference</li>
+            <li>Can escape stuck positions (deadlock)</li>
+            <li>Controller also considers where the target position will be on its orbit in the future</li>
           </ul>
         </div>
 
@@ -75,6 +107,11 @@
       <div class="legend-item">
         <span class="legend-circle reference"></span>
         <span class="legend-text">Reference Point (moving target along orbit)</span>
+      </div>
+
+      <div class="legend-item">
+        <span class="legend-circle tempRef"></span>
+        <span class="legend-text">Temporary Reference Point (to get out of deadlock)</span>
       </div>
 
 
