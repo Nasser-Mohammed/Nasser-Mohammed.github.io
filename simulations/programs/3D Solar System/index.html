@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Satellite GNC Simulator</title>
+
+  <!-- Responsive viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+    "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+    }
+    </script>
+
+</head>
+<body>
+
+  <!-- Control Bar -->
+  <div id="control-bar">
+    <div class="controls-left">
+      <span class="title">Satellite ADCS Simulator</span>
+    </div>
+
+    <div class="controls-center">
+      <button id="startBtn">Start</button>
+      <button id="resetBtn">Reset</button>
+      <button id="cameraToggle">Follow Planet</button>
+
+    <label>
+        Target Planet/Sun
+        <select id="planetView">
+            <option value="earth">Earth</option>
+            <option value="sun">Sun</option>
+            <option value="mercury">Mercury</option>
+            <option value="venus">Venus</option>
+            <option value="mars">Mars</option>
+            <option value="jupiter">Jupiter</option>
+            <option value="saturn">Saturn</option>
+            <option value="uranus">Uranus</option>
+            <option value="neptune">Neptune</option>
+        </select>
+      </label>
+
+    </div>
+
+    <div class="controls-right">
+      <button id="collapse-btn">⮝</button>
+    </div>
+  </div>
+
+    <div id="control-tab">Controls</div>
+
+  <!-- Canvas Container -->
+  <div id="canvas-container">
+    <canvas id="sim-canvas"></canvas>
+  </div>
+
+  <!--  main logic -->
+ <script type="module" src="main.js"></script>
+
+
+
+
+</body>
+</html>
