@@ -116,3 +116,37 @@ select {
 .hidden {
   display: none !important;
 }
+#adcs-panel {
+  position: absolute;
+  right: 12px;
+  top: 70px;
+  width: 280px;
+  background: rgba(20, 25, 35, 0.95);
+  color: #eaeaea;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  z-index: 9;
+  font-size: 12px;
+}
+
+#adcs-panel h3 {
+  margin-bottom: 6px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.battery-bar {
+  width: 100%;
+  height: 6px;
+  background: #222;
+  border-radius: 3px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.battery-bar .fill {
+  height: 100%;
+  width: 60%;
+  background: #4caf50;
+}
