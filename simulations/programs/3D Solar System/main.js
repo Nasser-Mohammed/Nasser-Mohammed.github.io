@@ -738,7 +738,7 @@ function initUI() {
         cameraToggleBtn.textContent = "Free Camera";
     } else {
         cameraMode = CAMERA_MODE.FREE;
-        cameraToggleBtn.textContent = "Lock to Planet";
+        cameraToggleBtn.textContent = "Follow Planet";
     }
     };
 
