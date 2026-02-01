@@ -128,7 +128,7 @@ let numSpaceStations = 4;
 let objectMap = new Map();
 
 let currentPlanetView = "earth";
-const ISS_SCALE = 0.05;
+const ISS_SCALE = 0.075;
 const ISS_ORBIT_RADIUS = earthRadius + 4.5;
 const ISS_INCLINATION = THREE.MathUtils.degToRad(55);
 let issPhase = 0; // angle along orbit
@@ -140,8 +140,9 @@ const ISS_POSITION = { x: earthPos.x + 15, y: earthPos.y + 12, z: earthPos.z };
 let iss; 
 
 const GEO_ORBIT_RADIUS = earthRadius + 15; // visually compressed GEO
-const GEO_SAT_COUNT = 5;
-
+const GEO_SAT_COUNT = 15;
+const INCLINED_SAT_COUNT = 5;
+const EQUATORIAL_SAT_COUNT = 8;
 
 
 
@@ -1310,13 +1311,13 @@ function initSatellites() {
 
 
   // ----- Equatorial ring -----
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < EQUATORIAL_SAT_COUNT; i++) {
     const name = `sat_eq_${i}`;
 
     spawnSatelliteOnOrbit({
         parent: earth,
         radius: earthRadius + 3,
-        phase: (i / 5) * Math.PI * 2,
+        phase: (i / EQUATORIAL_SAT_COUNT) * Math.PI * 2,
         speed: 0.2,
         inclination: 0,
         name
@@ -1330,13 +1331,13 @@ function initSatellites() {
 
 
   // ----- ISS-like inclined ring -----
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < INCLINED_SAT_COUNT; i++) {
     const name = `sat_inc_${i}`;
 
     spawnSatelliteOnOrbit({
         parent: earth,
         radius: earthRadius + 4.5,
-        phase: (i / 4) * Math.PI * 2,
+        phase: (i / INCLINED_SAT_COUNT) * Math.PI * 2,
         speed: 0.18,
         inclination: THREE.MathUtils.degToRad(55),
         name
