@@ -143,6 +143,7 @@ const GEO_ORBIT_RADIUS = earthRadius + 15; // visually compressed GEO
 const GEO_SAT_COUNT = 15;
 const INCLINED_SAT_COUNT = 5;
 const EQUATORIAL_SAT_COUNT = 8;
+const MIN_SEP = THREE.MathUtils.degToRad(25);
 
 
 
@@ -1331,23 +1332,27 @@ function initSatellites() {
 
 
   // ----- ISS-like inclined ring -----
-    for (let i = 0; i < INCLINED_SAT_COUNT; i++) {
-    const name = `sat_inc_${i}`;
+    const N = INCLINED_SAT_COUNT;
+
+  for (let i = 0; i < N; i++) {
+    const phase =
+      issPhase + MIN_SEP + (i / N) * (2 * Math.PI - 2 * MIN_SEP);
+      const name = `sat_incl_${i}`;
 
     spawnSatelliteOnOrbit({
-        parent: earth,
-        radius: earthRadius + 4.5,
-        phase: (i / INCLINED_SAT_COUNT) * Math.PI * 2,
-        speed: 0.18,
-        inclination: THREE.MathUtils.degToRad(55),
-        name
+      parent: earth,
+      radius: earthRadius + 4.5,
+      phase,
+      speed: 0.18,
+      inclination: THREE.MathUtils.degToRad(55),
+      name
     });
-
-    const opt = document.createElement("option");
+      const opt = document.createElement("option");
     opt.value = name;
-    opt.textContent = `Inclined LEO Satellite ${i + 1}`;
+    opt.textContent = `Inclined Leo Satellite ${i + 1}`;
     planetSelect.appendChild(opt);
-    }
+  }
+
 
 
     // ----- GEO satellites -----
