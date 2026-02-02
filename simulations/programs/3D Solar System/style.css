@@ -116,37 +116,293 @@ select {
 .hidden {
   display: none !important;
 }
-#adcs-panel {
-  position: absolute;
-  right: 12px;
-  top: 70px;
-  width: 280px;
-  background: rgba(20, 25, 35, 0.95);
-  color: #eaeaea;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #333;
-  z-index: 9;
-  font-size: 12px;
+
+
+
+
+/* ================================
+   GLOBAL RESET (safe)
+================================ */
+* {
+  box-sizing: border-box;
 }
 
-#adcs-panel h3 {
-  margin-bottom: 6px;
+/* ================================
+   ADCS PANEL ROOT
+================================ */
+#adcs-panel {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  z-index: 1000;
+
+  width: 280px;
+  padding: 12px;
+
+  background: rgba(8, 12, 16, 0.95);
+  border: 1px solid #2a2f36;
+
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  color: #d6dbe0;
+
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+/* ================================
+   HEADER
+================================ */
+.adcs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+
+  border-bottom: 1px solid #2a2f36;
+}
+
+.adcs-title {
   font-size: 13px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.adcs-status {
+  font-size: 11px;
   letter-spacing: 0.5px;
 }
 
-.battery-bar {
-  width: 100%;
-  height: 6px;
-  background: #222;
-  border-radius: 3px;
-  margin-top: 4px;
-  overflow: hidden;
+.adcs-status.nominal {
+  color: #6ee27d;
 }
 
-.battery-bar .fill {
-  height: 100%;
-  width: 60%;
-  background: #4caf50;
+/* ================================
+   SECTIONS
+================================ */
+.adcs-section {
+  margin-bottom: 14px;
 }
+
+.section-title {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #8aa1b4;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+/* ================================
+   ROWS
+================================ */
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 6px;
+
+  margin-bottom: 6px;
+}
+
+.row label {
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+.readout {
+  font-size: 11px;
+  min-width: 42px;
+  text-align: right;
+  color: #9fd3ff;
+}
+
+/* ================================
+   TELEMETRY
+================================ */
+.telemetry-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+
+  font-size: 11px;
+}
+
+.telemetry-row span:last-child {
+  color: #9fd3ff;
+}
+
+/* ================================
+   INPUTS
+================================ */
+#adcs-panel input[type="range"] {
+  width: 100%;
+  margin: 4px 0;
+
+  background: transparent;
+}
+
+/* Chrome */
+#adcs-panel input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px;
+  background: #2a2f36;
+}
+
+#adcs-panel input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  margin-top: -3.5px;
+
+  background: #9fd3ff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Firefox */
+#adcs-panel input[type="range"]::-moz-range-track {
+  height: 3px;
+  background: #2a2f36;
+}
+
+#adcs-panel input[type="range"]::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+
+  background: #9fd3ff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* ================================
+   SELECT DROPDOWNS
+================================ */
+#adcs-panel select {
+  width: 100%;
+  padding: 4px;
+
+  background: #0d1218;
+  color: #d6dbe0;
+
+  border: 1px solid #2a2f36;
+  font-family: inherit;
+  font-size: 11px;
+}
+
+#adcs-panel select:focus {
+  outline: none;
+  border-color: #9fd3ff;
+}
+
+/* ================================
+   STATUS COLORS (future use)
+================================ */
+.status-warning {
+  color: #f0c674;
+}
+
+.status-error {
+  color: #ff6b6b;
+}
+.battery {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.battery-label {
+  font-size: 9px;
+  opacity: 0.6;
+}
+
+.battery-bar {
+  width: 60px;
+  height: 6px;
+  background: #1a1f26;
+  border: 1px solid #2a2f36;
+}
+
+.battery-fill {
+  height: 100%;
+  background: #6ee27d;
+}
+
+.battery-readout {
+  font-size: 10px;
+  color: #9fd3ff;
+}
+
+.battery-fill.nominal {
+  background: #6ee27d;
+}
+
+.battery-fill.warning {
+  background: #f0c674;
+}
+
+.battery-fill.critical {
+  background: #ff6b6b;
+}
+
+
+.graph-placeholder {
+  height: 60px;
+  background: #0d1218;
+  border: 1px solid #2a2f36;
+  margin-bottom: 6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 10px;
+  color: #556070;
+  letter-spacing: 1px;
+}
+.rotation-visual {
+  height: 80px;
+  background: #0d1218;
+  border: 1px solid #2a2f36;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+  color: #9fd3ff;
+
+  margin-bottom: 6px;
+}
+.battery-charge {
+  font-size: 9px;
+  letter-spacing: 1px;
+  margin-top: 2px;
+  opacity: 0.8;
+}
+
+/* States */
+.battery-charge.charging {
+  color: #6ee27d;
+}
+
+.battery-charge.discharging {
+  color: #8aa1b4;
+}
+
+.battery-charge.offline {
+  color: #ff6b6b;
+}
+
+@keyframes blink-red {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+
+.blink-critical {
+  color: #ff6b6b;
+  animation: blink-red 1s infinite;
+  font-weight: bold;
+}
+

@@ -14,6 +14,26 @@ import * as THREE from 'three';
 
 
 
+/// ADCS State Creation For each satellite or ISS ///
+function createADCSState(target = "earth") {
+  return {
+    target,
+    battery: 0.7,
+    charging: true,
+    attitudeError: 0.05,
+    controlEffort: 0.2,
+    omega: new THREE.Vector3(
+      0.02 * (Math.random() - 0.5),
+      0.02 * (Math.random() - 0.5),
+      0.02 * (Math.random() - 0.5)
+    ),
+    errorHistory: [],
+    effortHistory: []
+  };
+}
+///// end of ADCS state creation function /////
+
+
 
 ///// ISS and satellite module creation functions (NO ASSEMBLY OR STATE) /////
 function createModule(length = 1.2, radius = 0.4) {
@@ -411,7 +431,9 @@ function spawnGEOSatellite({ parent, longitude, name }, objectMap, satellites, I
 
   satellites.push({
     mesh: sat,
-    geo: true // flag: no phase update
+    geo: true, // flag: no phase update
+    name,
+    adcs: createADCSState("earth")
   });
 }
 
@@ -449,6 +471,17 @@ function spawnSatelliteOnOrbit({
         0,
         radius * Math.sin(phase)
     );
+    const pick = Math.random();
+    let target;
+    if(pick < 0.2){
+        target = "moon";
+    }
+    else if (pick < 0.5){
+        target = "sun";
+    }
+    else{
+        target = "earth";
+    }
 
     satellites.push({
         mesh,
@@ -456,7 +489,8 @@ function spawnSatelliteOnOrbit({
         radius,
         phase,
         speed,
-        name
+        name,
+        adcs: createADCSState(target)
     });
 
     objectMap.set(name, [mesh, new THREE.Vector3(0.5, 0.5, 0.5)]);
@@ -469,6 +503,7 @@ function spawnSatelliteOnOrbit({
 export function initSpaceStation(ISS_SCALE, issCameraOffset, objectMap, earth) // Needs two inputs now
 {
   let iss = createISS();
+  iss.adcs = createADCSState("sun");
 
   // setISSOnOrbit(); // position handled in main.js now
 
@@ -487,7 +522,7 @@ export function initSatellites(earth, earthRadius, INCLINED_SAT_COUNT, EQUATORIA
 
   // ----- Equatorial ring -----
   for (let i = 0; i < EQUATORIAL_SAT_COUNT; i++) {
-    const name = `sat_eq_${i}`;
+    const name = `sat_eq_${i+1}`;
 
     spawnSatelliteOnOrbit({
         parent: earth,
@@ -511,7 +546,7 @@ export function initSatellites(earth, earthRadius, INCLINED_SAT_COUNT, EQUATORIA
   for (let i = 0; i < N; i++) {
     const phase =
       issPhase + MIN_SEP + (i / N) * (2 * Math.PI - 2 * MIN_SEP);
-      const name = `sat_incl_${i}`;
+      const name = `sat_incl_${i+1}`;
 
     spawnSatelliteOnOrbit({
       parent: earth,
@@ -533,7 +568,7 @@ export function initSatellites(earth, earthRadius, INCLINED_SAT_COUNT, EQUATORIA
 
     for (let i = 0; i < GEO_SAT_COUNT; i++) {
     const lon = (i / GEO_SAT_COUNT) * Math.PI * 2;
-    const name = `geo_sat_${i}`;
+    const name = `geo_sat_${i+1}`;
 
     spawnGEOSatellite({
         parent: earth,

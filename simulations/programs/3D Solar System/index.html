@@ -35,8 +35,8 @@
     <label>
         Target Body
         <select id="planetView">
-            <option value="earth">Earth</option>
             <option value="iss">International Space Station</option>
+            <option value="earth">Earth</option>
             <option value="moon">Moon</option>
             <option value="sun">Sun</option>
             <option value="mercury">Mercury</option>
@@ -57,6 +57,91 @@
   </div>
 
     <div id="control-tab">Controls</div>
+
+    
+<div id="adcs-panel">
+
+    <!-- HEADER -->
+    <div class="adcs-header">
+      <div>
+        <div class="adcs-title" id="adcs-title">ADCS —</div>
+        <div class="adcs-subtitle">MODE: HOLD ATTITUDE</div>
+      </div>
+
+      <div class="battery">
+        <div class="battery-label">POWER</div>
+
+        <div class="battery-bar">
+          <div class="battery-fill nominal" style="width: 72%;"></div>
+        </div>
+
+        <div class="battery-readout">72%</div>
+
+        <div class="battery-charge charging">
+          CHARGING
+        </div>
+      </div>
+    </div> 
+    <!-- TARGET -->
+  <div class="adcs-section">
+    <div class="section-title">TARGET</div>
+
+    <div class="telemetry-row">
+      <span>Pointing To</span>
+      <span id="adcs-target-readout">EARTH</span>
+    </div>
+  </div>
+
+
+    <!-- ATTITUDE ERROR -->
+    <div class="adcs-section">
+      <div class="section-title">ATTITUDE ERROR</div>
+
+      <div class="graph-placeholder">
+        <canvas id="attitude-error-graph" width="240" height="60"></canvas>
+      </div>
+
+
+      <div class="telemetry-row">
+        <span>Error Norm</span>
+        <span id="attitude-error-readout">0.034 rad</span>
+      </div>
+    </div>
+
+    <!-- CONTROL EFFORT -->
+    <div class="adcs-section">
+      <div class="section-title">CONTROL EFFORT</div>
+
+      <div class="graph-placeholder">
+        <canvas id="control-effort-graph" width="240" height="60"></canvas>
+     </div>
+
+
+      <div class="telemetry-row">
+        <span>Effort</span>
+        <span id="control-effort-readout">0.0</span>
+      </div>
+    </div>
+
+    <!-- ROTATION VISUAL -->
+    <div class="adcs-section">
+      <div class="section-title">ROTATION STATE</div>
+
+      <div class="rotation-visual">
+        <canvas id="rotation-canvas" width="80" height="80"></canvas>
+      </div>
+
+
+      <div class="telemetry-row">
+        <span>ω</span>
+        <span id="omega-readout">[0.00, 0.00, 0.00]</span>
+    </div>
+
+    </div>
+
+</div>
+
+
 
 
 
