@@ -8,33 +8,83 @@ import * as THREE from 'three';
 // but does not maintaini state variables.
 // Can only access them through parameters.
 
-// Now we assemble it here as well, and return the mesh.
-// In main.js we can have a simple function to add these to the 
-// appropriate scene or parent object. 
+// Assembly is now done in spaceCraftInit.js
+// Here we can design new satellites, etc. and export the functions.
 
+// This defines the axis along which the antenna (or future the solar panels) point with respect to the 
+// body frame of the satellite
+// currently it's the +Z axis
+export const SATELLITE_BODY_AXES = {
+  ANTENNA: new THREE.Vector3(0, 0, 1),
+  // optional future axes
+  // SOLAR_NORMAL: new THREE.Vector3(1, 0, 0),
+  // CAMERA: new THREE.Vector3(0, 1, 0),
+};
+
+
+
+// Exposed assembly functions that return meshes //
+export function createISS({ withADCS = true, target = "earth" } = {}) {
+  const iss = ISSAssembly();
+
+  if (withADCS) {
+    iss.adcs = createADCSState(target);
+  }
+
+  iss.bodyAxes = SATELLITE_BODY_AXES;
+
+  return iss;
+}
+
+
+export function createSatellite({ withADCS = true, target = "earth" } = {}) {
+  const mesh = satelliteAssembly();
+  mesh.bodyAxes = SATELLITE_BODY_AXES;
+  if (withADCS) {
+    mesh.adcs = createADCSState(target);
+  }
+  return mesh;
+}
 
 
 /// ADCS State Creation For each satellite or ISS ///
+// ADCS state creation ties directly to spacecraft objects
 function createADCSState(target = "earth") {
   return {
     target,
     battery: 0.7,
     charging: true,
+
     attitudeError: 0.05,
     controlEffort: 0.2,
+
     omega: new THREE.Vector3(
       0.02 * (Math.random() - 0.5),
       0.02 * (Math.random() - 0.5),
       0.02 * (Math.random() - 0.5)
     ),
+
+    powerState: "ACTIVE",
+    enabled: true,
+    attitudeLocked: false,
+
+    // UI + state guards (THIS IS IMPORTANT)
+    _lastPowerState: "ACTIVE",
+    _lastAnnouncedState: "ACTIVE",
+
     errorHistory: [],
     effortHistory: []
   };
 }
+
+
 ///// end of ADCS state creation function /////
 
 
 
+// Purely geometric meshes and modules for satellites and ISS //
+// To create these, you call the functions above which call the assembly
+// functions below
 ///// ISS and satellite module creation functions (NO ASSEMBLY OR STATE) /////
 function createModule(length = 1.2, radius = 0.4) {
   const body = new THREE.Mesh(
@@ -228,7 +278,7 @@ function createRadiatorAssembly() {
 
 
 ///// ISS ASSEMBLY (NO STATE NEEDED, PURELY GEOMETRIC MESH) /////
-function createISS() {
+function ISSAssembly() {
     const iss = new THREE.Group();
 
     // backbone
@@ -363,7 +413,7 @@ function createISS() {
 }
 
 // Satellite mesh creation
-function createSatelliteMesh() {
+function satelliteAssembly() {
   const sat = new THREE.Group();
 
   // Cylindrical bus
@@ -402,6 +452,7 @@ function createSatelliteMesh() {
   );
   antenna.position.z = 0.25;
   antenna.rotation.x = Math.PI / 2;
+  antenna.name = "antenna";
   sat.add(antenna);
   
 
@@ -410,175 +461,3 @@ function createSatelliteMesh() {
 
 ///////////// END OF ISS ASSEMBLY FUNCTION (NO STATE) //////////////
 
-
-// GEO satellite spawning (no phase update)
-function spawnGEOSatellite({ parent, longitude, name }, objectMap, satellites, ISS_SCALE, GEO_ORBIT_RADIUS) {
-  const sat = createSatelliteMesh();
-  const SAT_SCALE_GEO = 4;
-  sat.scale.setScalar(SAT_SCALE_GEO*ISS_SCALE);
-
-  // Place in equatorial plane
-  sat.position.set(
-    GEO_ORBIT_RADIUS * Math.cos(longitude),
-    0,
-    GEO_ORBIT_RADIUS * Math.sin(longitude)
-  );
-
-  parent.add(sat);
-
-  // Register for camera tracking
-  objectMap.set(name, [sat, new THREE.Vector3(3, 3, 3)]);
-
-  satellites.push({
-    mesh: sat,
-    geo: true, // flag: no phase update
-    name,
-    adcs: createADCSState("earth")
-  });
-}
-
-
-
-// This is not an update function, just initial spawning
-function spawnSatelliteOnOrbit({
-  parent,
-  radius,
-  phase,
-  speed,
-  inclination = 0,
-  name
-}, objectMap, satellites, ISS_SCALE) {
-
-    if (ISS_SCALE == null) {
-        throw new Error("ISS_SCALE is undefined");
-    }
-
-    const mesh = createSatelliteMesh();
-    mesh.name = name;
-    const SAT_SCALE_LEO = 3;
-    mesh.scale.setScalar(SAT_SCALE_LEO*ISS_SCALE);
-
-    // orbit plane group (important for inclination)
-    const orbitFrame = new THREE.Group();
-    orbitFrame.rotation.z = inclination;
-
-    parent.add(orbitFrame);
-    orbitFrame.add(mesh);
-
-    // initial placement
-    mesh.position.set(
-        radius * Math.cos(phase),
-        0,
-        radius * Math.sin(phase)
-    );
-    const pick = Math.random();
-    let target;
-    if(pick < 0.2){
-        target = "moon";
-    }
-    else if (pick < 0.5){
-        target = "sun";
-    }
-    else{
-        target = "earth";
-    }
-
-    satellites.push({
-        mesh,
-        orbitFrame,
-        radius,
-        phase,
-        speed,
-        name,
-        adcs: createADCSState(target)
-    });
-
-    objectMap.set(name, [mesh, new THREE.Vector3(0.5, 0.5, 0.5)]);
-
-}
-
-///////////// ISS AND SATELLITE INITIALIZATION FUNCTIONS (STATE AND CONSTANTS NEEDED) //////////////
-//////////// EXPOSED FUNCTION TO main.js ////////////
-
-export function initSpaceStation(ISS_SCALE, issCameraOffset, objectMap, earth) // Needs two inputs now
-{
-  let iss = createISS();
-  iss.adcs = createADCSState("sun");
-
-  // setISSOnOrbit(); // position handled in main.js now
-
-  iss.scale.setScalar(ISS_SCALE);
-  iss.rotation.y = Math.PI / 4;
-
-  earth.add(iss);
-  objectMap.set("iss", [iss, issCameraOffset]);
-  return iss;
-}
-
-export function initSatellites(earth, earthRadius, INCLINED_SAT_COUNT, EQUATORIAL_SAT_COUNT, GEO_SAT_COUNT, GEO_ORBIT_RADIUS, issPhase, objectMap, satellites, ISS_SCALE, MIN_SEP) {
-  // const earthRadius = 8;
-  const planetSelect = document.getElementById("planetView");
-
-
-  // ----- Equatorial ring -----
-  for (let i = 0; i < EQUATORIAL_SAT_COUNT; i++) {
-    const name = `sat_eq_${i+1}`;
-
-    spawnSatelliteOnOrbit({
-        parent: earth,
-        radius: earthRadius + 3,
-        phase: (i / EQUATORIAL_SAT_COUNT) * Math.PI * 2,
-        speed: 0.2,
-        inclination: 0,
-        name
-    }, objectMap, satellites, ISS_SCALE);
-
-    const opt = document.createElement("option");
-    opt.value = name;
-    opt.textContent = `Equatorial Leo Sattelite ${i + 1}`;
-    planetSelect.appendChild(opt);
-    }
-
-
-  // ----- ISS-like inclined ring -----
-    const N = INCLINED_SAT_COUNT;
-
-  for (let i = 0; i < N; i++) {
-    const phase =
-      issPhase + MIN_SEP + (i / N) * (2 * Math.PI - 2 * MIN_SEP);
-      const name = `sat_incl_${i+1}`;
-
-    spawnSatelliteOnOrbit({
-      parent: earth,
-      radius: earthRadius + 4.5,
-      phase,
-      speed: 0.18,
-      inclination: THREE.MathUtils.degToRad(55),
-      name
-    }, objectMap, satellites, ISS_SCALE);
-    const opt = document.createElement("option");
-    opt.value = name;
-    opt.textContent = `Inclined Leo Satellite ${i + 1}`;
-    planetSelect.appendChild(opt);
-  }
-
-
-
-    // ----- GEO satellites -----
-
-    for (let i = 0; i < GEO_SAT_COUNT; i++) {
-    const lon = (i / GEO_SAT_COUNT) * Math.PI * 2;
-    const name = `geo_sat_${i+1}`;
-
-    spawnGEOSatellite({
-        parent: earth,
-        longitude: lon,
-        name
-    }, objectMap, satellites, ISS_SCALE, GEO_ORBIT_RADIUS);
-
-    const opt = document.createElement("option");
-    opt.value = name;
-    opt.textContent = `Equatorial GEO Satellite ${i + 1}`;
-    planetSelect.appendChild(opt);
-    }
-}

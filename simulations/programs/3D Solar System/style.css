@@ -406,3 +406,33 @@ select {
   font-weight: bold;
 }
 
+#adcs-status {
+  margin-top: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  border-radius: 4px;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+
+#adcs-status.error {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.15);
+  border: 1px solid rgba(255, 107, 107, 0.35);
+}
+
+#adcs-status.success {
+  color: #6ee27d;
+  background: rgba(110, 226, 125, 0.15);
+  border: 1px solid rgba(110, 226, 125, 0.35);
+}
+
+#adcs-status.locked {
+  color: #6aa8ff;
+  background: rgba(106, 168, 255, 0.15);
+  border: 1px solid rgba(106, 168, 255, 0.35);
+}
+
+

@@ -3,8 +3,8 @@
 // ================================
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
-import { initSpaceStation, initSatellites } from "./spaceCrafts.js";
-import { initThree, initScene, initOrbits, initMoonPositions, setEarthMoonCamInfo} from "./planetCreation.js";
+import { instantiateSatelliteSystems } from "./spaceCraftInit.js";
+import { initThree, initScene, setEarthMoonCamInfo} from "./planetCreation.js";
 
 let scene, camera, renderer;
 let controls;
@@ -13,58 +13,28 @@ let isRunning = false;
 let lastTime = 0;
 
 let earth;
-let moon;
 
 let earthRadius;
 
 let planets = [];
 let moons = [];
 
-
-
-// Real world coordinates
-// Sun at origin
-
 let initialCam;
 
-// Inner planets (tighter, but ordered correctly)
 let earthPos;
 
-// Outer planets (compressed but proportional)
 
-// Moon (relative to Earth)
-let moonPos;
+const PLANET_ORBIT_TIME_SCALE = 5;
+const PLANET_SPIN_TIME_SCALE = 3500; 
 
-const ORBIT_SPEEDS = {
-  mercury: 0.020,
-  venus:   0.015,
-  earth:   0.010,
-  mars:    0.008,
-  jupiter: 0.004,
-  saturn:  0.003,
-  uranus:  0.002,
-  neptune: 0.001
+const MOON_ORBIT_TIME_SCALES = {
+  earth:   20000,
+  mars:    400,
+  jupiter: 10000,
+  saturn:  10000,
+  uranus:  10000,
+  neptune: 25
 };
-
-const SPIN_RATES = {
-  mercury:  0.004,
-  venus:   -0.0015, // retrograde
-  earth:    0.02,
-  mars:     0.018,
-  jupiter:  0.05,
-  saturn:   0.045,
-  uranus:   0.03,
-  neptune:  0.028
-};
-
-
-const MOON_ORBIT_SPEED = 0.04;
-let moonPhase = 0;
-let moonOrbitRadius; // relative to Earth
-
-
-const issCameraOffset = new THREE.Vector3(1.5, 1.5, 1.5);
-
 
 const CAMERA_MODE = {
   FREE: "free",
@@ -73,19 +43,21 @@ const CAMERA_MODE = {
 
 let cameraMode = CAMERA_MODE.FREE;
 
-let satellites = [];
 
 let objectMap = new Map();
 
-let currentPlanetView = "iss";
+let currentPlanetView = "sat_eq_1";
 const ISS_SCALE = 0.05;
 let ISS_ORBIT_RADIUS;
-const ISS_INCLINATION = THREE.MathUtils.degToRad(55);
 let issPhase = 0; // angle along orbit
 
 const _worldPos = new THREE.Vector3();
 
-let iss; 
+const SUN_DIR_WORLD = new THREE.Vector3(1, 0.2, 0.3).normalize();
+const PANEL_NORMAL_LOCAL = new THREE.Vector3(1, 0, 0);
+
+const SUN_POS_WORLD = new THREE.Vector3(1e6, 2e5, 3e5);
+
 
 let GEO_ORBIT_RADIUS; // visually compressed GEO
 const GEO_SAT_COUNT = 15;
@@ -101,6 +73,8 @@ export const simState = {
   thrust: 0
 };
 
+
+// ADCS Simulation panel parameters
 const ADCS_TIME_SCALE = 0.1; // slower than orbital motion so it's easier on the eyes
 let batteryFill, batteryText, batteryCharge;
 let attitudeErrorReadout;
@@ -112,6 +86,7 @@ let rotAxes;
 let omegaReadout;
 let adcsTargetReadout;
 
+let antennaArrow, targetArrow, errorAxisArrow;
 
 
 // ================================
@@ -119,22 +94,44 @@ let adcsTargetReadout;
 // ================================
 // syncs common vars from planetCreation.js
 function setGlobalVars(){
-    [initialCam, earthPos, moonPos, earthRadius] = setEarthMoonCamInfo();
-    moonOrbitRadius = moonPos.x;
+    [initialCam, earthPos, earthRadius] = setEarthMoonCamInfo();
     ISS_ORBIT_RADIUS = earthRadius + 4.5; // visually compressed LEO
     GEO_ORBIT_RADIUS = earthRadius + 15;
 }
 
 function sceneSolarSystemInitialization(){
     ({ scene, camera, renderer, controls } = initThree());
-    planets = initScene(scene, objectMap, moons);
-    earth = objectMap.get("earth")[0];
-    initOrbits(earth, GEO_ORBIT_RADIUS, ISS_ORBIT_RADIUS);
-    initMoonPositions(moons);
-    //console.log(objectMap);
+    planets = initScene(scene, objectMap, moons); // now we can grab earth here
+    earth = planets.find(p => p.name === "earth");
+    antennaArrow = new THREE.ArrowHelper(
+      new THREE.Vector3(0, 0, 1),
+      new THREE.Vector3(),
+      4,
+      0xff3333
+    );
+    scene.add(antennaArrow);
+
+    targetArrow = new THREE.ArrowHelper(
+      new THREE.Vector3(0, 0, 1),
+      new THREE.Vector3(),
+      4,
+      0x33ff33
+    );
+    scene.add(targetArrow);
+
+    errorAxisArrow = new THREE.ArrowHelper(
+      new THREE.Vector3(0, 0, 1),
+      new THREE.Vector3(),
+      3,
+      0x3399ff
+    );
+    scene.add(errorAxisArrow);
+
 }
 
 //// HELPERS // ADCS VISIBILITY ////
+
+
 
 function renderADCSHeader() {
   const title = document.getElementById("adcs-title");
@@ -145,11 +142,13 @@ function renderADCSHeader() {
 
 
 function getActiveADCS() {
-  if (currentPlanetView === "iss") return iss?.adcs;
+    const entry = objectMap.get(currentPlanetView);
+    if (!entry) return null;
 
-  const sat = satellites.find(s => s.name === currentPlanetView);
-  return sat?.adcs;
-}
+    const [bodyFrame] = entry;
+    return bodyFrame.adcs ?? null;
+  }
+
 
 
   function isSpacecraftTarget(id) {
@@ -218,15 +217,28 @@ function renderAttitudeErrorGraph(adcs) {
   const data = adcs.errorHistory;
   if (data.length < 2) return;
 
-  const maxVal = Math.max(...data);
-  const minVal = Math.min(...data);
+  // === FIXED PHYSICAL SCALE ===
+  const MAX_ERR = Math.PI; // 180 deg
+  const MIN_ERR = 0;
 
   const scaleY = val =>
-    h - ((val - minVal) / (maxVal - minVal + 1e-6)) * h;
+    h - (THREE.MathUtils.clamp(val, MIN_ERR, MAX_ERR) / MAX_ERR) * h;
 
-  ctx.strokeStyle = "#ff5c5c";
-
+  // === GRID (optional but highly recommended) ===
+  ctx.strokeStyle = "rgba(255,255,255,0.08)";
   ctx.lineWidth = 1;
+
+  for (let i = 1; i < 4; i++) {
+    const y = (i / 4) * h;
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(w, y);
+    ctx.stroke();
+  }
+
+  // === ERROR TRACE ===
+  ctx.strokeStyle = "#ff5c5c";
+  ctx.lineWidth = 1.6;
   ctx.beginPath();
 
   data.forEach((val, i) => {
@@ -238,6 +250,7 @@ function renderAttitudeErrorGraph(adcs) {
   ctx.stroke();
 }
 
+
 function renderControlEffort(adcs) {
   if (!adcs || !controlEffortReadout) return;
 
@@ -247,6 +260,13 @@ function renderControlEffort(adcs) {
   adcs.controlEffort < 0.3 ? "#6ee27d" :
   adcs.controlEffort < 0.7 ? "#f0c674" :
                              "#ff6b6b";
+
+  if (!adcs.enabled) {
+  controlEffortReadout.textContent = "OFF";
+  controlEffortReadout.style.color = "#777";
+  return;
+}
+
 
 }
 
@@ -377,33 +397,63 @@ function initRotationViz() {
   rotScene.add(rotAxes);
 }
 
-function renderRotationViz(adcs, dt) {
+function renderRotationViz(adcs) {
   if (!adcs || !rotAxes) return;
 
-  const ω = adcs.omega;
-
-  // small-angle rotation per frame
-  rotAxes.rotation.x += ω.x * dt;
-  rotAxes.rotation.y += ω.y * dt;
-  rotAxes.rotation.z += ω.z * dt;
+  rotAxes.quaternion.copy(
+    adcs._bodyFrame.getWorldQuaternion(new THREE.Quaternion())
+  );
 
   rotRenderer.render(rotScene, rotCamera);
 }
 
-function updateOmegaADCS(adcs, dt) {
-  if (!adcs) return;
 
-  const DAMPING_GAIN = 2.0;
-  const NOISE = 0.0003;
+function updateOmegaADCS(bodyFrame, dt) {
+    const adcs = bodyFrame.adcs;
+    if (!adcs || !adcs.enabled) return;
 
-  const decay = Math.exp(-DAMPING_GAIN * adcs.controlEffort * dt);
-  adcs.omega.multiplyScalar(decay);
+    if (!adcs) return;
 
-  // background disturbance
-  adcs.omega.x += NOISE * (Math.random() - 0.5);
-  adcs.omega.y += NOISE * (Math.random() - 0.5);
-  adcs.omega.z += NOISE * (Math.random() - 0.5);
-}
+    const targetDir = getTargetWorldDir(bodyFrame, adcs.target);
+    if (!targetDir) return;
+
+    const errorAxis = computeAttitudeErrorVector(bodyFrame, targetDir);
+      if (!errorAxis) return;
+
+    const KP = 4.0;   // torque per rad
+    const KD = 2.0;   // rate damping
+
+    // proportional torque toward target
+    const MAX_RATE = 0.6; // rad/s, realistic-ish
+
+    // desired angular velocity points along error axis
+    const omegaDesired = errorAxis.clone().multiplyScalar(
+      Math.min(KP * adcs.attitudeError, MAX_RATE)
+    );
+
+    // PD tracking of angular velocity
+    const torque = omegaDesired
+      .clone()
+      .sub(adcs.omega)
+      .multiplyScalar(KD);
+
+
+
+
+    // rate damping
+    const damping = adcs.omega.clone().multiplyScalar(-KD);
+
+    // total torque
+    torque.add(damping);
+
+    // integrate angular velocity
+    adcs.omega.addScaledVector(torque, dt);
+
+    // numerical safety
+    adcs.omega.multiplyScalar(0.995);
+  }
+
+
 
 function renderOmega(adcs) {
   if (!adcs || !omegaReadout) return;
@@ -434,6 +484,61 @@ function renderADCSTarget(adcs) {
     adcs.target === "moon"  ? "#9fd3ff" :
                               "#d6dbe0";
 }
+
+function setADCSStatusMessage(adcs, msg, type = "error", duration = 2500) {
+  const el = document.getElementById("adcs-status");
+  if (!el) return;
+
+  el.textContent = msg;
+  el.classList.remove("hidden", "error", "success", "locked");
+  el.classList.add(type);
+
+  if (adcs._statusTimeout) {
+    clearTimeout(adcs._statusTimeout);
+  }
+
+  adcs._statusTimeout = setTimeout(() => {
+    el.classList.add("hidden");
+  }, duration);
+}
+
+
+
+
+
+
+
+function updateControlEffortADCS(adcs, dt) {
+  // HARD GATE: no power, no control
+  if (!adcs.enabled || adcs.powerState !== "ACTIVE") {
+    adcs.controlEffort = 0;
+
+    adcs.effortHistory.push(0);
+    if (adcs.effortHistory.length > 200) {
+      adcs.effortHistory.shift();
+    }
+    return;
+  }
+
+  const KP = 6.0;
+  const KD = 2.5;
+
+  const err = adcs.attitudeError;
+  const omegaMag = adcs.omega.length();
+
+  const u = KP * err - KD * omegaMag;
+
+  adcs.controlEffort = THREE.MathUtils.clamp(u, 0, 1);
+
+  adcs.effortHistory.push(adcs.controlEffort);
+  if (adcs.effortHistory.length > 200) {
+    adcs.effortHistory.shift();
+  }
+}
+
+
+
+
 
   //////////////////////////////
 
@@ -483,11 +588,13 @@ function initUI() {
     //const adcsPanel = document.getElementById("adcs-panel");
 
   planetViewSelect.onchange = e => {
-    currentPlanetView = e.target.value;
-    console.log("Switching view to body:", currentPlanetView);
+  currentPlanetView = e.target.value;
+  updateADCSVisibility(currentPlanetView);
 
-    updateADCSVisibility(currentPlanetView);
-  };
+  // clear stale message
+  const el = document.getElementById("adcs-status");
+  if (el) el.classList.add("hidden");
+};
 
   // Initial visibility on load
   updateADCSVisibility(planetViewSelect.value);
@@ -505,25 +612,6 @@ function initUI() {
   initRotationViz();
 
 }
-
-// Here we call creation functions through spaceCraft.js
-// exposed functions 
-
-function initializeSpaceStation(){
-  iss = initSpaceStation(ISS_SCALE, issCameraOffset, objectMap, earth);
-  //console.log(iss.adcs);
-  //console.log(iss);
-  setISSOnOrbit();
-}
-
-function initializeSatellites(){
-  initSatellites(earth, earthRadius, INCLINED_SAT_COUNT, EQUATORIAL_SAT_COUNT, GEO_SAT_COUNT, GEO_ORBIT_RADIUS, issPhase, objectMap, satellites, ISS_SCALE, MIN_SEP);
-}
-///// END OF ISS AND SATELLITE CREATION /////
-
-
-
-
 
 
 // ================================
@@ -558,185 +646,400 @@ function updateCamera() {
   }
 }
 
+
+function computeSolarEfficiency(bodyFrame) {
+  const panelNormalWorld = PANEL_NORMAL_LOCAL
+    .clone()
+    .applyQuaternion(
+      bodyFrame.getWorldQuaternion(new THREE.Quaternion())
+    )
+    .normalize();
+
+  const sunDir = SUN_DIR_WORLD.clone().normalize();
+
+  return Math.max(panelNormalWorld.dot(sunDir), 0);
+}
+
+
+function isInEarthShadow(bodyFrame) {
+  const satPos = new THREE.Vector3();
+  bodyFrame.getWorldPosition(satPos);
+
+  const earthPos = earth.axialFrame.getWorldPosition(new THREE.Vector3());
+
+  const satToEarth = earthPos.clone().sub(satPos);
+  const satToSun   = SUN_DIR_WORLD.clone().negate();
+
+  const proj = satToEarth.dot(satToSun);
+  if (proj < 0) return false; // Sun is behind satellite
+
+  const closestDistSq =
+    satToEarth.lengthSq() - proj * proj;
+
+  return closestDistSq < earthRadius * earthRadius;
+}
+
+function computeAttitudeErrorVector(bodyFrame, targetDirWorld) {
+  const antennaDir = getAntennaWorldDir(bodyFrame);
+  if (!antennaDir) return null;
+
+  const dot = THREE.MathUtils.clamp(
+    antennaDir.dot(targetDirWorld),
+    -1, 1
+  );
+
+  // === 180° singularity handling ===
+  if (dot < -0.999) {
+    // pick any axis perpendicular to antenna
+    const fallback = Math.abs(antennaDir.x) < 0.9
+      ? new THREE.Vector3(1, 0, 0)
+      : new THREE.Vector3(0, 1, 0);
+
+    const axisWorld = new THREE.Vector3()
+      .crossVectors(antennaDir, fallback)
+      .normalize();
+
+    return axisWorld
+      .applyQuaternion(
+        bodyFrame.getWorldQuaternion(new THREE.Quaternion()).invert()
+      );
+  }
+
+  // === normal case ===
+  const axisWorld = new THREE.Vector3()
+    .crossVectors(antennaDir, targetDirWorld);
+
+  if (axisWorld.lengthSq() < 1e-8) return null;
+
+  axisWorld.normalize();
+
+  return axisWorld
+    .applyQuaternion(
+      bodyFrame.getWorldQuaternion(new THREE.Quaternion()).invert()
+    );
+}
+
+
+
+
+
+function computePointingError(bodyFrame) {
+  const adcs = bodyFrame.adcs;
+  if (!adcs) return;
+
+  const antennaDir = getAntennaWorldDir(bodyFrame);
+  const targetDir  = getTargetWorldDir(bodyFrame, adcs.target);
+  if (!targetDir) return;
+
+  const cosErr = THREE.MathUtils.clamp(
+    antennaDir.dot(targetDir),
+    -1,
+    1
+  );
+
+  adcs.attitudeError = Math.acos(cosErr); // radians
+
+  // ===== DEBUG LOG (once per second) =====
+  if (!adcs._dbg || performance.now() - adcs._dbg > 1000) {
+    adcs._dbg = performance.now();
+    // console.log(
+    //   `[${bodyFrame.name || "sat"}] error =`,
+    //   THREE.MathUtils.radToDeg(adcs.attitudeError).toFixed(2),
+    //   "deg"
+    // );
+  }
+}
+
+
+
+
+
+
 function updateAttitudeErrorADCS(adcs, dt) {
   if (!adcs) return;
 
-  // initialize modal phases once
-  if (!adcs._phase1) {
-    adcs._phase1 = Math.random() * Math.PI * 2;
-    adcs._phase2 = Math.random() * Math.PI * 2;
-    adcs._phase3 = Math.random() * Math.PI * 2;
+  // Optional: low-pass filter to avoid jitter
+  const TAU = 0.15; // seconds
+  const alpha = 1 - Math.exp(-dt / TAU);
+
+  if (adcs._filteredError === undefined) {
+    adcs._filteredError = adcs.attitudeError;
   }
 
-  // frequencies (rad/s, fake but reasonable)
-  const w1 = 0.2;
-  const w2 = 1.1;
-  const w3 = 1.3;
+  adcs._filteredError +=
+    alpha * (adcs.attitudeError - adcs._filteredError);
 
-  const t = dt * ADCS_TIME_SCALE;
+  adcs.attitudeError = adcs._filteredError;
 
-  adcs._phase1 += w1 * t;
-  adcs._phase2 += w2 * t;
-  adcs._phase3 += w3 * t;
+  // Noise floor (real sensors never read zero)
+  adcs.attitudeError = Math.max(adcs.attitudeError, 1e-4);
 
-  const decay = Math.exp(-0.35 * t);
-
-
-  // modal sum (decaying oscillation)
-  const error =
-      0.6 * Math.sin(adcs._phase1) +
-      0.3 * Math.cos(adcs._phase2) +
-      0.1 * Math.sin(adcs._phase3);
-
-  adcs.attitudeError = Math.abs(error) * decay + 1e-4;
-
-  // history
+  // History for UI
   adcs.errorHistory.push(adcs.attitudeError);
   if (adcs.errorHistory.length > 200) {
     adcs.errorHistory.shift();
   }
+  // ===============================
+  // Attitude lock detection
+  // ===============================
+  const LOCK_THRESHOLD = 0.03;    // ~1.7°
+  const UNLOCK_THRESHOLD = 0.06;  // hysteresis
+
+  if (
+    adcs.powerState === "ACTIVE" &&
+    !adcs.attitudeLocked &&
+    adcs.attitudeError < LOCK_THRESHOLD
+  ) {
+    adcs.attitudeLocked = true;
+
+    setADCSStatusMessage(
+      adcs,
+      "TARGET ACQUIRED — ATTITUDE LOCKED",
+      "locked",
+      2400
+    );
+  }
+
+  // unlock if we drift away again
+  if (adcs.attitudeLocked && adcs.attitudeError > UNLOCK_THRESHOLD) {
+    adcs.attitudeLocked = false;
+  }
+
+
 }
 
 
-function updateControlEffortADCS(adcs) {
+
+
+function updateBatteryADCS(bodyFrame, dt) {
+  const adcs = bodyFrame.adcs;
   if (!adcs) return;
 
-  // simple nonlinear effort model
-  const k = 4.0; // gain
-  adcs.controlEffort = Math.tanh(k * adcs.attitudeError);
+  // ===============================
+  // Tunables
+  // ===============================
+  const BASE_DRAIN     = 0.02;   // avionics when ACTIVE
+  const SAFE_DRAIN     = 0.002;  // minimal housekeeping
+  const CTRL_DRAIN     = 0.35;   // control effort cost
+  const SOLAR_CHARGE   = 0.18;
 
-  // history
-  adcs.effortHistory.push(adcs.controlEffort);
-  if (adcs.effortHistory.length > 200) {
-    adcs.effortHistory.shift();
+  const DEAD_CUTOFF    = 0.08;
+  const RESTART_LEVEL  = 0.50;
+
+  // ===============================
+  // Solar charging
+  // ===============================
+  let solarInput = 0;
+  if (!isInEarthShadow(bodyFrame)) {
+    const eff = computeSolarEfficiency(bodyFrame);
+    solarInput = SOLAR_CHARGE * eff;
   }
+
+  // ===============================
+  // Power draw (THIS IS THE FIX)
+  // ===============================
+  let drain = 0;
+
+  if (adcs.powerState === "ACTIVE") {
+    drain = BASE_DRAIN + CTRL_DRAIN * adcs.controlEffort;
+  } else if (adcs.powerState === "SAFE") {
+    drain = SAFE_DRAIN; // no control drain while recovering
+  }
+
+  // ===============================
+  // Integrate battery
+  // ===============================
+  const net = solarInput - drain;
+  adcs.battery = THREE.MathUtils.clamp(
+    adcs.battery + net * dt,
+    0,
+    1
+  );
+
+  adcs.charging = solarInput > drain;
+
+  // ===============================
+  // Lazy init state tracking
+  // ===============================
+  if (!adcs._lastPowerState) {
+    adcs._lastPowerState = adcs.powerState;
+  }
+
+  // ===============================
+  // ACTIVE → SAFE (edge-triggered)
+  // ===============================
+  if (
+    adcs.powerState === "ACTIVE" &&
+    adcs.battery < DEAD_CUTOFF
+  ) {
+    adcs.powerState = "SAFE";
+    adcs.enabled = false;
+    adcs.attitudeLocked = false;
+
+    // tumble kick
+    adcs.omega.add(new THREE.Vector3(
+      5 * (Math.random() - 0.5),
+      5 * (Math.random() - 0.5),
+      5 * (Math.random() - 0.5)
+    ));
+
+    if (
+      adcs._lastAnnouncedState !== "SAFE" &&
+      adcs._lastPowerState === "ACTIVE"
+    ) {
+      setADCSStatusMessage(
+        adcs,
+        "ONBOARD SYSTEMS DOWN — SATELLITE OFFLINE — TUMBLING",
+        "error",
+        5000
+      );
+      adcs._lastAnnouncedState = "SAFE";
+    }
+
+  }
+
+  // ===============================
+  // SAFE → ACTIVE (clean restart)
+  // ===============================
+  if (
+    adcs.powerState === "SAFE" &&
+    adcs.battery >= RESTART_LEVEL &&
+    adcs._lastPowerState === "SAFE"
+  ) {
+    adcs.powerState = "ACTIVE";
+    adcs.enabled = true;
+
+    // damp residual rates
+    adcs.omega.multiplyScalar(0.2);
+
+    if (adcs._lastAnnouncedState !== "ACTIVE") {
+      setADCSStatusMessage(
+        adcs,
+        "POWER RESTORED — SATELLITE ONLINE — ATTITUDE STABILIZING",
+        "success",
+        5000
+      );
+      adcs._lastAnnouncedState = "ACTIVE";
+    }
+  }
+
+  adcs._lastPowerState = adcs.powerState;
 }
 
 
 
-  function updateBatteryADCS(adcs, dt) {
-  if (!adcs) return;
 
-  const chargeRate = 0.03;
-  const drainRate  = 0.015;
 
-  adcs.battery += (adcs.charging ? chargeRate : -drainRate) * dt;
-  adcs.battery = Math.max(0, Math.min(1, adcs.battery));
-
-  // Fake charging toggle (placeholder)
-  if (Math.random() < 0.002) {
-    adcs.charging = !adcs.charging;
-  }
-}
 
 function updateAllADCS(dt) {
-  if (iss?.adcs) {
-    updateBatteryADCS(iss.adcs, dt);
-    updateAttitudeErrorADCS(iss.adcs, dt);
-    updateControlEffortADCS(iss.adcs);
-    updateOmegaADCS(iss.adcs, dt);
+  for (const [_, [bodyFrame]] of objectMap) {
+    if (!bodyFrame?.adcs) continue;
 
-
-  }
-
-  for (const sat of satellites) {
-    updateBatteryADCS(sat.adcs, dt);
-    updateAttitudeErrorADCS(sat.adcs, dt);
-    updateControlEffortADCS(sat.adcs);
-    updateOmegaADCS(sat.adcs, dt);
-
+    computePointingError(bodyFrame);
+    updateAttitudeErrorADCS(bodyFrame.adcs, dt);
+    updateControlEffortADCS(bodyFrame.adcs, dt);
+    updateOmegaADCS(bodyFrame, dt);
+    updateBatteryADCS(bodyFrame, dt);
 
   }
 }
 
 
+function getTargetWorldDir(bodyFrame, target) {
+  const bodyPos = new THREE.Vector3();
+  bodyFrame.getWorldPosition(bodyPos);
 
-function setISSOnOrbit() {
-  const localPos = new THREE.Vector3(
-    ISS_ORBIT_RADIUS * Math.cos(issPhase),
-    0,
-    ISS_ORBIT_RADIUS * Math.sin(issPhase)
-  );
+  switch (target) {
+    case "earth": {
+      const earthWorldPos = new THREE.Vector3();
+      earth.axialFrame.getWorldPosition(earthWorldPos);
+      return earthWorldPos.sub(bodyPos).normalize();
+    }
 
-  // rotate into inclined orbital plane
-  localPos.applyAxisAngle(
-    new THREE.Vector3(0, 0, 1),
-    ISS_INCLINATION
-  );
+    case "sun": {
+      return SUN_POS_WORLD.clone().sub(bodyPos).normalize();
+    }
 
-  // LOCAL to Earth now
-  iss.position.copy(localPos);
 
-  // optional orientation
-  iss.lookAt(new THREE.Vector3(0, 0, 0));
+    case "moon": {
+      const moon = moons.find(m => m.planet === "earth");
+      if (!moon) return null;
+      const moonPos = new THREE.Vector3();
+      moon.mesh.getWorldPosition(moonPos);
+      return moonPos.sub(bodyPos).normalize();
+    }
+
+    default:
+      return null;
+  }
 }
+
+
+
+
+function getAntennaWorldDir(bodyFrame) {
+  // Antenna forward is +Z in BODY frame
+  const ANTENNA_BODY = new THREE.Vector3(0, 0, 1);
+
+  return ANTENNA_BODY
+    .clone()
+    .applyQuaternion(
+      bodyFrame.getWorldQuaternion(new THREE.Quaternion())
+    )
+    .normalize();
+}
+
+
+
+
+
+
+
+
+
 
 function updateSatellites(dt) {
-for (const sat of satellites) {
-  if (sat.geo) continue; // GEO sats don't move in inertial frame
+  scene.traverse(obj => {
+    if (!obj.userData.isSatelliteOrbit) return;
 
-  sat.phase += sat.speed * dt;
+    // 1. Orbital motion (cage)
+    obj.rotation.y += obj.userData.orbitSpeed * dt;
 
-  sat.mesh.position.set(
-    sat.radius * Math.cos(sat.phase),
-    0,
-    sat.radius * Math.sin(sat.phase)
-  );
+    // 2. Attitude motion (body frame)
+    const bodyFrame = obj.userData.bodyFrame;
+    if (!bodyFrame?.adcs) return;
+
+    const w = bodyFrame.adcs.omega;
+    const wmag = w.length();
+    if (wmag < 1e-8) return;
+
+    const axis = w.clone().normalize();
+    const angle = wmag * dt;
+
+    const dq = new THREE.Quaternion().setFromAxisAngle(axis, angle);
+    bodyFrame.quaternion.multiply(dq).normalize();
+  });
 }
 
-}
 
-function updatePlanetPos(dt) {
-  // --- Planets orbit the Sun ---
-  for (const obj of planets) {
-    const { planet, radius, name } = obj;
 
-    // advance orbital phase
-    obj.phase += ORBIT_SPEEDS[name] * dt;
-
-    // circular Keplerian orbit in XZ plane
-    planet.position.set(
-      radius * Math.cos(obj.phase),
-      0,
-      radius * Math.sin(obj.phase)
-    );
-  }
-
-  // --- Moon orbits Earth ---
-  if (earth && moon) {
-    moonPhase += MOON_ORBIT_SPEED * dt;
-
-    moon.position.set(
-      moonOrbitRadius * Math.cos(moonPhase),
-      0,
-      moonOrbitRadius * Math.sin(moonPhase)
-    );
+function updateOrbits(dt) {
+  // planets
+  for (const p of planets) {
+    p.orbitFrame.rotation.y += p.orbitSpeed * dt;
   }
 }
 
 function updatePlanetSpin(dt) {
-  for (const obj of planets) {
-    const { planet, name } = obj;
-
-    const spin = SPIN_RATES[name];
-    if (!spin) continue;
-
-    planet.rotation.y += spin * dt;
+  for (const p of planets) {
+    p.spinFrame.rotation.y += p.spinSpeed *PLANET_SPIN_TIME_SCALE *dt;
   }
 }
 
-
 function updateMoons(dt) {
   for (const obj of moons) {
-    const { moon } = obj;
-
-    moon.phase += moon.orbitSpeed * dt;
-
-    moon.mesh.position.set(
-      moon.orbitRadius * Math.cos(moon.phase),
-      0,
-      moon.orbitRadius * Math.sin(moon.phase)
-    );
+    obj.moonFrame.rotation.y +=
+      obj.orbitSpeed * MOON_ORBIT_TIME_SCALES[obj.planet] * dt;
   }
 }
 
@@ -747,12 +1050,11 @@ function animate(time) {
 
   if (isRunning) {
   updateAllADCS(dt);
-  updatePlanetPos(dt);
+  updateOrbits(dt);
   updateMoons(dt);
   updatePlanetSpin(dt);
-  issPhase += 0.18*dt;
-  setISSOnOrbit();
   updateSatellites(dt);
+  issPhase += 0.18*dt;
 }
 
     const activeADCS = getActiveADCS();
@@ -786,18 +1088,21 @@ function resetSimulation() {
 
     camera.position.set(initialCam.x, initialCam.y, 750);
     camera.lookAt(earthPos.x, earthPos.y, earthPos.z);
-    moons = [];
     planets = [];
     scene.clear();
-    moonPhase = 0;
     currentPlanetView = "earth";
     const planetViewSelect = document.getElementById("planetView");
     planetViewSelect.value = "earth";
-    satellites = [];
     objectMap.clear();
     sceneSolarSystemInitialization();
-    initializeSpaceStation();
-    initializeSatellites();
+    instantiateSatelliteSystems({
+      axialFrame: earth.axialFrame,
+      spinFrame: earth.spinFrame,
+      bodyRadius: earthRadius,
+      scale: ISS_SCALE,
+      basePhase: issPhase,
+      objectMap
+    });
 
 
   // reset physical state here
@@ -824,9 +1129,14 @@ document.addEventListener("DOMContentLoaded", () => {
     setGlobalVars();
     sceneSolarSystemInitialization();
     initUI();
-    initializeSpaceStation();
-    initializeSatellites();
-    //initSatellites();
+    instantiateSatelliteSystems({
+      axialFrame: earth.axialFrame,
+      spinFrame: earth.spinFrame,
+      bodyRadius: earthRadius,
+      scale: ISS_SCALE,
+      basePhase: issPhase,
+      objectMap
+    });
 
   lastTime = performance.now();
   requestAnimationFrame(animate);

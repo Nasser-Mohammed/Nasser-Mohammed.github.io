@@ -35,7 +35,7 @@
     <label>
         Target Body
         <select id="planetView">
-            <option value="iss">International Space Station</option>
+            <!-- <option value="iss">International Space Station</option> -->
             <option value="earth">Earth</option>
             <option value="moon">Moon</option>
             <option value="sun">Sun</option>
@@ -87,7 +87,7 @@
     <div class="section-title">TARGET</div>
 
     <div class="telemetry-row">
-      <span>Pointing To</span>
+      <span>Reference Body</span>
       <span id="adcs-target-readout">EARTH</span>
     </div>
   </div>
@@ -136,6 +136,7 @@
         <span>ω</span>
         <span id="omega-readout">[0.00, 0.00, 0.00]</span>
     </div>
+    <div id="adcs-status" class="adcs-status hidden"></div>
 
     </div>
 
