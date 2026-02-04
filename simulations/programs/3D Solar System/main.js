@@ -1137,6 +1137,7 @@ document.addEventListener("DOMContentLoaded", () => {
       basePhase: issPhase,
       objectMap
     });
+    updateADCSVisibility(currentPlanetView);
 
   lastTime = performance.now();
   requestAnimationFrame(animate);
