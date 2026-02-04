@@ -472,18 +472,38 @@ function renderOmega(adcs) {
 }
 
 function renderADCSTarget(adcs) {
-  if (!adcs || !adcsTargetReadout) return;
+  const sysEl = document.getElementById("adcs-system-status");
+  const attEl = document.getElementById("adcs-attitude-status");
+  if (!adcs || !sysEl || !attEl) return;
 
-  const label = adcs.target.toUpperCase();
-  adcsTargetReadout.textContent = label;
+  // reset
+  sysEl.className = "";
+  attEl.className = "";
 
-  // Optional semantic coloring
-  adcsTargetReadout.style.color =
-    adcs.target === "sun"   ? "#f0c674" :
-    adcs.target === "earth" ? "#6ee27d" :
-    adcs.target === "moon"  ? "#9fd3ff" :
-                              "#d6dbe0";
+  // ===== SYSTEM =====
+  if (adcs.powerState === "ACTIVE") {
+    sysEl.textContent = "ONLINE";
+    sysEl.classList.add("adcs-online");
+  } else {
+    sysEl.textContent = "OFFLINE";
+    sysEl.classList.add("adcs-offline");
+
+    // offline → attitude meaningless
+    attEl.textContent = "—";
+    return;
+  }
+
+  // ===== ATTITUDE =====
+  if (adcs.attitudeLocked) {
+    attEl.textContent = "STABILIZED";
+    attEl.classList.add("adcs-stable");
+  } else {
+    attEl.textContent = "UNSTABLE";
+    attEl.classList.add("adcs-unstable");
+  }
 }
+
+
 
 function setADCSStatusMessage(adcs, msg, type = "error", duration = 2500) {
   const el = document.getElementById("adcs-status");
@@ -501,6 +521,7 @@ function setADCSStatusMessage(adcs, msg, type = "error", duration = 2500) {
     el.classList.add("hidden");
   }, duration);
 }
+
 
 
 
@@ -786,145 +807,117 @@ function updateAttitudeErrorADCS(adcs, dt) {
   const UNLOCK_THRESHOLD = 0.06;  // hysteresis
 
   if (
-    adcs.powerState === "ACTIVE" &&
-    !adcs.attitudeLocked &&
-    adcs.attitudeError < LOCK_THRESHOLD
-  ) {
-    adcs.attitudeLocked = true;
+      adcs.powerState === "ACTIVE" &&
+      !adcs.attitudeLocked &&
+      adcs.attitudeError < LOCK_THRESHOLD
+    ) {
+      adcs.attitudeLocked = true;
+    }
 
-    setADCSStatusMessage(
-      adcs,
-      "TARGET ACQUIRED — ATTITUDE LOCKED",
-      "locked",
-      2400
-    );
-  }
-
-  // unlock if we drift away again
-  if (adcs.attitudeLocked && adcs.attitudeError > UNLOCK_THRESHOLD) {
-    adcs.attitudeLocked = false;
-  }
+    if (adcs.attitudeLocked && adcs.attitudeError > UNLOCK_THRESHOLD) {
+      adcs.attitudeLocked = false;
+    }
 
 
 }
 
 
+function isActiveView(bodyFrame) {
+  const entry = objectMap.get(currentPlanetView);
+  if (!entry) return false;
+  return entry[0] === bodyFrame;
+}
 
 
 function updateBatteryADCS(bodyFrame, dt) {
-  const adcs = bodyFrame.adcs;
-  if (!adcs) return;
+    const adcs = bodyFrame.adcs;
+    if (!adcs) return;
 
-  // ===============================
-  // Tunables
-  // ===============================
-  const BASE_DRAIN     = 0.02;   // avionics when ACTIVE
-  const SAFE_DRAIN     = 0.002;  // minimal housekeeping
-  const CTRL_DRAIN     = 0.35;   // control effort cost
-  const SOLAR_CHARGE   = 0.18;
+    const BASE_DRAIN   = 0.02;
+    const CTRL_DRAIN   = 0.225;
+    const SOLAR_CHARGE = 0.18;
 
-  const DEAD_CUTOFF    = 0.08;
-  const RESTART_LEVEL  = 0.50;
+    const DEAD_CUTOFF   = 0.08;
+    const RESTART_LEVEL = 0.80;
 
-  // ===============================
-  // Solar charging
-  // ===============================
-  let solarInput = 0;
-  if (!isInEarthShadow(bodyFrame)) {
-    const eff = computeSolarEfficiency(bodyFrame);
-    solarInput = SOLAR_CHARGE * eff;
-  }
+    // --- solar ---
+    let solarInput = 0;
+    if (!isInEarthShadow(bodyFrame)) {
+      solarInput = SOLAR_CHARGE * computeSolarEfficiency(bodyFrame);
+    }
 
-  // ===============================
-  // Power draw (THIS IS THE FIX)
-  // ===============================
-  let drain = 0;
+    // --- drain ---
+    let drain = 0;
+    if (adcs.powerState === "ACTIVE") {
+      drain = BASE_DRAIN + CTRL_DRAIN * adcs.controlEffort;
+    }
 
-  if (adcs.powerState === "ACTIVE") {
-    drain = BASE_DRAIN + CTRL_DRAIN * adcs.controlEffort;
-  } else if (adcs.powerState === "SAFE") {
-    drain = SAFE_DRAIN; // no control drain while recovering
-  }
+    // Offline then no drain
 
-  // ===============================
-  // Integrate battery
-  // ===============================
-  const net = solarInput - drain;
-  adcs.battery = THREE.MathUtils.clamp(
-    adcs.battery + net * dt,
-    0,
-    1
-  );
+    // --- integrate battery ---
+    adcs.battery = THREE.MathUtils.clamp(
+      adcs.battery + (solarInput - drain) * dt,
+      0,
+      1
+    );
 
-  adcs.charging = solarInput > drain;
+    adcs.charging = solarInput >= drain;
 
-  // ===============================
-  // Lazy init state tracking
-  // ===============================
-  if (!adcs._lastPowerState) {
+    // ==================================================
+    // STATE TRANSITIONS (EDGE TRIGGERED)
+    // ==================================================
+
+    // ACTIVE → SAFE
+    if (
+      adcs._lastPowerState === "ACTIVE" &&
+      adcs.battery < DEAD_CUTOFF
+    ) {
+      adcs.powerState = "SAFE";
+      adcs.enabled = false;
+      adcs.attitudeLocked = false;
+
+      // induce tumble
+      adcs.omega.add(new THREE.Vector3(
+        8 * (Math.random() - 0.5),
+        8 * (Math.random() - 0.5),
+        8 * (Math.random() - 0.5)
+      ));
+
+      if (isActiveView(bodyFrame)) {
+        setADCSStatusMessage(
+          adcs,
+          "ONBOARD SYSTEMS DOWN — TUMBLING",
+          "error",
+          5000
+        );
+      }
+
+    }
+
+    // SAFE → ACTIVE
+    if (
+      adcs._lastPowerState === "SAFE" &&
+      adcs.battery >= RESTART_LEVEL
+    ) {
+      adcs.powerState = "ACTIVE";
+      adcs.enabled = true;
+
+      adcs.omega.multiplyScalar(0.2);
+
+      if (isActiveView(bodyFrame)) {
+        setADCSStatusMessage(
+          adcs,
+          "SATELLITE BACK ONLINE — ATTITUDE STABILIZING",
+          "success",
+          5000
+        );
+      }
+    }
+
+    // --- update memory LAST ---
     adcs._lastPowerState = adcs.powerState;
   }
 
-  // ===============================
-  // ACTIVE → SAFE (edge-triggered)
-  // ===============================
-  if (
-    adcs.powerState === "ACTIVE" &&
-    adcs.battery < DEAD_CUTOFF
-  ) {
-    adcs.powerState = "SAFE";
-    adcs.enabled = false;
-    adcs.attitudeLocked = false;
-
-    // tumble kick
-    adcs.omega.add(new THREE.Vector3(
-      5 * (Math.random() - 0.5),
-      5 * (Math.random() - 0.5),
-      5 * (Math.random() - 0.5)
-    ));
-
-    if (
-      adcs._lastAnnouncedState !== "SAFE" &&
-      adcs._lastPowerState === "ACTIVE"
-    ) {
-      setADCSStatusMessage(
-        adcs,
-        "ONBOARD SYSTEMS DOWN — SATELLITE OFFLINE — TUMBLING",
-        "error",
-        5000
-      );
-      adcs._lastAnnouncedState = "SAFE";
-    }
-
-  }
-
-  // ===============================
-  // SAFE → ACTIVE (clean restart)
-  // ===============================
-  if (
-    adcs.powerState === "SAFE" &&
-    adcs.battery >= RESTART_LEVEL &&
-    adcs._lastPowerState === "SAFE"
-  ) {
-    adcs.powerState = "ACTIVE";
-    adcs.enabled = true;
-
-    // damp residual rates
-    adcs.omega.multiplyScalar(0.2);
-
-    if (adcs._lastAnnouncedState !== "ACTIVE") {
-      setADCSStatusMessage(
-        adcs,
-        "POWER RESTORED — SATELLITE ONLINE — ATTITUDE STABILIZING",
-        "success",
-        5000
-      );
-      adcs._lastAnnouncedState = "ACTIVE";
-    }
-  }
-
-  adcs._lastPowerState = adcs.powerState;
-}
 
 
 

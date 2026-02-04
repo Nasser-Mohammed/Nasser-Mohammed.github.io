@@ -52,6 +52,7 @@ export function createSatellite({ withADCS = true, target = "earth" } = {}) {
 function createADCSState(target = "earth") {
   return {
     target,
+
     battery: 0.7,
     charging: true,
 
@@ -59,23 +60,23 @@ function createADCSState(target = "earth") {
     controlEffort: 0.2,
 
     omega: new THREE.Vector3(
-      0.02 * (Math.random() - 0.5),
-      0.02 * (Math.random() - 0.5),
-      0.02 * (Math.random() - 0.5)
+      10 * (Math.random() - 0.5),
+      10 * (Math.random() - 0.5),
+      10 * (Math.random() - 0.5)
     ),
 
     powerState: "ACTIVE",
     enabled: true,
     attitudeLocked: false,
 
-    // UI + state guards (THIS IS IMPORTANT)
+    // === single source of truth for messages ===
     _lastPowerState: "ACTIVE",
-    _lastAnnouncedState: "ACTIVE",
 
     errorHistory: [],
     effortHistory: []
   };
 }
+
 
 
 ///// end of ADCS state creation function /////

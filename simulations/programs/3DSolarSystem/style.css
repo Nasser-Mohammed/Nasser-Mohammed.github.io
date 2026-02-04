@@ -436,3 +436,37 @@ select {
 }
 
 
+.adcs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+}
+
+.adcs-grid-header {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+
+.adcs-grid-values {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* semantic coloring */
+#adcs-system-status.adcs-online {
+  color: #6ee27d;
+}
+
+#adcs-system-status.adcs-offline {
+  color: #ff6b6b;
+}
+
+#adcs-attitude-status.adcs-stable {
+  color: #6ee27d;
+}
+
+#adcs-attitude-status.adcs-unstable {
+  color: #f0c674;
+}
+
