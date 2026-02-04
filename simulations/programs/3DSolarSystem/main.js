@@ -1017,11 +1017,19 @@ function updateSatellites(dt) {
 
 
 function updateOrbits(dt) {
-  // planets
   for (const p of planets) {
-    p.orbitFrame.rotation.y += p.orbitSpeed * dt;
+    const dtheta = p.orbitSpeed * dt;
+
+    // yearly motion
+    p.orbitFrame.rotation.y += dtheta;
+
+    // cancel orbital rotation for axial tilt
+    if (p.axialFrame) {
+      p.axialFrame.rotation.y -= dtheta;
+    }
   }
 }
+
 
 function updatePlanetSpin(dt) {
   for (const p of planets) {
