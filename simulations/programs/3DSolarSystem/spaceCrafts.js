@@ -438,7 +438,7 @@ function satelliteAssembly() {
     metalness: 0.1
   });
 
-  const panelGeom = new THREE.BoxGeometry(0.015, 0.22, 0.9);
+  const panelGeom = new THREE.BoxGeometry(0.015, 0.22, 1.0);
 
   const leftPanel = new THREE.Mesh(panelGeom, panelMat);
   leftPanel.position.x = -0.32;

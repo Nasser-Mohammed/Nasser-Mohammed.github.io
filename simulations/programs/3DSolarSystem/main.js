@@ -47,7 +47,7 @@ let cameraMode = CAMERA_MODE.FREE;
 
 let objectMap = new Map();
 
-let currentBodyView = "sat_eq_1";
+let currentBodyView = "geo_sat_5";
 const ISS_SCALE = 0.05;
 let ISS_ORBIT_RADIUS;
 let issPhase = 0; // angle along orbit

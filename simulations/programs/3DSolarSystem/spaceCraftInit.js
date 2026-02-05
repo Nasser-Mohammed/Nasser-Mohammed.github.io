@@ -243,14 +243,7 @@ function initializeSatellites({
     const opt = document.createElement("option");
     opt.value = name;
     opt.textContent = `Equatorial LEO Satellite ${i + 1}`;
-
-    if (i === 0){
-      planetSelect.insertBefore(opt, planetSelect.firstChild);
-      planetSelect.value = name;
-    }
-    else{
     planetSelect.appendChild(opt);
-    }
   }
 
   // ----------------
@@ -354,6 +347,9 @@ function initializeSatellites({
     opt.value = name;
     opt.textContent = `GEO Satellite ${i + 1}`;
     planetSelect.appendChild(opt);
+    if (i === 4){
+      opt.selected = true;
+    }
   }
 }
 
