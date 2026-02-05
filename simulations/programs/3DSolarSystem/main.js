@@ -165,12 +165,9 @@ function getActiveADCS() {
   const entry = objectMap.get(currentBodyView);
   if (!entry) return null;
 
-  // satellites store ADCS on their BODY frame
-  if (entry.body?.frame?.adcs) {
-    return entry.body.frame.adcs;
-  }
-
-  return null;
+  // Look for ADCS on the physics frame first, fallback to the main frame
+  const adcsFrame = entry.body?.physics || entry.body?.frame;
+  return adcsFrame?.adcs || null;
 }
 
 
@@ -1026,8 +1023,8 @@ function updateBatteryADCS(bodyFrame, dt) {
 
 function updateAllADCS(dt) {
   for (const entry of objectMap.values()) {
-    // ADCS only exists on satellite BODY frames
-    const bodyFrame = entry.body?.frame;
+    // Target the physics frame specifically
+    const bodyFrame = entry.body?.physics; 
     if (!bodyFrame?.adcs) continue;
 
     computePointingError(bodyFrame);

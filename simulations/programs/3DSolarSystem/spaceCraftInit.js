@@ -218,7 +218,8 @@ function initializeSatellites({
     const name = `sat_eq_${i + 1}`;
     objectMap.set(name, {
         body: {
-          frame: sat.bodyFrame,
+          frame: sat.bodyFrame.parent,
+          physics: sat.bodyFrame,
           offset: new THREE.Vector3(1.15, 1.15, 1.15)
         },
 
@@ -228,12 +229,12 @@ function initializeSatellites({
         },
 
         spin: {
-          frame: sat.orbitFrame,
+          frame: sat.bodyFrame.parent,
           offset: new THREE.Vector3(1, 1, 1)
         },
 
         fixed: {
-          frame: sat.orbitFrame.parent,
+          frame: sat.bodyFrame.parent,
           offset: new THREE.Vector3(1, 1, 1)
         }
       });
@@ -276,7 +277,8 @@ function initializeSatellites({
     const name = `sat_incl_${i + 1}`;
     objectMap.set(name, {
         body: {
-          frame: sat.bodyFrame,
+          frame: sat.bodyFrame.parent,
+          physics: sat.bodyFrame,
           offset: new THREE.Vector3(1.15, 1.15, 1.15)
         },
 
@@ -286,12 +288,12 @@ function initializeSatellites({
         },
 
         spin: {
-          frame: sat.orbitFrame,
+          frame: sat.bodyFrame.parent,
           offset: new THREE.Vector3(1, 1, 1)
         },
 
         fixed: {
-          frame: sat.orbitFrame.parent,
+          frame: sat.bodyFrame.parent,
           offset: new THREE.Vector3(1, 1, 1)
         }
       });
@@ -326,7 +328,8 @@ function initializeSatellites({
     const name = `geo_sat_${i + 1}`;
     objectMap.set(name, {
         body: {
-          frame: sat.bodyFrame,
+          frame: sat.bodyFrame.parent,
+          physics: sat.bodyFrame,
           offset: new THREE.Vector3(1.15, 1.15, 1.15)
         },
 
@@ -336,12 +339,12 @@ function initializeSatellites({
         },
 
         spin: {
-          frame: sat.orbitFrame,
+          frame: sat.bodyFrame.parent,
           offset: new THREE.Vector3(1, 1, 1)
         },
 
         fixed: {
-          frame: sat.orbitFrame.parent,
+          frame: sat.bodyFrame.parent,
           offset: new THREE.Vector3(1, 1, 1)
         }
       });
