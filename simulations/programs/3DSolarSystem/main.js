@@ -973,11 +973,11 @@ function updateBatteryADCS(bodyFrame, dt) {
       adcs.attitudeLocked = false;
 
       // induce tumble
-      adcs.omega.add(new THREE.Vector3(
-        2 * (Math.random() - 0.5),
-        2 * (Math.random() - 0.5),
-        2 * (Math.random() - 0.5)
-      ));
+        adcs.omega.set(
+          (Math.random() - 0.5) * 6, 
+          (Math.random() - 0.5) * 6, 
+          (Math.random() - 0.5) * 6
+      );
 
       if (isActiveView(bodyFrame)) {
         setADCSStatusMessage(
