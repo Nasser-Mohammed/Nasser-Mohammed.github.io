@@ -426,6 +426,8 @@ function satelliteAssembly() {
       metalness: 0.35
     })
   );
+  body.frustumCulled = false;
+
   body.rotation.z = Math.PI / 2;
   sat.add(body);
 
@@ -446,9 +448,12 @@ function satelliteAssembly() {
   rightPanel.position.x = 0.32;
   sat.add(rightPanel);
 
+  leftPanel.frustumCulled = false;
+  rightPanel.frustumCulled = false;
+
   // Antenna
   const antenna = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.01, 0.01, 0.25, 8),
+    new THREE.CylinderGeometry(0.01, 0.01, 0.82, 9),
     new THREE.MeshStandardMaterial({ color: 0x888888 })
   );
   antenna.position.z = 0.25;

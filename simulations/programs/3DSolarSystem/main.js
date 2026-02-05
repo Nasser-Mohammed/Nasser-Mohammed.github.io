@@ -22,10 +22,11 @@ let moons = [];
 let initialCam;
 
 let earthPos;
+let simulationTime = 0;
 
 
 const PLANET_ORBIT_TIME_SCALE = 5;
-const PLANET_SPIN_TIME_SCALE = 3500; 
+const PLANET_SPIN_TIME_SCALE = 1250; 
 
 const MOON_ORBIT_TIME_SCALES = {
   earth:   20000,
@@ -46,7 +47,7 @@ let cameraMode = CAMERA_MODE.FREE;
 
 let objectMap = new Map();
 
-let currentPlanetView = "sat_eq_1";
+let currentBodyView = "sat_eq_1";
 const ISS_SCALE = 0.05;
 let ISS_ORBIT_RADIUS;
 let issPhase = 0; // angle along orbit
@@ -87,6 +88,25 @@ let omegaReadout;
 let adcsTargetReadout;
 
 let antennaArrow, targetArrow, errorAxisArrow;
+
+const CAMERA_FRAME = {
+  SPIN:  "spin",
+  ORBIT: "orbit",
+  FIXED: "fixed",
+  BODY:  "body"   // satellites
+};
+
+let cameraFrameMode = CAMERA_FRAME.FIXED;
+
+const CAMERA_VIEW = {
+  FIXED: "fixed",
+  SPIN: "spin",
+  BODY: "body",
+  ONBOARD: "onboard"
+};
+
+let cameraViewMode = CAMERA_VIEW.ONBOARD;
+
 
 
 // ================================
@@ -137,17 +157,22 @@ function renderADCSHeader() {
   const title = document.getElementById("adcs-title");
   if (!title) return;
 
-  title.textContent = `ADCS — ${currentPlanetView.toUpperCase()}`;
+  title.textContent = `ADCS — ${currentBodyView.toUpperCase()}`;
 }
 
 
 function getActiveADCS() {
-    const entry = objectMap.get(currentPlanetView);
-    if (!entry) return null;
+  const entry = objectMap.get(currentBodyView);
+  if (!entry) return null;
 
-    const [bodyFrame] = entry;
-    return bodyFrame.adcs ?? null;
+  // satellites store ADCS on their BODY frame
+  if (entry.body?.frame?.adcs) {
+    return entry.body.frame.adcs;
   }
+
+  return null;
+}
+
 
 
 
@@ -592,25 +617,20 @@ function initUI() {
     // setMode(e.target.value);
     // }
 
-    const cameraToggleBtn = document.getElementById("cameraToggle");
+    const cameraViewSelect = document.getElementById("cameraView");
+      cameraViewSelect.onchange = e => {
+      cameraViewMode = e.target.value;
+      console.log("Camera view mode set to", cameraViewMode);
+      };
 
-    cameraToggleBtn.onclick = () => {
-    if (cameraMode === CAMERA_MODE.FREE) {
-        cameraMode = CAMERA_MODE.BODY_FIXED;
-        cameraToggleBtn.textContent = "Free Camera";
-    } else {
-        cameraMode = CAMERA_MODE.FREE;
-        cameraToggleBtn.textContent = "Up Close and Locked View";
-    }
-    };
 
 
     const planetViewSelect = document.getElementById("planetView");
     //const adcsPanel = document.getElementById("adcs-panel");
 
   planetViewSelect.onchange = e => {
-  currentPlanetView = e.target.value;
-  updateADCSVisibility(currentPlanetView);
+  currentBodyView = e.target.value;
+  updateADCSVisibility(currentBodyView);
 
   // clear stale message
   const el = document.getElementById("adcs-status");
@@ -640,32 +660,111 @@ function initUI() {
 // ================================
 
 function updateCamera() {
-  const entry = objectMap.get(currentPlanetView);
+  const entry = objectMap.get(currentBodyView);
   if (!entry) return;
 
-  const [targetObj, offset] = entry;
+  const targetBody = entry.body.frame;
+  const worldPos = new THREE.Vector3();
+  const worldQuat = new THREE.Quaternion();
+  
+  targetBody.getWorldPosition(worldPos);
+  targetBody.getWorldQuaternion(worldQuat);
 
-  targetObj.getWorldPosition(_worldPos);
+  switch (cameraViewMode) {
+    case "body": // FREE VIEW (OrbitControls)
+      controls.enabled = true;
+      controls.target.copy(worldPos);
+      controls.update();
+      break;
 
-  // ================= FREE =================
-  if (cameraMode === "free") {
-    controls.enabled = true;
-    controls.enableRotate = true;
-    controls.enablePan = true;
-    controls.enableZoom = true;
+    case "spin": // ORBITING VIEW (Auto-rotation)
+      controls.enabled = false;
+      const time = performance.now() * 0.0005;
+      
+      // Use the 'spin' property from the map
+      // Fallback to a distance of 5 for satellites if not specified
+      const spinDist = entry.spin?.offset 
+        ? entry.spin.offset.length() 
+        : (entry.radius || 5) * 3;
+      
+      camera.position.set(
+        worldPos.x + Math.cos(time) * spinDist,
+        worldPos.y + (spinDist * 0.4),
+        worldPos.z + Math.sin(time) * spinDist
+      );
+      camera.lookAt(worldPos);
+      break;
 
-    controls.target.copy(_worldPos);
-    controls.update();
-  }
+    case "fixed": // FIXED VECTOR (Rigidly attached to satellite orientation)
+      controls.enabled = false;
+      let fixedOffset;
 
-  // ================= BODY_FIXED =================
-  else if (cameraMode === "body_fixed") {
-    controls.enabled = false;
+      if (entry.fixed && entry.fixed.offset) {
+        fixedOffset = entry.fixed.offset.clone();
+      } else {
+        // Fallback for planets/objects without a 'fixed' entry
+        const d = entry.radius ? entry.radius * 3 : 50;
+        fixedOffset = new THREE.Vector3(0, d * 0.2, d);
+      }
 
-    camera.position.copy(_worldPos).add(offset);
-    camera.lookAt(_worldPos);
+      // This is the key: it rotates the offset with the satellite
+      camera.position.copy(worldPos).add(fixedOffset.applyQuaternion(worldQuat));
+      camera.lookAt(worldPos);
+      break;
+
+    case "onboard": // FIRST PERSON (Looking out from the satellite)
+      controls.enabled = false;
+      if (entry.onboard && entry.onboard.frame) {
+        const onboardFrame = entry.onboard.frame;
+        onboardFrame.getWorldPosition(worldPos);
+        onboardFrame.getWorldQuaternion(worldQuat);
+        
+        camera.position.copy(worldPos);
+        camera.quaternion.copy(worldQuat);
+      } else {
+  // FALLBACK: "Surface" view for planets/bodies (and the Sun)
+  const surfaceDist = (entry.radius || 20) * 1.1;
+  const slowTime = simulationTime * 0.1; 
+  
+  // 1. Position the camera on the shell of the object
+  const camX = worldPos.x + Math.cos(slowTime) * surfaceDist;
+  const camY = worldPos.y + (surfaceDist * 0.1);
+  const camZ = worldPos.z + Math.sin(slowTime) * surfaceDist;
+  camera.position.set(camX, camY, camZ);
+
+  if (currentBodyView === "neptune") {
+    // Neptune looks back at the inner solar system (the Sun/Origin)
+    camera.lookAt(0, 0, 0);
+  } 
+  else if (currentBodyView === "sun") {
+    // The Sun looks directly at Earth
+    // We get Earth's world position from the objectMap
+    const earthEntry = objectMap.get("earth");
+    if (earthEntry) {
+      const earthPos = new THREE.Vector3();
+      earthEntry.body.frame.getWorldPosition(earthPos);
+      camera.lookAt(earthPos);
+    } else {
+      camera.lookAt(0, 0, 0); // Safety fallback
+    }
+  } 
+  else {
+    // Other planets look "OUT" into the void/starfield
+    const lookTarget = new THREE.Vector3()
+      .subVectors(camera.position, worldPos) 
+      .normalize()
+      .multiplyScalar(100) 
+      .add(camera.position);
+
+    camera.lookAt(lookTarget);
   }
 }
+  break;
+  }
+}
+
+
+
 
 
 function computeSolarEfficiency(bodyFrame) {
@@ -823,9 +922,10 @@ function updateAttitudeErrorADCS(adcs, dt) {
 
 
 function isActiveView(bodyFrame) {
-  const entry = objectMap.get(currentPlanetView);
+  const entry = objectMap.get(currentBodyView);
   if (!entry) return false;
-  return entry[0] === bodyFrame;
+  // Compare the actual frame object stored in the entry
+  return entry.body?.frame === bodyFrame; 
 }
 
 
@@ -878,9 +978,9 @@ function updateBatteryADCS(bodyFrame, dt) {
 
       // induce tumble
       adcs.omega.add(new THREE.Vector3(
-        8 * (Math.random() - 0.5),
-        8 * (Math.random() - 0.5),
-        8 * (Math.random() - 0.5)
+        2 * (Math.random() - 0.5),
+        2 * (Math.random() - 0.5),
+        2 * (Math.random() - 0.5)
       ));
 
       if (isActiveView(bodyFrame)) {
@@ -925,7 +1025,9 @@ function updateBatteryADCS(bodyFrame, dt) {
 
 
 function updateAllADCS(dt) {
-  for (const [_, [bodyFrame]] of objectMap) {
+  for (const entry of objectMap.values()) {
+    // ADCS only exists on satellite BODY frames
+    const bodyFrame = entry.body?.frame;
     if (!bodyFrame?.adcs) continue;
 
     computePointingError(bodyFrame);
@@ -933,9 +1035,9 @@ function updateAllADCS(dt) {
     updateControlEffortADCS(bodyFrame.adcs, dt);
     updateOmegaADCS(bodyFrame, dt);
     updateBatteryADCS(bodyFrame, dt);
-
   }
 }
+
 
 
 function getTargetWorldDir(bodyFrame, target) {
@@ -1050,6 +1152,7 @@ function animate(time) {
   lastTime = time;
 
   if (isRunning) {
+  simulationTime += dt;
   updateAllADCS(dt);
   updateOrbits(dt);
   updateMoons(dt);
@@ -1080,33 +1183,8 @@ function animate(time) {
 // Simulation logic
 // ================================
 
-
 function resetSimulation() {
-  isRunning = false;
-
-  const startBtn = document.getElementById("startBtn");
-  startBtn.textContent = "Start";
-
-    camera.position.set(initialCam.x, initialCam.y, 750);
-    camera.lookAt(earthPos.x, earthPos.y, earthPos.z);
-    planets = [];
-    scene.clear();
-    currentPlanetView = "earth";
-    const planetViewSelect = document.getElementById("planetView");
-    planetViewSelect.value = "earth";
-    objectMap.clear();
-    sceneSolarSystemInitialization();
-    instantiateSatelliteSystems({
-      axialFrame: earth.axialFrame,
-      spinFrame: earth.spinFrame,
-      bodyRadius: earthRadius,
-      scale: ISS_SCALE,
-      basePhase: issPhase,
-      objectMap
-    });
-
-
-  // reset physical state here
+  window.location.reload();
 }
 
 
@@ -1138,7 +1216,7 @@ document.addEventListener("DOMContentLoaded", () => {
       basePhase: issPhase,
       objectMap
     });
-    updateADCSVisibility(currentPlanetView);
+    updateADCSVisibility(currentBodyView);
 
   lastTime = performance.now();
   requestAnimationFrame(animate);

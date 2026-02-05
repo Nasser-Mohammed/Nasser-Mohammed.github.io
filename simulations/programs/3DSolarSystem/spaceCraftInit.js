@@ -20,7 +20,7 @@ NO physics
 
 
 
-export function instantiateSatelliteSystems({axialFrame, spinFrame, bodyRadius, scale, basePhase, objectMap, LEO_EQ_ORBIT_RADIUS = 4.5, LEO_INCL_ORBIT_RADIUS = 4.5, GEO_ORBIT_RADIUS = 15, INCLINED_SAT_COUNT = 7, EQUATORIAL_SAT_COUNT = 8, GEO_SAT_COUNT = 10, MIN_SEP = THREE.MathUtils.degToRad(10), LEO_EQ_ORBIT_SPEED = 0.8, LEO_INCL_ORBIT_SPEED = 0.8, GEO_ORBIT_SPEED = 0, INCLINE_ORBIT_ANGLE = THREE.MathUtils.degToRad(55)}) {
+export function instantiateSatelliteSystems({axialFrame, spinFrame, bodyRadius, scale, basePhase, objectMap, LEO_EQ_ORBIT_RADIUS = 4.5, LEO_INCL_ORBIT_RADIUS = 4.5, GEO_ORBIT_RADIUS = 15, INCLINED_SAT_COUNT = 7, EQUATORIAL_SAT_COUNT = 8, GEO_SAT_COUNT = 10, MIN_SEP = THREE.MathUtils.degToRad(10), LEO_EQ_ORBIT_SPEED = 0.25, LEO_INCL_ORBIT_SPEED = 0.25, GEO_ORBIT_SPEED = 0, INCLINE_ORBIT_ANGLE = THREE.MathUtils.degToRad(55)}) {
   //initializeISS({axialFrame, bodyRadius, scale, basePhase, objectMap, orbitRadius: LEO_INCL_ORBIT_RADIUS, orbitSpeed: LEO_INCL_ORBIT_SPEED});
   initializeSatellites({axialFrame, spinFrame, bodyRadius, scale, basePhase, objectMap, LEO_EQ_ORBIT_RADIUS, LEO_INCL_ORBIT_RADIUS, GEO_ORBIT_RADIUS, INCLINED_SAT_COUNT, EQUATORIAL_SAT_COUNT, GEO_SAT_COUNT, MIN_SEP, LEO_EQ_ORBIT_SPEED, LEO_INCL_ORBIT_SPEED, GEO_ORBIT_SPEED, INCLINE_ORBIT_ANGLE});
   initOrbits(axialFrame, spinFrame, bodyRadius, GEO_ORBIT_RADIUS, LEO_EQ_ORBIT_RADIUS,LEO_INCL_ORBIT_RADIUS, INCLINE_ORBIT_ANGLE);
@@ -109,6 +109,18 @@ function createSatelliteSystem({
     positionFrame.add(bodyFrame);
     bodyFrame.add(mesh);
 
+    const onboardCamFrame = new THREE.Group();
+
+    // In spaceCraftInit.js -> createSatelliteSystem()
+
+    // 1. Position: Slightly forward of the antenna (+Z) and slightly "Up" (+Y)
+    // Since the bus is 0.45 long, Z: 0.3 puts cam at the front edge.
+    onboardCamFrame.position.set(0, 0.05, -0.03); 
+
+    // 2. Look: Point straight ahead toward Earth (+Z)
+    onboardCamFrame.lookAt(new THREE.Vector3(0, 0.1, -1.0));
+    bodyFrame.add(onboardCamFrame);
+
     //orbitFrame.add(new THREE.AxesHelper(0.6));      // cage
     //positionFrame.add(new THREE.AxesHelper(0.4));   // radial frame
     bodyFrame.add(new THREE.AxesHelper(0.3));       // spacecraft body
@@ -149,7 +161,8 @@ function createSatelliteSystem({
 
     return {
       orbitFrame,
-      bodyFrame
+      bodyFrame,
+      onboardCamFrame
     };
   }
 
@@ -203,7 +216,28 @@ function initializeSatellites({
 
 
     const name = `sat_eq_${i + 1}`;
-    objectMap.set(name, [sat.bodyFrame, new THREE.Vector3(1.15, 1.15, 1.15)]);
+    objectMap.set(name, {
+        body: {
+          frame: sat.bodyFrame,
+          offset: new THREE.Vector3(1.15, 1.15, 1.15)
+        },
+
+        onboard: {
+          frame: sat.onboardCamFrame,
+          offset: new THREE.Vector3(0, 0, 0) // camera sits exactly here
+        },
+
+        spin: {
+          frame: sat.orbitFrame,
+          offset: new THREE.Vector3(1, 1, 1)
+        },
+
+        fixed: {
+          frame: sat.orbitFrame.parent,
+          offset: new THREE.Vector3(1, 1, 1)
+        }
+      });
+
 
     const opt = document.createElement("option");
     opt.value = name;
@@ -240,7 +274,28 @@ function initializeSatellites({
 
 
     const name = `sat_incl_${i + 1}`;
-    objectMap.set(name, [sat.bodyFrame, new THREE.Vector3(1.15, 1.15, 1.15)]);
+    objectMap.set(name, {
+        body: {
+          frame: sat.bodyFrame,
+          offset: new THREE.Vector3(1.15, 1.15, 1.15)
+        },
+
+        onboard: {
+          frame: sat.onboardCamFrame,
+          offset: new THREE.Vector3(0, 0, 0) // camera sits exactly here
+        },
+
+        spin: {
+          frame: sat.orbitFrame,
+          offset: new THREE.Vector3(1, 1, 1)
+        },
+
+        fixed: {
+          frame: sat.orbitFrame.parent,
+          offset: new THREE.Vector3(1, 1, 1)
+        }
+      });
+
 
     const opt = document.createElement("option");
     opt.value = name;
@@ -269,8 +324,29 @@ function initializeSatellites({
 
 
     const name = `geo_sat_${i + 1}`;
-    objectMap.set(name, [sat.bodyFrame, new THREE.Vector3(1.15, 1.15, 1.15)]);
+    objectMap.set(name, {
+        body: {
+          frame: sat.bodyFrame,
+          offset: new THREE.Vector3(1.15, 1.15, 1.15)
+        },
 
+        onboard: {
+          frame: sat.onboardCamFrame,
+          offset: new THREE.Vector3(0, 0, 0) // camera sits exactly here
+        },
+
+        spin: {
+          frame: sat.orbitFrame,
+          offset: new THREE.Vector3(1, 1, 1)
+        },
+
+        fixed: {
+          frame: sat.orbitFrame.parent,
+          offset: new THREE.Vector3(1, 1, 1)
+        }
+      });
+
+    console.log(sat.onboardCamFrame);
     const opt = document.createElement("option");
     opt.value = name;
     opt.textContent = `GEO Satellite ${i + 1}`;

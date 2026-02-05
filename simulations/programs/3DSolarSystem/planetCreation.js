@@ -57,7 +57,7 @@ const mercuryCameraOffset = new THREE.Vector3(20, 15, 20);
 const venusCameraOffset = new THREE.Vector3(35, 20, 25);
 const marsCameraOffset = new THREE.Vector3(30, 10, 25);
 const jupiterCameraOffset = new THREE.Vector3(190, 60, 190);
-const saturnCameraOffset = new THREE.Vector3(110, 70, 110);
+const saturnCameraOffset = new THREE.Vector3(180, 70, 180);
 const uranusCameraOffset = new THREE.Vector3(95, 50, 95);
 const neptuneCameraOffset = new THREE.Vector3(85, 45, 85);
 const moonCameraOffset = new THREE.Vector3(10, 10, 15);
@@ -682,7 +682,7 @@ export function initThree() {
   let camera = new THREE.PerspectiveCamera(
     60,
     window.innerWidth / window.innerHeight,
-    0.1,
+    0.01,
     9500
   );
 
@@ -1427,16 +1427,166 @@ export function initScene(scene, objectMap, moons) {
 
 
 
-    objectMap.set("mercury", [mercurySpinFrame, mercuryCameraOffset]);
-    objectMap.set("venus",   [venusSpinFrame,   venusCameraOffset]);
-    objectMap.set("earth",   [earthSpinFrame,   earthCameraOffset]);
-    objectMap.set("mars",    [marsSpinFrame,    marsCameraOffset]);
-    objectMap.set("jupiter", [jupiterSpinFrame, jupiterCameraOffset]);
-    objectMap.set("saturn",  [saturnSpinFrame,  saturnCameraOffset]);
-    objectMap.set("uranus",  [uranusSpinFrame,  uranusCameraOffset]);
-    objectMap.set("neptune", [neptuneSpinFrame, neptuneCameraOffset]);
-    objectMap.set("sun",     [sun,               sunCameraOffset]);
-    objectMap.set("moon", [moon, moonCameraOffset]);
+    // ================================
+    // PLANET / MOON / SUN CAMERA VIEWS
+    // ================================
+
+        objectMap.set("mercury", {
+      body: {
+        frame: mercurySpinFrame,
+        offset: mercuryCameraOffset.clone()
+      },
+      fixed: {
+        frame: mercuryPositionFrame,
+        offset: mercuryCameraOffset.clone().multiplyScalar(1.3)
+      },
+      spin: {
+        frame: mercurySpinFrame,
+        offset: mercuryCameraOffset.clone()
+      }
+    });
+
+    objectMap.set("venus", {
+      body: {
+        frame: venusSpinFrame,
+        offset: venusCameraOffset.clone()
+      },
+      fixed: { // this is really the fixed vector
+        frame: venusPositionFrame,
+        offset: venusCameraOffset.clone().multiplyScalar(1.3)
+      },
+      spin: {
+        frame: venusSpinFrame,
+        offset: venusCameraOffset.clone()
+      }
+    });
+
+    objectMap.set("earth", {
+      body: {
+        frame: earthSpinFrame,
+        offset: earthCameraOffset.clone()
+      },
+      fixed: {
+        frame: earthPositionFrame,
+        offset: earthCameraOffset.clone().multiplyScalar(1.3)
+      },
+      spin: {
+        frame: earthSpinFrame,
+        offset: earthCameraOffset.clone()
+      }
+    });
+
+    objectMap.set("mars", {
+      body: {
+        frame: marsSpinFrame,
+        offset: marsCameraOffset.clone()
+      },
+      fixed: {
+        frame: marsPositionFrame,
+        offset: marsCameraOffset.clone().multiplyScalar(1.3)
+      },
+      spin: {
+        frame: marsSpinFrame,
+        offset: marsCameraOffset.clone()
+      }
+    });
+
+    objectMap.set("jupiter", {
+      body: {
+        frame: jupiterSpinFrame,
+        offset: jupiterCameraOffset.clone()
+      },
+      fixed: {
+        frame: jupiterPositionFrame,
+        offset: jupiterCameraOffset.clone().multiplyScalar(1.3)
+      },
+      spin: {
+        frame: jupiterSpinFrame,
+        offset: jupiterCameraOffset.clone()
+      }
+    });
+
+    objectMap.set("saturn", {
+      body: {
+        frame: saturnSpinFrame,
+        offset: saturnCameraOffset.clone()
+      },
+      fixed: {
+        frame: saturnPositionFrame,
+        offset: saturnCameraOffset.clone().multiplyScalar(1.3)
+      },
+      spin: {
+        frame: saturnSpinFrame,
+        offset: saturnCameraOffset.clone()
+      }
+    });
+
+    objectMap.set("uranus", {
+      body: {
+        frame: uranusSpinFrame,
+        offset: uranusCameraOffset.clone()
+      },
+      fixed: {
+        frame: uranusPositionFrame,
+        offset: uranusCameraOffset.clone().multiplyScalar(1.3)
+      },
+      spin: {
+        frame: uranusSpinFrame,
+        offset: uranusCameraOffset.clone()
+      }
+    });
+
+    objectMap.set("neptune", {
+      body: {
+        frame: neptuneSpinFrame,
+        offset: neptuneCameraOffset.clone()
+      },
+      fixed: {
+        frame: neptunePositionFrame,
+        offset: neptuneCameraOffset.clone().multiplyScalar(1.3)
+      },
+      spin: {
+        frame: neptuneSpinFrame,
+        offset: neptuneCameraOffset.clone()
+      }
+    });
+
+
+    objectMap.set("moon", {
+      body: {
+        frame: moon,
+        offset: moonCameraOffset.clone()
+      },
+      fixed: {
+        frame: moon,
+        offset: moonCameraOffset.clone().multiplyScalar(1.3)
+      },
+      spin: {
+        frame: moon,
+        offset: moonCameraOffset.clone()
+      }
+    });
+
+
+    objectMap.set("sun", {
+      body: {
+        frame: sun,
+        offset: sunCameraOffset.clone()
+      },
+      fixed: {
+        frame: sun,
+        offset: sunCameraOffset.clone()
+      },
+      spin: {
+        frame: sun,
+        offset: sunCameraOffset.clone()
+      }
+    });
+
+
+
+
+  
 
 
 
