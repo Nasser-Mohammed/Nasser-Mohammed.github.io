@@ -208,7 +208,7 @@ function renderAttitudeError(adcs) {
   const err = adcs.attitudeError;
 
   attitudeErrorReadout.textContent =
-    `${err.toFixed(4)} rad`;
+    `${err.toFixed(2)} rad`;
 
   // Reset classes
   attitudeErrorReadout.classList.remove("blink-critical");
@@ -277,7 +277,7 @@ function renderControlEffort(adcs) {
   if (!adcs || !controlEffortReadout) return;
 
   controlEffortReadout.textContent =
-    adcs.controlEffort.toFixed(3);
+    adcs.controlEffort.toFixed(1);
     controlEffortReadout.style.color =
   adcs.controlEffort < 0.3 ? "#6ee27d" :
   adcs.controlEffort < 0.7 ? "#f0c674" :
@@ -434,59 +434,56 @@ function updateOmegaADCS(bodyFrame, dt) {
     const adcs = bodyFrame.adcs;
     if (!adcs || !adcs.enabled) return;
 
-    if (!adcs) return;
-
     const targetDir = getTargetWorldDir(bodyFrame, adcs.target);
     if (!targetDir) return;
 
     const errorAxis = computeAttitudeErrorVector(bodyFrame, targetDir);
-      if (!errorAxis) return;
+    if (!errorAxis) return;
 
-    const KP = 4.0;   // torque per rad
-    const KD = 2.0;   // rate damping
+    const KP = 6.0;   
+    const KD = 2.5;   
+    const MAX_RATE = 0.6; 
 
-    // proportional torque toward target
-    const MAX_RATE = 0.6; // rad/s, realistic-ish
-
-    // desired angular velocity points along error axis
+    // 1. Calculate Desired Angular Velocity (Proportional)
     const omegaDesired = errorAxis.clone().multiplyScalar(
       Math.min(KP * adcs.attitudeError, MAX_RATE)
     );
 
-    // PD tracking of angular velocity
+    // 2. PD Tracking Torque (Proportional - Derivative)
+    // This naturally includes damping because we subtract the current omega
     const torque = omegaDesired
       .clone()
       .sub(adcs.omega)
       .multiplyScalar(KD);
 
+    // 3. ADD PERTURBATION (Disturbance Torque)
+    // Simulates solar pressure and tiny mechanical vibrations
+    const perturbationStrength = 0.115; 
+    const noise = new THREE.Vector3(
+      (2 * Math.random() - 1) * perturbationStrength,
+      (2 * Math.random() - 1) * perturbationStrength,
+      (2 * Math.random() - 1) * perturbationStrength
+    );
+    torque.add(noise);
 
-
-
-    // rate damping
-    const damping = adcs.omega.clone().multiplyScalar(-KD);
-
-    // total torque
-    torque.add(damping);
-
-    // integrate angular velocity
+    // 4. Integrate total torque into angular velocity
     adcs.omega.addScaledVector(torque, dt);
 
-    // numerical safety
+    // 5. Numerical safety (Friction/Decay)
     adcs.omega.multiplyScalar(0.995);
-  }
-
+}
 
 
 function renderOmega(adcs) {
   if (!adcs || !omegaReadout) return;
 
-  const ω = adcs.omega;
+  const w = adcs.omega;
 
   omegaReadout.textContent =
-    `[${ω.x.toFixed(3)}, ${ω.y.toFixed(3)}, ${ω.z.toFixed(3)}]`;
+    `[${w.x.toFixed(1)}, ${w.y.toFixed(1)}, ${w.z.toFixed(1)}]`;
 
   // Optional: color by magnitude
-  const mag = ω.length();
+  const mag = w.length();
   omegaReadout.style.color =
     mag < 0.01 ? "#6ee27d" :
     mag < 0.03 ? "#f0c674" :
@@ -933,7 +930,7 @@ function updateBatteryADCS(bodyFrame, dt) {
     if (!adcs) return;
 
     const BASE_DRAIN   = 0.02;
-    const CTRL_DRAIN   = 0.225;
+    const CTRL_DRAIN   = 0.2;
     const SOLAR_CHARGE = 0.18;
 
     const DEAD_CUTOFF   = 0.08;
