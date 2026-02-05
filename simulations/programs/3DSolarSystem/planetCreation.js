@@ -1433,11 +1433,11 @@ export function initScene(scene, objectMap, moons) {
 
         objectMap.set("mercury", {
       body: {
-        frame: mercurySpinFrame,
+        frame: mercuryPositionFrame,
         offset: mercuryCameraOffset.clone()
       },
       fixed: {
-        frame: mercuryPositionFrame,
+        frame: mercuryAxialFrame,
         offset: mercuryCameraOffset.clone().multiplyScalar(1.3)
       },
       spin: {
@@ -1448,11 +1448,11 @@ export function initScene(scene, objectMap, moons) {
 
     objectMap.set("venus", {
       body: {
-        frame: venusSpinFrame,
+        frame: venusPositionFrame,
         offset: venusCameraOffset.clone()
       },
       fixed: { // this is really the fixed vector
-        frame: venusPositionFrame,
+        frame: venusAxialFrame,
         offset: venusCameraOffset.clone().multiplyScalar(1.3)
       },
       spin: {
@@ -1463,11 +1463,11 @@ export function initScene(scene, objectMap, moons) {
 
     objectMap.set("earth", {
       body: {
-        frame: earthSpinFrame,
+        frame: earthPositionFrame,
         offset: earthCameraOffset.clone()
       },
       fixed: {
-        frame: earthPositionFrame,
+        frame: earthAxialFrame,
         offset: earthCameraOffset.clone().multiplyScalar(1.3)
       },
       spin: {
@@ -1478,11 +1478,11 @@ export function initScene(scene, objectMap, moons) {
 
     objectMap.set("mars", {
       body: {
-        frame: marsSpinFrame,
+        frame: marsPositionFrame,
         offset: marsCameraOffset.clone()
       },
       fixed: {
-        frame: marsPositionFrame,
+        frame: marsAxialFrame,
         offset: marsCameraOffset.clone().multiplyScalar(1.3)
       },
       spin: {
@@ -1493,11 +1493,11 @@ export function initScene(scene, objectMap, moons) {
 
     objectMap.set("jupiter", {
       body: {
-        frame: jupiterSpinFrame,
+        frame: jupiterPositionFrame,
         offset: jupiterCameraOffset.clone()
       },
       fixed: {
-        frame: jupiterPositionFrame,
+        frame: jupiterAxialFrame,
         offset: jupiterCameraOffset.clone().multiplyScalar(1.3)
       },
       spin: {
@@ -1508,11 +1508,11 @@ export function initScene(scene, objectMap, moons) {
 
     objectMap.set("saturn", {
       body: {
-        frame: saturnSpinFrame,
+        frame: saturnPositionFrame,
         offset: saturnCameraOffset.clone()
       },
       fixed: {
-        frame: saturnPositionFrame,
+        frame: saturnAxialFrame,
         offset: saturnCameraOffset.clone().multiplyScalar(1.3)
       },
       spin: {
@@ -1523,11 +1523,11 @@ export function initScene(scene, objectMap, moons) {
 
     objectMap.set("uranus", {
       body: {
-        frame: uranusSpinFrame,
+        frame: uranusPositionFrame,
         offset: uranusCameraOffset.clone()
       },
       fixed: {
-        frame: uranusPositionFrame,
+        frame: uranusAxialFrame,
         offset: uranusCameraOffset.clone().multiplyScalar(1.3)
       },
       spin: {
@@ -1538,11 +1538,11 @@ export function initScene(scene, objectMap, moons) {
 
     objectMap.set("neptune", {
       body: {
-        frame: neptuneSpinFrame,
+        frame: neptunePositionFrame,
         offset: neptuneCameraOffset.clone()
       },
       fixed: {
-        frame: neptunePositionFrame,
+        frame: neptuneAxialFrame,
         offset: neptuneCameraOffset.clone().multiplyScalar(1.3)
       },
       spin: {
