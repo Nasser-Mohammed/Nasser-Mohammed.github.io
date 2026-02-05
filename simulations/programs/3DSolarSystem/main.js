@@ -921,8 +921,10 @@ function updateAttitudeErrorADCS(adcs, dt) {
 function isActiveView(bodyFrame) {
   const entry = objectMap.get(currentBodyView);
   if (!entry) return false;
-  // Compare the actual frame object stored in the entry
-  return entry.body?.frame === bodyFrame; 
+
+  // Check if the frame being updated (bodyFrame) matches 
+  // either the main frame OR the physics frame in the map
+  return (entry.body?.frame === bodyFrame || entry.body?.physics === bodyFrame);
 }
 
 
