@@ -929,11 +929,11 @@ function updateBatteryADCS(bodyFrame, dt) {
     const adcs = bodyFrame.adcs;
     if (!adcs) return;
 
-    const BASE_DRAIN   = 0.02;
-    const CTRL_DRAIN   = 0.2;
-    const SOLAR_CHARGE = 0.18;
+    const BASE_DRAIN   = 0.11;
+    const CTRL_DRAIN   = 0.1;
+    const SOLAR_CHARGE = 0.1;
 
-    const DEAD_CUTOFF   = 0.08;
+    const DEAD_CUTOFF   = 0.01;
     const RESTART_LEVEL = 0.80;
 
     // --- solar ---
@@ -941,6 +941,7 @@ function updateBatteryADCS(bodyFrame, dt) {
     if (!isInEarthShadow(bodyFrame)) {
       solarInput = SOLAR_CHARGE * computeSolarEfficiency(bodyFrame);
     }
+    solarInput = SOLAR_CHARGE;
 
     // --- drain ---
     let drain = 0;
