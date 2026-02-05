@@ -34,7 +34,7 @@ const saturnMass = 100;
 const saturn = {m: saturnMass, x: 0, y: 0, color: '#d1c596', radius: 60 , physicalRadius: 90};
 
 // Rocks
-const maxRocks = 1000;
+const maxRocks = 750;
 const radiusRange = [2, 5];
 const colorRange = ['#888888', '#bbbbbb', '#dddddd', '#aaaaaa', '#777777'];
 const variation = 0.25; // How much deviation along the boundary of the rock
