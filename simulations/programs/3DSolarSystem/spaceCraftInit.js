@@ -123,7 +123,7 @@ function createSatelliteSystem({
 
     //orbitFrame.add(new THREE.AxesHelper(0.6));      // cage
     //positionFrame.add(new THREE.AxesHelper(0.4));   // radial frame
-    bodyFrame.add(new THREE.AxesHelper(0.3));       // spacecraft body
+    //bodyFrame.add(new THREE.AxesHelper(0.3));       // spacecraft body
 
     
 
