@@ -20,7 +20,7 @@ NO physics
 
 
 
-export function instantiateSatelliteSystems({axialFrame, spinFrame, bodyRadius, scale, basePhase, objectMap, LEO_EQ_ORBIT_RADIUS = 4.5, LEO_INCL_ORBIT_RADIUS = 4.5, GEO_ORBIT_RADIUS = 15, INCLINED_SAT_COUNT = 7, EQUATORIAL_SAT_COUNT = 8, GEO_SAT_COUNT = 10, MIN_SEP = THREE.MathUtils.degToRad(10), LEO_EQ_ORBIT_SPEED = 0.25, LEO_INCL_ORBIT_SPEED = 0.25, GEO_ORBIT_SPEED = 0, INCLINE_ORBIT_ANGLE = THREE.MathUtils.degToRad(55)}) {
+export function instantiateSatelliteSystems({axialFrame, spinFrame, bodyRadius, scale, basePhase, objectMap, LEO_EQ_ORBIT_RADIUS = 8.5, LEO_INCL_ORBIT_RADIUS = 8, GEO_ORBIT_RADIUS = 20, INCLINED_SAT_COUNT = 7, EQUATORIAL_SAT_COUNT = 8, GEO_SAT_COUNT = 10, MIN_SEP = THREE.MathUtils.degToRad(10), LEO_EQ_ORBIT_SPEED = 0.25, LEO_INCL_ORBIT_SPEED = 0.25, GEO_ORBIT_SPEED = 0, INCLINE_ORBIT_ANGLE = THREE.MathUtils.degToRad(55)}) {
   //initializeISS({axialFrame, bodyRadius, scale, basePhase, objectMap, orbitRadius: LEO_INCL_ORBIT_RADIUS, orbitSpeed: LEO_INCL_ORBIT_SPEED});
   initializeSatellites({axialFrame, spinFrame, bodyRadius, scale, basePhase, objectMap, LEO_EQ_ORBIT_RADIUS, LEO_INCL_ORBIT_RADIUS, GEO_ORBIT_RADIUS, INCLINED_SAT_COUNT, EQUATORIAL_SAT_COUNT, GEO_SAT_COUNT, MIN_SEP, LEO_EQ_ORBIT_SPEED, LEO_INCL_ORBIT_SPEED, GEO_ORBIT_SPEED, INCLINE_ORBIT_ANGLE});
   initOrbits(axialFrame, spinFrame, bodyRadius, GEO_ORBIT_RADIUS, LEO_EQ_ORBIT_RADIUS,LEO_INCL_ORBIT_RADIUS, INCLINE_ORBIT_ANGLE);
