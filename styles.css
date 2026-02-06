@@ -76,8 +76,8 @@ a {
   gap: 20px;
 }
 
-/* 1. ORIGINAL CARDS (Knowledge Base) */
-.card {
+/* UNIFIED CARDS (Knowledge Base & Simulations) */
+.card, .sim-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -86,9 +86,11 @@ a {
   align-items: center;
   gap: 20px;
   transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
 }
 
-.card:hover {
+.card:hover, .sim-card:hover {
   transform: translateY(-5px);
   border-color: var(--accent);
   box-shadow: 0 8px 20px var(--glow);
@@ -99,8 +101,29 @@ a {
   height: 50px;
   border-radius: 8px;
   background: #0d1117;
+  object-fit: contain;
+  padding: 4px;
 }
 
+/* Card Description Color Tweak */
+.card p, .sim-card p {
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+  /* Option A: Vivid Technical Blue (More noticeable) */
+  color: #58a6ff; 
+  
+  /* Option B: Subtle Slate Blue (If A is too bright) */
+  /* color: #8899af; */
+  
+  line-height: 1.5;
+}
+/* Ensure Titles stay White */
+.card h3, .sim-card h3 {
+  margin: 0;
+  color: #ffffff;
+}
+
+/* HERO SECTION VISUALS */
 .hero-img {
     transition: filter 0.5s ease;
     filter: drop-shadow(0 0 5px rgba(88, 166, 255, 0.2));
@@ -111,29 +134,7 @@ a {
     transform: scale(1.02);
 }
 
-/* 2. SIMULATION CARDS (The Separated Look) */
-.sim-card {
-  background: #1c2128; 
-  border: 1px solid var(--border);
-  border-left: 5px solid var(--accent); 
-  border-radius: 12px;
-  padding: 25px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.4s ease;
-}
-
-.sim-card:hover {
-  transform: scale(1.02);
-  border-color: var(--accent);
-  background: #22272e;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-}
-
-/* 3. ART GALLERY & PHASE SPACE ROW */
+/* ART GALLERY & PHASE SPACE ROW */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -143,7 +144,7 @@ a {
 
 .image-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* This forces the row layout */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 
@@ -168,7 +169,7 @@ a {
   font-style: italic;
 }
 
-/* 4. PETS / MASCOTS */
+/* PETS / MASCOTS */
 .pet-card {
     flex-direction: column;
     text-align: center;
@@ -197,8 +198,7 @@ a {
 
 .sprite-pet { border-color: var(--accent); }
 
-
-/* ARCHIVE SECTION (Simulations Page) */
+/* ARCHIVE SECTION */
 .archive-section {
   margin-top: 40px;
   text-align: center;
