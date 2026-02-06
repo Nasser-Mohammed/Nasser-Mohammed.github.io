@@ -1,40 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../styles.css" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Notes</title>
+  <title>Knowledge Base | Nasser Mohammed</title>
 </head>
-<body>
+<body class="dark-theme">
 
-  <header>
-    <h1>Math Notes</h1>
-  </header>
-  <nav>
-    <a href="../index.html">Home</a> |
-    <a href="../simulations/index.html">Simulations</a> |
-    <a href="../technical/index.html">Technical Write-Ups</a> |
-    <a href="index.html">Math notes</a> |
-    <a href="../engineering/index.html">Engineering/Physics notes</a> <span class="black-text">|</span>
-    <a href="../art/index.html">Math art</a> |
-    <a href="../cv/index.html">CV</a> |
-    <a href="../pets/index.html">Pets</a>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../simulations/index.html">Simulations</a>
+      <a href="index.html" class="active">Knowledge Base</a>
+      <a href="../art/index.html">Math Art</a>
+      <a href="../pets/index.html">Pets</a>
+    </div>
   </nav>
 
-  <main>
-    <div id="desc">
-    The topics below are partially ordered by difficulty/background needed. The first topic should be
-      the easiest, and the bottom one should require the most background.
-     </div> 
-     <ul class="styled-list">
-        <li><a href="subjects/Linear Algebra/index.html"><img src="pictures/matrix.png" alt="Icon" class="list-icon"> Linear Algebra</a></li>
-        <li><a href="subjects/Analysis/index.html"><img src="pictures/analysis.png" alt="Icon" class="list-icon"> Analysis</a></li>
-        <li><a href="subjects/Nonlinear Dynamics/index.html"><img src="pictures/butterfly16.png" alt="Icon" class="list-icon"> Nonlinear Dynamics and Chaos</a></li>
-        <li><a href="subjects/PDE/index.html"><img src="pictures/laplaces-eq.png" alt="Icon" class="list-icon"> Partial Differential Equations</a></li>
-        <li><a href="subjects/Fourier Analysis/index.html"><img src="pictures/dirichlet.png" alt="Icon" class="list-icon"> Fourier Analysis</a></li>
-        <li><a href="subjects/Neuronal Dynamics/index.html"><img src="pictures/brain.png" alt="Icon" class="list-icon"> Neuronal Dynamics</a></li>
-      </ul>
+  <main class="container">
+    <header class="sim-header">
+      <h1>Knowledge Base</h1>
+      <p>A library of derivations, technical notes, and mathematical foundations.</p>
+    </header>
+
+    <section>
+      <h2>Mathematics</h2>
+      <div class="grid-container">
+        <a href="subjects/Linear Algebra/index.html" class="card">
+          <div class="card-icon"><img src="pictures/matrix.png" alt="Math"></div>
+          <div class="card-content">
+            <h3>Linear Algebra</h3>
+            <p>Vector spaces, spectral theory, and matrix decompositions.</p>
+          </div>
+        </a>
+        <a href="subjects/Analysis/index.html" class="card">
+          <div class="card-icon"><img src="pictures/analysis.png" alt="Math"></div>
+          <div class="card-content">
+            <h3>Analysis</h3>
+            <p>Metric spaces, convergence, and rigorous foundations of calculus.</p>
+          </div>
+        </a>
+        <a href="subjects/Nonlinear Dynamics/index.html" class="card">
+          <div class="card-icon"><img src="pictures/butterfly16.png" alt="Math"></div>
+          <div class="card-content">
+            <h3>Nonlinear Dynamics</h3>
+            <p>Bifurcation theory, chaos, and stability analysis of ODEs.</p>
+          </div>
+        </a>
+        <a href="subjects/PDE/index.html" class="card">
+          <div class="card-icon"><img src="pictures/laplaces-eq.png" alt="Math"></div>
+          <div class="card-content">
+            <h3>Partial Differential Equations</h3>
+            <p>Analytical and numerical solutions to elliptic and parabolic systems.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Engineering & Physics</h2>
+      <div class="grid-container">
+        <a href="../engineering/subjects/physics/index.html" class="card">
+          <div class="card-icon"><img src="../engineering/pictures/physIcon.png" alt="Physics"></div>
+          <div class="card-content">
+            <h3>Physics</h3>
+            <p>Classical mechanics (Lagrangian/Hamiltonian) and Electromagnetism.</p>
+          </div>
+        </a>
+        <a href="../engineering/subjects/ee/index.html" class="card">
+          <div class="card-icon"><img src="../engineering/pictures/eeIcon.png" alt="EE"></div>
+          <div class="card-content">
+            <h3>Electrical Engineering</h3>
+            <p>Signals, systems, and control theory.</p>
+          </div>
+        </a>
+        <!-- <a href="../engineering/subjects/mechE/index.html" class="card">
+          <div class="card-icon"><img src="../engineering/pictures/mechEIcon.png" alt="MechE"></div>
+          <div class="card-content">
+            <h3>Aerospace & Mechanical</h3>
+            <p>Orbital mechanics, fluid dynamics, and propulsion systems.</p>
+          </div>
+        </a> -->
+        <!-- <a href="../engineering/subjects/ce/index.html" class="card">
+          <div class="card-icon"><img src="../engineering/pictures/ceIcon.png" alt="Civil"></div>
+          <div class="card-content">
+            <h3>Civil Engineering</h3>
+            <p>Structural analysis and material quantification research.</p>
+          </div>
+        </a> -->
+      </div>
+    </section>
   </main>
 
   <footer>

@@ -1,72 +1,80 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../styles.css" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulations</title>
-  <link rel="icon" type="image/png" href="pictures/lorenzSlice.png" sizes="48x48">
+  <title>Simulations | Nasser Mohammed</title>
 </head>
-<body>
+<body class="dark-theme">
 
-  <header>
-  <div class="header-content">
-    <video autoplay muted loop playsinline controlslist="nodownload nofullscreen noremoteplay" class="background-video">
-      <source src="pictures/simulationBest.webm" type="video/webm">
-    </video>
-    <h1>Simulations</h1>
-    <video autoplay muted loop playsinline controlslist="nodownload nofullscreen noremoteplay" class="background-video">
-      <source src="pictures/simulationBest2.webm" type="video/webm">
-    </video>
-  </div>
-</header>
-
-
-
-  <nav>
-    <a href="../index.html">Home</a> |
-    <a href="index.html">Simulations</a> |
-    <a href="../technical/index.html">Technical Write-Ups</a> |
-    <a href="../notes/index.html">Math notes</a> |
-    <a href="../engineering/index.html">Engineering/Physics notes</a> <span class="black-text">|</span>
-    <a href="../art/index.html">Math art</a> |
-    <a href="../cv/index.html">CV</a> |
-    <a href="../pets/index.html">Pets</a>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="index.html" class="active">Simulations</a>
+      <a href="../notes/index.html">Knowledge Base</a>
+      <a href="../art/index.html">Math Art</a>
+      <a href="../pets/index.html">Pets</a>
+    </div>
   </nav>
 
-  <main>
-    <div id="desc">
-      <span>
-        Below are simulations I made and styled with HTML, CSS, and JavaScript. The core theme is modeling real
-        life systems with ODEs and PDEs. I do not use any numerical integration or differentiation libraries, and instead 
-        implement these methods manually. Most of the source code for my programs can be found on my 
-        <a href="https://github.com/Nasser-Mohammed" target="_blank">github.</a>
-      </span>
+  <main class="container">
+    <header class="sim-header">
+      <h1>Best Simulations</h1>
+      <p>Hand-coded physics engines modeling complex dynamical systems by implementing numerical methods based on Euler,
+        symplectic Euler, RK4, finite difference methods, and Gauss-Seidel.</p>
+    </header>
+
+    <div class="grid-container">
+      <a href="programs/3DSolarSystem/index.html" class="sim-card">
+        <div class="card-icon"><img src="pictures/nug.png" alt="Icon"></div>
+        <div class="card-content">
+          <h3>3D Orbital Dynamics</h3>
+          <p>Full ADCS simulation with nadir pointing attitude control and orbit propagation.</p>
+        </div>
+      </a>
+
+      <a href="programs/Saturn Navigation/index.html" class="sim-card">
+        <div class="card-icon"><img src="pictures/newChonkers.png" alt="Icon"></div>
+        <div class="card-content">
+          <h3>Saturn Navigation</h3>
+          <p>Autonomous path determination and robotics control through chaotic ring systems.</p>
+        </div>
+      </a>
+
+      <a href="programs/Navier-Stokes/index.html" class="sim-card">
+        <div class="card-icon"><img src="pictures/kodie.png" alt="Icon"></div>
+        <div class="card-content">
+          <h3>Navier-Stokes CFD</h3>
+          <p>Grid-based fluid dynamics solving the momentum and continuity equations manually.</p>
+        </div>
+      </a>
+
+      <a href="programs/3D Phase Space/index.html" class="sim-card">
+        <div class="card-icon"><img src="pictures/freakydeak.png" alt="Icon"></div>
+        <div class="card-content">
+          <h3>Phase Space Explorer</h3>
+          <p>Interactive manifold visualization for chaotic strange attractors in 3D.</p>
+        </div>
+      </a>
+
+      <a href="programs/Gray-Scott/index.html" class="sim-card">
+        <div class="card-icon"><img src="pictures/finalDababy.png" alt="Icon"></div>
+        <div class="card-content">
+          <h3>Gray-Scott PDE</h3>
+          <p>Reaction-diffusion modeling of biological pattern formation and chemical stability.</p>
+        </div>
+      </a>
     </div>
 
-    <div id="goodSims">
-      <h2>Best Simulations</h2>
-      <ul class="styled-list">
-        <li><a href="programs/3DSolarSystem/index.html">3D Orbital Dynamics & ADCS Simulator<img src="pictures/nug.png" alt="Icon" class="list-icon"></a></li>
-        <li><a href="programs/Saturn Navigation/index.html">Autonomous Navigation and Control Through Saturn’s Rings<img src="pictures/newChonkers.png" alt="Icon" class="list-icon"></a></li>
-        <li><a href="programs/Navier-Stokes/index.html">Navier-Stokes Fluid Simulation<img src="pictures/kodie.png" alt="Icon" class="list-icon"></a></li>
-        <li><a href="programs/3D Phase Space/index.html">Interactive 3D Phase Space Simulation<img src="pictures/freakydeak.png" alt="Icon" class="list-icon"></a></li>
-        <li><a href="programs/Gray-Scott/index.html">Gray-Scott Reaction-Diffusion Simulation<img src="pictures/finalDababy.png" alt="Icon" class="list-icon"></a></li>
-      </ul>
-    </div>
-
-    <div id="archiveCallout">
-      <h2>Extended Research & Early Works</h2>
-      <p>I have archived 15+ additional simulations covering Three-Body problems, Black Holes, population dynamics, and chaos theory.</p>
-      <a href="archive.html" class="archive-btn">Explore the Archives →</a>
-    </div>
+    <section class="archive-section">
+      <div class="archive-box">
+        <h3>Extended Research Archive</h3>
+        <p>Several other simulations are available for exploration including n-Body, Turing patterns, and population dynamics.</p>
+        <a href="archive.html" class="btn-outline">View 15+ Archived Sims →</a>
+      </div>
+    </section>
   </main>
-
-  <footer>
-    <p>&copy; 2026 Nasser Mohammed</p>
-  </footer>
 
 </body>
 </html>

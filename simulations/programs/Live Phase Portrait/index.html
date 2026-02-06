@@ -39,7 +39,7 @@
   </style>
 </head>
 <body>
-  <a href="../../index.html" class="back-button">← Back</a>
+  <a href="../../archive.html" class="back-button">← Back</a>
   <div class="wrapper">
     <h1>Planar Systems of ODEs</h1>
     <h4>Solutions approximated with Runge-Kutta method and state augmentation</h4>
@@ -324,7 +324,7 @@
       const box = document.getElementById('equation-tex');
       if (!box) return;
       box.innerHTML = EQUATIONS[name] || '';
-      // Ask MathJax to typeset the new content (MathJax is already loaded on your page)
+      // Ask MathJax to typeset the new content (MathJax is already loaded on page)
       if (window.MathJax?.typesetPromise) {
         window.MathJax.typesetPromise([box]);
       }
@@ -334,7 +334,7 @@
     const sysSelectEl = document.getElementById('system-select-2d');
     if (sysSelectEl) renderEquation(sysSelectEl.value);
 
-    // Also re-render whenever the system changes (hook you already expose)
+    // Also re-render whenever the system changes (hook already expose)
     const prevHook = window.SIM._onSystemChange;
     window.SIM._onSystemChange = (name) => {
       try { if (typeof prevHook === 'function') prevHook(name); } catch {}

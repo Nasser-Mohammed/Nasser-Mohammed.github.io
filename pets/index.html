@@ -1,93 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../styles.css" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>Pets</title>
-  <link rel="icon" type="image/png" href="pictures/newChonkers.png" sizes="48x48">
+  <title>Mascots | Nasser Mohammed</title>
 </head>
-<body>
+<body class="dark-theme">
 
-  <header>
-    <h1>Pets and Their Animations</h1>
-  </header>
-  <nav>
-    <a href="../index.html">Home</a> |
-    <a href="../simulations/index.html">Simulations</a> |
-    <a href="../technical/index.html">Technical Write-Ups</a> |
-    <a href="../notes/index.html">Math notes</a> |
-    <a href="../engineering/index.html">Engineering/Physics notes</a> <span class="black-text">|</span>
-    <a href="../art/index.html">Math art</a> |
-    <a href="../cv/index.html">CV</a> |
-    <a href="index.html">Pets</a>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../simulations/index.html">Simulations</a>
+      <a href="../notes/index.html">Knowledge Base</a>
+      <a href="../art/index.html">Math Art</a>
+      <a href="index.html" class="active">Mascots</a>
+    </div>
   </nav>
 
-  <main>
-    <div id="desc">
-    Below are the inspirations of the animated sprites I use throughout my website and simulations.
-    </div>
-    <div class="image-grid">
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/fatty.png" alt="Chonkers">
-      </div>
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/newChonkers.png" alt="Chonkers animated">
-      </div>
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/kodieReal.png" alt="Kodie">
-      </div>
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/kodie.png" alt="Kodie animated">
-      </div>
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/nugget.png" alt="Nug">
-      </div>
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/nug.png" alt="Nug animated">
-      </div>
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/newDababy.png" alt="Dababy">
-      </div>
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/finalDababy.png" alt="Dababy animated">
-      </div>
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/zerkie.png" alt="Zerkie">
-      </div>
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/freakydeak.png" alt="Zerkie animated">
-      </div>
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/teddy.png" alt="Teddie">
-      </div>
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/teddyAnimated.png" alt="Teddie animated">
-      </div>
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/chichi.png" alt="Chichi">
-      </div>
-      <div class="image-item">
-        <span></span>
-        <img src="pictures/chichiAnimated.png" alt="Chichi animated">
-      </div>
-      
-  </div>
+  <main class="container">
+    <header class="sim-header">
+      <h1>Design & Mascots</h1>
+      <p>The visual inspirations for the sprites and UI elements used throughout my simulations.</p>
+    </header>
 
+    <div class="grid-container">
+      
+      <div class="card pet-card">
+        <div class="pet-comparison">
+          <img src="pictures/fatty.png" alt="Inspiration" class="real-pet">
+          <img src="pictures/newChonkers.png" alt="Digital Sprite" class="sprite-pet">
+        </div>
+        <div class="card-content">
+          <h3>Orbital Navigation Mascot</h3>
+          <p>Primary mascot for the Saturn navigation system.</p>
+        </div>
+      </div>
+
+      <div class="card pet-card">
+        <div class="pet-comparison">
+          <img src="pictures/kodieReal.png" alt="Inspiration" class="real-pet">
+          <img src="pictures/kodie.png" alt="Digital Sprite" class="sprite-pet">
+        </div>
+        <div class="card-content">
+          <h3>Fluid Dynamics Mascot</h3>
+          <p>Primary mascot for the Navier-Stokes CFD solver.</p>
+        </div>
+      </div>
+
+      <div class="card pet-card">
+        <div class="pet-comparison">
+          <img src="pictures/nugget.png" alt="Inspiration" class="real-pet">
+          <img src="pictures/nug.png" alt="Digital Sprite" class="sprite-pet">
+        </div>
+        <div class="card-content">
+          <h3>Solar Dynamics Mascot</h3>
+          <p>Primary mascot for the 3D orbital mechanics propagator.</p>
+        </div>
+      </div>
+
+      <div class="card pet-card">
+        <div class="pet-comparison">
+          <img src="pictures/newDababy.png" alt="Inspiration" class="real-pet">
+          <img src="pictures/finalDababy.png" alt="Digital Sprite" class="sprite-pet">
+        </div>
+        <div class="card-content">
+          <h3>Reaction-Diffusion Mascot</h3>
+          <p>Primary mascot for chemical concentration models.</p>
+        </div>
+      </div>
+
+      <div class="card pet-card">
+        <div class="pet-comparison">
+          <img src="pictures/zerkie.png" alt="Inspiration" class="real-pet">
+          <img src="pictures/freakydeak.png" alt="Digital Sprite" class="sprite-pet">
+        </div>
+        <div class="card-content">
+          <h3>Phase Space Mascot</h3>
+          <p>Primary mascot for attractor visualizations.</p>
+        </div>
+      </div>
+
+      <div class="card pet-card">
+        <div class="pet-comparison">
+          <img src="pictures/teddy.png" alt="Inspiration" class="real-pet">
+          <img src="pictures/teddyAnimated.png" alt="Digital Sprite" class="sprite-pet">
+        </div>
+        <div class="card-content">
+          <h3>Legacy Archive Mascot I</h3>
+          <p>Primary mascot for archived dynamical systems simulations.</p>
+        </div>
+      </div>
+
+      <div class="card pet-card">
+        <div class="pet-comparison">
+          <img src="pictures/chichi.png" alt="Inspiration" class="real-pet">
+          <img src="pictures/chichiAnimated.png" alt="Digital Sprite" class="sprite-pet">
+        </div>
+        <div class="card-content">
+          <h3>Legacy Archive Mascot II</h3>
+          <p>Primary mascot for early chaotic system explorations.</p>
+        </div>
+      </div>
+
+    </div>
   </main>
 
   <footer>

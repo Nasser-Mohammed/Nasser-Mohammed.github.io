@@ -1,218 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../styles.css" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>Math Art</title>
-  <link rel="icon" type="image/png" href="pictures/lorenzSlice.png" sizes="48x48">
+  <title>Math Art | Nasser Mohammed</title>
 </head>
-<body>
+<body class="dark-theme">
 
-  <header>
-    <h1>Math Art</h1>
-  </header>
-  <nav>
-    <a href="../index.html">Home</a> |
-    <a href="../simulations/index.html">Simulations</a> |
-    <a href="../technical/index.html">Technical Write-Ups</a> |
-    <a href="../notes/index.html">Math notes</a> |
-    <a href="../engineering/index.html">Engineering/Physics notes</a> <span class="black-text">|</span>
-    <a href="index.html">Math art</a> |
-    <a href="../cv/index.html">CV</a> |
-    <a href="../pets/index.html">Pets</a>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../simulations/index.html">Simulations</a>
+      <a href="../notes/index.html">Knowledge Base</a>
+      <a href="index.html" class="active">Math Art</a>
+      <a href="../pets/index.html">Pets</a>
+    </div>
   </nav>
 
-  <main>
-    <br>
-    <div class="images">
+  <main class="container">
+    <header class="sim-header">
+      <h1>Mathematical Visualization</h1>
+      <p>Exploring the geometry of chaotic systems and dynamical manifolds.</p>
+    </header>
+
+    <section class="gallery-grid">
       
-      <div class="content-row">
-          <div class="vidDiv">
-          <span class="imgTitle">Lorenz Attractor</span>
-          <video controls poster="pictures/lorenzPrev.png">
+      <div class="art-card">
+        <h3>Lorenz Attractor</h3>
+        <video controls poster="pictures/lorenzPrev.png">
           <source src="pictures/lorenzVid60fps.mp4" type="video/mp4">
-          Your browser does not support the video tag.
         </video>
-        </div>
-        <div class="vidDiv">
-        <span class="imgTitle">Dequan Li Attractor</span>
+      </div>
+
+      <div class="art-card">
+        <h3>Aizawa Strange Attractor</h3>
+        <video controls poster="pictures/aizawaPrev.png">
+          <source src="pictures/aizawa.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="art-card">
+        <h3>Chen-Lee Attractor</h3>
+        <video controls poster="pictures/chenLeePrev.png">
+          <source src="pictures/chenLee.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="art-card">
+        <h3>Three-Scroll Attractor</h3>
+        <video controls poster="pictures/threeScrollPrev.png">
+          <source src="pictures/threeScroll.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="art-card">
+        <h3>R&ouml;ssler System</h3>
+        <video controls poster="pictures/rosslerPrev.png">
+          <source src="pictures/rossler.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="art-card">
+        <h3>Newton-Leipnik System</h3>
+        <video controls poster="pictures/newtonPrev.png">
+          <source src="pictures/newton.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="art-card">
+        <h3>Dequan Li System</h3>
         <video controls poster="pictures/dequanLiPrev.png">
           <source src="pictures/dequanLi.mp4" type="video/mp4">
-          Your browser does not support the video tag.
         </video>
+      </div>
+
+      <div class="art-card">
+        <h3>Halvorsen System</h3>
+        <video controls poster="pictures/halvorsenPrev.png">
+          <source src="pictures/halvorsen.mp4" type="video/mp4">
+        </video>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>Phase Space Renderings</h2>
+      <div class="image-grid">
+        <div class="art-card">
+          <img src="pictures/heart.png" alt="Attractor Heart">
+          <p class="img-caption">Geometry of a "Heart" emerging from chaotic trajectories</p>
+        </div>
+        <div class="art-card">
+          <img src="pictures/aizawaTwist.png" alt="Aizawa Manifold">
+          <p class="img-caption">High-Order Symmetry in an Aizawa Manifold</p>
+        </div>
+        <div class="art-card">
+          <img src="pictures/lorenzOrange.png" alt="Lorenz Orthographic">
+          <p class="img-caption">Lorenz System - Orthographic Projection</p>
         </div>
       </div>
-    <div class="content-row">
-      <div class="vidDiv">
-      <span class="imgTitle">Chen Lee Attractor</span>
-      <video controls poster="pictures/chenLeePrev.png">
-        <source src="pictures/chenLee.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      </div>
-      <div class="vidDiv">
-      <span class="imgTitle">Aizawa Strange Attractor</span>
-      <video controls poster="pictures/aizawaPrev.png">
-        <source src="pictures/aizawa.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      </div>
-    </div>
-    <div class="content-row">
-      <div class="vidDiv">
-      <span class="imgTitle">Three-Scroll Attractor</span>
-      <video controls poster="pictures/threeScrollPrev.png">
-        <source src="pictures/threeScroll.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      </div>
-      <div class="vidDiv">
-      <span class="imgTitle">Halvorsen System</span>
-      <video controls poster="pictures/halvorsenPrev.png">
-        <source src="pictures/halvorsen.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      </div>
-    </div>
-    <div class="content-row">
-      <div class="vidDiv">
-      <span class="imgTitle">Newton-Leipnik System</span>
-      <video controls poster="pictures/newtonPrev.png">
-        <source src="pictures/newton.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      </div>
-      <div class="vidDiv">
-      <span class="imgTitle">R&oumlssler System</span>
-      <video controls poster="pictures/rosslerPrev.png">
-        <source src="pictures/rossler.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      </div>
-    </div>
-    <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">Aizawa attractor visualization from my <a href="../simulations/programs/3D Phase Space/index.html", target="_blank", class="nonBlueLink">3D phase space simulation</a></span>
-        <img src="pictures/aizawaTwist.png" alt="Aizawa Twist">
-      </div>
-      <div class="vidDiv">
-        <span class="imgTitle">3D Lorenz System visualization from my <a href="../simulations/programs/3D Phase Space/index.html", target="_blank", class="nonBlueLink">3D phase space simulation</a></span>
-        <img src="pictures/lorenzTwist.png" alt="Lorenz Twist">
-        </div>
-      </div>
-    <div class="content-row">
-      <div class="vidDiv">
-    <span class="imgTitle">Halvorsen System from my <a href="../simulations/programs/3D Phase Space/index.html", target="_blank", class="nonBlueLink">3D phase space simulation</a></span>
-      <img src="pictures/halvorsenPrev.png" alt="Halvorsen System">
-      </div>
-      <div class="vidDiv">
-    <span class="imgTitle">Aizawa attractor from another point of view, from: <a href="../simulations/programs/3D Phase Space/index.html", target="_blank", class="nonBlueLink">3D phase space simulation</a></span>
-      <img src="pictures/aizawaMid.png" alt="Aizawa center">
-      </div>
-    </div>
-     <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">Another 3D Lorenz System visualization from my <a href="../simulations/programs/3D Phase Space/index.html" target="_blank" class="nonBlueLink">3D phase space simulation</a></span>
-        <img src="pictures/lorenzOrange.png" alt="Lorenz Orange">
-      </div>
-    </div>
-
-    <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">Butterfly shaped curve drawn by my <a href="../simulations/programs/Double Pendulum/index.html" target="_blank" class="nonBlueLink">chaotic double pendulum simulation</a></span>
-        <img src="pictures/pendulumButterfly.png" alt="Butterfly shaped from pendulum">
-      </div>
-    </div>
-
-    <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">Heart drawn by my <a href="../simulations/programs/Double Pendulum/index.html" target="_blank" class="nonBlueLink">chaotic double pendulum simulation</a></span>
-        <img src="pictures/heart.png" alt="Heart shape from pendulum">
-      </div>
-    </div>
-
-    <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">Fox-like 3D parametric curve visualized in 2D, produced by
-          altering the normal coefficients of the Lorenz system.
-        </span>
-        <img src="pictures/fox.png" alt="Fox like parametric curve">
-      </div>
-    </div>
-
-    <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">
-          Flower shape generated by Jupiter's moon's orbit path, produced by <a href="../simulations/programs/n-Body Problem/index.html" target="_blank" class="nonBlueLink">n-Body Simulation</a>
-        </span>
-        <img src="pictures/flower.png" alt="Solar system">
-      </div>
-    </div>
-
-    <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">Classic 2D visualization of Lorenz system with normal and constant 
-          coefficients. Three trajectories (orange, blue, and red), are started within
-          0.001 of each other, yet very different trajectories are formed.
-        </span>
-        <img src="pictures/butterfly22.png" alt="Classic butterfly">
-      </div>
-    </div>
-
-    <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">Torus drawn out by my <a href="../simulations/programs/Double Pendulum/index.html" target="_blank" class="nonBlueLink">chaotic double pendulum simulation</a></span>
-        <img src="pictures/torusPendulum.png" alt="Torus from pendulum">
-      </div>
-    </div>
-
-    <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">
-          Chemical concentration of two reactive chemicals, generated by my simulation: <a href="../simulations/programs/Turing Patterns/index.html" target="_blank" class="nonBlueLink">Turing Patterns</a>
-        </span>
-        <img src="pictures/turingPatterns.png" alt="Turing patterns">
-      </div>
-    </div>
-
-    <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">
-          Cool looking solar system generated by, <a href="../simulations/programs/n-Body Problem/index.html" target="_blank" class="nonBlueLink">n-Body Simulation</a>
-        </span>
-        <img src="pictures/coolSystem.png" alt="Solar system">
-      </div>
-    </div>
-
-    <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">Lorenz Attractor with large orbital amplitudes</span>
-        <img src="pictures/newAttractor.png" alt="Strange Attractor">
-      </div>
-    </div>
-
-    <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">Small butterfly</span>
-        <img src="pictures/artButterfly.png" alt="Butterfly">
-      </div>
-    </div>
-
-    <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">Cat-like mask</span>
-        <img src="pictures/cat.png" alt="cat">
-      </div>
-    </div>
-
-    <div class="content-row">
-      <div class="vidDiv">
-        <span class="imgTitle">Rabbit drawn by my <a href="../simulations/programs/Double Pendulum/index.html" target="_blank" class="nonBlueLink">chaotic double pendulum simulation</a></span>
-        <img src="pictures/rabbit.png" alt="Rabbit shape from pendulum">
-      </div>
-    </div>
+    </section>
   </main>
 
   <footer>

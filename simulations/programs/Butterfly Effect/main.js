@@ -113,7 +113,7 @@ function drawLorenzPointDual(p1, p2, p3) {
     // Update image preview
     document.getElementById("sprite-preview").src = `${currentSprite}.png`;
   
-    // If you're using this for drawing:
+    // If  using this for drawing:
     drawCanvas();
   }
 
@@ -185,7 +185,7 @@ function drawLorenzPoint(p) {
     ctx.fillStyle = `rgba(0, 0, 255, ${alpha})`;
     ctx.fillRect(cx, cy, 2, 2); // tiny trail dot
   
-    // 🦋 Draw your butterfly sprite, smaller size
+    //  Draw butterfly sprite, smaller size
     const spriteImg = sprites[currentSprite];
     if (spriteImg && spriteImg.complete) {
       const spriteSize = 20;

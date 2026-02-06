@@ -4,55 +4,53 @@
   <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, math graduate student at LSU with a focus on nonlinear dynamics and control theory.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research, math, mathematics">
-  <title>Personal Website</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+  <title>Nasser Mohammed | Applied Mathematics</title>
 </head>
-<body>
+<body class="dark-theme">
 
-  <header>
-    <h1>Nasser Mohammed</h1>
-    <div class="top-right-container">
-    <img src="images/profile.png" alt="Top Right Image">
-  </div>
-  </header>
-
-
-  <nav>
-    <a href="index.html">Home</a> <span class="black-text">|</span>
-    <a href="simulations/index.html">Simulations</a> <span class="black-text">|</span>
-    <a href="technical/index.html">Technical Write-Ups</a> <span class="black-text">|</span>
-    <a href="notes/index.html">Math notes</a> <span class="black-text">|</span>
-    <a href="engineering/index.html">Engineering/Physics notes</a> <span class="black-text">|</span>
-    <a href="art/index.html">Math art</a> <span class="black-text">|</span>
-    <a href="cv/index.html">CV</a> <span class="black-text">|</span>
-    <a href="pets/index.html">Pets</a>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="simulations/index.html">Simulations</a>
+      <a href="notes/index.html">Knowledge Base</a>
+      <a href="art/index.html">Math Art</a>
+      <a href="pets/index.html">Pets</a>
+    </div>
   </nav>
 
-  <main>
-    <h2>About</h2>
-    <p>I am currently a master's student in mathematics with a research assistantship from the department of civil engineering at Louisiana State University. Previously, I obtained
-        undergraduate degrees in mathematics and computer science at LSU as well. I plan on completing a PhD in applied mathematics.
-    </p>
-    <h2>Research Interests</h2>
-    <p>My general interests lie in ordinary and partial differential equations, optimization, and numerical analysis.
-       My specific research interests are in nonlinear dynamics, optimal control, numerical solutions to PDEs, as well as their applications in engineering, biology, and physics. For example, the autonomous control of robots, aircrafts, and medical devices
-       would be considered applications of control theory. Currently, I am conducting research in the 
-       department of civil engineering in autonomous print quality quantification and self correcting print processes. This research is largely focused on applying computer vision and control theory to minimize
-       deformations and loss of material quality created during the process of underwater 3D concrete printing. This research is being done in Dr. Yen-Fang Su's lab: <a href="https://faculty.lsu.edu/yfslab/about.php" target="_blank">INFRAMAT-X Lab</a> at LSU.
-    </p>
-    <div id="contactAndImage">
-      <div id="contact">
-      <h3>Contact</h3>
-    <p>Email: nmoha13 [at] lsu [dot] edu</p>
-    <p><a href="https://github.com/Nasser-Mohammed" target="_blank">Github</a></p>
-    </div>
-    <div class="background-image-container">
-      <a href="/simulations/programs/3D Phase Space/index.html"><img src="images/halvorsenRedTr.png" alt="Decorative" class="background-image"></a>
-    </div>
-    </div>
+  <main class="container">
+    <section class="hero-section">
+      <h1>Nasser Mohammed</h1>
+      <p class="subtitle">Graduate Researcher | Applied Mathematics</p>
+      <hr class="subtle-hr">
+    </section>
+
+    <section class="bio-grid">
+      <div class="bio-text">
+        <p>
+          I am an Applied Mathematics Master's student at Louisiana State University specializing in 
+          <strong>Nonlinear Dynamics</strong>, <strong>Control Theory</strong>, and 
+          <strong>Numerical Methods</strong>. My work focuses on leveraging applied mathematics 
+          to design and implement robust control strategies for complex engineering systems.
+        </p>
+        <p>
+          Currently, I am a Graduate Research Assistant in the <a href="https://faculty.lsu.edu/yfslab/about.php" target="_blank">INFRAMAT-X Lab</a>. My research involves developing computer vision and control frameworks for underwater 3D concrete printing processes.
+        </p>
+        <div class="contact-box">
+          <p>nmoha13 [at] lsu [dot] edu</p>
+          <p><a href="https://github.com/Nasser-Mohammed" target="_blank">GitHub</a></p>
+          <p class="privacy-note">CV available upon request.</p>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <a href="simulations/programs/3D Phase Space/index.html">
+          <img src="images/halvorsenRedTr.png" alt="Halvorsen Attractor" class="hero-img">
+        </a>
+        <p class="caption">Halvorsen System Phase Space</p>
+      </div>
+    </section>
   </main>
+
 </body>
 </html>

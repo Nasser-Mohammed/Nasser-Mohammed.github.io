@@ -151,7 +151,7 @@ body {
     margin-bottom: 30px;
   }
   #controls button {
-    background-color: #6366F1;  /* 👈 Choose your new base color */
+    background-color: #6366F1;  /*  new base color */
     color: white;
     border: none;
     padding: 12px 24px;
@@ -187,7 +187,7 @@ body {
   .sim-layout {
     display: flex;
     justify-content: center;
-    align-items: flex-start;  /* ⬅ prevents stretching/collapsing */
+    align-items: flex-start;  /*  prevents stretching/collapsing */
     gap: 60px;
     margin-bottom: 30px;
   }
