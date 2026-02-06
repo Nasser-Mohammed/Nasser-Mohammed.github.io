@@ -1,0 +1,96 @@
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h1 {
+    color: #58a6ff;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-style: italic;
+    color: #8b949e;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: #58a6ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #30363d;
+    margin: 40px 0;
+}
+
+h2 {
+    color: #f0f6fc;
+    border-left: 4px solid #58a6ff;
+    padding-left: 15px;
+    margin-top: 40px;
+}
+
+.styled-list {
+    list-style: none;
+    padding: 0;
+}
+
+.styled-list li {
+    margin-bottom: 12px;
+    padding: 10px;
+    background: #161b22;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.styled-list li:hover {
+    background: #21262d;
+}
+
+.styled-list a {
+    text-decoration: none;
+    color: #adbac7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.styled-list a:hover {
+    color: #58a6ff;
+}
+
+.list-icon {
+    height: 24px;
+    width: auto;
+    opacity: 0.7;
+}
+
+footer {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #484f58;
+}
