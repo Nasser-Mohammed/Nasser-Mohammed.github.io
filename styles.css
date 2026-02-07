@@ -243,3 +243,44 @@ footer {
   font-size: 0.85rem;
   color: #768390;
 }
+
+/* Knowledge Base / Notes Specific Styles */
+.bio-text h2 {
+  margin-top: 2.5rem;
+  color: var(--text-main); /* Using #adbac7 or preferred light blue */
+  border-left: 3px solid var(--accent);
+  padding-left: 15px;
+  font-size: 1.5rem;
+}
+
+.bio-text h3 {
+  margin-top: 1.8rem;
+  color: var(--accent);
+  font-size: 1.2rem;
+}
+
+.bio-text ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.bio-text ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.bio-text ul li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.math-display {
+  overflow-x: auto;
+  padding: 20px 0;
+  text-align: center;
+}

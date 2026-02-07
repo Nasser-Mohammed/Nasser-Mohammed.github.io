@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Intro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundations of Aerospace & Mechanical Engineering | Nasser Mohammed</title>
 
-  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
@@ -18,19 +18,82 @@
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Shared Styles -->
-  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Intro</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
-    <p>Currently under construction</p>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../index.html">Home</a>
+      <a href="../../../simulations/index.html">Simulations</a>
+      <a href="../../index.html" class="active">Knowledge Base</a>
+      <a href="../../../art/index.html">Math Art</a>
+      <a href="../../../pets/index.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>Foundations of Aerospace & Mechanical Engineering</h1>
+      <p class="subtitle">Where continuum mechanics meets flight dynamics</p>
+      <hr class="subtle-hr">
+    </header>
+
+    <section class="bio-text">
+      <p>
+        The intersection of Mechanical and Aerospace engineering is defined by the study of systems that operate under extreme conditions. While Mechanical engineering focuses on the **internal** behavior of structures, materials, and thermal systems, Aerospace engineering extends these principles to the **external** environment—dealing with the fluids, forces, and orbits that define flight.
+      </p>
+
+      <h2>The Governing Pillars</h2>
+      <p>
+        At the core of these fields lie three fundamental domains that transform raw math into physical reality:
+      </p>
+
+      <div class="grid-container">
+        <div class="card">
+          <div class="card-content">
+            <h3>Dynamics & Control</h3>
+            <p>Moving from basic Newtonian mechanics to <strong>6-DOF</strong> (Six Degrees of Freedom) rigid body dynamics. This involves using state-space representation to stabilize satellites and aircraft.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content">
+            <h3>Fluid Mechanics</h3>
+            <p>The study of gas and liquid behavior. In Aerospace, this manifests as <strong>Aerodynamics</strong>, governed by the Navier-Stokes equations and Bernoulli's principle.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content">
+            <h3>Thermodynamics</h3>
+            <p>The science of energy conversion. This is the engine room of the field, covering everything from Brayton cycles in jet engines to the heat transfer in re-entry vehicles.</p>
+          </div>
+        </div>
+      </div>
+
+      
+
+      <h2>The Mathematical Bridge</h2>
+      <p>
+        Engineering is the application of <strong>differential equations</strong> to physical constraints. Whether it is the stress-strain relationship in a fuselage or the trajectory of a ballistic missile, we rely on the balance of forces:
+      </p>
+      
+      <div class="math-display">
+        \[\sum \mathbf{F} = \frac{d}{dt}(m\mathbf{v})\]
+      </div>
+
+      <p>
+        These notes serve as a technical repository for the derivations, simulations, and principles I explore in my research. From the "tyranny of the rocket equation" to the stability of nonlinear attractors, this is where the theory meets the hardware.
+      </p>
+    </section>
+
+    <section class="archive-section" style="display: flex; gap: 15px; margin-top: 40px;">
+      <a href="../mecheHome.html" class="btn-outline">← Mechanical - Aerospace Engineering</a>
+      <a href="../../../../notes/index.html" class="btn-outline">Home</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>

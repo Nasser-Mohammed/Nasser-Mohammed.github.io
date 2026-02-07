@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Physics of Propulsion | Nasser Mohammed</title>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="dark-theme">
+
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../simulations/index.html">Simulations</a>
+      <a href="index.html" class="active">Knowledge Base</a>
+      <a href="../art/index.html">Math Art</a>
+      <a href="../pets/index.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>The Physics of Propulsion</h1>
+      <p class="subtitle">Dynamics of Variable Mass Systems & Orbital Injection</p>
+      <hr class="subtle-hr">
+    </header>
+
+
+    <section class="bio-text">
+      <h2>1. Conservation of Momentum for Variable Mass</h2>
+      <p>
+        The fundamental derivation of rocket motion begins with Newton's Second Law applied to a system where mass is being exhausted at a rate \(\dot{m}\). Considering the system momentum \(P\) at time \(t\) and \(t + dt\):
+      </p>
+
+      <div class="math-display">
+        \[P(t) = mv\]
+        \[P(t+dt) = (m - dm)(v + dv) + dm(v - v_e)\]
+      </div>
+
+      <p>
+        Neglecting the second-order term \(dm \cdot dv\) and setting \(dP/dt = F_{ext}\), we arrive at the equation of motion:
+      </p>
+
+      <div class="math-display">
+        \[m \frac{dv}{dt} = -v_e \frac{dm}{dt} + F_{ext}\]
+      </div>
+
+      
+
+      <h2>2. The Tsiolkovsky Equation (Ideal Case)</h2>
+      <p>
+        In the absence of external forces (\(F_{ext} = 0\)), integrating from initial state \((m_0, v_0)\) to final state \((m_f, v_f)\) yields:
+      </p>
+
+      <div class="archive-box">
+        <div class="math-display">
+          \[\Delta v = I_{sp} g_0 \ln \left( \frac{m_0}{m_f} \right)\]
+        </div>
+      </div>
+
+      <p>
+        This logarithmic relationship dictates the "tyranny of the rocket equation," where the propellant mass required increases exponentially with the required \(\Delta v\).
+      </p>
+
+      <h2>3. Flight Dynamics & Delta-V Losses</h2>
+      <p>
+        For a rocket ascending through an atmosphere, the instantaneous acceleration is governed by:
+      </p>
+      
+      <div class="math-display">
+        \[\frac{dv}{dt} = \frac{T \cos(\alpha)}{m} - \frac{D}{m} - g \sin(\theta)\]
+      </div>
+
+      <p>Integrating this over the burn time \(t_b\) reveals the total required \(\Delta v\) budget:</p>
+
+      <div class="archive-box">
+        <ul>
+          <li><strong>Gravity Loss:</strong> \(\Delta v_g = \int_{0}^{t_b} g \sin(\theta) dt\) &mdash; Minimized by pitching over quickly (Gravity Turn).</li>
+          <li><strong>Aerodynamic Drag:</strong> \(\Delta v_d = \int_{0}^{t_b} \frac{D(t)}{m(t)} dt\) &mdash; Significant in the dense lower atmosphere.</li>
+          <li><strong>Steering Loss:</strong> \(\Delta v_s = \int_{0}^{t_b} \frac{T}{m} (1 - \cos\alpha) dt\) &mdash; Resulting from thrust misalignment with the velocity vector.</li>
+        </ul>
+      </div>
+
+      
+
+      <h2>4. Multi-Stage Optimization</h2>
+      <p>
+        To bypass the limitations of a single stage, serial staging is used. The total \(\Delta v\) is the sum of the changes in velocity for each stage \(i\):
+      </p>
+      <div class="math-display">
+        \[\Delta v_{total} = \sum_{i=1}^{n} v_{e,i} \ln \left( \frac{m_{0,i}}{m_{f,i}} \right)\]
+      </div>
+      <p>
+        Structural efficiency is measured by the structural coefficient \(\epsilon = \frac{m_s}{m_s + m_p}\). Optimization involves distributing the mass ratios such that the payload delivery is maximized for a given total \(\Delta v\).
+      </p>
+    </section>
+    <section class="archive-section" style="display: flex; gap: 15px; margin-top: 40px;">
+        <a href="../mecheHome.html" class="btn-outline">← Mechanical - Aerospace Engineering</a>
+        <a href="../../../../notes/index.html" class="btn-outline">Home Index</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
+</body>
+</html>
