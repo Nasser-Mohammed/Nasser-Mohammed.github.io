@@ -1,40 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vector Spaces — Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vector Spaces | Nasser Mohammed</title>
 
-  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
+        tags: 'ams'
       },
       options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Shared Styles -->
-  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Vector Spaces</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>Vector Spaces</h1>
+      <hr class="subtle-hr">
+    </header>
+
     <p>
       We start with a non-empty set \(V\) of elements. A <em>vector space over a field</em> \(K\) is a set equipped with addition and scalar multiplication satisfying the usual axioms.
       In practice, a quick test for many common examples is to check that \(V\) is closed under (i) addition and (ii) scalar multiplication by elements of \(K\).
     </p>
 
-    <div class="note">
+    <div class="archive-box">
       <strong>Terminology.</strong> A set is <em>closed</em> under an operation if performing the operation on elements of the set produces an element still in the set.
       Saying \(V\) is “over” a field \(K\) means scalar multiplication \(K\times V\to V\) is defined. Typical fields are the reals \(\mathbb{R}\) and complexes \(\mathbb{C}\).
     </div>
@@ -47,6 +55,8 @@
     <p>
       A <em>subspace</em> of a vector space is a subset that is itself a vector space (using the same operations). In short, it is a vector space contained in another vector space.
     </p>
+
+    
 
     <h2>Span</h2>
     <p>
@@ -78,6 +88,8 @@
       Such a vector is redundant for spanning, so the span is unchanged by removing it.
     </p>
 
+    
+
     <h2>Minimal Spanning Set</h2>
     <p>
       A <em>minimal spanning set</em> of a vector space is a smallest set of vectors whose span equals the whole space. Equivalently, it is a spanning set that is linearly independent.
@@ -91,7 +103,15 @@
     <p>
       In infinite-dimensional spaces, linear combinations may require convergence notions (topology). These are addressed in notes on topological vector spaces.
     </p>
+
+    <section class="archive-section" style="margin-top: 50px;">
+      <a href="../linearalgebraHome.html" class="btn-outline">← Back to Linear Algebra</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>

@@ -1,39 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Eigenvalues & Eigenvectors Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eigenvalues & Eigenvectors | Nasser Mohammed</title>
 
-  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
+        tags: 'ams'
       },
       options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Shared Styles -->
-  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Eigenvalues & Eigenvectors</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>Eigenvalues & Eigenvectors</h1>
+      <hr class="subtle-hr">
+    </header>
+
     <p>
       Eigenvalues and eigenvectors show up across mathematics and the sciences. Thinking in terms of vectors and linear maps, a matrix \(A\) encodes a linear transformation on a vector space. (For background, see <a href="vectorSpaces.html">Vector Spaces</a>.)
     </p>
 
-    <div class="note">
+    <div class="archive-box">
       Throughout, we assume our scalars lie in a field \(K\) (typically \(\mathbb{R}\) or \(\mathbb{C}\)), and that “good” matrices are <em>invertible</em> (nonsingular). The identity matrix is denoted \(I\).
     </div>
 
@@ -43,59 +51,47 @@
       These are the <em>eigendirections</em>: directions that are only scaled by \(A\).
     </p>
 
+    
+
     <h2>Definition</h2>
     <p>
       A nonzero vector \(v\) is an <em>eigenvector</em> of \(A\) with associated <em>eigenvalue</em> \(\lambda\in K\) if
     </p>
-    <div class="math-block">\[
-      A v = \lambda v .
-    \]</div>
+    <div class="math-display">
+      \[ A v = \lambda v . \]
+    </div>
     <p>
       Equivalently, moving all terms to one side,
     </p>
-    <div class="math-block">\[
-      (A - \lambda I) v = 0.
-    \]</div>
+    <div class="math-display">
+      \[ (A - \lambda I) v = 0. \]
+    </div>
     <p>
       For a nontrivial solution \(v\neq 0\) to exist, the matrix \(A-\lambda I\) must be singular, i.e. its determinant vanishes:
     </p>
-    <div class="math-block">\[
-      \det(A-\lambda I)=0.
-    \]</div>
+    <div class="math-display">
+      \[ \det(A-\lambda I)=0. \]
+    </div>
 
     <h2>Characteristic Polynomial</h2>
     <p>
       The polynomial \(p_A(\lambda)=\det(A-\lambda I)\) is the <em>characteristic polynomial</em>. For a 2×2 matrix
     </p>
-    <div class="math-block">\[
-      A = \begin{bmatrix}
-      a_{11} & a_{12}\\
-      a_{21} & a_{22}
-      \end{bmatrix},
-      \quad
-      A-\lambda I = \begin{bmatrix}
-      a_{11}-\lambda & a_{12}\\
-      a_{21} & a_{22}-\lambda
-      \end{bmatrix}.
-    \]</div>
+    <div class="math-display">
+      \[ A = \begin{bmatrix} a_{11} & a_{12}\\ a_{21} & a_{22} \end{bmatrix}, \quad A-\lambda I = \begin{bmatrix} a_{11}-\lambda & a_{12}\\ a_{21} & a_{22}-\lambda \end{bmatrix}. \]
+    </div>
     <p>
       Then
     </p>
-    <div class="math-block">\[
-      p_A(\lambda)=\det(A-\lambda I)=(a_{11}-\lambda)(a_{22}-\lambda)-a_{12}a_{21}
-      = \lambda^2 - (a_{11}+a_{22})\lambda + (a_{11}a_{22}-a_{12}a_{21}).
-    \]</div>
+    <div class="math-display">
+      \[ p_A(\lambda)=\det(A-\lambda I)=(a_{11}-\lambda)(a_{22}-\lambda)-a_{12}a_{21} = \lambda^2 - (a_{11}+a_{22})\lambda + (a_{11}a_{22}-a_{12}a_{21}). \]
+    </div>
     <p>
       In general (for \(n\times n\)),
     </p>
-    <div class="math-block">\[
-      A-\lambda I = \begin{bmatrix}
-      a_{11}-\lambda & a_{12} & \cdots & a_{1n} \\
-      a_{21} & a_{22}-\lambda & \cdots & a_{2n} \\
-      \vdots & \vdots & \ddots & \vdots \\
-      a_{n1} & a_{n2} & \cdots & a_{nn}-\lambda
-      \end{bmatrix}.
-    \]</div>
+    <div class="math-display">
+      \[ A-\lambda I = \begin{bmatrix} a_{11}-\lambda & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22}-\lambda & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{n1} & a_{n2} & \cdots & a_{nn}-\lambda \end{bmatrix}. \]
+    </div>
 
     <h2>Finding Eigenpairs</h2>
     <ol>
@@ -119,13 +115,21 @@
     <p>
       If \(A\) is diagonal, its eigenvectors are the standard basis vectors and its eigenvalues are the diagonal entries. More generally, if \(A\) is diagonalizable, then
     </p>
-    <div class="math-block">\[
-      A = P D P^{-1}, \quad D=\operatorname{diag}(\lambda_1,\dots,\lambda_n),
-    \]</div>
+    <div class="math-display">
+      \[ A = P D P^{-1}, \quad D=\operatorname{diag}(\lambda_1,\dots,\lambda_n), \]
+    </div>
     <p>
       where the columns of \(P\) are eigenvectors. Powers/exponentials are then easy: \(A^k=P D^k P^{-1}\), \(e^{tA}=Pe^{tD}P^{-1}\).
     </p>
+
+    <section class="archive-section" style="margin-top: 50px;">
+      <a href="../linearalgebraHome.html" class="btn-outline">← Back to Linear Algebra</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>
