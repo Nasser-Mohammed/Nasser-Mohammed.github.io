@@ -1,78 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Series Tests Notes</title>
-  <link rel="stylesheet" href="styles.css" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Series Convergence Tests | Nasser Mohammed</title>
+
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
-      }
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Cauchy Product of Two Series Converges to Product of Sums</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
-    <p>
-      There are various tests/comparisons for determining if a series converges or not. Knowing the main ones is crucial for the study of Fourier Analysis, so I will cover the most used ones.
-    </p>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
 
-    <h2>Comparison Test</h2>
-    <div class="math-block">
-      \[0 \leq |a_n| \leq b_n \quad \forall n \ \text{sufficiently large and } \sum b_n \ \text{converges} \implies \sum a_n \ \text{converges}\]
-    </div>
+  <main class="container">
+    <header class="hero-section">
+      <h1>Convergence Tests for Series</h1>
+      <p class="subtitle">A Toolkit for Real and Fourier Analysis</p>
+      <hr class="subtle-hr">
+    </header>
 
-    <h2>Limit Comparison Test</h2>
-    <p>For two series</p>
-    <div class="math-block">
-      \[\sum a_n, \quad \sum b_n\]
-    </div>
-    <p>If</p>
-    <div class="math-block">
-      \[\lim_{n \to \infty} \frac{|a_n|}{b_n} = c, \quad 0 < c < \infty\]
-    </div>
-    <p>
-      Then both series either converge or diverge together. What this means, is that if we know the behavior of one of the series, we can conclude the behavior of the other by this limit comparison test.
-    </p>
+    <section class="bio-text">
+      <p>
+        Determining the convergence of an infinite sum is the most frequent task in analysis. Below are the most critical tests used to establish the validity of Fourier representations and operator limits.
+      </p>
 
-    <h2>Ratio Test</h2>
-    <div class="math-block">
-      \[\limsup_{n \to \infty} \left|\frac{a_{n+1}}{a_n}\right| < 1 \implies \sum a_n \ \text{converges absolutely}\]
-    </div>
+      <div class="grid-container">
+        <div class="card">
+          <div class="card-content">
+            <h3>Direct Comparison</h3>
+            <div class="math-display">
+              \[ |a_n| \leq b_n \]
+            </div>
+            <p>If \(\sum b_n\) converges, then \(\sum a_n\) converges absolutely.</p>
+          </div>
+        </div>
 
-    <h2>Cauchy Criterion</h2>
-    <p>A series</p>
-    <div class="math-block">
-      \[\sum a_n\]
-    </div>
-    <p>Converges if and only if</p>
-    <div class="math-block">
-      \[\forall \epsilon > 0, \ \exists N \in \mathbb{N} \ \text{ such that } \ \forall m,n \geq N\]
-      \[\implies \left|\sum_{k = m}^{n} a_k\right| < \epsilon\]
-    </div>
-    <p>
-      What this says, is that the tail end of a convergent series will be arbitrarily small.
-    </p>
+        <div class="card">
+          <div class="card-content">
+            <h3>Limit Comparison</h3>
+            <div class="math-display">
+              \[ \lim_{n \to \infty} \frac{|a_n|}{b_n} = c \]
+            </div>
+            <p>If \(0 < c < \infty\), both series converge or diverge together.</p>
+          </div>
+        </div>
 
-    <h2>Weierstrass M-Test (Uniform Convergence)</h2>
-    <p>If \(|f_n(x)| \leq M_n \ \forall x\) and \(\sum M_n\) converges, then</p>
-    <div class="math-block">
-      \[\sum f_n(x) \ \ \text{converges uniformly}\]
-    </div>
-    <p>Furthermore, this convergence is absolute.</p>
+        <div class="card">
+          <div class="card-content">
+            <h3>Ratio Test</h3>
+            <div class="math-display">
+              \[ \limsup_{n \to \infty} \left|\frac{a_{n+1}}{a_n}\right| = L \]
+            </div>
+            <p>Absolute convergence if \(L < 1\); failure if \(L > 1\).</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-content">
+            <h3>Root Test</h3>
+            <div class="math-display">
+              \[ \limsup_{n \to \infty} \sqrt[n]{|a_n|} = L \]
+            </div>
+            <p>Often superior to the Ratio Test for power series. Convergence if \(L < 1\).</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>Advanced Criteria</h2>
+
+      <div class="archive-box">
+        <h3>Cauchy Criterion</h3>
+        <p>A series \(\sum a_n\) converges if and only if for every \(\epsilon > 0\), there exists \(N\) such that for all \(n > m \geq N\):</p>
+        <div class="math-display">
+          \[ \left|\sum_{k = m}^{n} a_k\right| < \epsilon \]
+        </div>
+        <p>This implies that the "tail" of the series must vanish at the limit.</p>
+      </div>
+
+      <div class="archive-box">
+        <h3>Weierstrass M-Test</h3>
+        <p>Crucial for functional sequences. If \(|f_n(x)| \leq M_n\) and \(\sum M_n\) converges, then:</p>
+        <div class="math-display">
+          \[ \sum f_n(x) \text{ converges uniformly and absolutely.} \]
+        </div>
+      </div>
+
+      <div class="archive-box">
+        <h3>Dirichlet's Test</h3>
+        <p>Useful for Fourier series. \(\sum a_n b_n\) converges if \(\sum a_n\) has bounded partial sums and \(b_n \to 0\) monotonically.</p>
+      </div>
+
+      
+
+      <p>
+        While these tests provide the "how" of convergence, Fourier Analysis often requires us to look at <em>where</em> a series converges (pointwise vs. uniform), which is where the Weierstrass M-Test becomes the primary tool.
+      </p>
+    </section>
+
+    <section class="archive-section" style="display: flex; gap: 15px; margin-top: 40px;">
+      <a href="../fourierHome.html" class="btn-outline">← Fourier Analysis Home</a>
+      <a href="../../../../notes/notesHome.html" class="btn-outline">Knowledge Base</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
 </body>
 </html>

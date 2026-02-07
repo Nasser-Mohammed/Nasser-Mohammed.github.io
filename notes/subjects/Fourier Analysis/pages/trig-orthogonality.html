@@ -1,217 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Orthogonality of Sine and Cosine on the Circle</title>
-  <link rel="stylesheet" href="styles.css" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trigonometric Orthogonality | Nasser Mohammed</title>
+
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
-      }
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Orthogonality of Sine and Cosine on the Circle</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
-    <p>
-      Inner product theory tells us that two functions are orthogonal on an interval \([a,b]\) if their inner product is 0.
-      The typical inner product that induces the \(L^2\) norm on an infinite dimensional function space, such as the space of real valued functions, is the following:
-    </p>
-
-    <div class="math-block">
-      \[
-      \langle f, g \rangle = \int_a^b f(x)g(x)\,dx
-      \]
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
     </div>
+  </nav>
 
-    <p>
-      Note, we want the \(L^2\) norm, as this is the only \(L^p\) space whose norm comes from an inner product,
-    </p>
+  <main class="container">
+    <header class="hero-section">
+      <h1>Orthogonality of Sine and Cosine</h1>
+      <p class="subtitle">Inner Products and Hilbert Space Foundations</p>
+      <hr class="subtle-hr">
+    </header>
 
-    <div class="math-block">
-      \[
-      \| \cdot \| = \sqrt{\langle \cdot, \cdot \rangle}
-      \]
-    </div>
+    <section class="bio-text">
+      <p>
+        Inner product theory tells us that two functions are orthogonal on an interval \([a,b]\) if their inner product is 0. This induces the \(L^2\) norm, turning the function space into a <strong>Hilbert Space</strong>.
+      </p>
 
-    <p>
-      that turns it into a Hilbert space. With a Hilbert space, we then have a concept of orthogonality. Additionally, we want an \(L^p\) in general (and specifically \(L^2\)) because we are using the Lebesgue integral and measure in our theory and therefore want to deal with functions that are integrable. Now, let's consider some integrals,
-    </p>
+      <div class="archive-box">
+        <p><strong>The Inner Product:</strong> For real-valued functions on \([a,b]\), the inner product is:</p>
+        <div class="math-display">
+          \[ \langle f, g \rangle = \int_a^b f(x)g(x)\,dx \]
+        </div>
+        <p>This allows us to define the norm as \( \| f \| = \sqrt{\langle f, f \rangle} \).</p>
+      </div>
 
-    <div class="math-block">
-      \[
-      \int_{-\pi}^{\pi}\cos(nx)\,dx
-      = \frac{1}{n}\left(\sin(n\pi) - \sin(-n\pi)\right)
-      = 0 \quad \forall n \neq 0
-      \]
-    </div>
+      <h2>Integral Identities</h2>
+      <p>By applying basic calculus and the fact that \(\sin(n\pi) = 0\) for all integers \(n\), we find:</p>
+      
+      <div class="math-display">
+        \[ \int_{-\pi}^{\pi}\cos(nx)\,dx = 0, \quad \int_{-\pi}^{\pi}\sin(nx)\,dx = 0 \quad (\forall n \neq 0) \]
+      </div>
 
-    <p>Since \(\sin(n\pi) = 0 \ \ \forall n \in \mathbb{Z}\).</p>
+      <p>Furthermore, using power-reduction identities, we find the norms of these functions:</p>
+      <div class="math-display">
+        \[ \int_{-\pi}^{\pi}\cos^2(nx)\,dx = \pi, \quad \int_{-\pi}^{\pi}\sin^2(nx)\,dx = \pi \]
+      </div>
 
-    <div class="math-block">
-      \[
-      \int_{-\pi}^{\pi}\sin(nx)\,dx
-      = \frac{1}{n}\left(-\cos(n\pi) + \cos(-n\pi)\right)
-      = \frac{1}{n}\left(-\cos(n\pi) + \cos(n\pi)\right)
-      = 0 \quad \forall n \neq 0
-      \]
-    </div>
+      
 
-    <p>By \(\cos\) being even and therefore, \(\cos(-n\pi) = \cos(n\pi)\).</p>
+      <h2>Proving Orthogonality</h2>
+      <p>To show that these functions form an orthogonal set, we use product-to-sum trigonometric formulas:</p>
+      <div class="math-display">
+        \[ \cos(\alpha)\cos(\beta) = \frac{1}{2}\big[\cos(\alpha + \beta) + \cos(\alpha - \beta)\big] \]
+      </div>
 
-    <div class="math-block">
-      \[
-      \int_{-\pi}^{\pi}\cos^2(nx)\,dx
-      = \int_{-\pi}^{\pi}\frac{1+\cos(2nx)}{2}\,dx
-      = \pi
-      \]
-    </div>
+      <p>For \(m \neq n\), the integral of the product evaluates to zero:</p>
+      <div class="math-display">
+        \[ \frac{1}{2}\int_{-\pi}^{\pi}\big(\cos[(n+m)x] + \cos[(n-m)x]\big)\,dx = 0 + 0 = 0 \]
+      </div>
 
-    <div class="math-block">
-      \[
-      \int_{-\pi}^{\pi}\sin^2(nx)\,dx
-      = \int_{-\pi}^{\pi}\frac{1-\cos(2nx)}{2}\,dx
-      = \pi
-      \]
-    </div>
+      <p>Similarly, for \(\sin(nx)\) and \(\cos(mx)\), the integral also vanishes regardless of the values of \(n\) and \(m\):</p>
+      <div class="math-display">
+        \[ \int_{-\pi}^{\pi}\sin(nx)\cos(mx)\,dx = 0 \]
+      </div>
 
-    <p>Now we note the two trigonometric formulas,</p>
+      <div class="archive-box">
+        <h3>The Orthogonal Basis</h3>
+        <p>The set of functions:</p>
+        <div class="math-display">
+          \[ \{\,1,\ \sin(nx),\ \cos(nx)\ \mid\ n \in \mathbb{N}\,\} \]
+        </div>
+        <p>is mutually orthogonal on the interval \([-\pi, \pi]\). This geometric property is exactly why we can "decompose" signals into their constituent frequencies without them interfering with one another.</p>
+      </div>
+    </section>
 
-    <div class="math-block">
-      \[
-      \cos(\alpha)\cos(\beta) = \frac{1}{2}\big[\cos(\alpha + \beta) + \cos(\alpha - \beta)\big]
-      \]
-    </div>
-    <div class="math-block">
-      \[
-      \sin(\alpha)\sin(\beta) = \frac{1}{2}\big[\cos(\alpha - \beta) - \cos(\alpha + \beta)\big]
-      \]
-    </div>
-
-    <p>We can now show orthogonality, consider</p>
-
-    <div class="math-block">
-      \[
-      \int_{-\pi}^{\pi}\cos(nx)\cos(mx)\,dx
-      = \frac{1}{2}\int_{-\pi}^{\pi}\big(\cos[(n+m)x] + \cos[(n-m)x]\big)\,dx
-      \]
-    </div>
-
-    <p>
-      Since the sums \(n+m\) and \(n-m\) are integers, we can break this integral up and apply the integral outcomes above:
-    </p>
-
-    <div class="math-block">
-      \[
-      \frac{1}{2}\left(\int_{-\pi}^{\pi}\cos[(n+m)x]\,dx + \int_{-\pi}^{\pi}\cos[(n-m)x]\,dx\right)
-      = 0 + 0 = 0
-      \]
-    </div>
-
-    <div class="math-block">
-      \[
-      \implies \ \cos(nx), \cos(mx) \text{ are orthogonal for any } m \neq n.
-      \]
-    </div>
-
-    <div class="math-block">
-      \[
-      m=n \ \implies \ \frac{1}{2}\left(\int_{-\pi}^{\pi}\cos(2nx)\,dx + \int_{-\pi}^{\pi}\cos(0)\,dx\right)
-      = \frac{1}{2}(0 + 2\pi) = \pi
-      \]
-    </div>
-
-    <p>
-      Which is expected, as a function should not be orthogonal to itself (other than \(0\)). You may wonder about the behavior of the integral when \(n=-m\); in other words, we would have
-    </p>
-
-    <div class="math-block">
-      \[
-      \frac{1}{2}\left(\int_{-\pi}^{\pi}\cos(0)\,dx + \int_{-\pi}^{\pi}\cos(-2mx)\,dx\right) = \pi .
-      \]
-    </div>
-
-    <p>
-      In other words, for two functions to be orthogonal, we actually need that \(|m| \neq |n|\); this is a consequence of \(\cos\) being even, and therefore when we consider the product, we have
-    </p>
-
-    <div class="math-block">
-      \[
-      \cos(-mx)\cos(mx) = \cos(m\pi)\cos(m\pi) = \cos^2(m\pi),
-      \]
-    </div>
-
-    <p>and we know</p>
-
-    <div class="math-block">
-      \[
-      \int_{-\pi}^{\pi}\cos^2(nx)\,dx
-      = \int_{-\pi}^{\pi}\frac{1+\cos(2nx)}{2}\,dx
-      = \pi .
-      \]
-    </div>
-
-    <p>
-      When \(n = 0\), \(\cos(nx) = 1\) and \(\sin(nx) = 0\). The \(0\) function is orthogonal to any function. Since we showed that the integral of \(\cos(nx)\) and \(\sin(nx)\) are both \(0\), then so is \(1\) multiplied to it (since it doesn't affect the integral by multiplying by \(1\)). Therefore, \(1\) is orthogonal to both \(\cos(nx)\) and \(\sin(nx)\). Therefore, we don't have to consider \(n=0\).
-      Now, consider
-    </p>
-
-    <div class="math-block">
-      \[
-      \int_{-\pi}^{\pi}\sin(nx)\sin(mx)\,dx
-      = \frac{1}{2}\left(\int_{-\pi}^{\pi}\sin[(n-m)x]\,dx - \int_{-\pi}^{\pi}\sin[(n + m)x]\,dx\right)
-      = 0
-      \]
-    </div>
-
-    <p>
-      when \(|m| \neq |n|\); it evaluates to \(\pi\) when \(m = n\), and to \(-\pi\) when \(n = -m\).
-    </p>
-
-    <p>Finally, we first consider the formula for \(|m| \neq |n|\)</p>
-
-    <div class="math-block">
-      \[
-      \sin(\alpha)\cos(\beta) = \frac{1}{2}\big[\sin(\alpha + \beta) + \sin(\alpha - \beta)\big].
-      \]
-    </div>
-
-    <div class="math-block">
-      \[
-      \int_{-\pi}^{\pi}\sin(nx)\cos(mx)\,dx
-      = \frac{1}{2}\left(\int_{-\pi}^{\pi}\sin[(n-m)x]\,dx - \int_{-\pi}^{\pi}\sin[(n + m)x]\,dx\right)
-      = 0
-      \]
-    </div>
-
-    <p>
-      Note again, that for \(n = m\) we get \(\pi\) and for \(n=-m\) we get \(-\pi\) since \(\sin\) is odd and therefore we can pull the negative sign to the front and we would just have the negative integral of \(\sin^2\) which we know would be \(-\pi\).
-    </p>
-
-    <p>Therefore, we see that for the set of functions</p>
-
-    <div class="math-block">
-      \[
-      \{\,1,\ \sin(nx),\ \cos(nx)\ \mid\ n \in \mathbb{N}\,\}
-      \]
-    </div>
-
-    <p>
-      where \(n \in \mathbb{N}\), we have that all functions of this set are orthogonal to each other on the interval \([-\pi, \pi]\).
-    </p>
+    <section class="archive-section" style="display: flex; gap: 15px; margin-top: 40px;">
+      <a href="../fourierHome.html" class="btn-outline">← Fourier Analysis Home</a>
+      <a href="../../../../notes/notesHome.html" class="btn-outline">Knowledge Base</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
 </body>
 </html>

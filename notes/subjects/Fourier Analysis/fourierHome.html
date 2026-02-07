@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fourier Analysis | Nasser Mohammed</title>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="dark-theme">
+
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../index.html">Home</a>
+      <a href="../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../art/artHome.html">Math Art</a>
+      <a href="../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>Fourier Analysis</h1>
+      <p class="subtitle">Signal Processing, Orthogonality, and Reciprocity</p>
+      <hr class="subtle-hr">
+    </header>
+
+    <section class="bio-text">
+      <p>
+        Fourier Analysis is the study of how general functions may be represented or approximated by sums of simpler trigonometric functions. While rooted in pure analysis, its applications in physics, computer vision, and signal processing are fundamental.
+      </p>
+
+      
+
+      <div class="grid-container">
+        <a href="pages/trig-orthogonality.html" class="card">
+          <div class="card-content">
+            <div class="category-pill">Hilbert Space</div>
+            <h3>Orthogonality on the Circle</h3>
+            <p>The geometric foundation of why sine and cosine can span a function space.</p>
+          </div>
+        </a>
+
+        <a href="pages/odd-even-fourier-rep.html" class="card">
+          <div class="card-content">
+            <div class="category-pill">Symmetry</div>
+            <h3>Odd & Even Representations</h3>
+            <p>How function symmetry simplifies Fourier coefficients and aids computational efficiency.</p>
+          </div>
+        </a>
+
+        <a href="pages/parseval-identity.html" class="card">
+          <div class="card-content">
+            <div class="category-pill">Reciprocity</div>
+            <h3>Parseval's Identity</h3>
+            <p>Energy conservation between time and frequency domains; a cornerstone of signal analysis.</p>
+          </div>
+        </a>
+
+        <a href="pages/poisson-kernel.html" class="card">
+          <div class="card-content">
+            <div class="category-pill">Kernels</div>
+            <h3>The Poisson Kernel</h3>
+            <p>A derivation of the cornerstone function for solving the Dirichlet problem on the disk.</p>
+          </div>
+        </a>
+
+        <a href="pages/series-convergence.html" class="card">
+          <div class="card-content">
+            <div class="category-pill">Series</div>
+            <h3>Series Convergence Tests</h3>
+            <p>Practical tools for determining the behavior of infinite trigonometric sums.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="archive-section" style="display: flex; gap: 15px; margin-top: 40px;">
+      <a href="../../notesHome.html" class="btn-outline">← Back to Knowledge Base</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
+</body>
+</html>

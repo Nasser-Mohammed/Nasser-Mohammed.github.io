@@ -1,209 +1,128 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trigonometric Fourier Representation of Odd and Even Functions</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fourier Symmetry | Nasser Mohammed</title>
+
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
-      }
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Trigonometric Fourier Representation of Odd and Even Functions</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
-    <p>We begin by recalling the definition of an even and odd function.</p>
-
-    <p>An even function has the property that</p>
-    <div class="math-block">
-      \[f(-x) = f(x)\]
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
     </div>
-    <p>In other words, this function is <strong>symmetric across the y-axis</strong>.</p>
+  </nav>
 
-    <p>An odd function has the property that</p>
-    <div class="math-block">
-      \[f(-x) = -f(x)\]
-    </div>
-    <p>
-      In other words, this function is <strong>rotationally symmetric</strong> about the origin. That is, in \(\mathbb{R}^2\),
-      the function can be rotated \(180^{\circ}\) and remain unchanged.
-    </p>
+  <main class="container">
+    <header class="hero-section">
+      <h1>Fourier Representation of Odd and Even Functions</h1>
+      <p class="subtitle">Symmetry-Based Simplification of Trigonometric Series</p>
+      <hr class="subtle-hr">
+    </header>
 
-    <p>Now we will consider the trigonometric Fourier Series of a function on the circle \((-\pi, \pi]\).</p>
-    <div class="math-block">
-      \[
-        f(\theta) = a_0 + \sum_{n = 1}^{\infty}\left(a_n\cos\left(n\theta\right) + b_n\sin\left(n\theta\right)\right)
-      \]
-      \[
-        a_0  = \frac{1}{2\pi}\int_{-\pi}^{\pi}f(\theta)\,d\theta
-      \]
-      \[
-        a_n = \frac{1}{\pi}\int_{-\pi}^{\pi}f(\theta)\cos(n\theta)\,d\theta
-      \]
-      \[
-        b_n = \frac{1}{\pi}\int_{-\pi}^{\pi}f(\theta)\sin(n\theta)\,d\theta
-      \]
-    </div>
+    <section class="bio-text">
+      <p>We begin by recalling the formal definitions of symmetry for functions in \(\mathbb{R}^2\).</p>
 
-    <p>
-      I will show that a function that is even will be comprised of only cosine waves, as cosine is an even function.
-      Similarly, I will show that an odd function will be comprised of only sine waves, as sine is an odd function.
-    </p>
+      <div class="archive-box">
+        <p><strong>Even Functions:</strong> A function is even if \(f(-x) = f(x)\). These functions are <strong>symmetric across the y-axis</strong>.</p>
+        
+        <p><strong>Odd Functions:</strong> A function is odd if \(f(-x) = -f(x)\). These functions are <strong>rotationally symmetric</strong> about the origin (unchanged by a 180° rotation).</p>
+        
+      </div>
 
-    <h2>Even \(f\)</h2>
-    <p>
-      Let \(f(\theta)\) be an even function, defined on \((-\pi, \pi]\). Then we know that \(f(-\theta) = f(\theta)\).
-      Now let's consider its Fourier Series representation.
-    </p>
-    <div class="math-block">
-      \[
-        f(\theta) = a_0 + \sum_{n = 1}^{\infty}a_n\cos(n\theta) + b_n\sin(n\theta)
-      \]
-    </div>
+      <p>The trigonometric Fourier Series on the interval \((-\pi, \pi]\) is defined as:</p>
+      
+      <div class="archive-box">
+        <div class="math-display">
+          \[f(\theta) = a_0 + \sum_{n = 1}^{\infty}\left(a_n\cos\left(n\theta\right) + b_n\sin\left(n\theta\right)\right)\]
+        </div>
+        <p>Where the coefficients are calculated as:</p>
+        <div class="math-display">
+          \[a_n = \frac{1}{\pi}\int_{-\pi}^{\pi}f(\theta)\cos(n\theta)\,d\theta, \quad b_n = \frac{1}{\pi}\int_{-\pi}^{\pi}f(\theta)\sin(n\theta)\,d\theta\]
+        </div>
+      </div>
 
-    <p>Then by the property of \(f\) being even, we know that \(f(\theta) = f(-\theta)\), so let's analyze the Fourier coefficients.</p>
+      <h2>Even Functions: The Cosine Series</h2>
+      <p>
+        If \(f(\theta)\) is even, it is comprised solely of cosine waves. Since cosine is even and sine is odd, the product properties of symmetry dictate the result.
+      </p>
 
-    <div class="math-block">
-      \[
-        a_n = \frac{1}{\pi}\int_{-\pi}^{\pi}f(\theta)\cos(n\theta)\,d\theta
-             = \frac{1}{\pi}\int_{-\pi}^{\pi}f(-\theta)\cos(-n\theta)\,d\theta
-             = \frac{2}{\pi}\int_{0}^{\pi}f(\theta)\cos(n\theta)\,d\theta
-      \]
-    </div>
+      <div class="math-display">
+        \[
+          a_n = \frac{1}{\pi}\int_{-\pi}^{\pi}f(\theta)\cos(n\theta)\,d\theta = \frac{2}{\pi}\int_{0}^{\pi}f(\theta)\cos(n\theta)\,d\theta
+        \]
+      </div>
 
-    <p>Above follows directly from substituting in \(f(\theta) = f(-\theta)\) and \(\cos(n\theta) = \cos(-n\theta)\), since both are even functions.</p>
+      <p>For the sine coefficients \(b_n\), we analyze the integral over the full period:</p>
+      <div class="math-display">
+        \[
+          b_n = \frac{1}{\pi}\left(\int_{0}^{\pi}f(\theta)\sin(n\theta)\,d\theta + \int_{-\pi}^{0}f(\theta)\sin(n\theta)\,d\theta\right)
+        </div>
+      <p>By substituting \(\theta \to -\theta\) in the second integral and noting that \(f\) is even while \(\sin\) is odd, the terms cancel exactly:</p>
+      <div class="math-display">
+        \[ \int_{-\pi}^{0}f(\theta)\sin(n\theta)\,d\theta = -\int_{0}^{\pi}f(\theta)\sin(n\theta)\,d\theta \implies b_n = 0 \]
+      </div>
 
-    <div class="math-block">
-      \[
-        b_n = \frac{1}{\pi}\int_{-\pi}^{\pi}f(\theta)\sin(n\theta)\,d\theta
-             = \frac{1}{\pi}\left(\int_{0}^{\pi}f(\theta)\sin(n\theta)\,d\theta
-             + \int_{-\pi}^{0}f(\theta)\sin(n\theta)\,d\theta\right)
-      \]
-    </div>
+      <div class="archive-box">
+        <p><strong>Result:</strong> For an even function, the series reduces to:</p>
+        <div class="math-display">
+          \[ f(\theta) = a_0 + \sum_{n=1}^{\infty}a_n\cos(n\theta) \]
+        </div>
+      </div>
 
-    <p>Note that</p>
-    <div class="math-block">
-      \[
-        \int_{-\pi}^{0}f(\theta)\sin(n\theta)\,d\theta
-        = \int_{0}^{\pi}f(-\theta)\sin(-n\theta)\,d\theta
-        = -\int_{0}^{\pi}f(\theta)\sin(n\theta)\,d\theta
-      \]
-    </div>
-    <p>By the property that \(f\) is even, and \(\sin\) is odd. Substituting this in, we get</p>
+      <h2>Odd Functions: The Sine Series</h2>
+      <p>
+        Conversely, if \(f\) is odd, its Fourier representation consists only of sine waves. Following the same logic for the cosine coefficients \(a_n\):
+      </p>
 
-    <div class="math-block">
-      \[
-        \frac{1}{\pi}\left(\int_{0}^{\pi}f(\theta)\sin(n\theta)\,d\theta
-        - \int_{0}^{\pi}f(\theta)\sin(n\theta)\,d\theta\right) = 0
-      \]
-    </div>
+      <div class="math-display">
+        \[ a_n = \frac{1}{\pi}\left(\int_{0}^{\pi}f(\theta)\cos(n\theta)\,d\theta + \int_{0}^{\pi}f(-\theta)\cos(-n\theta)\,d\theta\right) \]
+      </div>
 
-    <p>Therefore, we see that</p>
-    <div class="math-block">
-      \[
-        \forall n \in \mathbb{N} \text{ and } \forall \theta \in (-\pi, \pi] \quad b_n = 0
-      \]
-    </div>
+      <p>Because \(f(-\theta) = -f(\theta)\) and \(\cos(-n\theta) = \cos(n\theta)\), the integral of the product is zero:</p>
+      <div class="math-display">
+        \[ \int_{0}^{\pi}f(-\theta)\cos(-n\theta)\,d\theta = -\int_{0}^{\pi}f(\theta)\cos(n\theta)\,d\theta \implies a_n = 0 \]
+      </div>
 
-    <p>Finally, our Fourier Series of our even function is simply</p>
-    <div class="math-block">
-      \[
-        f(\theta) = a_0 + \sum_{n=1}^{\infty}a_n\cos(n\theta)
-      \]
-    </div>
+      <div class="archive-box">
+        <p><strong>Result:</strong> For an odd function, the series reduces to:</p>
+        <div class="math-display">
+          \[ f(\theta) = \sum_{n = 1}^{\infty}b_n\sin\left(n\theta\right) \]
+        </div>
+      </div>
 
-    <h2>Odd \(f\)</h2>
-    <p>Now we will assume \(f\) is odd and show that its Fourier series is only comprised of sine waves. So, we have that</p>
-    <div class="math-block">
-      \[
-        f(-\theta) = -f(\theta)
-      \]
-    </div>
+      <p>
+        This symmetry property is not just a theoretical convenience; it allows engineers to skip half the calculations when processing signals with known symmetries, such as square or triangle waves.
+      </p>
+    </section>
 
-    <p>We will consider the trigonometric Fourier Series of a function on the circle \((-\pi, \pi]\).</p>
-    <div class="math-block">
-      \[
-        f(\theta) = a_0 + \sum_{n = 1}^{\infty}\left(a_n\cos\left(n\theta\right) + b_n\sin\left(n\theta\right)\right)
-      \]
-      \[
-        a_0  = \frac{1}{2\pi}\int_{-\pi}^{\pi}f(\theta)\,d\theta
-      \]
-      \[
-        a_n = \frac{1}{\pi}\int_{-\pi}^{\pi}f(\theta)\cos(n\theta)\,d\theta
-      \]
-      \[
-        b_n = \frac{1}{\pi}\int_{-\pi}^{\pi}f(\theta)\sin(n\theta)\,d\theta
-      \]
-    </div>
-
-    <p>Let's analyze \(a_n\) more closely,</p>
-    <div class="math-block">
-      \[
-        a_n = \frac{1}{\pi}\int_{-\pi}^{\pi}f(\theta)\cos(n\theta)\,d\theta
-             = \frac{1}{\pi}\left(\int_{0}^{\pi}f(\theta)\cos(n\theta)\,d\theta
-             + \int_{-\pi}^{0}f(\theta)\cos(n\theta)\,d\theta\right)
-      \]
-    </div>
-
-    <p>Like before,</p>
-    <div class="math-block">
-      \[
-        \int_{-\pi}^{0}f(\theta)\cos(n\theta)\,d\theta
-        = \int_{0}^{\pi}f(-\theta)\cos(-n\theta)\,d\theta
-      \]
-    </div>
-
-    <p>Plugging that in above we have,</p>
-    <div class="math-block">
-      \[
-        a_n = \frac{1}{\pi}\left(\int_{0}^{\pi}f(\theta)\cos(n\theta)\,d\theta
-             + \int_{0}^{\pi}f(-\theta)\cos(-n\theta)\,d\theta\right)
-      \]
-    </div>
-
-    <p>By the property that \(f(-\theta) = -f(\theta)\) and \(\cos(-n\theta) = \cos(n\theta)\), we have</p>
-    <div class="math-block">
-      \[
-        \int_{0}^{\pi}f(-\theta)\cos(-n\theta)\,d\theta = -\int_{0}^{\pi}f(\theta)\cos(n\theta)\,d\theta
-      \]
-    </div>
-
-    <p>Making this final substitution, we have</p>
-    <div class="math-block">
-      \[
-        a_n = \frac{1}{\pi}\left(\int_{0}^{\pi}f(\theta)\cos(n\theta)\,d\theta
-             - \int_{0}^{\pi}f(\theta)\cos(n\theta)\,d\theta\right) = 0
-      \]
-    </div>
-
-    <p>Therefore, we have shown that</p>
-    <div class="math-block">
-      \[
-        a_n = 0
-      \]
-    </div>
-
-    <p>For any odd function on the circle \((-\pi, \pi]\). Finally,</p>
-    <div class="math-block">
-      \[
-        f(\theta) = \sum_{n = 1}^{\infty}b_n\sin\left(n\theta\right)
-      \]
-    </div>
-    <p>We see that any odd function is comprised of only sine waves in its Fourier decomposition.</p>
+    <section class="archive-section" style="display: flex; gap: 15px; margin-top: 40px;">
+      <a href="../fourierHome.html" class="btn-outline">← Fourier Analysis Home</a>
+      <a href="../../../../notes/notesHome.html" class="btn-outline">Knowledge Base</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
 </body>
 </html>
