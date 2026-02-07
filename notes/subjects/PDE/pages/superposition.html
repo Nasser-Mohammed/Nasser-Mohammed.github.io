@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Law of Superposition</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Law of Superposition | Nasser Mohammed</title>
+
+  <style>
+    img, .topic-img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+    }
+    .math-block {
+      margin: 2rem 0;
+    }
+  </style>
+
   <script>
     window.MathJax = {
       tex: {
@@ -17,16 +31,29 @@
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">The Law of Superposition</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>The Law of Superposition</h1>
+      <hr class="subtle-hr">
+    </header>
+
     <p>
       It is well known that the solutions to a homogeneous linear differential equation form a <strong>vector space</strong>. This means that <em>any</em> linear combination of solutions is also a solution. The Law of Superposition is simply this statement.
     </p>
+
+    
 
     <p>
       But why call it “superposition”? The meaning becomes clear once we consider linear combinations of solutions. If we know two solutions \( \phi(x,t) \) and \( \psi(x,t) \), then any linear combination
@@ -53,6 +80,15 @@
     <p>
       This could be why it’s called <strong>superposition</strong>: the general solution is literally a superposition of all possible particular solutions. However, this was my interpretation of the convention, not necessarily the truth.
     </p>
+
+    <section class="archive-section" style="margin-top: 50px;">
+        <a href="../pdeHome.html" class="btn-outline">← Back to PDE Home</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
 </body>
 </html>

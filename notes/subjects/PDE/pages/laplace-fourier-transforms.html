@@ -1,160 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Heat Equation on an Infinite and Semi-Infinite Rod</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Heat Equation on an Infinite and Semi-Infinite Rod | Nasser Mohammed</title>
+
+  <style>
+    /* Image constraint to prevent screen blockage */
+    img, .topic-img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+    }
+    .math-block {
+      margin: 2rem 0;
+    }
+  </style>
+
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
-      }
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">The Heat Equation on an Infinite and Semi-Infinite Rod</h1>
-  </header>
+<body class="dark-theme">
 
-<main>
-  <p>
-    We consider again the heat equation:
-  </p>
-  <div class="math-block">\[
-    u_t = \alpha^2 u_{xx}
-  \]</div>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
 
-  <p>
-    Our PDE here looks the same, however, we are going to consider when our rod is semi-infinite and infinite in length. That means we will have
-    1 and 0 boundary conditions respectively. Until now, our techniques have only worked on homogenous boundary conditions. We now introduce a method
-    that does not rely on homogenous boundary conditions. This is due to the fact that these transforms essentially transform our derivatives into 
-    multiplication. In other words, we can sometimes turn differential equations into algebraic ones. Even when this does not happen, we essentially
-    get an ODE in the variable that we did not transform, and this ODE is one degree lower than our PDE. This makes solving problems much easier. Once
-    we solve the transformed problem, we can just invert the transformation to get our solution to the original problem. Now that we know the motivation
-    behind these transforms, we can start to consider some very common and useful ones.
-  </p>
+  <main class="container">
+    <header class="hero-section">
+      <h1>The Heat Equation on an Infinite and Semi-Infinite Rod</h1>
+      <hr class="subtle-hr">
+    </header>
 
-  <h2>The Fourier Transform</h2>
-  <p>The Fourier Transform is defined as:</p>
-  <div class="math-block">\[
-    \mathcal{F}[f](\xi) = F(\xi) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} f(x) e^{-i\xi x}\, dx
-  \]</div>
+    <p>
+      We consider again the heat equation:
+    </p>
+    <div class="math-block">\[
+      u_t = \alpha^2 u_{xx}
+    \]</div>
 
-  <p>With the Inverse Fourier Transform defined as:</p>
-  <div class="math-block">\[
-    \mathcal{F}^{-1}[F](x) = f(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} F(\xi) e^{i\xi x}\, d\xi
-  \]</div>
+    <p>
+      Our PDE here looks the same, however, we are going to consider when our rod is semi-infinite and infinite in length. That means we will have
+      1 and 0 boundary conditions respectively. Until now, our techniques have only worked on homogenous boundary conditions. We now introduce a method
+      that does not rely on homogenous boundary conditions. This is due to the fact that these transforms essentially transform our derivatives into 
+      multiplication. 
+    </p>
 
-  <p>Example transform:</p>
-  <div class="math-block">\[
-    \mathcal{F}[e^{-a^2x^2}] = \frac{1}{a\sqrt{2}} e^{-\omega^2/(4a^2)}
-  \]</div>
+    <p>
+      In other words, we can sometimes turn differential equations into algebraic ones. Even when this does not happen, we essentially
+      get an ODE in the variable that we did not transform, and this ODE is one degree lower than our PDE. This makes solving problems much easier. Once
+      we solve the transformed problem, we can just invert the transformation to get our solution to the original problem. Now that we know the motivation
+      behind these transforms, we can start to consider some very common and useful ones.
+    </p>
 
-  <p>Useful derivative properties:</p>
-  <div class="math-block">\[
-    \mathcal{F}[u_x] = i\xi \mathcal{F}[u], \quad
-    \mathcal{F}[u_{xx}] = -\xi^2 \mathcal{F}[u]
-  \]</div>
-  <div class="math-block">\[
-    \mathcal{F}[u_t] = \frac{\partial}{\partial t}\mathcal{F}[u], \quad
-    \mathcal{F}[u_{tt}] = \frac{\partial^2}{\partial t^2}\mathcal{F}[u]
-  \]</div>
+    <h2>The Fourier Transform</h2>
+    <p>The Fourier Transform is defined as:</p>
+    <div class="math-block">\[
+      \mathcal{F}[f](\xi) = F(\xi) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} f(x) e^{-i\xi x}\, dx
+    \]</div>
 
-  <h3>Convolution</h3>
-  <div class="math-block">\[
-    (f * g)(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} f(x-\xi)g(\xi)\, d\xi
-  \]</div>
+    <p>With the Inverse Fourier Transform defined as:</p>
+    <div class="math-block">\[
+      \mathcal{F}^{-1}[F](x) = f(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} F(\xi) e^{i\xi x}\, d\xi
+    \]</div>
 
-  <p>Key property:</p>
-  <div class="math-block">\[
-    \mathcal{F}^{-1}[\mathcal{F}[f]\mathcal{F}[g]] = f * g
-  \]</div>
+    <p>Example transform:</p>
+    <div class="math-block">\[
+      \mathcal{F}[e^{-a^2x^2}] = \frac{1}{a\sqrt{2}} e^{-\omega^2/(4a^2)}
+    \]</div>
 
-  <h3>Solving the Heat Equation on an Infinite Rod</h3>
-  <p>PDE with initial condition:</p>
-  <div class="math-block">\[
-    u_t = \alpha^2 u_{xx}, \quad u(x,0) = \phi(x)
-  \]</div>
+    <p>Useful derivative properties:</p>
+    <div class="math-block">\[
+      \mathcal{F}[u_x] = i\xi \mathcal{F}[u], \quad
+      \mathcal{F}[u_{xx}] = -\xi^2 \mathcal{F}[u]
+    \]</div>
+    <div class="math-block">\[
+      \mathcal{F}[u_t] = \frac{\partial}{\partial t}\mathcal{F}[u], \quad
+      \mathcal{F}[u_{tt}] = \frac{\partial^2}{\partial t^2}\mathcal{F}[u]
+    \]</div>
 
-  <p>After transform:</p>
-  <div class="math-block">\[
-    \frac{\partial}{\partial t} U(\xi,t) = -\alpha^2 \xi^2 U(\xi,t), \quad U(\xi,0) = \mathcal{F}[\phi(x)]
-  \]</div>
+    <h3>Convolution</h3>
+    <div class="math-block">\[
+      (f * g)(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} f(x-\xi)g(\xi)\, d\xi
+    \]</div>
 
-  <p>Solution:</p>
-  <div class="math-block">\[
-    U(\xi,t) = \Phi(\xi) e^{-(\alpha \xi)^2 t}
-  \]</div>
+    <p>Key property:</p>
+    <div class="math-block">\[
+      \mathcal{F}^{-1}[\mathcal{F}[f]\mathcal{F}[g]] = f * g
+    \]</div>
 
-  <p>Inverse transform:</p>
-  <div class="math-block">\[
-    u(x,t) = \mathcal{F}^{-1}\!\left[\Phi(\xi) e^{-(\alpha \xi)^2 t}\right]
-  \]</div>
+    <h3>Solving the Heat Equation on an Infinite Rod</h3>
+    <p>PDE with initial condition:</p>
+    <div class="math-block">\[
+      u_t = \alpha^2 u_{xx}, \quad u(x,0) = \phi(x)
+    \]</div>
 
-  <p>By convolution:</p>
-  <div class="math-block">\[
-    u(x,t) = \phi(x) * \frac{1}{\alpha \sqrt{2t}} e^{-x^2/(4\alpha^2 t)}
-  \]</div>
-  <div class="math-block">\[
-    u(x,t) = \frac{1}{2\alpha\sqrt{\pi t}} \int_{-\infty}^{\infty} \phi(\xi) e^{-(x-\xi)^2/(4\alpha^2 t)}\, d\xi
-  \]</div>
+    
 
-  <h2>The Laplace Transform</h2>
-  <p>The Laplace Transform is defined as:</p>
-  <div class="math-block">\[
-    \mathcal{L}[f](s) = F(s) = \int_0^\infty f(t)e^{-st}\, dt
-  \]</div>
+    <p>After transform:</p>
+    <div class="math-block">\[
+      \frac{\partial}{\partial t} U(\xi,t) = -\alpha^2 \xi^2 U(\xi,t), \quad U(\xi,0) = \mathcal{F}[\phi(x)]
+    \]</div>
 
-  <p>With inverse:</p>
-  <div class="math-block">\[
-    \mathcal{L}^{-1}[F](t) = \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty} F(s)e^{st}\, ds
-  \]</div>
+    <p>Solution:</p>
+    <div class="math-block">\[
+      U(\xi,t) = \Phi(\xi) e^{-(\alpha \xi)^2 t}
+    \]</div>
 
-  <p>Useful derivative properties:</p>
-  <div class="math-block">\[
-    \mathcal{L}[u_t] = sU(x,s) - u(x,0), \quad
-    \mathcal{L}[u_{tt}] = s^2U(x,s) - s u(x,0) - u_t(x,0)
-  \]</div>
-  <div class="math-block">\[
-    \mathcal{L}[u_x] = \frac{\partial U}{\partial x}(x,s), \quad
-    \mathcal{L}[u_{xx}] = \frac{\partial^2 U}{\partial x^2}(x,s)
-  \]</div>
+    <p>Inverse transform:</p>
+    <div class="math-block">\[
+      u(x,t) = \mathcal{F}^{-1}\!\left[\Phi(\xi) e^{-(\alpha \xi)^2 t}\right]
+    \]</div>
 
-  <p>Convolution property:</p>
-  <div class="math-block">\[
-    (f*g)(t) = \int_0^t f(\tau)g(t-\tau)\, d\tau, \quad
-    (f*g)(t) = \mathcal{L}^{-1}[\mathcal{L}[f]\mathcal{L}[g]]
-  \]</div>
+    <p>By convolution:</p>
+    <div class="math-block">\[
+      u(x,t) = \phi(x) * \frac{1}{\alpha \sqrt{2t}} e^{-x^2/(4\alpha^2 t)}
+    \]</div>
+    <div class="math-block">\[
+      u(x,t) = \frac{1}{2\alpha\sqrt{\pi t}} \int_{-\infty}^{\infty} \phi(\xi) e^{-(x-\xi)^2/(4\alpha^2 t)}\, d\xi
+    \]</div>
 
-  <h3>Heat Equation on a Semi-Infinite Rod</h3>
-  <p>PDE:</p>
-  <div class="math-block">\[
-    u_t = \alpha^2 u_{xx}
-  \]</div>
+    <h2>The Laplace Transform</h2>
+    <p>The Laplace Transform is defined as:</p>
+    <div class="math-block">\[
+      \mathcal{L}[f](s) = F(s) = \int_0^\infty f(t)e^{-st}\, dt
+    \]</div>
 
-  <p>After Laplace transform:</p>
-  <div class="math-block">\[
-    sU(x,s) - u(x,0) = \alpha^2 U''(x,s)
-  \]</div>
+    <p>With inverse:</p>
+    <div class="math-block">\[
+      \mathcal{L}^{-1}[F](t) = \frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty} F(s)e^{st}\, ds
+    \]</div>
 
-  <p>Which simplifies to:</p>
-  <div class="math-block">\[
-    \alpha^2 U''(x) - sU(x) + u(x,0) = 0
-  \]</div>
+    <p>Useful derivative properties:</p>
+    <div class="math-block">\[
+      \mathcal{L}[u_t] = sU(x,s) - u(x,0), \quad
+      \mathcal{L}[u_{tt}] = s^2U(x,s) - s u(x,0) - u_t(x,0)
+    \]</div>
+    <div class="math-block">\[
+      \mathcal{L}[u_x] = \frac{\partial U}{\partial x}(x,s), \quad
+      \mathcal{L}[u_{xx}] = \frac{\partial^2 U}{\partial x^2}(x,s)
+    \]</div>
 
-  <p>
-    This is now an ODE in \(x\). Solve using transformed boundary conditions, then invert with the Laplace inverse to get \(u(x,t)\).
-  </p>
-</main>
+    <p>Convolution property:</p>
+    <div class="math-block">\[
+      (f*g)(t) = \int_0^t f(\tau)g(t-\tau)\, d\tau, \quad
+      (f*g)(t) = \mathcal{L}^{-1}[\mathcal{L}[f]\mathcal{L}[g]]
+    \]</div>
 
+    <h3>Heat Equation on a Semi-Infinite Rod</h3>
+    <p>PDE:</p>
+    <div class="math-block">\[
+      u_t = \alpha^2 u_{xx}
+    \]</div>
 
+    
+
+    <p>After Laplace transform:</p>
+    <div class="math-block">\[
+      sU(x,s) - u(x,0) = \alpha^2 U''(x,s)
+    \]</div>
+
+    <p>Which simplifies to:</p>
+    <div class="math-block">\[
+      \alpha^2 U''(x) - sU(x) + u(x,0) = 0
+    \]</div>
+
+    <p>
+      This is now an ODE in \(x\). Solve using transformed boundary conditions, then invert with the Laplace inverse to get \(u(x,t)\).
+    </p>
+
+    <section class="archive-section" style="margin-top: 50px;">
+        <a href="../pdeHome.html" class="btn-outline">← Back to PDE Home</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>

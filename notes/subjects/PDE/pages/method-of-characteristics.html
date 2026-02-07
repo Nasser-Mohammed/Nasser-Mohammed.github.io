@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Method of Characteristics</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Method of Characteristics | Nasser Mohammed</title>
+
+  <style>
+    img, .topic-img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+    }
+    .math-block {
+      margin: 2rem 0;
+    }
+  </style>
+
   <script>
     window.MathJax = {
       tex: {
@@ -17,13 +31,24 @@
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">The Method of Characteristics</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>The Method of Characteristics</h1>
+      <hr class="subtle-hr">
+    </header>
+
     <div class="math-block">\[
       a(x,t)\,u_x + b(x,t)\,u_t + c(x,t)\,u = 0
     \]</div>
@@ -31,6 +56,8 @@
     <p>
       The method of characteristics solves first-order PDEs by finding curves—<em>characteristics</em>—along which the PDE reduces to an ODE. We solve the resulting ODEs and then map the solution back to \((x,t)\).
     </p>
+
+    
 
     <h2>Theory Behind It</h2>
 
@@ -145,6 +172,15 @@
     <p>
       This is the (classical) solution to the PDE with arbitrary initial condition \(\phi\).
     </p>
+
+    <section class="archive-section" style="margin-top: 50px;">
+        <a href="../pdeHome.html" class="btn-outline">← Back to PDE Home</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
 </body>
 </html>

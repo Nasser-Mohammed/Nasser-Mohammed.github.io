@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Wave Equation</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Wave Equation | Nasser Mohammed</title>
+
+  <style>
+    img, .topic-img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+    }
+    .math-block {
+      margin: 2rem 0;
+    }
+  </style>
+
   <script>
     window.MathJax = {
       tex: {
@@ -17,18 +31,31 @@
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">The Wave Equation</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
-    <p><div class="math-block">\[u_{tt} = c^2 u_{xx}\]</div></p>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>The Wave Equation</h1>
+      <hr class="subtle-hr">
+    </header>
+
+    <div class="math-block">\[u_{tt} = c^2 u_{xx}\]</div>
 
     <p>
       Originally solved by Jean le Rond d'Alembert in 1747, the function \(u\) describes the "height" of a string (or wave) at a point in space and time \((x,t)\). Note, we are considering a 1-dimensional string. Here (when considering \(c = 1\)), we seek a function whose second temporal partial derivative is equal to its second spatial partial derivative. Immediately, that should set off light bulbs in your head of some sort of \(\sin\) and \(\cos\) functions.
     </p>
+
+    
 
     <h2>Boundary Conditions on the 1-D String</h2>
     <p>
@@ -57,11 +84,11 @@
     </p>
 
     <p>
-      We solve this problem through separation of variables, so we assume
+      We solve this problem through separation of variables, so we assume:
       <div class="math-block">\[u(x,t) = T(t)X(x)\]</div>
-      Plugging this into \(u_{tt} = \alpha^2u_{xx}\) we get
+      Plugging this into \(u_{tt} = \alpha^2u_{xx}\) we get:
       <div class="math-block">\[T''(t)X(x) = \alpha^2T(t)X''(x)\]</div>
-      Separating variables gives
+      Separating variables gives:
       <div class="math-block">\[\frac{T''(t)}{\alpha^2T(t)} = \frac{X''(x)}{X(x)} = k\]</div>
     </p>
 
@@ -94,20 +121,20 @@
     </p>
 
     <p>
-      Therefore, the general solution is
+      Therefore, the general solution is:
       <div class="math-block">\[u(x,t) = \sum_{n=1}^{\infty} \sin(\tfrac{n\pi x}{L}) [a_n \sin(\tfrac{n\pi \alpha t}{L}) + b_n \cos(\tfrac{n\pi \alpha t}{L})]\]</div>
     </p>
 
     <h2>Using Initial Conditions</h2>
     <p>
-      From \(u(x,0) = \phi(x)\), we find
+      From \(u(x,0) = \phi(x)\), we find:
       <div class="math-block">\[\phi(x) = \sum_{n=1}^{\infty} b_n \sin(\tfrac{n\pi x}{L})\]</div>
-      Using orthogonality of sine functions, this gives
+      Using orthogonality of sine functions, this gives:
       <div class="math-block">\[b_n = \frac{2}{L} \int_0^L \phi(x) \sin(\tfrac{n\pi x}{L}) dx\]</div>
     </p>
 
     <p>
-      From \(u_t(x,0) = \psi(x)\), we compute
+      From \(u_t(x,0) = \psi(x)\), we compute:
       <div class="math-block">\[a_n = \frac{2}{n\pi \alpha} \int_0^L \psi(x) \sin(\tfrac{n\pi x}{L}) dx\]</div>
     </p>
 
@@ -118,6 +145,15 @@
       with
       <div class="math-block">\[a_n = \frac{2}{n\pi \alpha} \int_0^L \psi(x) \sin(\tfrac{n\pi x}{L}) dx, \quad b_n = \frac{2}{L} \int_0^L \phi(x) \sin(\tfrac{n\pi x}{L}) dx\]</div>
     </p>
+
+    <section class="archive-section" style="margin-top: 50px;">
+        <a href="../pdeHome.html" class="btn-outline">← Back to PDE Home</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
 </body>
 </html>

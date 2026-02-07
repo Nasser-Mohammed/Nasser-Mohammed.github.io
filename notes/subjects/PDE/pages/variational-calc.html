@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Variational Calculus</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Variational Calculus | Nasser Mohammed</title>
+
+  <style>
+    img, .topic-img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+    }
+    .math-block {
+      margin: 2rem 0;
+    }
+  </style>
+
   <script>
     window.MathJax = {
       tex: {
@@ -17,13 +31,24 @@
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Variational Calculus</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>Variational Calculus</h1>
+      <hr class="subtle-hr">
+    </header>
+
     <p>
       We seek a method of minimizing/maximizing <strong>functionals</strong> rather than ordinary functions. A functional is a mapping that takes in a <em>function</em> and outputs a <em>scalar</em>. The most familiar example is the definite integral.
     </p>
@@ -37,10 +62,7 @@
       Here, \(y=y(x)\) is the function being varied. We seek \(\overline{y}(x)\) that minimizes \(J[y]\). A classical problem is the <em>Brachistochrone problem</em>, minimizing the time for a bead to slide under gravity along a frictionless curve.
     </p>
 
-    <figure style="text-align:center;margin:1rem 0;">
-      <img src="brachi.png" alt="Brachistochrone problem diagram" style="max-width:400px;width:100%;height:auto;">
-      <figcaption>Self-drawn Brachistochrone Problem</figcaption>
-    </figure>
+    
 
     <p>Bernoulli showed the time is</p>
     <div class="math-block">\[
@@ -174,6 +196,15 @@
     <div class="math-block">\[
       J[y]=\int_0^1\big(y^2+(y')^2\big)\,dx.
     \]</div>
+
+    <section class="archive-section" style="margin-top: 50px;">
+        <a href="../pdeHome.html" class="btn-outline">← Back to PDE Home</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
 </body>
 </html>

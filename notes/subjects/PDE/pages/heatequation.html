@@ -1,41 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Heat Equation</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Heat Equation | Nasser Mohammed</title>
+
+  <style>
+    /* Content-specific image constraint */
+    img, .topic-img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+    }
+    .math-block {
+      margin: 2rem 0;
+    }
+  </style>
+
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
-      }
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">The Heat Equation</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
-    <!-- <figure class="topic-figure">
-      <img src="../../../pictures/fourier-pic.png" alt="Fourier's Image">
-    </figure> -->
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
 
-    <p><div class="math-block">\[u_t=\alpha^2u_{xx}\]</div></p>
+  <main class="container">
+    <header class="hero-section">
+      <h1>The Heat Equation</h1>
+      <hr class="subtle-hr">
+    </header>
+
+    <div class="math-block">\[u_t=\alpha^2u_{xx}\]</div>
 
     <p>
       Solved by Joseph Fourier in 1822, the heat equation is typically the first PDE students are introduced to, due to its nice and intuitive nature.
-      In one dimension, we seek a function, that essentially has its first time derivative equal to its second spatial derivative (for preliminary intuition, we can ignore the \(\alpha^2\) term). The question now, is how do we go about solving for the function or functions that satisfy this equation. Intuitively this should feel like a more daunting task than solving for a variable in a traditional algebraic equation. This intuition is correct, without additional information, this equation has an infinite number of solutions. For example, any constant value satisfies this equation, any linear polynomial in \(x\) with arbitrary coefficients will satisfy this equation, as well as many other functions. This leads us to our typical boundary conditions.
+      In one dimension, we seek a function, that essentially has its first time derivative equal to its second spatial derivative (for preliminary intuition, we can ignore the \(\alpha^2\) term). The question now, is how do we go about solving for the function or functions that satisfy this equation. 
+    </p>
+    
+    <p>
+      Intuitively this should feel like a more daunting task than solving for a variable in a traditional algebraic equation. This intuition is correct, without additional information, this equation has an infinite number of solutions. For example, any constant value satisfies this equation, any linear polynomial in \(x\) with arbitrary coefficients will satisfy this equation, as well as many other functions. This leads us to our typical boundary conditions.
     </p>
 
-    <p><strong>Note:</strong> The parameter \(\alpha\) is usually called the <strong>diffusivity constant</strong>, which is a measure of how "fast" heat can move through a material. </p>
+    <blockquote>
+      <strong>Note:</strong> The parameter \(\alpha\) is usually called the <strong>diffusivity constant</strong>, which is a measure of how "fast" heat can move through a material.
+    </blockquote>
+
+    
 
     <h2>Boundary Conditions on the Heat Equation</h2>
     <p>
@@ -51,12 +82,15 @@
     <p>
       This is a very powerful and straight forward method to solving PDEs, and requires us to make an assumption on the form of the solution and separating the \(x\) and \(t\) variables. Once we separate the variables, we arrive at ODEs in those variables, whose solutions are well known (through ODE theory).
     </p>
-    <p><strong>Note:</strong> We must have <strong>linear-homogenous</strong> boundary conditions <strong>and</strong> a linear-homogenous PDE (in the case of the heat equation) to do separation of variables. </p>
+    <blockquote>
+      <strong>Note:</strong> We must have <strong>linear-homogenous</strong> boundary conditions <strong>and</strong> a linear-homogenous PDE (in the case of the heat equation) to do separation of variables.
+    </blockquote>
 
     <h2>So, How do we Begin to Solve it?</h2>
     <p>
       We begin by making an assumption, this assumption is not random and does come from strong intuition. We assume that the solution takes the form,
-      <div class="math-block">\[u(x,t) = T(t)X(x)\]</div> In other words, we assume that the multivariable function \(u(x,t)\), is the product of a function of \(t\) and a function of \(x\), which we write as \(T(t)\) and \(X(x)\) respectively. This will allow us to "separate" the variables later.
+      <div class="math-block">\[u(x,t) = T(t)X(x)\]</div> 
+      In other words, we assume that the multivariable function \(u(x,t)\), is the product of a function of \(t\) and a function of \(x\), which we write as \(T(t)\) and \(X(x)\) respectively. This will allow us to "separate" the variables later.
     </p>
 
     <h2>Why Make this Assumption?</h2>
@@ -90,199 +124,69 @@
 
     <p>
       We are now in a position to start finding functions that satisfy this equation. Now we will treat our previous equation, as two separate equations, that is
-      <div class="math-block">\[\frac{T'(t)}{\alpha^2T(t)} = k\]</div>
-      and
-      <div class="math-block">\[\frac{X^{''}(x)}{X(x)} = k\]</div>
-      By rearranging the equations as below, we see we have two linear homogenous ODEs. The ODE in \(t\) is of first order and the ODE in \(x\) is of second order.
-      <div class="math-block">\[T'(t) - k\alpha^2T(t) = 0\]</div>
-      and
-      <div class="math-block">\[X^{''}(x) - kX(x) = 0\]</div>
-      Once we rewrite the ODE in \(t\) as
-      <div class="math-block">\[T'(t) = k\alpha^2T(t)\]</div>
-      it is pretty apparent the solution is of the form \(Ae^{k\alpha^2t}\).
+      <div class="math-block">\[\frac{T'(t)}{\alpha^2T(t)} = k \quad \text{and} \quad \frac{X^{''}(x)}{X(x)} = k\]</div>
+      By rearranging the equations as below, we see we have two linear homogenous ODEs. 
+      <div class="math-block">\[T'(t) - k\alpha^2T(t) = 0 \quad \text{and} \quad X^{''}(x) - kX(x) = 0\]</div>
+      Once we rewrite the ODE in \(t\) as \(T'(t) = k\alpha^2T(t)\), it is pretty apparent the solution is of the form \(Ae^{k\alpha^2t}\).
     </p>
 
     <p>
-      If you do not see why, I have in depth ODE notes as well. But to explain it briefly, if we do our cheat of treating \(T'(t)\) as a fraction by using Leibniz notation, we get
-      <div class="math-block">\[\frac{dT}{dt} = k\alpha^2T\]</div>
-      Multiplying both sides by \(dt\) and dividing both sides by \(T\) we have the equation
-      <div class="math-block">\[\frac{1}{T}dT = k\alpha^2dt\]</div>
-      We then integrate both sides,
-      <div class="math-block">\[\int \frac{1}{T}dT = \int k\alpha^2dt\]</div>
-      which results in
-      <div class="math-block">\[\ln|T| = k\alpha^2t + C\]</div>
-      where \(C\) is just the constant of integration. Finally, we exponentiate both sides to get rid of the \(\ln|T|\), this leaves us with
-      <div class="math-block">\[T = e^{k\alpha^2t + C}\]</div>
-      And by law of exponents, this is equivalent to
-      <div class="math-block">\[T = e^Ce^{k\alpha^2t}\]</div>
-      But \(e^C\) is just itself a constant, which we shall call \(A\). So in its final form,
-      <div class="math-block">\[T(t) = Ae^{k\alpha^2t}\]</div>
+      By integrating (using separation of variables for the ODE), we find:
+      <div class="math-block">\[\ln|T| = k\alpha^2t + C \implies T(t) = Ae^{k\alpha^2t}\]</div>
     </p>
 
     <p>
-      Now here we can make a very important observation, if \(k > 0\) then \(T(t)\) will be \(e\) raised to a positive power, since time (\(t\)) is always greater than 0, and so is \(\alpha^2\). However, this also implies that as time increases (\(t \rightarrow \infty\)), then \(T \rightarrow \infty\), from a physical point of view, this is contradictory, since we cannot have unbounded heat with no source of heat. So we conclude that \(k < 0\).
+      Now here we can make a very important observation, if \(k > 0\) then \(T(t)\) will be \(e\) raised to a positive power. However, this also implies that as time increases (\(t \rightarrow \infty\)), then \(T \rightarrow \infty\), from a physical point of view, this is contradictory, since we cannot have unbounded heat with no source of heat. So we conclude that \(k < 0\).
     </p>
 
+    <h2>The Spatial Equation</h2>
     <p>
-      Now to tackle the second order ODE
-      <div class="math-block">\[X^{''}(x) - kX(x) = 0\]</div>
-      The characteristic equation for this ODE is
-      <div class="math-block">\[\lambda^2 - k = 0\]</div>
-      Solving for \(\lambda\) we get that \(\lambda = \sqrt k\). There are three possible solution forms for linear homogenous second order ODEs, depending on the roots of the characteristic equation.
-    </p>
-
-    <ol>
-      <li>One real root (sometimes call repeated roots): \(X(x) = (A+Bx)e^{\lambda x}\) where \(A\) and \(B\) are constants and \(\lambda\) is the root of the characteristic equation.</li>
-      <li>Two real roots: \(X(x) = Ae^{\lambda_1x} + B e^{\lambda_2x}\) where \(A\) and \(B\) are constants, and \(\lambda_1\) and \(\lambda_2\) are the roots of the characteristic equation.</li>
-      <li>Complex root (root of the form \(\alpha + \beta i\)): \(X(x) = e^{\alpha x}(A\cos(\beta x) + B\sin(\beta x))\)</li>
-    </ol>
-
-    <p>
-      In our scenario the solution of the characeristic equation is complex since \(k\) is negative, meaning \(\sqrt k\) produces an imaginary unit \(i\). So, more specifically, the solution to our characteristic equation is of the form \(\alpha + \beta i\). Where \(\alpha = 0\), \(\beta = \sqrt{-k}\). This is due to the fact that \(k\) is negative, so \(\sqrt k = \sqrt {-k}i\), then our solution will be of the form
+      Now to tackle the second order ODE \(X^{''}(x) - kX(x) = 0\). The characteristic equation is \(\lambda^2 - k = 0\).
+      In our scenario the solution is complex since \(k\) is negative (\(\sqrt{k} = \sqrt{-k}i\)). This gives us the oscillating solution:
       <div class="math-block">\[X(x) = A\cos(\sqrt{-k}x) + B\sin(\sqrt{-k}x)\]</div>
     </p>
 
     <p>
-      Now that we have found \(T(t)\) and \(X(x)\), we can say that the <em>general</em> solution to the heat equation is
-      <div class="math-block">\[u(x,t) = Ae^{k\alpha^2t}(B\cos(\sqrt{-k}x) + C\sin(\sqrt{-k}x))\]</div>
-      Where A, B, and C are arbitrary constants. This implies that any choice of A, B, and C will result in a solution to the heat equation. However, we can simplify this some, by distributing the \(A\) we get
-      <div class="math-block">\[u(x,t) = e^{k\alpha^2t}(A\times B\cos(\sqrt{-k}x) + A\times C\sin(\sqrt{-k}x))\]</div>
-      Since \(A\times B\) and \(A\times C\) are both just products of constants (which produces another constant), we can simly write them as \(A\) and \(B\), hence our <em>general</em> solution to the heat equation is
+      Thus the <em>general</em> solution to the heat equation is:
       <div class="math-block">\[u(x,t) = e^{k\alpha^2 t}(A\sin(\sqrt{-k}x) + B\cos(\sqrt{-k}x))\]</div>
     </p>
 
-    <h2>Extending the Solution to Solve with Boundary Conditions</h2>
+    <h2>Applying Boundary Conditions</h2>
     <p>
-      To solve the heat equation with boundary conditions, you typically begin with the most simple case, homogenous Dirichlet boundary conditions. In the case of the one dimensional metal rod of length 1, our homogenous Dirichlet boundary conditions would be
-      <div class="math-block">\[u(0,t) = 0\]</div> and <div class="math-block">\[u(1,t) = 0\]</div>
-      Now since we know
-      <div class="math-block">\[u(x,t) = T(t)X(x)\]</div>
-      then
-      <div class="math-block">\[u(0,t) = X(0)T(t) = 0\]</div>
-      and
-      <div class="math-block">\[u(1,t) = X(1)T(t) = 0\]</div>
-      This implies that \(X(0) = 0\) and \(X(1) = 0\)
-      So, to extend our solution to account for this, we consider:
-      <div class="math-block">\[X(x) = A\cos(\sqrt{-k}x) + B\sin(\sqrt{-k}x)\]</div>
-      Now it is not enough for this function to satisfy the ODE that we previously solved. Now, it must also satisfy our boundary conditions, i.e. \(X(0) = 0\) and \(X(1) = 0\), so let's write that out.
-      <div class="math-block">\[X(0) = 0 = A\cos(\sqrt{-k}\times 0) + B\sin(\sqrt{-k}\times 0)\]</div>
-      this simplifies to
-      <div class="math-block">\[A\cos(0) + B\sin(0) = 0\]</div>
-      We know that \(\sin(0) = 0\) and that \(\cos(0) = 1\). So our equation simplifies to:
-      <div class="math-block">\[A = 0\]</div>
-      This tells us that \(A\) is \(0\), so now we can write
+      With homogenous Dirichlet conditions \(u(0,t) = 0\) and \(u(1,t) = 0\), we find that \(A=0\) (since \(\cos(0)=1\)). This leaves us with:
       <div class="math-block">\[X(x) = B\sin(\sqrt{-k}x)\]</div>
-      Since \(A\) being \(0\) cancels out the \(cos\) term.
+      To satisfy \(X(1) = 0\) without a trivial solution, we need \(\sqrt{-k} = n\pi\). Thus, \(k = -(n\pi)^2\).
     </p>
 
     <p>
-      However, we also need to satisfy \(X(1) = 0\). So plugging in \(x = 1\) we get,
-      <div class="math-block">\[X(1) = B\sin(\sqrt{-k}) = 0\]</div>
-      Now, we cannot let \(B = 0\), since our solution will be trivial (i.e. \(X(x) = 0, \forall x \) and that would mean \(u(x,t) = 0\times T(t) \implies \ u(x,t) = 0\), a trivial solution).
-      Therefore, we need \(\sqrt{-k}\) to <strong>force</strong> \(\sin(\sqrt{-k})\) to be \(0\), \(\forall k\), in order to satisfy our boundary condition. We know that \(\sin(x) = 0\) when \(x\) is an integer multiple of \(\pi\). This tells us that if \(\sqrt{-k} = n\pi\), \(\forall n \in \mathbb{Z}^+\), then \(\sin(\sqrt{-k}) = 0\). So we let \(\sqrt{-k} = n\pi\), and solve for \(k\), we get that
-      <div class="math-block">\[k = -(n\pi)^2\]</div>
-      Now we substitute \(-(n\pi)^2\) in, for \(k\). Doing that, we get
-      <div class="math-block">\[B\sin(\sqrt{(n\pi)^2})\]</div>
-      which reduces to
-      <div class="math-block">\[B\sin(n\pi)\]</div>
-      and
-      <div class="math-block">\[B\sin(n\pi) = 0\]</div>
-      Which satisfies our boundary condition, so \(X_n(x) = B_n\sin(n\pi x)\). We subscript \(X(x)\) (and later \(T(t)\)) because we have a different function for each \(n\).
-    </p>
-
-    <p>
-      <strong>Note</strong>: We also substitute \(-(n\pi)^2\) in for \(k\) in our function of \(t\)
-      <div class="math-block">\[T(t) = Ae^{k\alpha^2t}\]</div>
-      Becomes
-      <div class="math-block">\[T_n(t) = Ae^{-(n\pi\alpha)^2t}\]</div>
-    </p>
-
-    <p>
-      This was one of the last major steps, we now know the solution to the (homogenous 1 dimensional) heat equation with Dirichlet boundary conditions is:
+      The specific solutions for each \(n\) are:
       <div class="math-block">\[u_n(x,t) = A_ne^{-(n\pi\alpha)^2t}\sin(n\pi x)\]</div>
-      However, this is a sequence of solutions. Each positive integer \(n\) can produce a solution to the heat equation with our boundary conditions. So to consolidate this into one solution, we also consider the <em>initial condition</em>. For generality, we will consider an arbitrary function \(\phi(x)\).
     </p>
 
-    <h2>Final Step: Extending the Solution to Solve with an Initial Condition</h2>
+    <h2>Initial Condition and Superposition</h2>
     <p>
-      So, our initial condition is,
-      <div class="math-block">\[u(x,0) = \phi(x)\]</div>
-      By <strong>The Law of Superposition</strong>, the linear combination of any solutions to a PDE, is itself a solution to the PDE. Essentially, if solutions to a PDE exist, then they form a vector space. With this in mind, we would like to sum up all possible solutions we had (basically sum up each \(u_n(x,t)\)) in such a way that satisfies the initial condition. This problem led Joseph Fourier to the conclusion that any <em>nice</em> function can be written as an infinite sum of <strong>sin</strong> and <strong>cos</strong> waves. What this means, is that for some random function \(f(x)\) defined on the interval \([0, L]\) we can write,
-      <div class="math-block">\[f(x) = \sum_{n = 1}^{\infty}B_n\sin\!\left(\frac{n\pi x}{L}\right)\]</div>
-      The goal is to then find the values of \(B_n\) that make up this sum. <strong>Note:</strong> each \(B_n\) is just a constant. For simplicity we will assume \(L = 1\). Another necessary fact that we will need to use, is the orthogonality of \(\sin(n\pi x)\). What this essentially means, is that
-    </p>
-
-    <div style="text-align: center;">
-      \(
-      \begin{align}
-      \int_0^1{\sin(n\pi x) \sin(m\pi x) \ dx} =
-      \begin{cases}
-      \frac{1}{2} &: \text{if } n = m \\
-      0 &: \text{if } n \neq m
-      \end{cases}
-      \end{align}
-      \)
-    </div>
-
-    <p>
-      Now with this in hand, we know (from earlier) that \(\sum_{n = 1}^{\infty}u_n(x,t)\) is itself a solution to our boundary value problem so far (by the Law of Superposition). However, now we must also have this sum satisfy the initial condition. This means
-      <div class="math-block">\[\sum_{n = 1}^{\infty}u_n(x,0) = \phi(x)\]</div>
-      We can rewrite
-      <div class="math-block">\[\sum_{n = 1}^{\infty}u_n(x,0)\]</div>
-      As
-      <div class="math-block">\[\sum_{n = 1}^{\infty}A_nT_n(0)X_n(x)\]</div>
-      Which is
-      <div class="math-block">\[\sum_{n = 1}^{\infty}A_ne^0\sin(n\pi x)\]</div>
-      Further simplifying to
-      <div class="math-block">\[\sum_{n = 1}^{\infty}A_n\sin(n\pi x)\]</div>
-      Which is just a sin-series, and this series must be equal to \(\phi(x)\), so
+      By <strong>The Law of Superposition</strong>, the final solution is the sum of these modes. We use Fourier series to match the initial condition \(\phi(x)\):
       <div class="math-block">\[\phi(x) = \sum_{n = 1}^{\infty}A_n\sin(n\pi x)\]</div>
+      Using the orthogonality of the sine function:
+      <div class="math-block">\[A_n = 2\int_0^1\phi(x)\sin(n\pi x)dx\]</div>
     </p>
 
-    <p>
-      We then multiply both sides by \(\sin(m\pi x)\) and integrate both sides from \(0\) to \(1\)
-      <div class="math-block">\[(1): \quad \int_0^1 \phi(x)\sin(m\pi x)\,dx = \int_0^1\sum_{n = 1}^{\infty}A_n\sin(n\pi x)\sin(m\pi x)\,dx\]</div>
-    </p>
-
-    <p>
-      Distributing the integral across the summation we arrive at
-      <div class="math-block">\[\int_0^1\sum_{n = 1}^{\infty}A_n\sin(n\pi x)\sin(m\pi x)\,dx = \sum_{n = 1}^{\infty}\int_0^1A_n\sin(n\pi x)\sin(m\pi x)\,dx\]</div>
-      From the orthogonality of \(\sin(n\pi x)\), we know that
-    </p>
-
-    <div style="text-align: center;">
-      \(
-      \begin{align}
-      \int_0^1{\sin(n\pi x) \sin(m\pi x) \ dx} =
-      \begin{cases}
-      \frac{1}{2} &: \text{if } n = m \\
-      0 &: \text{if } n \neq m
-      \end{cases}
-      \end{align}
-      \)
-    </div>
-
-    <p>
-      We can conclude that every term of the sum becomes 0, except for when \(n = m\), since we get \(\frac{1}{2}A_n\). Therefore, we can just write
-      <div class="math-block">\[\sum_{n = 1}^{\infty}\int_0^1A_n\sin(n\pi x)\sin(m\pi x)\,dx\]</div>
-      as
-      <div class="math-block">\[\frac{1}{2}A_n\]</div>
-      Then substituting that into (1) we arrive at
-      <div class="math-block">\[\int_0^1 \phi(x)\sin(m\pi x)\,dx = \frac{1}{2}A_n\]</div>
-      And since we know that \(n = m\) we can just write them both as \(n\)
-      <div class="math-block">\[\int_0^1 \phi(x)\sin(n\pi x)\,dx = \frac{1}{2}A_n\]</div>
-      Multiply both sides by \(2\) and we now have a formula for \(A_n\)
-      <div class="math-block">\[A_n = 2\int_0^1\phi(x)\sin(n\pi x)\]</div>
-      And that's it, we have solved the <strong>initial-boundary value problem</strong> also known as an <strong>IBVP</strong> which is a problem where you solve a PDE for certain boundary conditions and initial conditions. <strong>Note:</strong> In different problems, we may have a different number of initial conditions and boundary conditions.
-    </p>
+    
 
     <h2>Final Solution to the IBVP</h2>
-    <p>
-      The final solution, to the heat equation: \(u_t = \alpha^2 u_{xx}\) with homogenous Dirichlet boundary conditions and an arbitrary initial condition is:
-      <div class="math-block">\[u(x,t) = \sum_{n = 1}^{\infty} A_ne^{-(n\pi\alpha)^2t}\sin(n\pi x)\]</div>
-      <div class="math-block">\[\text{Where } A_n = 2\int_0^1\phi(x)\sin(n\pi x)\,dx\]</div>
-      <strong>Note:</strong> both \(m,n \in \mathbb{Z}^+\)
-    </p>
+    <div class="math-block">
+      \[u(x,t) = \sum_{n = 1}^{\infty} A_ne^{-(n\pi\alpha)^2t}\sin(n\pi x)\]
+      \[\text{Where } A_n = 2\int_0^1\phi(x)\sin(n\pi x)\,dx\]
+    </div>
+
+    <section class="archive-section" style="margin-top: 50px;">
+        <a href="../pdeHome.html" class="btn-outline">← Back to PDE Home</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
 </body>
 </html>

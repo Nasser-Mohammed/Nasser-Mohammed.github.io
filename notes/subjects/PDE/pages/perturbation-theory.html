@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Perturbative Theory for PDEs</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perturbative Theory for PDEs | Nasser Mohammed</title>
+
+  <style>
+    img, .topic-img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+    }
+    .math-block {
+      margin: 2rem 0;
+    }
+  </style>
+
   <script>
     window.MathJax = {
       tex: {
@@ -17,13 +31,24 @@
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Perturbative Theory for PDEs</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>Perturbative Theory for PDEs</h1>
+      <hr class="subtle-hr">
+    </header>
+
     <p>
       Perturbative methods are used to tackle PDEs with variable coefficients, difficult geometries, or nonlinearities. The main idea is to introduce a small parameter \( \varepsilon \) multiplying the “hard” part of the equation. This provides a knob to control the irregularity: when \( \varepsilon = 0 \), the PDE reduces to a simpler problem; as \( \varepsilon \) increases toward \(1\), we recover the original PDE.
     </p>
@@ -52,7 +77,46 @@
       When \( \varepsilon = 0 \), we return to Laplace’s equation. We then analyze the problem for \( \varepsilon \in (0,1) \) and finally take \( \varepsilon = 1 \) to connect back to the original nonlinear PDE.
     </p>
 
-    <h2>To Be Continued When I Know More on It</h2>
+    <h2>The Power Series Expansion</h2>
+    <p>
+        To solve the perturbed equation, we assume that the solution \( u(x, \varepsilon) \) can be expressed as a power series in \( \varepsilon \):
+    </p>
+    <div class="math-block">\[
+        u(x, \varepsilon) = u_0(x) + \varepsilon u_1(x) + \varepsilon^2 u_2(x) + \dots
+    \]</div>
+
+    
+
+    <p>
+        By substituting this series into the nonlinear PDE, we can group terms by powers of \( \varepsilon \). For the example \( \nabla^2 u + \varepsilon u^2 = 0 \), this looks like:
+    </p>
+    <div class="math-block">\[
+        \nabla^2(u_0 + \varepsilon u_1 + \dots) + \varepsilon(u_0 + \varepsilon u_1 + \dots)^2 = 0
+    \]</div>
+
+    <h2>Solving the Hierarchy</h2>
+    <p>
+        For the equation to hold for any small \( \varepsilon \), the coefficient of each power of \( \varepsilon \) must independently equal zero. This creates a hierarchy of linear equations:
+    </p>
+    
+    <ul>
+        <li><strong>Order \( \varepsilon^0 \):</strong> \( \nabla^2 u_0 = 0 \). This is just the original Laplace equation. We solve this first to find the base state.</li>
+        <li><strong>Order \( \varepsilon^1 \):</strong> \( \nabla^2 u_1 + u_0^2 = 0 \). Since we already found \( u_0 \), \( u_0^2 \) is just a known source term. This is now a Poisson equation, which is linear and solvable.</li>
+        <li><strong>Order \( \varepsilon^2 \):</strong> \( \nabla^2 u_2 + 2u_0 u_1 = 0 \). Again, this is a linear equation for \( u_2 \) using the previous results.</li>
+    </ul>
+
+    <p>
+        By solving these one by one, we build an increasingly accurate approximation of the nonlinear behavior. This method is incredibly powerful because it turns one impossible nonlinear problem into a sequence of many solvable linear problems.
+    </p>
+
+    <section class="archive-section" style="margin-top: 50px;">
+        <a href="../pdeHome.html" class="btn-outline">← Back to PDE Home</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
 </body>
 </html>
