@@ -1,30 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/png" href="../../../pictures/butterfly16.png" sizes="48x48">
-  <title>One Dimensional Bifurcations</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One Dimensional Bifurcations | Nasser Mohammed</title>
+
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
-      }
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">One Dimensional Bifurcations</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>One Dimensional Bifurcations</h1>
+      <hr class="subtle-hr">
+    </header>
+
     <p>
       As we have seen in the preliminary analysis of 1D systems, there aren't many possibilities for their 
       behavior. Trajectories either decay to fixed points or go off to infinity. However, there are some very 
@@ -40,9 +52,8 @@
       A <strong>bifurcation</strong> occurs when a small smooth change in a parameter of a system causes a sudden 
       qualitative change in its behavior. More concretely, consider the parameterized system
     </p>
-    <div class="math-block">\[
-      \dot{x} = f(x,\mu),
-    \]
+    <div class="math-display">
+      \[ \dot{x} = f(x,\mu), \]
     </div>
     <p>
       where \(\mu\) is a parameter. A bifurcation happens at a value \(\mu = \mu_c\) if the phase portrait of the system 
@@ -54,29 +65,29 @@
     <p>
       A classical example is the <strong>logistic equation</strong>
     </p>
-    <div class="math-block">\[
-      \dot{x} = rx(1 - x),
-    \]
+    <div class="math-display">
+      \[ \dot{x} = rx(1 - x), \]
     </div>
     <p>
       where the parameter \(r\) represents the growth rate. The fixed points of this system are obtained by setting 
       \(\dot{x} = 0\):
     </p>
-    <div class="math-block">\[
-      x^* = 0, \quad x^* = 1.
-    \]
+    <div class="math-display">
+      \[ x^* = 0, \quad x^* = 1. \]
     </div>
     <p>
       The stability of each fixed point depends on the parameter \(r\). We compute
     </p>
-    <div class="math-block">\[
-      f'(x) = r(1 - 2x).
-    \]
+    <div class="math-display">
+      \[ f'(x) = r(1 - 2x). \]
     </div>
     <p>
       At \(x^* = 0\), we have \(f'(0) = r\). Thus the fixed point is stable if \(r < 0\) and unstable if \(r > 0\).
       At \(x^* = 1\), we have \(f'(1) = -r\). So the fixed point is stable if \(r > 0\).
     </p>
+
+    
+
     <p>
       At \(r = 0\), the stability of the fixed points changes: the fixed point at \(x=0\) changes from stable to unstable,
       while the fixed point at \(x=1\) emerges as stable. This is an example of a <strong>transcritical bifurcation</strong>.
@@ -91,10 +102,21 @@
       <li><strong>Transcritical bifurcation</strong>: two fixed points exchange stability.</li>
       <li><strong>Pitchfork bifurcation</strong>: one fixed point splits into three (supercritical or subcritical).</li>
     </ul>
+
+    
+
     <p>
       Each type of bifurcation has a characteristic "normal form" equation, which captures its essential behavior.
     </p>
+
+    <section class="archive-section" style="margin-top: 50px;">
+      <a href="../nonLinearHome.html" class="btn-outline">← Back to Nonlinear Dynamics</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>

@@ -1,30 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/png" href="../../../pictures/butterfly16.png" sizes="48x48">
-  <title>Introduction to Nonlinear Dynamics</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction to Nonlinear Dynamics | Nasser Mohammed</title>
+
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
-      }
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Introduction to Nonlinear Dynamics</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>Introduction to Nonlinear Dynamics</h1>
+      <hr class="subtle-hr">
+    </header>
+
     <p>
       All of the differential equations that are solved in a first or even second semester differential equations course
       have <strong>analytic</strong> solutions.
@@ -39,23 +51,21 @@
     <p>
       One of the simplest examples of a nonlinear ODE, is the simple pendulum.
     </p>
-    <div class="math-block">\[
-      \ddot{\theta} + \frac{g}{L}\sin(\theta) = 0
-    \]</div>
+    
+    \[ \ddot{\theta} + \frac{g}{L}\sin(\theta) = 0 \]
+    
     <p>This is easily derived using Newton's second law. This models a pendulum with no air resistance.
         If we limit our investigation to small angles (i.e. small values for \(\theta\)), then we can often
         substitute \(\sin\) for \(\theta\) in the differential equation since for small angles we have
     </p>
-    <div class="math-block">\[
-        \sin(\theta) \approx \theta
-        \]
-    </div>
+    
+    \[ \sin(\theta) \approx \theta \]
+
+    
 
     <p>Then our ODE would become</p>
-        <div class="math-block">\[
-        \ddot{\theta} + \frac{g}{L}\theta = 0
-        \]
-    </div>
+    
+    \[ \ddot{\theta} + \frac{g}{L}\theta = 0 \]
 
     <p>This turns the nonlinear ODE into a linear one with an analytic solution. But this is a limiting view of 
         a real physical model. Instead if we wanted to model the behavior for any \(\theta\), then there is no 
@@ -63,83 +73,76 @@
         basic as the motion of a pendulum. However, this also demonstrates how important Nonlinear theory is.
     </p>
 
-    <p>Again we return to the question of how to understand these equations if we can't find explicit solutions to them.
-      The first step in this process is a technique called state augmentation.
-    </p>
-
     <h2>State Augmentation</h2>
-    <p>The primary result here, is that we can break down any higher order ODE, into a sysetm of first order ODEs. This 
+    <p>The primary result here, is that we can break down any higher order ODE, into a system of first order ODEs. This 
       allows us incorporate linear algebra into understanding the system. Consider the example from above.
     </p>
-    <div class="math-block">\[
-      \ddot{\theta} + \frac{g}{L}\sin(\theta) = 0
-    \]</div>
+    
+    \[ \ddot{\theta} + \frac{g}{L}\sin(\theta) = 0 \]
+    
     <p>We can incorporate a new variable to break this equation down. Let</p>
-        <div class="math-block">\[
-      \omega = \dot{\theta}
-    \]</div>
+    
+    \[ \omega = \dot{\theta} \]
+    
     <p>Then</p>
-        <div class="math-block">\[
-      \dot{\omega} = \ddot{\theta}
-    \]</div>
+    
+    \[ \dot{\omega} = \ddot{\theta} \]
+    
     <p>So we can now write</p>
-        <div class="math-block">\[
-      \dot{\omega} + \frac{g}{L}\sin(\theta) = 0
-    \]</div>
+    
+    \[ \dot{\omega} + \frac{g}{L}\sin(\theta) = 0 \]
+    
     <p>Rearranging the equation we have</p>
-            <div class="math-block">\[
-      \dot{\omega} = - \frac{g}{L}\sin(\theta)
-    \]</div>
+    
+    \[ \dot{\omega} = - \frac{g}{L}\sin(\theta) \]
+    
     <p>Therefore we now have two first order differential equations,</p>
-        <div class="math-block">\[
-          \begin{align}
-      \dot{\omega} &= - \frac{g}{L}\sin(\theta) \\\\
-      \dot{\theta} &= \omega
-      \end{align}
-    \]</div>
+    
+    \[ \begin{align} \dot{\omega} &= - \frac{g}{L}\sin(\theta) \\ \dot{\theta} &= \omega \end{align} \]
+    
     <p>As mentioned, this reduction process is known as <strong>state augmentation</strong>, and is one of 
       the first steps to understanding the nature of the ODE.</p>
     
     <h2>Autonomous and Non-Autonomous ODEs</h2>
       <p>In later sections we will focus our attention on <strong>autonomous systems</strong>. These are ODEs of the form,</p>
-      <div class="math-block">\[
-          \dot{x} = f(x)
-    \]</div>
+      
+      \[ \dot{x} = f(x) \]
+      
     <p>More specifically, these are systems without an <strong>explicit</strong> time dependence. A <strong>non-autonomous system</strong>
       is of the form
       </p>
-    <div class="math-block">\[
-          \dot{x} = f(x,t)
-    \]</div>
+    
+    \[ \dot{x} = f(x,t) \]
+    
     <p>Note the temporal dependence in the second equation as opposed to the first. We say that the time dependence is not explicit in the first
       example since \(x\) is a function of \(t\) and therefore there is a time dependence, but it is implicit through \(x\). 
     </p>
-    <p>The reason we will focus on autonomous systems, is that we can decompose any non-autonomous system into an autonomous one
-      of one dimension higher through state augmentation.
-    </p>
+    
   <h2>Turning Non-Autonomous ODEs into Autonomous ODEs</h2>
     <p>Consider</p>
-    <div class="math-block">\[
-          \dot{x} = f(x,t)
-    \]</div>
+    
+    \[ \dot{x} = f(x,t) \]
+    
     <p>Let's introduce a new variable</p>
-        <div class="math-block">\[
-          \tau = t
-    \]</div>
+    
+    \[ \tau = t \]
+    
     <p>Then we have that</p>
-        <div class="math-block">\[
-          \dot{\tau} = 1
-    \]</div>
+    
+    \[ \dot{\tau} = 1 \]
+    
     <p>Since the derivative is with respect to time. Then we can write our 1D non-autonomous system as a 2D autonomous system.</p>
-    <div class="math-block">\[
-      \begin{align}
-        \dot{x} &= f(x,\tau) \\\\
-        \dot{\tau} &= 1
-      \end{align}
-    \]</div>
+    
+    \[ \begin{align} \dot{x} &= f(x,\tau) \\ \dot{\tau} &= 1 \end{align} \]
 
-      <p>It is because of the results above that our focus will be on autonomous systems of first order ODEs.</p>
-
+    <section class="archive-section" style="margin-top: 50px;">
+      <a href="../nonLinearHome.html" class="btn-outline">← Back to Nonlinear Dynamics</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
 </body>
 </html>

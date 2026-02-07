@@ -1,284 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/png" href="../../../pictures/butterfly16.png" sizes="48x48">
-  <title>One Dimensional Systems</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One Dimensional Systems | Nasser Mohammed</title>
+
+  <style>
+    .topic-img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+    }
+    .topic-figure {
+      margin: 2rem 0;
+      text-align: center;
+    }
+    figcaption {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 10px;
+    }
+  </style>
+
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
-      }
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">One Dimensional Systems</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>One Dimensional Systems</h1>
+      <hr class="subtle-hr">
+    </header>
+
     <p>
       Now that we have shown that any higher order ODEs can be reduced into a system of first order ODEs, the ability to analyze
       first order ODEs is obviously important. The first step in this process is <strong>fixed point analysis</strong>.
     </p>
 
-  <h2>Fixed Point Analysis</h2>
+    <h2>Fixed Point Analysis</h2>
     <p>
       As mentioned, we can analyze systems of autonomous first order ODEs individually at first. We begin with the aforementioned
-      <strong>fixed point analysis.</strong>. First let's consider such a system,
+      <strong>fixed point analysis</strong>. First let's consider such a system,
     </p>
-    <div class="math-block">\[
-          \dot{x} = f(x)
-    \]</div>
+
+    \[ \dot{x} = f(x) \]
+
     <p>The <strong>fixed points</strong>, are the points \(x^*\) such that</p>
-    <div class="math-block">\[
-          f(x^*) = 0
-    \]</div>
-    <p>Since the right hand side of these systems are algebraic, it is often pretty straightforward to find these points. 
+
+    \[ f(x^*) = 0 \]
+
+    <p>
+      Since the right hand side of these systems are algebraic, it is often pretty straightforward to find these points. 
       It's not always easy to find it analytically, but numerical approximations can work as well.
     </p>
     <p>Now what does it mean for our system when \(f(x) = 0\)? This means that our state variable \(x\) is not changing.
       That is, the derivative (instantaneous rate of change) is \(0\) and will stay \(0\). Since,
     </p>
-    <div class="math-block">\[
-          \dot{x} = f(x^*) = 0
-    \]</div>
-    <p>Finding this point is simply finding the value of \(x\) at which the state will never move. This is why it's called a fixed point.
+
+    \[ \dot{x} = f(x^*) = 0 \]
+
+    <p>
+      Finding this point is simply finding the value of \(x\) at which the state will never move. This is why it's called a fixed point.
       Due to our uniqueness and existence theorems, we know that no other trajectory can ever intersect the fixed point. This is due
       to the fact that there is a trajectory starting at the fixed point and stays there forever, and if some other trajectory 
       intersected this point it would contradict the uniqueness of solutions that we have. However, fixed points dominate the behavior
       of any system but especially 1D systems. In one dimension, each trajectory will either get arbitrarily close to a fixed point, or go off to infinity.
       Now let's consider a concrete example.
     </p>
-  <h2>Examples</h2>
-  <p>Consider the 1D system called the <strong>Logistic Equation</strong> which models the population dynamics of a single
-    species.
-  </p>
-  <div class="math-block">\[
-    \dot{x} = rx(1-\frac{x}{L})
-    \]
-  </div>
-  <p>Where \(x(t)\) is the population of the species at time \(t\), \(r\) is the reproduction rate, and \(L\) is the carrying capacity. \(r\) and \(L\) are both constants. Now let's 
-    find when the population stops changing. This happens when 
-  </p>
-  <div class="math-block">\[
-    rx(1-\frac{x}{L}) = 0
-    \]
-  </div>
-  <p>Rearranging for \(x\), we get</p>
-  <div class="math-block">\[
-    -\frac{x^2}{L} + x = 0
-    \]
-  </div>
-  <p>This is a quadratic equation in \(x\), with \(a = -\frac{1}{L}, b = 1, c= 0\). The quadratic equation is.</p>
-  <div class="math-block">\[
-    \frac{-b \pm \sqrt{b^2-4ac}}{2a}
-    \]
-  </div>
-  <p>With our values we get</p>
-    <div class="math-block">\[
-    \frac{(-1 \pm \sqrt{1})}{-2/L}
-    \]
-  </div>
-  <p>\(L\) is a free parameter and so we will let \(L = 100\) for simplicity. Then we have two fixed points</p>
-    <div class="math-block">\[
-    \begin{align}
-    x_1 &= \frac{(-1 + 1)}{-2/100} = 0 \\\\
-    x_2 &= \frac{(-1-1)}{-2/100} = 100
-    \end{align}
-    \]
-  </div>
-  <p>Now let's interpret this. If the population is originally at \(0\), then it will never grow. This makes sense
-    and is physically accurate. On the other hand, if the population is at \(100\) (its carrying capacity), then it won't
-    grow (or shrink), the population will remain at that value forever.
-  </p>
-  <p>
-    What about other values? There are two important regions to consider, populations between \(0\) and \(100\) and 
-    populations greater than \(100\). To understand them, we must understand the right hand side of the ODE, i.e.
-  </p>
-  <div class="math-block">\[
-    rx(1-\frac{x}{100})
-    \]
-  </div>
-  <p>Now let's take \(r=1.25\). In other words the population grows by a quarter of its current population. Choosing different values 
-    of \(r\) will change the dynamics. We will discuss that later. Subbing \(1.25\) in, we have</p>
-  <div class="math-block">\[
-    1.25x(1-\frac{x}{100})
-    \]
-  </div>
-  <p>This is a concave down parabola with zeros at \(x=0\) and \(x=100\) (as previously found).</p>
-  <figure class="topic-figure">
-  <img src="images/log.png" alt="logisticCurve" class="topic-img">
-  <figcaption>\(1.25x(1-x^2)\) Graphed</figcaption>
-</figure>
-<p>This curve is itself what dictates the population change. So when this curve is negative, we have 
-  population loss, conversely when it is positive, we have population growth. In 1D it is useful to plot 
-  \(x\) vs. \(\dot{x}\). Where \(\dot{x}\) is given by the curve above. Doing so, we have the following graph.
-</p>
-  <figure class="topic-figure">
-  <img src="images/lineFlow.png" alt="flow" class="topic-img">
-  <figcaption>\(x\) vs. \(\dot{x}\) Graphed</figcaption>
-</figure>
-<p>The blue line represents the actual population. The arrows are vector arrows, it tells you where the population 
-  will move in time. Notice the two circles at \(x=0\) and \(x=100\). As we can see for the one at \(x=0\), all
-  arrows point away from it. We say that this fixed point is <strong>unstable</strong>, we also sometimes call 
-  it a <strong>source</strong>. We denote this graphically with the empty circle as shown in the image.
-  Now consider the fixed point at \(x=100\). All arrows near it are pointing towards it. We call this fixed point
-  <strong>stable</strong> and in some contexts, <strong>attracting</strong>. These fixed points are denoted graphically
-  with filled in circles as shown. Now we can deduce the fundamental nature of the entire system as follows: if 
-  the population is above \(100\), the population will decline to \(100\) (technically will get arbitrarily close and 
-  never touch it). If the population is greater than \(0\) but less than \(100\), then it will grow to 
-  \(100\) (similarly arbitrarily close but not exactly \(100\)). If the populations start at either of the fixed 
-  points \(0\) or \(100\), then they will remain there forever. The rate of growth at a certain population can be 
-  deduced by taking the derivative of the right hand side with respect to \(x\) (not \(t\)). We can see this 
-  graphically as well. The slope of the curve above is the speed at which the population is changing.
-  This peaks near the beginning and decreases until around \(x=50\) (middle of the parabola) and then becomes negative, causing a decreased rate as it approaches 
-  \(100\). More quantitatively, we can inspect how fast the population will change with respect to the current 
-  population by taking the derivative of it with respect to \(x\). In our example, if 
-</p>
-  <div class="math-block">\[
-    f(x) = 1.25x(1-\frac{x}{100})
-    \]
-  </div>
-<p>Then, we can find the rate of change of this function by computing </p>
-  <div class="math-block">\[
-    \frac{df}{dx} = r(1-\frac{2x}{L})
-    \]
-  </div>
-  <p>This leads us to the final step in this level of analysis. Linearization.</p>
 
-  <h2>Linearization and Fixed Point Stability</h2>
-  <p>Although we can see all of this graphically, we need a way to mathematically deduce these results. This is 
-    where <strong>linearization</strong> is used. The idea is that we want to see what would happen to a 
-    trajectory that starts very close to a fixed point. Does it grow further away? Does it grow closer? Can we not tell?
-    We can answer these with linearization. First, as mentioned, consider a small perturbation near a fixed point.
-    First, let's consider a general first order autonomous ODE.
-  </p>
-        <div class="math-block">\[
-    \dot{x} = f(x)
-    \]
-  </div>
-    
-    <p>Let,
-  </p>
-    <div class="math-block">\[
-    x = x^*+\eta(t)
-    \]
-  </div>
-  <p>Where \(x^*\) is a fixed point and \(\eta\) is a small perturbation near the fixed point. Then, 
-  </p>
-      <div class="math-block">\[
-    \dot{x} = \dot{\eta}(t)
-    \]
-  </div>
-  <p>Since \(x^*\) is a fixed point, its derivative is \(0\). Furthermore, since</p>
+    <h2>Examples</h2>
+    <p>Consider the 1D system called the <strong>Logistic Equation</strong> which models the population dynamics of a single species.</p>
+
+    \[ \dot{x} = rx(1-\frac{x}{L}) \]
+
+    <p>
+      Where \(x(t)\) is the population of the species at time \(t\), \(r\) is the reproduction rate, and \(L\) is the carrying capacity. \(r\) and \(L\) are both constants. 
+      Now let's find when the population stops changing. This happens when 
     </p>
-  <div class="math-block">\[
-  \dot{x} = f(x),
-  \]</div>
 
-  <p>
-  we get
-  </p>
-  <div class="math-block">\[
-  \dot{\eta}(t) = f(x) = f(x^* + \eta(t)).
-  \]</div>
-  <p>Therefore, we have</p>
-  <div class="math-block">\[
-  \dot{\eta}(t) = f(x^* + \eta(t)).
-  \]</div>
+    \[ rx(1-\frac{x}{L}) = 0 \]
 
-  <p>
-  Now we linearize using a Taylor expansion of \(f\) about \(x^*\):
-  </p>
+    <p>Rearranging for \(x\), we get</p>
 
-  <div class="math-block">\[
-  f(x^* + \eta) \approx f(x^*) + f'(x^*)\eta + \mathcal{O}(\eta^2).
-  \]</div>
+    \[ -\frac{x^2}{L} + x = 0 \]
 
-  <p>
-  But \(f(x^*) = 0\) since \(x^*\) is a fixed point. Ignoring higher-order terms gives
-  </p>
+    <p>This is a quadratic equation in \(x\), with \(a = -\frac{1}{L}, b = 1, c= 0\). The quadratic equation is:</p>
 
-  <div class="math-block">\[
-  \dot{\eta}(t) \approx f'(x^*) \eta(t).
-  \]</div>
-  <p>Note that for the \(x-x^*\) term in the Taylor expansion, we get that </p>
-  <div class="math-block">\[
-  x = x^* + \eta(t) \implies \eta(t) = x-x^*
-  \]</div>
-  <p>Now back to</p>
-  <div class="math-block">\[
-  \dot{\eta}(t) \approx f'(x^*) \eta(t).
-  \]</div>
+    \[ \frac{-b \pm \sqrt{b^2-4ac}}{2a} \]
 
-  <p>
-  This is a linear differential equation whose solution is
-  </p>
+    <p>With our values we get</p>
 
-  <div class="math-block">\[
-  \eta(t) = \eta(0) e^{f'(x^*) t}.
-  \]</div>
+    \[ \frac{(-1 \pm \sqrt{1})}{-2/L} \]
 
-  <p>
-  Finally:
-  </p>
+    <p>\(L\) is a free parameter and so we will let \(L = 100\) for simplicity. Then we have two fixed points:</p>
 
-  <ul>
-    <li>If \(f'(x^*) &lt; 0\), then \(\eta(t) \to 0\) and the fixed point is <b>stable</b>.</li>
-    <li>If \(f'(x^*) &gt; 0\), then \(\eta(t)\) grows and the fixed point is <b>unstable</b>.</li>
-  </ul>
+    \[ \begin{align} x_1 &= \frac{(-1 + 1)}{-2/100} = 0 \\ x_2 &= \frac{(-1-1)}{-2/100} = 100 \end{align} \]
 
-  <p>
-  A <b>hyperbolic fixed point</b> is a fixed point where \(f'(x^*) \neq 0\).  
-  If \(f'(x^*) = 0\), the point is called <b>non-hyperbolic</b>, and higher-order terms must be analyzed to determine stability.
-  So as long as the point is hyperbolic, we can quantitatively determine its stability. Let's try it for our example 
-  above.
-  </p>
-<h2>Linearization of the Logistic Equation</h2>
-  <p>This is pretty straightforward; we already have the expression for the linearization, we just need 
-    to compute the necessary derivatives for each fixed point. First let's pre-compute \(f'\), so that we have it
-    for both expressions.
-  </p>
-    <div class="math-block">\[
-      f(x) = 1.25x(1-\frac{x}{100})
-  \]</div>
-  <div class="math-block">\[
-      \implies f'(x) = 1.25-2.5\frac{x}{100}
-  \]</div>
-  <p>Now let's consider \(x^* = 0\)</p>
-    <div class="math-block">\[
-       f'(0) = 1.25 \implies f'(x^*) > 0
-  \]</div>
-  <p>Therefore, we have shown that the fixed point \(x^* = 0\) is <strong>unstable</strong> (aka repelling or a source).
-  Any nearby trajectories grow in time. </p>
-  <p>Finally, let's consider the fixed point \(x^* = 100\)</p>
-      <div class="math-block">\[
-        \begin{align}
-       f'(100) &= 1.25-2.5 \cdot \frac{100}{100} \\
-       f'(100) &= -1.25 \implies f'(x^*) < 0
-       \end{align}
-  \]</div>
-  <p>Therefore we see that both fixed points are <strong>hyperbolic</strong>, and that the second 
-  fixed point \(x^* = 100\) is <strong>stable</strong> (aka attracting or a sink). Any nearby trajectories are 
-  pulled towards the fixed point, sort of like a blackhole.</p>
-  <p>We have now gone over fixed point analysis and linearization for 1D systems. These concepts are extremely 
-    important and typically the first steps to analyzing any system. In higher dimensions, we build upon these 
-    ideas with things like the <strong>Jacobian</strong>. Again, the intuition behind linearization is to see 
-    what would happen if we started a trajectory very close to a fixed point. If the distance to the fixed point decays, then it's 
-    attracting. If the distance to the fixed point grows, then it's repelling. This concludes the preliminary 
-    analysis of 1D systems. However, this is not all. I cover dependence on parameters in the next section 
-    and how changing parameters can make or break stability. These qualitative changes in the system's 
-    behavior are known as <strong>bifurcations</strong>, and they have very rich and interesting theory.
-  </p>
+    <p>
+      Now let's interpret this. If the population is originally at \(0\), then it will never grow. This makes sense
+      and is physically accurate. On the other hand, if the population is at \(100\) (its carrying capacity), then it won't
+      grow (or shrink), the population will remain at that value forever.
+    </p>
+    <p>
+      What about other values? There are two important regions to consider, populations between \(0\) and \(100\) and 
+      populations greater than \(100\). To understand them, we must understand the right hand side of the ODE, i.e.
+    </p>
+
+    \[ rx(1-\frac{x}{100}) \]
+
+    <p>Now let's take \(r=1.25\). In other words the population grows by a quarter of its current population. Subbing \(1.25\) in, we have</p>
+
+    \[ 1.25x(1-\frac{x}{100}) \]
+
+    <p>This is a concave down parabola with zeros at \(x=0\) and \(x=100\).</p>
+
+    <figure class="topic-figure">
+      <img src="images/log.png" alt="logisticCurve" class="topic-img">
+      <figcaption>\(1.25x(1-x/100)\) Graphed</figcaption>
+    </figure>
+
+    <p>
+      This curve is itself what dictates the population change. So when this curve is negative, we have 
+      population loss, conversely when it is positive, we have population growth. In 1D it is useful to plot 
+      \(x\) vs. \(\dot{x}\). Doing so, we have the following graph.
+    </p>
+
+    <figure class="topic-figure">
+      <img src="images/lineFlow.png" alt="flow" class="topic-img">
+      <figcaption>\(x\) vs. \(\dot{x}\) Phase Flow Diagram</figcaption>
+    </figure>
+
+    <p>
+      The blue line represents the actual population. The arrows tell you where the population 
+      will move in time. At \(x=0\), all arrows point away from it. We say that this fixed point is <strong>unstable</strong>, 
+      (also called a <strong>source</strong>). We denote this graphically with the empty circle.
+      At \(x=100\), all arrows near it are pointing towards it. We call this fixed point <strong>stable</strong> 
+      (also called <strong>attracting</strong>), denoted with a filled in circle.
+    </p>
+
+    <h2>Linearization and Fixed Point Stability</h2>
+    <p>
+      Although we can see all of this graphically, we need a way to mathematically deduce these results. This is 
+      where <strong>linearization</strong> is used. The idea is to see what would happen to a 
+      trajectory that starts very close to a fixed point. Consider a small perturbation near a fixed point:
+    </p>
+
+    \[ x = x^*+\eta(t) \implies \dot{x} = \dot{\eta}(t) \]
+
+    <p>Since \(x^*\) is a fixed point, its derivative is \(0\). Then,</p>
+
+    \[ \dot{\eta}(t) = f(x^* + \eta(t)) \]
+
+    <p>Now we linearize using a Taylor expansion of \(f\) about \(x^*\):</p>
+
+    \[ f(x^* + \eta) \approx f(x^*) + f'(x^*)\eta + \mathcal{O}(\eta^2) \]
+
+    <p>But \(f(x^*) = 0\). Ignoring higher-order terms gives:</p>
+
+    \[ \dot{\eta}(t) \approx f'(x^*) \eta(t) \implies \eta(t) = \eta(0) e^{f'(x^*) t} \]
+
+    <ul>
+      <li>If \(f'(x^*) < 0\), then \(\eta(t) \to 0\) and the fixed point is <b>stable</b>.</li>
+      <li>If \(f'(x^*) > 0\), then \(\eta(t)\) grows and the fixed point is <b>unstable</b>.</li>
+    </ul>
+
+    <h2>Linearization of the Logistic Equation</h2>
+    
+    \[ f'(x) = 1.25-2.5\frac{x}{100} \]
+
+    <p>At \(x^* = 0\): \(f'(0) = 1.25 \implies f'(x^*) > 0\) (<strong>unstable</strong>).</p>
+    <p>At \(x^* = 100\): \(f'(100) = 1.25-2.5 = -1.25 \implies f'(x^*) < 0\) (<strong>stable</strong>).</p>
+
+    <p>
+      Both fixed points are <strong>hyperbolic</strong>. If the distance to the fixed point decays, it's attracting. 
+      If it grows, it's repelling. This concludes the preliminary analysis of 1D systems.
+    </p>
+
+    <section class="archive-section" style="margin-top: 50px;">
+      <a href="../nonLinearHome.html" class="btn-outline">← Back to Nonlinear Dynamics</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
 </body>
 </html>

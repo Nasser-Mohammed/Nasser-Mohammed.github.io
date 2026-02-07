@@ -1,30 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/png" href="../../../pictures/butterfly16.png" sizes="48x48">
-  <title>Existence and Uniquness Theorems</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Existence and Uniqueness Theorems | Nasser Mohammed</title>
+
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
-      }
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Existence and Uniquness Theorems</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>Existence and Uniqueness Theorems</h1>
+      <hr class="subtle-hr">
+    </header>
+
     <p>
       The beauty of the geometry of dynamical systems is due to the existence and uniqueness theorems for ODEs. These results
       give us the conditions under which ODEs have solutions, and when those solutions are unique. Once we have these results,
@@ -36,16 +48,14 @@
       Before we get into the general theorems, let us recall the solution to first-order linear ODEs with constant coefficients.
       These are equations of the form
     </p>
-    <div class="math-block">\[
-      \dot{x} = rx,
-      \]
+    <div class="math-display">
+      \[ \dot{x} = rx, \]
     </div>
     <p>
       which always have solutions
     </p>
-    <div class="math-block">\[
-      x(t) = Ae^{rt},
-      \]
+    <div class="math-display">
+      \[ x(t) = Ae^{rt}, \]
     </div>
     <p>
       where the constant \(A\) is determined by the initial condition \(x(0) = x_0\).
@@ -55,9 +65,8 @@
     <p>
       Consider the general initial value problem
     </p>
-    <div class="math-block">\[
-      \dot{x} = f(t,x), \quad x(t_0) = x_0.
-      \]
+    <div class="math-display">
+      \[ \dot{x} = f(t,x), \quad x(t_0) = x_0. \]
     </div>
     <p>
       The <b>Existence Theorem</b> states: if the function \(f(t,x)\) is continuous in a region around \((t_0, x_0)\),
@@ -72,9 +81,8 @@
       Continuity alone does not prevent multiple solutions. To guarantee uniqueness, we require more.
       Suppose \(f(t,x)\) satisfies a <i>Lipschitz condition</i> in the variable \(x\); that is, there exists \(L > 0\) such that
     </p>
-    <div class="math-block">\[
-      |f(t,x_1) - f(t,x_2)| \leq L |x_1 - x_2|
-    \]
+    <div class="math-display">
+      \[ |f(t,x_1) - f(t,x_2)| \leq L |x_1 - x_2| \]
     </div>
     <p>
       for all \(x_1, x_2\) in the region of interest. Then the initial value problem has exactly one solution.
@@ -83,20 +91,30 @@
       Geometrically, this means that in the phase space, no two trajectories can cross, and each point belongs to one and only one solution curve.
     </p>
 
+    
+
     <h2>Failure of Uniqueness</h2>
     <p>
       If the Lipschitz condition fails, uniqueness may break down. For instance, consider
     </p>
-    <div class="math-block">\[
-      \dot{x} = \sqrt{|x|}, \quad x(0) = 0.
-    \]
+    <div class="math-display">
+      \[ \dot{x} = \sqrt{|x|}, \quad x(0) = 0. \]
     </div>
     <p>
       Both \(x(t) = 0\) and \(x(t) = \tfrac{1}{4}(t-c)^2\) (for any \(c \geq 0\)) are valid solutions.
       Thus the system is not deterministic, and multiple solution curves can pass through the same initial point.
     </p>
+
+    
+
+    <section class="archive-section" style="margin-top: 50px;">
+      <a href="../nonLinearHome.html" class="btn-outline">← Back to Nonlinear Dynamics</a>
+    </section>
   </main>
 
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>
