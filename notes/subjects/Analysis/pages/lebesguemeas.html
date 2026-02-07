@@ -1,407 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lebesgue Measure Theory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lebesgue Measure Theory | Nasser Mohammed</title>
 
-  <!-- Shared stylesheet -->
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- MathJax v3 (with inline + display config) -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
-        processEscapes: true
-      }
+        processEscapes: true,
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Lebesgue Measure Theory</h1>
-  </header>
-<main>
-  <p>
-    The Lebesgue Measure was introduced to generalize our intuition of <em>sizes</em>, to subsets of \(\mathbb{R}^n\) (Euclidean Space).
-    Our intuition of sizes naturally comes from the known sizes of the basic geometric shapes, such as, circles, rectangles, cubes, etc.
-    With this in mind, we try to "cover" these subsets of \(\mathbb{R}^n\) with these shapes, and calculate the <em>size</em> of the sets with
-    the shapes that cover it. Here we note two important theorems:
-  </p>
+<body class="dark-theme">
 
-  <div class="theorem">
-    <strong>Theorem 1:</strong><br>
-    Every open subset \(\mathbb{O}\) of \(\mathbb{R}\) can be written <strong>uniquely</strong> as a countable union of disjoint intervals.
-  </div>
-
-  <p>Extending this to \(\mathbb{R}^n\), we have the next theorem.</p>
-
-  <div class="theorem">
-    <strong>Theorem 2:</strong><br>
-    Every open subset \(\mathbb{O}\) of \(\mathbb{R}^d\) with \(d \ge 1\), can be written (not necessarily uniquely) as a countable union of almost disjoint closed cubes.
-  </div>
-
-  <div class="note">
-    <strong>Note:</strong> Almost disjoint means that these cubes are disjoint, except possibly, at the boundaries. In other words, their interiors are disjoint.
-  </div>
-
-  <h2>Size of Intervals and Basic Shapes</h2>
-  <p>
-    To ensure no confusion, I will cover the basic sizes of our shapes. First, a (closed) rectangle R in \(\mathbb{R}^d\) is given by the product of intervals:
-    R = \([a_1, b_1]\times[a_2, b_2]\times.....\times[a_d, b_d]\), where the size of each interval \([a_j, b_j] \text{  is } b_j - a_j\).
-    We can now say that the <em>size</em> of R, denoted \(\left| R \right|=\)
-  </p>
-
-  <div class="note">
-    \[
-      \sum_{j = 1}^{d} b_j - a_j
-    \]
-  </div>
-
-  <div class="lemma">
-    <strong>Lemma 1:</strong><br>
-    If \(R_1, R_2, R_3, ...... , R_N\) are rectangles <strong>and</strong>
-    \[
-      R \subset \bigcup_{j = 1}^N R_j
-    \]
-    Then we can conclude
-    \[
-      \left| R \right| \leq \sum_{j =  1}^N \left| R_j\right|.
-    \]
-  </div>
-
-  <h2>The Exterior Measure</h2>
-  <p>
-    As the name suggests, the exterior measure involves assigning a measure (size) to <strong>any</strong> subset \(E\) of \(\mathbb{R}^d\), by covering \(E\) with shapes from the outside.
-    That is, we consider the smallest possible shape that \(E\) is contained in. To put this more formally, the exterior measure, denoted \(m_{\ast}\), assigns
-    <strong>any</strong> subset \(E\) of \(\mathbb{R}^d\) a measure by the below equation
-  </p>
-
-  <div class="note">
-    \[
-      m_{\ast}(E) = \inf \sum_{j = 1}^{\infty}\left| Q_j \right|
-    \]
-    \[
-      E \subset \bigcup_{j = 1}^{\infty} Q_j
-    \]
-    <em>Note:</em> \(Q_j\) is simply a closed cube
-  </div>
-
-  <p>
-    The exterior measure can be any value from 0 to \(\infty\) including both 0 and \(\infty\), i.e. \(0 \leq m_{\ast}(E) \leq \infty\)
-    Once we realize that single points and the empty set \(\emptyset\), both have an exterior measure of 0, we can start to make some important obversations.
-    I will not go into detail for each one, but the main two are:
-  </p>
-
-  <div class="theorem">
-    <strong>Monotonicity:</strong><br>
-    If \(E_1 \subset E_2 \text{ then } m_{\ast}(E_1) \leq m_{\ast}(E_2)\).
-  </div>
-
-  <div class="theorem">
-    <strong>Countable Sub-Additivity:</strong><br>
-    If
-    \[
-      E = \bigcup_{j = 1}^{\infty} E_j
-    \]
-    Then
-    \[
-      m_{\ast}(E) \leq \sum_{j = 1}^{\infty} m_{\ast}(E_j).
-    \]
-  </div>
-
-  <p>
-    The second obvservation, countable sub-additivity, initially did not make sense to me. However, we have to consider that we are approximating our sets from the outside, therefore,
-    it is possible for our set to be written as a countable union of shrinking/growing subsets, that don't add any "size" to our set. To put it more clearly, assume we have a set
-    \(E = [0,3]\), a simple interval. However, we could also say that
-  </p>
-
-  <div class="note">
-    \[
-      E = \bigcup_{j = 1}^{\infty}(0, 3-\tfrac{1}{j})
-    \]
-    <div>
-      To further analyze this, let's consider each \(j\) and the interval it produces:
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
     </div>
-    \[
-      j = 1: (0, 2)
-    \]
-    \[
-      j = 2: (0, 2\tfrac{1}{2})
-    \]
-    \[
-      j = 3: (0, 2\tfrac{2}{3})
-    \]
-    \[
-      .
-    \]
-    \[
-      .
-    \]
-    \[
-      .
-    \]
-    \[
-      j = 1000: (0, 2.999)
-    \]
-    <div>
-      We can see that as \(j \rightarrow \infty\), our intervals will \(\rightarrow (0, 3)\). However, if we try to consider a finite number of unions, we will not get the full interval \((0, 3)\).
-      So then we must have
-    </div>
-    \[
-      E = \bigcup_{j = 1}^{\infty}(0, 3-\tfrac{1}{j})
-    \]
-    <div>
-      However,
-    </div>
-    \[
-      m_{\ast}(E) \neq \sum_{j = 1}^{\infty}\big(3 - \tfrac{1}{j} - 0\big)
-    \]
-    <div>
-      If we consider the sum, it simplifies to
-    </div>
-    \[
-      \sum_{j = 1}^{\infty}\left(3 - \tfrac{1}{j}\right)
-    \]
-    <div>
-      And since \(\tfrac{1}{j} \rightarrow 0\), it is obvious that
-    </div>
-    \[
-      \sum_{j = 1}^{\infty}\left(3 - \tfrac{1}{j}\right) \rightarrow \infty
-    \]
-    <div>
-      However, we know the size of the interval \((0,3) = 3 - 0 = 3\). And it's apparent to see
-    </div>
-    \[
-      3 \neq \infty
-    \]
-    <div>
-      So we can conclude that
-    </div>
-    \[
-      E = \bigcup_{j = 1}^{\infty}(0, 3-\tfrac{1}{j})
-    \]
-    <div>
-      Does <strong>NOT</strong> imply
-    </div>
-    \[
-      m_{\ast}(E) = \sum_{j = 1}^{\infty}\left(3 - \tfrac{1}{j} - 0\right)
-    \]
-    <div>
-      The strongest thing we can say is that
-    </div>
-    \[
-      m_{\ast}(E) \leq \sum_{j = 1}^{\infty} m_{\ast}(E_j)
-    \]
-  </div>
+  </nav>
 
-  <p>
-    <strong>However</strong>, there are restrictions that we can apply to sets that allows us to have countable additivity.
-    One more thing to note, is that even in contrast to the example I gave above, if I used a countable union of disjoint sets, we still cannot ensure countable additivity on all subsets of
-    \(\mathbb{R}^d\) because of some highly pathalogical sets. Below are two examples where we have better additivity.
-  </p>
+  <main class="container">
+    <header class="hero-section">
+      <h1>Lebesgue Measure Theory</h1>
+      <p class="subtitle">Generalizing Size, Exterior Measures, and Measurable Functions</p>
+      <hr class="subtle-hr">
+    </header>
 
-  <div class="theorem">
-    <strong>Observation 3:</strong><br>
-    If
-    \[
-      E = \bigcup_{j = 1}^{\infty} Q_j
-    \]
-    Where each \(Q_j\) is an almost disjoint cube, then
-    \[
-      m_{\ast}(E) = \sum_{j = 1}^{\infty}\left|Q_j\right|.
-    \]
-  </div>
+    <section class="bio-text">
+      <p>
+        The Lebesgue Measure was introduced to generalize our intuition of <em>sizes</em> to subsets of \(\mathbb{R}^n\) (Euclidean Space). Our intuition of sizes naturally comes from known geometric shapes like circles, rectangles, and cubes. We "cover" these subsets with these shapes and calculate the <em>size</em> of the sets based on the shapes that cover them.
+      </p>
 
-  <div class="theorem">
-    <strong>Observation 4:</strong><br>
-    If
-    \[
-      E = E_1 \cup E_2
-    \]
-    Where \(d(E_1, E_2) > 0\) then
-    \[
-      m_{\ast}(E) = m_{\ast}(E_1) + m_{\ast}(E_2).
-    \]
-  </div>
+      <div class="archive-box">
+        <p><strong>Theorem 1:</strong> Every open subset \(\mathbb{O}\) of \(\mathbb{R}\) can be written <strong>uniquely</strong> as a countable union of disjoint intervals.</p>
+        <p><strong>Theorem 2:</strong> Every open subset \(\mathbb{O}\) of \(\mathbb{R}^d\) (\(d \ge 1\)) can be written as a countable union of almost disjoint closed cubes.</p>
+        <p><em>Note:</em> "Almost disjoint" means the interiors are disjoint, though boundaries may overlap.</p>
+      </div>
 
-  <h2>Measurability of Sets</h2>
-  <p>
-    With these observations in mind, we will introduce the definition of <em>measurability</em>. This definition is used to limit the exterior measure,
-    (currently defined on all subsets of a set \(\mathbb{R}^d\)) to a certain collection of subsets of \(\mathbb{R}^d\), which form a \(\sigma\)-algebra.
-    Additionally, the exterior measure \(m_{\ast}\) will be countably additive on this \(\sigma\)-algebra, which we call the
-    <strong>Lebesgue Measurable Sets</strong> of \(\mathbb{R}^d\). The definition is as follows:
-  </p>
+      <h2>Size of Intervals and Basic Shapes</h2>
+      <p>
+        A closed rectangle \(R\) in \(\mathbb{R}^d\) is defined by the product of intervals: \(R = [a_1, b_1]\times[a_2, b_2]\times\dots\times[a_d, b_d]\). The size of each interval is \(b_j - a_j\). The volume \(\left| R \right|\) is the product of these lengths.
+      </p>
 
-  <div class="definition">
-    \[
-      \text{A set } \mathbb{E} \text{, is measurable if } \forall \epsilon > 0, \exists \text{ an open set } \mathbb{O} \text{ with } \mathbb{E} \subset \mathbb{O}
-      \text{ such that } m_{\ast}(\mathbb{O} - \mathbb{E}) \leq \epsilon
-    \]
-    \[
-      \text{Where } \mathbb{O}-\mathbb{E} \text{ is defined as the set difference operation: } \mathbb{O}-\mathbb{E} = \mathbb{O}\cap\mathbb{E}^c
-    \]
-  </div>
+      <div class="archive-box">
+        <p><strong>Lemma 1:</strong> If \(R \subset \bigcup_{j = 1}^N R_j\), then \(\left| R \right| \leq \sum_{j = 1}^N \left| R_j\right|\).</p>
+      </div>
 
-  <p>Without much justification, I will list some basic measurable sets.</p>
-  <ul>
-    <li>Closed sets</li>
-    <li>Open sets</li>
-    <li>Null sets (sets with an exterior measure of 0)</li>
-    <li>Subsets of Null sets</li>
-  </ul>
+      <h2>The Exterior Measure</h2>
+      <p>
+        The exterior measure assigns a size to <strong>any</strong> subset \(E\) of \(\mathbb{R}^d\) by covering it with shapes from the outside. Formally, the exterior measure \(m_{\ast}\) is defined as:
+      </p>
 
-  <div class="note">
-    <strong>Note:</strong> To avoid any confusion, an open set is defined below:
-    \[
-      \text{A set } O \text{ is open, if } \forall x \in O, \exists B_r(x) \text{ such that } B_r(x) \subseteq O
-    \]
-    In English, this means that for any point in \(O\) there exists a ball of radius \(r\), centered at \(x\), such that the ball is entirely contained within \(O\).
-    With this defined, a closed set is simply a set whose complement is an open set.
-  </div>
+      <div class="archive-box">
+        <div class="math-display">
+          \[m_{\ast}(E) = \inf \left\{ \sum_{j = 1}^{\infty}\left| Q_j \right| : E \subset \bigcup_{j = 1}^{\infty} Q_j \right\}\]
+        </div>
+        <p>where \(Q_j\) represents closed cubes.</p>
+      </div>
 
-  <p>
-    Since we know the sets listed above are elements of the <strong>Lebesgue Measurable Sets</strong> (a \(\sigma\)-algebra), then we can also conclude that a countable union or intersection of these sets are also measurable.
-    Now to recall some set theory, we know a countable union of open sets is an open set, and a countable intersection of closed sets is a closed set.
-    However, we cannot say for certain whether or not a countable intersection of open sets is open, or if a countable union of closed sets is closed.
-    This leads to the definition of two types of measurable sets below:
-  </p>
+      
 
-  <div class="definition">
-    \[
-      \text{A } G_{\delta} \text{ is a countable intersection of open sets}
-    \]
-    \[
-      \text{An } F_{\sigma} \text{ is a countable union of closed sets}
-    \]
-  </div>
+      <p>Main observations regarding exterior measure:</p>
+      <ul>
+        <li><strong>Monotonicity:</strong> If \(E_1 \subset E_2\) then \(m_{\ast}(E_1) \leq m_{\ast}(E_2)\).</li>
+        <li><strong>Countable Sub-Additivity:</strong> If \(E = \bigcup_{j = 1}^{\infty} E_j\), then \(m_{\ast}(E) \leq \sum_{j = 1}^{\infty} m_{\ast}(E_j)\).</li>
+      </ul>
 
-  <p>
-    These sets are important, because every set in the <strong>Lebesgue Measurable Sets</strong> is sandwhiched between an
-    \(F_{\sigma} \text{ and a } G_{\delta}\). Meaning every measurable set will have the same measure as some
-    \(F_{\sigma} \text{ and some } G_{\delta}\)
-  </p>
+      <h3>Counterintuitive Sub-Additivity</h3>
+      <p>
+        Because we approximate from the outside, a set like \(E = [0,3]\) can be written as \(\bigcup_{j = 1}^{\infty}(0, 3-\tfrac{1}{j})\). Even though the sum of the measures of these subsets might approach infinity in some contexts, the exterior measure of the union remains 3. This confirms that \(m_{\ast}(E) \leq \sum m_{\ast}(E_j)\), but equality is not guaranteed without further restrictions.
+      </p>
 
-  <p>
-    We also write \(m_{\ast}(E) = m(E)\) when \(E\) is a <strong>Lebesgue Measurable Set</strong>, since the exterior measure on this \(\sigma\)-algebra, is a proper measure.
-    Finally, we have countable additivity as defined below:
-  </p>
+      <div class="archive-box">
+        <p><strong>Additivity conditions:</strong></p>
+        <ul>
+          <li>If \(E = \bigcup Q_j\) (almost disjoint cubes), then \(m_{\ast}(E) = \sum \left|Q_j\right|\).</li>
+          <li>If \(d(E_1, E_2) > 0\), then \(m_{\ast}(E_1 \cup E_2) = m_{\ast}(E_1) + m_{\ast}(E_2)\).</li>
+        </ul>
+      </div>
 
-  <div class="theorem">
-    \[
-      \text{If }E_1, E_2, ..... ,E_n \text{ are disjoint measurable sets, and } E = \bigcup_{n = 1}^{\infty}E_n \text{  then,  } m(E) = \sum_{n = 1}^{\infty}m(E_n)
-    \]
-  </div>
+      <h2>Measurability of Sets</h2>
+      <p>
+        We restrict the exterior measure to a \(\sigma\)-algebra called <strong>Lebesgue Measurable Sets</strong>, where the measure becomes countably additive.
+      </p>
 
-  <p>
-    The last thing to consider with measurable sets is how limits interact with sequences of sets and their measure.
-  </p>
+      <div class="archive-box">
+        <p><strong>Definition:</strong> A set \(\mathbb{E}\) is measurable if \(\forall \epsilon > 0\), there exists an open set \(\mathbb{O}\) with \(\mathbb{E} \subset \mathbb{O}\) such that \(m_{\ast}(\mathbb{O} - \mathbb{E}) \leq \epsilon\).</p>
+      </div>
 
-  <div class="note">
-    \[
-      \text{If } E_1, E_2, ..... , E_n \text{ are measurable sets, and }  \{E_n\} \rightarrow E \text{ then } \lim_{n \rightarrow \infty}m(E_n) = m(E)
-    \]
-    <em>Note:</em> If the sets are shrinking to \(E\), then eventually one of the sets \(E_j\) must have \(m(E_j) < \infty\), otherwise we obviously can't have the statement above.
-  </div>
+      <p>Basic measurable sets include closed sets, open sets, and null sets (measure 0). Countable unions and intersections of these are also measurable, leading to:</p>
+      <ul>
+        <li><strong>\(G_{\delta}\):</strong> Countable intersection of open sets.</li>
+        <li><strong>\(F_{\sigma}\):</strong> Countable union of closed sets.</li>
+      </ul>
 
-  <h2>Measurability of Functions</h2>
-  <p>
-    After defining what a measurable set is, it is natural to consider what a measurable function might look like. In fact, we need to consider these measurable functions to further develop integration theory.
-  </p>
+      <h2>Measurability of Functions</h2>
+      <p>Measurable functions are the building blocks of modern integration theory.</p>
 
-  <div class="definition" style="text-align: center;">
-    \[
-    \begin{aligned}
-    &\text{A function } f \text{ (defined on a measurable subset } E \subset \mathbb{R}^d \text{) is measurable, if }\\
-    &\forall a \in \mathbb{R} \text{, the set } f^{-1}([-\infty, a]) = \{x \in E: f(x) < a\} \text{ is itself measurable}
-    \end{aligned}
-    \]
-  </div>
+      <div class="archive-box">
+        <p><strong>Definition:</strong> A function \(f\) on measurable set \(E\) is measurable if \(\forall a \in \mathbb{R}\), the set \(\{x \in E: f(x) < a\}\) is measurable.</p>
+      </div>
 
-  <p>
-    Now that we have a notion of measurable functions, we will begin to outline some notable measurable functions. First, the building block of integration theory, the characteristic function defined on a set \(E\):
-  </p>
+      <p>The <strong>characteristic function</strong> \(\chi_E(x)\) (which is 1 if \(x \in E\) and 0 otherwise) allows us to build <strong>simple functions</strong>:</p>
+      <div class="math-display">
+        \[f = \sum_{k = 1}^{M} a_k \chi_{E_k}\]
+      </div>
 
-  <div class="definition" style="text-align: center;">
-    \[
-    \chi_E(x) =
-    \begin{cases}
-    1: \text{ if } x \in E \\
-    0: \text{ if } x \notin E
-    \end{cases}
-    \]
-  </div>
+      <h3>Properties & Convergence</h3>
+      <p>In Lebesgue Theory, we often use the term <strong>almost everywhere (a.e.)</strong>, meaning a property holds except on a set of measure zero.</p>
+      
+      <div class="archive-box">
+        <ul>
+          <li>Limits of sequences of measurable functions are measurable.</li>
+          <li>If \(f = g\) a.e. and \(f\) is measurable, then \(g\) is measurable.</li>
+          <li><strong>Fundamental Result:</strong> Any measurable function \(f\) is the pointwise limit of a sequence of simple functions \(\{\phi_k\}\).</li>
+        </ul>
+      </div>
 
-  <p>
-    In other words, this function acts as a sort of switch, that tells us if some number is in the set \(E\). We can now build the simple function, which in the future essentially let us approximate any <em>measurable</em> function by considering the limit of simple functions.
-    I will go into more detail about that later. The simple function is essentially a generalization of the step function used in Riemann Integration, and allows us to consider a wider range of functions.
-    A simple function \(\text{ }f \text{ }\) is defined as the finite sum below:
-  </p>
+      <p>
+        This overview omits highly pathological cases like the Vitali Set or Egorov's Theorem, but establishes the framework for \(L^p\) spaces and robust integration.
+      </p>
+    </section>
 
-  <div class="note">
-    \[
-      f = \sum_{k = 1}^{M} a_k \chi_{E_k}
-    \]
-    Where each \(E_k\) is measurable and has finite measure, and each \(a_k\) is simply a constant.
-  </div>
+    <section class="archive-section" style="display: flex; gap: 15px; margin-top: 40px;">
+      <a href="../analysisHome.html" class="btn-outline">← Real Analysis Home</a>
+      <a href="../../../../notes/notesHome.html" class="btn-outline">Knowledge Base</a>
+    </section>
+  </main>
 
-  <p>The most important properties of <strong>measurable</strong> functions are listed below:</p>
-
-  <div class="theorem" style="text-align: center;">
-    \[
-    \begin{aligned}
-    &\text{(1): If } \{f_n\}_{n=1}^{\infty} \text{ is a sequence of measurable functions and } \lim_{n\rightarrow\infty} f_n(x) = f(x),\\
-    &\qquad \text{then f is measurable}. \\
-    &\text{(2): If } f \text{ and } g \text{ are measurable and finite valued, then } f+g \text{ and } fg \text{ are measurable}. \\
-    &\text{(3): If } f \text{ is measurable, and } f(x) = g(x) \text{ for } a.e \text{ } x, \text{ then } g \text{ is measurable}.
-    \end{aligned}
-    \]
-  </div>
-
-  <div class="note" style="text-align: center;">
-    \[
-    \begin{aligned}
-    &\text{The notation } a.e \text{ } x, \text{means almost everywhere x. Which is defined as, }\\
-    &f(x) = g(x) \text{ } a.e \text{ } x \text{ if the set } \{x: f(x) \neq g(x)\} \text{ has measure 0}.\\
-    &\text{What this means in English, is that the set of x-values, where } f(x) \neq g(x) \text{ has measure 0.}
-    \end{aligned}
-    \]
-  </div>
-
-  <p>
-    This definition of "almost everywhere equal", is really a hallmark of Lebesgue Measure Theory. We essentially replace the pointwise convergence/equality found in Riemann Integration, with almost everywhere convergence/equality.
-    This allows for more general and stronger statements to be made. In Lebesgue Measure Theory, these sets of measure 0 are called null sets, and things like integration pass through null sets essentially.
-  </p>
-
-  <p>
-    Now we can state a result which is really the bread and butter for integration and \(L^p\) theory. As stated earlier, we can essentially approximate measurable functions, to an arbitrary degree, with sequences of simple function.
-    Then in this case (in limit) we actually get pointwise convergence. The statement is as follows:
-  </p>
-
-  <div class="theorem" style="text-align: center;">
-    \[
-    \begin{aligned}
-    &\text{If } f \text{ is a measurable function on } \mathbb{R}^d \text{. Then } \exists \text{ a sequence of simple functions } \{\phi_k\}_{k =1}^{\infty}\\
-    &\text{ that converges pointwise to } f. \text{ In other words, } \lim_{k \rightarrow \infty}\phi_k = f(x) \text{ } \forall x. \\
-    &\text{Additionally, the absolute value of this sequence is increasing, i.e. } \left|\phi_k(x)\right| \leq \left|\phi_{k + 1}(x)\right|.
-    \end{aligned}
-    \]
-  </div>
-
-  <p>
-    I believe this is a good overview of the basics of Lebesgue Measure Theory. The most important things to consider are \(\sigma\)-algebras, the exterior measure, countable additivity vs sub-additivity,
-    measurability, the \(\sigma\)-algebra formed by measurable sets, measurable functions, simple functions, and the theorem stating that every measurable function can be written as the limit of some simple functions
-    (i.e. it states the <strong>existence</strong> of the sequence of simple functions needed to converge to a function). For brevity, there are things left out, such as the
-    <a href="https://en.wikipedia.org/wiki/Cantor_set">Cantor Set</a>, <a href="https://en.wikipedia.org/wiki/Vitali_set">Vitali Set</a>,
-    <a href="https://en.wikipedia.org/wiki/Egorov%27s_theorem">Ergorov's Theorem</a>, etc. If I do not have one of the topics yet in my notes, you can check out those links.
-  </p>
-</main>
-
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>

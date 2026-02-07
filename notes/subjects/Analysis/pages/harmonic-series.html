@@ -1,170 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Divergence of the Harmonic Series</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Divergence of the Harmonic Series | Nasser Mohammed</title>
 
-  <!-- Shared stylesheet -->
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- MathJax v3 (with inline + display config) -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
-        processEscapes: true
-      }
+        processEscapes: true,
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <meta name="description" content="Notes on the divergence of the harmonic series." />
-  <meta name="keywords" content="harmonic series, divergence, sequences, series, analysis" />
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">The Divergence of the Harmonic Series</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
-    <div class="note">
-      \[\sum_{n = 1}^{\infty} \frac{1}{n}\]
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
     </div>
+  </nav>
 
-    <p>
-      The harmonic series is one of the most well known series in analysis. It shows that following our intuition alone may lead us to false conclusions.
-      However, once we establish the proof of its divergence, it will be much more apparent where our intuition went wrong.
-    </p>
+  <main class="container">
+    <header class="hero-section">
+      <h1>The Divergence of the Harmonic Series</h1>
+      <p class="subtitle">Sequences, Partial Sums, and Counterintuitive Infinity</p>
+      <hr class="subtle-hr">
+    </header>
 
-    <h2>First a Reminder of Sequences</h2>
-    <p>
-      If you are familiar with sequences, the first sequence you usually study is
-    </p>
+    <section class="bio-text">
+      <div class="math-display">
+        \[\sum_{n = 1}^{\infty} \frac{1}{n}\]
+      </div>
 
-    <div class="note">
-      \[\{x_n\} = \frac{1}{n}\]
-    </div>
+      <p>
+        The harmonic series is one of the most well known series in analysis. It shows that following our intuition alone may lead us to false conclusions. However, once we establish the proof of its divergence, it will be much more apparent where our intuition went wrong.
+      </p>
 
-    <p>
-      We know this sequence converges (in limit as \(n \to \infty\)) by an \(\varepsilon\)-\(\delta\) proof. To quickly demonstrate this, we say that a sequence of real numbers converges to a limit \(L\), if
-    </p>
+      <h2>First a Reminder of Sequences</h2>
+      <p>
+        If you are familiar with sequences, the first sequence you usually study is \(\{x_n\} = \frac{1}{n}\). We know this sequence converges (in limit as \(n \to \infty\)) by an \(\varepsilon\)-\(\delta\) proof. 
+      </p>
 
-    <div class="note">
-      \[\forall \varepsilon > 0 \text{, } \exists N \in \mathbb{N} \text{ such that } \forall n > N\]
-      \[\left|x_n - L \right| < \varepsilon\]
-    </div>
+      <div class="archive-box">
+        <p><strong>Definition:</strong> A sequence of real numbers converges to a limit \(L\), if:</p>
+        <div class="math-display">
+          \[\forall \varepsilon > 0 \text{, } \exists N \in \mathbb{N} \text{ such that } \forall n > N, \quad \left|x_n - L \right| < \varepsilon\]
+        </div>
+      </div>
 
-    <p>
-      In our example, our claim would be that if
-    </p>
+      <p>
+        In our example, our claim would be that if \(\{x_n\} = \frac{1}{n}\), then \(\frac{1}{n} \rightarrow 0\), or equivalently:
+      </p>
 
-    <div class="note">
-      \[\{x_n\} = \frac{1}{n}\]
-    </div>
+      <div class="math-display">
+        \[\lim_{n \to \infty} \frac{1}{n} = 0\]
+      </div>
 
-    <p>then</p>
+      <p>
+        The proof would be to find \(n\) as a function of \(\varepsilon\). Starting with \(\left|\frac{1}{n} - 0\right| < \varepsilon\), and since \(n \in \mathbb{N}\), we know \(\frac{1}{n} \ge 0\). We can drop the absolute values:
+      </p>
 
-    <div class="note">
-      \[\frac{1}{n} \rightarrow 0\]
-    </div>
+      <div class="math-display">
+        \[\frac{1}{n} < \varepsilon \implies \frac{1}{\varepsilon} < n\]
+      </div>
 
-    <p>or equivalently</p>
+      <p>
+        For any \(\varepsilon > 0\), we can find a corresponding natural number \(n\), such that any point in our sequence past the index \(n\) will be less than a distance of \(\varepsilon\) away from our limit point. As \(\varepsilon\) gets smaller, \(\frac{1}{\varepsilon}\) gets larger, forcing us to go further and further along the sequence to stay within that distance.
+      </p>
 
-    <div class="note">
-      \[\lim_{n \to \infty} \frac{1}{n} = 0\]
-    </div>
+      <h2>When Do Series Converge?</h2>
+      <p>
+        To define the convergence of a series, we must first introduce the notion of a <strong>partial sum</strong>.
+      </p>
 
-    <p>
-      Now we have to prove this. So the proof would be to find \(n\) as a function of \(\varepsilon\), doing this we start with:
-    </p>
+      <div class="archive-box">
+        <p>A partial sum \(s_m\) of a series is defined as:</p>
+        <div class="math-display">
+          \[s_m = \sum_{n = 1}^{m}x_n\]
+        </div>
+      </div>
 
-    <div class="note">
-      \[\left|\frac{1}{n} - L\right| < \varepsilon\]
-    </div>
+      <p>
+        Essentially, it is the sum up to a certain index. A series \(\sum_{n = 1}^{\infty}\{x_n\}\) converges to a value \(L\) if the sequence of its partial sums \(s_m\) converges to \(L\). In simpler terms, for a series to converge, the "additions" must get small enough quickly enough to prevent the sum from growing without bound.
+      </p>
 
-    <p>
-      Where \(L = 0\), so our inequality reduces to
-    </p>
+      <h2>Why is the Harmonic Series Counterintuitive?</h2>
+      <p>
+        Since we know that \(\lim_{n \to \infty} \frac{1}{n} = 0\), it is intuitive to assume that eventually, we are adding up numbers so small they "don't really add anything." However, this <strong>sum</strong> goes to \(\infty\); it <strong>diverges</strong>.
+      </p>
 
-    <div class="note">
-      \[\left|\frac{1}{n}\right| < \varepsilon\]
-    </div>
+      
 
-    <p>
-      We know that since \(n \in \mathbb{N}\) and \(n \ge 1, \forall n\), then this implies that \(\frac{1}{n} \ge 0, \forall n\). So we can drop the absolute values in our inequality around \(\frac{1}{n}\) since we know it's always positive. Doing that leaves:
-    </p>
+      <p>
+        Consider the first term, \(n = 1\), giving a value of 1. If we kept adding 1 infinitely, it would clearly diverge. Our goal is to show we can partition the series to keep "producing" 1.
+      </p>
 
-    <div class="note">
-      \[\frac{1}{n} < \varepsilon\]
-    </div>
+      <div class="archive-box">
+        <ul>
+          <li><strong>Terms \(n=2\) to \(4\):</strong> \(\frac{1}{2} + \frac{1}{3} + \frac{1}{4} = \frac{13}{12} \approx 1\)</li>
+          <li><strong>Terms \(n=5\) to \(12\):</strong> \(\frac{1}{5} + \dots + \frac{1}{12} \approx 1\)</li>
+          <li><strong>Further Terms:</strong> We then add the next 22 values (\(n=13\) to \(34\)) to get approximately 1, then the next 60, and so on.</li>
+        </ul>
+      </div>
 
-    <p>We come to the conclusion that</p>
+      <p>
+        We find that we need at most somewhere between \(2^{k}\) and \(2^{k+1}\) numbers to add up to 1, where \(k\) is the group index. Because we can group the sum in a way that always produces 1, we effectively have an infinite sum of 1's, resulting in divergence to infinity.
+      </p>
+    </section>
 
-    <div class="note">
-      \[\frac{1}{\varepsilon} < n\]
-    </div>
-
-    <p>
-      In other words, for any \(\varepsilon > 0\), we can find a corresponding natural number \(n\), such that any point in our sequence past the index \(n\) will be less than a distance of \(\varepsilon\) away from our limit point (in this scenario 0). If you notice, as \(\varepsilon\) gets smaller and smaller, \(\frac{1}{\varepsilon}\) gets larger and larger, this forces \(n\) to be a larger and larger natural number since \(\frac{1}{\varepsilon} < n\). Now this should make sense to you; after all, we would need to go further and further along the sequence to get within a smaller and smaller \(\varepsilon\) distance away from the limit point.
-    </p>
-
-    <h2>When Do Series Converge?</h2>
-    <p>
-      To give a rigorous definition, similar to the convergence of a sequence, I will define the convergence of a series below. First I will introduce the notion of a partial sum:
-    </p>
-
-    <div class="note">
-      \[\text{A partial sum } s_m \text{, of a series } \text{ is defined as: } s_m = \sum_{n = 1}^{m}x_n\]
-    </div>
-
-    <p>
-      Essentially, it is the sum up to a certain index. Now, to define the convergence of a full series, in English we say that if the sequence of its partial sums converge to a number, then the series converges to that number. In simpler terms, we are saying that for a series to converge to a value (not infinity), then the sum must have smaller and smaller "additions" to cause the sequence to converge to a number. More formally:
-    </p>
-
-    <div class="note">
-      \[\text{A series } \sum_{n = 1}^{\infty}\{x_n\} \text{, converges to a value L if }\]
-      \[\text{the sequence of partial sums } s_m \text{, converges to L}\]
-    </div>
-
-    <h2>Why is the Harmonic Series Counterintuitive?</h2>
-    <p>
-      Well series are simply a sum of a sequence. In other words, instead of considering the behavior of the points \(\frac{1}{n}\) as \(n \to \infty\), we consider what happens if we add up each of these terms. Now, since we know that
-    </p>
-
-    <div class="note">
-      \[\lim_{n \to \infty} \frac{1}{n} = 0\]
-    </div>
-
-    <p>
-      It would be intuitive to assume that eventually, we would be adding up numbers that are so small that they don't really add anything. Since we know these points eventually get as close as possible to 0, then adding up these tiny numbers would end up not affecting the sum. However this <strong>sum</strong> goes to \(\infty\), in other words, it <strong>diverges</strong>. This will be an informal proof, but generally, if a sum converges to a value, then at some index, the sum of every point past that index is arbitrarily small. Like in our sequence example, past a certain \(n\), our points were as close to 0 as we wanted. If we wanted closer and closer points, we just consider a smaller and smaller epsilon value. Now let's look at the series:
-    </p>
-
-    <div class="note">
-      \[\sum_{n = 1}^{\infty} \frac{1}{n}\]
-    </div>
-
-    <p>
-      Consider the first term, \(n = 1\), we get the value \(\frac{1}{1} = 1\), now we know if we kept adding 1 an infinite number of times, that this value would diverge. In other words, it would not converge to a number, but rather grow without bound. Our goal is to show that we can partition the series to keep giving us the value of 1, and therefore an infinite sum of 1's would diverge (grow to infinity). Now let's consider the next 3 terms \(n = 2, n = 3, n = 4\):
-    </p>
-
-    <div class="note">
-      \[\frac{1}{2} + \frac{1}{3} + \frac{1}{4} = \frac{13}{12} \approx 1\]
-    </div>
-
-    <p>
-      We know that \(\frac{13}{12} > 1\) so adding this value will maintain the divergence we are looking for. Now we consider the next 8 terms, from \(n = 5\) to \(n = 12\):
-    </p>
-
-    <div class="note">
-      \[\frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8} + \frac{1}{9} + \frac{1}{10} + \frac{1}{11} + \frac{1}{12} \approx 1\]
-    </div>
-
-    <p>
-      However, we actually only need 7 terms if we use the remainder of the last partial sum \(\frac{13}{12}\). Regardless, we then add up the next 22 values of the series, from \(n = 13\) to \(n = 34\), to get approximately 1. Repeating this process, we need to add up the next 60 to get 1, and so on. We find that we need at most somewhere between \(2^{k}\) and \(2^{k+1}\) numbers to add up to 1, where \(k\) is the \(k\)-th group of numbers we are adding together. The first group would just require \(2^1\) numbers, which we had since we just needed 1. The second group \(k = 2\) would require between \(2^{2} = 4\) and \(2^{3} = 8\) numbers to add up to 1, we used 3. For the third group \(k = 3\), we would need at most \(8\) to \(16\) numbers, and we used 8. We see that we can group this sum up in a way that always produces 1, which would give us an infinite sum of 1's, resulting in infinity (divergence).
-    </p>
+    <section class="archive-section" style="display: flex; gap: 15px; margin-top: 40px;">
+      <a href="../analysisHome.html" class="btn-outline">← Real Analysis Home</a>
+      <a href="../../../../notes/notesHome.html" class="btn-outline">Knowledge Base</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
+
 </body>
 </html>

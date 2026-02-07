@@ -1,242 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lebesgue Integral</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Lebesgue Integral | Nasser Mohammed</title>
 
-  <!-- Shared stylesheet -->
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- MathJax v3 (with inline + display config) -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
-        processEscapes: true
-      }
+        processEscapes: true,
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Lebesgue Integral</h1>
-  </header>
-<main>
-  <p>
-    Once we have established a rigorous theory to the measurement of sets, it is natural to begin the development of integration. We begin by defining the integral on the easiest case, simple functions, and use these results to build up to a more general integral.
-  </p>
+<body class="dark-theme">
 
-  <h2>Integral of Simple Functions</h2>
-  <p>
-    A simple function \(\phi (x)\) is defined as
-  </p>
-  <p>
-    \[\phi(x) = \sum_{k = 1}^M c_k\chi_{E_k}(x)\]
-  </p>
-  <p>
-    In other words, this is a <strong>finite</strong> sum of some constants multiplied to a characteristic function defined on a <strong>measurable</strong> subset \(E_k\). What we can interpret this as, is for some input \(x\), we loop through every partition \(E_k\), of a domain. The value will be a 0 everywhere except for 1 subset, say \(E_j\), and at that subset, the function will return \(c_j\) because \(\chi_{E_j}\) will simply be 1. This basically lets us assign some value other than 1, to every partition of a domain. We know \(x\) cannot be in two different \(E_k\)s because they are partitioned that way (they are in a canonical form). If you notice, this is just a generalization of the <em>step</em> functions introduced in the Riemann Sum, however, in our case, our sets \(E_k\) only have to be measurable, whereas the Riemann Sum limits them to rectangles (essentially intervals). Note that each \(a_k\) is distinct and non-zero, and as mentioned each \(E_k\) is disjoint, as part of our canonical form. Intuitively, the <em>Lebesgue</em> integral of \(\phi (x)\) is defined as
-  </p>
-  <p>
-    \[\int_{\mathbb{R}^d}\phi(x) dx = \sum_{k = 1}^M c_k\chi_{E_k}\]
-  </p>
-  <p>
-    We can then easily define the integral over a specific subset \(F\) of \(\mathbb{R}^d\) as:
-  </p>
-  <p>
-    \[\int_{F}\phi(x) dx = \int_{\mathbb{R}^d}\phi(x)\chi_F(x) dx\]
-  </p>
-  <p>
-    Since \(\phi(x)\chi_F(x)\) is a simple function too. This basically sets the function to 0 everywhere, except the part that we care about. There are a few important properties of this integral that I will simply list.
-  </p>
-  <ul>
-    <li>Linearity: \(\int_{\mathbb{R}^d}(a\phi(x) + b\psi(x)) dx = a\int_{\mathbb{R}^d}\phi(x)dx + b\int_{\mathbb{R}^d}\psi(x)dx\)</li>
-    <li>Additivity: \(\int_{E\cup F}\phi = \int_{E}\phi + \int_{F}\phi\)</li>
-    <li>Monotonicity: \(\phi \leq \psi \implies \int\phi \leq \int\psi\)</li>
-    <li>Triangle Inequality: \(\| \int \phi \|\leq \int \| \phi \|\)</li>
-  </ul>
-  <p>
-    These properties will continue to hold for our more generalized integrals. Also note, that we assume \(E\) and \(F\) are disjoint and finite measure in the additivity property. One last thing to note, is that if \(\phi\) is a simple function then so is \(\| \phi\|\).
-  </p>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
 
-  <h2>Integral of Bounded Functions Supported on Sets of Finite Measure</h2>
-  <p>
-    Supported on a set just means that the function is non-zero on that set, i.e. \(f(x)\) is supported on \(E \implies f(x) \ne 0\) where \(x \in E\). There isn't much to note with the following definition for the integral, we do however, use it for building the next type of integral. Before we define it, we must note an important conclusion. We assume here that \(f\) is a bounded function supported on a set \(E\) of finite measure.
-  </p>
-  <p>
-    \[\text{If } \phi_n(x) \text{ is a sequence of simple functions that converges to } f \text{ } a.e \text{ } x \]
-    \[\text{and each } \phi_n(x) \text{ is supported on } E \text{ and is bounded by } M \text{ then, }\]
-    \[1. \lim_{n \to \infty}\int \phi_n \text{ exists}\]
-    \[2. f = 0 \implies \lim_{n \to \infty}\int\phi_n = 0\]
-  </p>
-  <p>
-    Now we define the integral of a bounded function supported on a set of finite measure as:
-  </p>
-  <p>
-    \[\int f(x) dx = \lim_{n \to \infty}\int\phi_n(x)dx\]
-  </p>
-  <p>
-    This integral enjoys the same properties as our first integral, <strong>linearity, monotonicity, additivity, and respects the triangle inequality</strong>. We will now introduce the first convergence theorem, the Bounded Convergence Theorem.
-  </p>
+  <main class="container">
+    <header class="hero-section">
+      <h1>The Lebesgue Integral</h1>
+      <p class="subtitle">From Simple Functions to Dominated Convergence</p>
+      <hr class="subtle-hr">
+    </header>
 
-  <h2>Bounded Convergence Theorem</h2>
-  <p>
-    This is the first of our convergence theorems, but sort of becomes obsolete once we introduce the more powerful convergence theorems. However, it is a necessary stepping stone to developing those theorems. The theorem is as follows: 
-  </p>
-  <p>
-    \[\text{If we have a sequence of measurable functions, bounded by } M \text{ and supported on a set } E \text{ of finite measure}\]
-    \[\text{with the sequence of functions converging to } f\]
-    \[\text{i.e  } \phi_n(x) \to f(x) \text{ } a.e \text{  }x \text{ as } n \to \infty \text{, we then have that }\]
-    \[\int \phi_n(x) \to \int f \text{ as } n \to \infty\]
-  </p>
-  <p>
-    We now move on to a less restrictive integral.
-  </p>
+    <section class="bio-text">
+      <p>
+        Once we have established a rigorous theory for the measurement of sets, it is natural to begin the development of integration. We begin by defining the integral on the easiest case, simple functions, and use these results to build up to a more general integral.
+      </p>
 
-  <h2>Integral of Nonnegative Functions</h2>
-  <p>
-    Before we get into these, we define <strong>integrability</strong> as:
-  </p>
-  <p>
-    \[\text{A measurable function } f \text{ is integrable if: } \int_{\mathbb{R}^d} f(x)dx < \infty\]
-  </p>
-  <p>
-    For a non-negative function \(f\), we define its integral as:
-  </p>
-  <p>
-    \[\int f(x)dx = \underset{g}{sup}\int g(x)dx\]
-  </p>
-  <p>
-    We are taking the supremum over all measurable bounded functions \(g\) supported on a set of finite measure such that \(0 \leq g \leq f\) (this allows for use of the Bounded Convergence Theorem). We have the same properties as the last integral, i.e. we have linearity, additivity, monotonicity, and the triangle inequality. However, there are a couple of other things to consider:
-  </p>
-  <ul>
-    <li>If \(g\) is integrable and \(0 \leq f \leq g \implies f \) is integrable.</li>
-    <li>\(f\) being integrable \(\implies f < \infty \text{ } a.e \text{ } x\)</li>
-    <li>If the integral of a function is 0, then that function is 0 almost everywhere. More formally: \(\int f = 0 \implies f(x) = 0 \text{ } a.e \text{ } x\)</li>
-  </ul>
-  <p>
-    Now I will introduce a very important lemma
-  </p>
+      
 
-  <h2>Fatou's Lemma</h2>
-  <p>
-    Although we know that we can always find a sequence of measurable functions \(f_n\) such that
-  </p>
-  <p>
-    \[f_n(x) \to f(x)\]
-  </p>
-  <p>
-    We actually cannot assume that 
-  </p>
-  <p>
-    \[\int f_n dx \to \int f dx\]
-  </p>
-  <p>
-    This is due to some counterexamples that prevent this straightforward approach. Instead we have Fatou's Lemma
-  </p>
-  <p>
-    \[\text{Assume we have a sequence of measurable functions } f_n \text{ with } f_n \ge 0. \text{ Then, if } \lim_{n \to \infty}f_n(x) = f(x) \text{ } a.e \text{ } x \text{ then }\]
-    \[\int f \leq \lim_{n \to \infty}\text{inf} \int f_n\]
-  </p>
-  <p>
-    From this, we get an important corollary that when combined with Fatou's Lemma above, will give us a convergence theorem.
-  </p>
-  <p><strong>Corollary:</strong></p>
-  <p>
-    \[\text{If } f \text{ is a non-negative measurable function and we have a sequence of measurable non-negative functions } f_n \]
-    \[\text{ that converge almost everywhere to } f \text{ with } f_n(x) \leq f(x) \text{ then }\]
-    \[\lim_{n \to \infty} \int f_n = \int f\]
-  </p>
-  <p>
-    In other words, under these conditions, <strong>the limit of the integral is the integral of the limit</strong>. But we want to generalize this to where we don't have to put restrictions on \(f\). This leads us to the next big result, the Monotone Convergence Theorem.
-  </p>
+      <h2>Integral of Simple Functions</h2>
+      <p>
+        A simple function \(\phi(x)\) is defined as:
+      </p>
+      <div class="math-display">
+        \[\phi(x) = \sum_{k = 1}^M c_k\chi_{E_k}(x)\]
+      </div>
+      <p>
+        This is a <strong>finite</strong> sum of constants multiplied by a characteristic function on a <strong>measurable</strong> subset \(E_k\). This is a generalization of the <em>step</em> functions in Riemann Sums; however, our sets \(E_k\) only need to be measurable, whereas Riemann limits them to intervals.
+      </p>
 
-  <h2>Monotone Convergence Theorem</h2>
-  <p>
-    This theorem is used for nonnegative measurable functions, in essence, it allows us to say the same thing as the last corollary, but in a more generalized setting. That is, it lets us say that the <strong>limit of the integral is the integral of the limit</strong>. The theorem is stated below:
-  </p>
-  <p>
-    \[\text{Let } f_n \text{ be a sequence of non-negative measurable functions } f_n \nearrow f \text{, then }\]
-    \[\lim_{n \to \infty}\int f_n = \int f\]
-  </p>
-  <p>
-    This theorem implies another important result, with the way a series of non-negative measurable functions interacts with an integral.
-  </p>
-  <p><strong>Corollary:</strong></p>
-  <p>
-    \[\text{If we have a series of non-negative measurable functions: } \sum_{k = 1}^{\infty}\phi_k(x) \text{ then }\]
-    \[\int\sum_{k = 1}^{\infty}\phi_k(x) dx = \sum_{k = 1}^{\infty}\int \phi_k(x)dx\]
-  </p>
-  <p>
-    We also can conclude that
-  </p>
-  <p>
-    \[\sum_{k = 1}^{\infty}\int \phi_k(x)dx < \infty \implies \sum_{k = 1}^{\infty} \phi_k(x) \text{ converges to a finite value for almost every } x\]
-  </p>
+      <div class="archive-box">
+        <p><strong>Definition:</strong> The Lebesgue integral of \(\phi(x)\) is:</p>
+        <div class="math-display">
+          \[\int_{\mathbb{R}^d}\phi(x) dx = \sum_{k = 1}^M c_k m(E_k)\]
+        </div>
+      </div>
 
-  <h2>The Generalized Integral (For any measurable function)</h2>
-  <p>
-    Before, we had restrictions on our functions, we now tackle the problem of defining an integral on any measurable function. Here, we say that a function \(f\) is integrable if
-  </p>
-  <p>
-    \[\left|f\right| < \infty\]
-  </p>
-  <p>
-    We must now define another way to write a measurable function, we say that we can decompose any measurable function \(f\) as:
-  </p>
-  <p>
-    \[f = f^{+} - f^{-}\]
-  </p>
-  <p>
-    Where
-  </p>
-  <p>
-    \[f^{+}(x) = max(f(x), 0) \text{    and    } f^{-}(x) = max(-f(x), 0)\]
-  </p>
-  <p>
-    We can now define the integral with tools that we've been building up to this point. That is because each term \(f^{+}\) and \(f^{-}\) are non-negative measurable functions, and we can therefore use prior results on them.
-  </p>
-  <p><strong>The Lebesgue Integral of a Measurable Function</strong> \(f\):</p>
-  <p>
-    \[\int f = \int f^{+} - \int f^{-}\]
-  </p>
-  <p>
-    If a function is integrable, the integral, like the ones before, is <strong>additive, linear, monotonic, and respects the triangle inequality.</strong>
-  </p>
-  <p>
-    Additionally, we have a very important property, sometimes called <strong>absolute continuity</strong>. Informally, it says that if a function is integrable, we can find a small enough set such that the integral on that set is also very small. More formally:
-  </p>
-  <p>
-    \[\text{If } f \text{ is an integrable function, then } \forall \varepsilon > 0:\]
-    \[\exists \delta > 0 \text{ such that if } m(E) < \delta \text{ then}\]
-    \[\int_E \left| f \right| < \varepsilon\]
-  </p>
-  <p>
-    Another thing to note, is that we can also find a ball such that the integral of the absolute value of the function, over the complement of the ball is arbitrarily small (i.e. \(< \varepsilon\)).
-  </p>
+      <p>Properties that hold for simple functions (and generalize later):</p>
+      <ul>
+        <li><strong>Linearity:</strong> \(\int(a\phi + b\psi) = a\int\phi + b\int\psi\)</li>
+        <li><strong>Additivity:</strong> \(\int_{E\cup F}\phi = \int_{E}\phi + \int_{F}\phi\)</li>
+        <li><strong>Monotonicity:</strong> \(\phi \leq \psi \implies \int\phi \leq \int\psi\)</li>
+        <li><strong>Triangle Inequality:</strong> \(|\int \phi| \leq \int |\phi|\)</li>
+      </ul>
 
-  <h2>The Dominated Convergence Theorem</h2>
-  <p>
-    This is pretty much the summation of the results so far. It gives us the criteria for the integral of a sequence of functions to converge to the integral of the function that they converge to. Formally:
-  </p>
-  <p>
-    \[\text{If } f_n \text{ is a sequence of measurable functions, where } f_n(x) \to f(x) \text{ } a.e \text{ } x \text{ as } n \to \infty\]
-    \[\text{and } \left| f_n(x) \right| \leq g(x) \text{ where } g \text{ is an integrable function, then }\]
-    \[\int f_n \to \int f \text{ as } n \to \infty\]
-  </p>
-  <p>
-    In other words, if we can "dominate" our sequence by a function that we know is integrable, then we can conclude that the limit of the integral is the integral of the limit.
-  </p>
+      <h2>Bounded Functions & Finite Measure</h2>
+      <p>
+        A function is "supported on a set" \(E\) if it is non-zero only within \(E\). For a bounded function \(f\) supported on a set of finite measure, we use sequences of simple functions to define the integral.
+      </p>
 
-  <h2>Conclusion</h2>
-  <p>
-    This covered the majority of the results of Lebesgue Integration Theory, there are some other considerations such as the \(L^1\) space, however I will cover that in the section about \(L^p\) theory. There are also things like the convolution, dilation, etc, that I will cover in the section on Fubini's and Tonelli's Theorems.
-  </p>
-</main>
+      <div class="archive-box">
+        <h3>Bounded Convergence Theorem</h3>
+        <p>If \(\{\phi_n\}\) is a sequence of measurable functions bounded by \(M\), supported on a set \(E\) of finite measure, and \(\phi_n \to f\) a.e., then:</p>
+        <div class="math-display">
+          \[\lim_{n \to \infty} \int \phi_n = \int f\]
+        </div>
+      </div>
+
+      <h2>Integral of Nonnegative Functions</h2>
+      <p>
+        For a non-negative function \(f\), we define its integral as the supremum of the integrals of all measurable bounded functions \(g\) (supported on sets of finite measure) such that \(0 \leq g \leq f\).
+      </p>
+
+      <div class="archive-box">
+        <p><strong>Integrability:</strong> A measurable function \(f\) is integrable if \(\int_{\mathbb{R}^d} f(x)dx < \infty\).</p>
+        <ul>
+          <li>If \(f\) is integrable, then \(f < \infty\) almost everywhere.</li>
+          <li>If \(\int f = 0\), then \(f = 0\) almost everywhere.</li>
+        </ul>
+      </div>
+
+      <h2>Fatou's Lemma & Monotone Convergence</h2>
+      <p>
+        We cannot always assume the limit of an integral equals the integral of the limit. Fatou's Lemma provides an essential lower bound.
+      </p>
+
+      <div class="archive-box">
+        <h3>Fatou's Lemma</h3>
+        <p>For a sequence of non-negative measurable functions \(f_n \to f\) a.e.:</p>
+        <div class="math-display">
+          \[\int f \leq \liminf_{n \to \infty} \int f_n\]
+        </div>
+      </div>
+
+      <div class="archive-box">
+        <h3>Monotone Convergence Theorem (MCT)</h3>
+        <p>If \(f_n\) is a sequence of non-negative measurable functions such that \(f_n \nearrow f\), then:</p>
+        <div class="math-display">
+          \[\lim_{n \to \infty} \int f_n = \int f\]
+        </div>
+      </div>
+
+      <h2>The Generalized Lebesgue Integral</h2>
+      <p>
+        To integrate any measurable function, we decompose it into its positive and negative parts: \(f = f^{+} - f^{-}\), where \(f^{+} = \max(f, 0)\) and \(f^{-} = \max(-f, 0)\).
+      </p>
+
+      <div class="math-display">
+        \[\int f = \int f^{+} - \int f^{-}\]
+      </div>
+
+      <p>
+        A key property here is <strong>absolute continuity</strong>: If \(f\) is integrable, then \(\forall \varepsilon > 0\), there exists a \(\delta > 0\) such that if \(m(E) < \delta\), then \(\int_E |f| < \varepsilon\).
+      </p>
+
+      <div class="archive-box">
+        <h3>Dominated Convergence Theorem (DCT)</h3>
+        <p>If \(f_n \to f\) a.e. and there exists an integrable function \(g\) such that \(|f_n| \leq g\) for all \(n\), then:</p>
+        <div class="math-display">
+          \[\lim_{n \to \infty} \int f_n = \int f\]
+        </div>
+      </div>
+
+      <h2>Conclusion</h2>
+      <p>
+        This framework forms the foundation of modern analysis. Further topics like \(L^p\) spaces, Fubini's Theorem, and convolutions build directly upon these convergence results.
+      </p>
+    </section>
+
+    <section class="archive-section" style="display: flex; gap: 15px; margin-top: 40px;">
+      <a href="../analysisHome.html" class="btn-outline">← Real Analysis Home</a>
+      <a href="../../../../notes/notesHome.html" class="btn-outline">Knowledge Base</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>

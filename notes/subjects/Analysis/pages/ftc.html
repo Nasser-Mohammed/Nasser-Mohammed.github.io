@@ -1,195 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Personal website of Nasser Mohammed, graduate student at LSU specializing in applied mathematics and computer vision.">
-  <meta name="keywords" content="Nasser Mohammed, LSU, applied mathematics, computer vision, research">
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <title>FTC Notes</title>
-    <script>
+  <title>FTC & Lebesgue Integration | Nasser Mohammed</title>
+
+  <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
+        tags: 'ams'
       },
       options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-  <header>
-    <header class="site">
-      <a href="../index.html" class="back">← Back</a>
-      <h1 class="title">The Fundamental Theorem of Calculus with the Lebesgue Integral</h1>
-  </header>
-<main>
-  <p>
-    Most people are familiar with the inverse relationship between the integral operation and the derivative, referred to as 
-    <strong>The Fundamental Theorem of Calculus</strong>. We are typically introduced to this relationship in a first term calculus course. 
-    I will provide a more rigorous outline of this relationship, with the Lebesgue integral, and show that it (under certain circumstances) still obeys this relationship. 
-    Really there are two statements to consider (and for me to prove). I will state them both and then resolve them in order.
-  </p>
+<body class="dark-theme">
 
-  <h2>What to Consider</h2>
-  <p>
-    The first question: does integrability on an interval imply the existence of a derivative? Additionally, does the derivative of the integrated function return the unintegrated function? More formally:
-  </p>
-  <div class="math-block">\[
-    \text{If \(f\) is an integrable function on } [a,b], \quad F(x) = \int_a^x f(y)\,dy,
-  \]</div>
-  <div class="math-block">\[
-    \text{can we conclude that } F'(x) \text{ exists, and that } F'(x)=f(x) \text{ (at least for a.e. } x)?
-  \]</div>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
 
-  <p>
-    The second question flips this: what restrictions on a function \(F\) defined on \([a,b]\) guarantee that the derivative exists almost everywhere, is integrable, and that
-  </p>
-  <div class="math-block">\[
-    F(b)-F(a)=\int_a^b F'(x)\,dx ?
-  \]</div>
+  <main class="container">
+    <header class="hero-section">
+      <h1>The Fundamental Theorem of Calculus</h1>
+      <p class="subtitle">Rigorous Analysis with the Lebesgue Integral</p>
+      <hr class="subtle-hr">
+    </header>
 
-  <h2>The Derivative of an Integral and the Lebesgue Differentiation Theorem</h2>
-  <p>We define</p>
-  <div class="math-block">\[
-    F(x)=\int_a^x f(y)\,dy, \qquad a\le x\le b.
-  \]</div>
-  <p>
-    To see if the derivative exists, use the definition:
-  </p>
-  <div class="math-block">\[
-    F'(x)=\lim_{h\to 0}\frac{F(x+h)-F(x)}{h}
-          = \lim_{h\to 0}\frac{1}{h}\int_x^{x+h} f(y)\,dy.
-  \]</div>
-  <p>
-    Interpreting the interval \([x,x+h]\) as a “ball” \(B\) with measure \(m(B)=h\), we can rewrite
-  </p>
-  <div class="math-block">\[
-    \lim_{m(B)\to 0}\frac{1}{m(B)}\int_B f(y)\,dy.
-  \]</div>
-  <p>
-    This raises the <strong>averaging problem</strong>: does the average value over shrinking neighborhoods converge to \(f(x)\)?
-  </p>
+    <section class="bio-text">
+      <p>
+        Most people are familiar with the inverse relationship between the integral operation and the derivative, referred to as 
+        <strong>The Fundamental Theorem of Calculus</strong>. We are typically introduced to this relationship in a first term calculus course. 
+        I will provide a more rigorous outline of this relationship, with the Lebesgue integral, and show that it (under certain circumstances) still obeys this relationship. 
+        Really there are two statements to consider. I will state them both and then resolve them in order.
+      </p>
 
-  <h3>Continuous Case</h3>
-  <p>If \(f\) is continuous, then indeed</p>
-  <div class="math-block">\[
-    \lim_{m(B)\to 0}\frac{1}{m(B)}\int_B f(y)\,dy = f(x).
-  \]</div>
-  <p>
-    The proof follows from continuity, rewriting the difference as 
-    \(\tfrac{1}{m(B)}\int_B(f(y)-f(x))dy\), and applying the triangle inequality.
-  </p>
+      <h2>What to Consider</h2>
+      <p>
+        The first question: does integrability on an interval imply the existence of a derivative? Additionally, does the derivative of the integrated function return the unintegrated function? More formally:
+      </p>
+      
+      <div class="archive-box">
+        <p>If \(f\) is an integrable function on \([a,b]\) and \(F(x) = \int_a^x f(y)\,dy\), can we conclude that \(F'(x)\) exists, and that \(F'(x)=f(x)\) (at least for a.e. \(x\))?</p>
+      </div>
 
-  <h3>The General Case</h3>
-  <div class="note">
-    <strong>Lebesgue Differentiation Theorem</strong><br>
-    If \(f\in L^1(\mathbb{R}^d)\), then
-    \[
-      \lim_{m(B)\to 0}\frac{1}{m(B)}\int_B f(y)\,dy = f(x)
-    \]
-    for almost every \(x\).
-  </div>
+      <p>
+        The second question flips this: what restrictions on a function \(F\) defined on \([a,b]\) guarantee that the derivative exists almost everywhere, is integrable, and that
+      </p>
+      <div class="math-display">
+        \[F(b)-F(a)=\int_a^b F'(x)\,dx?\]
+      </div>
 
-  <p>
-    Thus, the derivative of the integral recovers the original function almost everywhere, provided \(f\) is integrable.
-  </p>
+      <h2>The Derivative of an Integral</h2>
+      <p>We define:</p>
+      <div class="math-display">
+        \[F(x)=\int_a^x f(y)\,dy, \qquad a\le x\le b.\]
+      </div>
+      <p>To see if the derivative exists, we use the definition:</p>
+      <div class="math-display">
+        \[F'(x)=\lim_{h\to 0}\frac{F(x+h)-F(x)}{h} = \lim_{h\to 0}\frac{1}{h}\int_x^{x+h} f(y)\,dy.\]
+      </div>
+      <p>
+        Interpreting the interval \([x,x+h]\) as a “ball” \(B\) with measure \(m(B)=h\), we can rewrite this as the <strong>averaging problem</strong>: does the average value over shrinking neighborhoods converge to \(f(x)\)?
+      </p>
 
-  <h3>Local Integrability and Density</h3>
-  <p>
-    Local integrability (\(f\in L^1_{\text{loc}}(\mathbb{R}^d)\)) suffices, since behavior at infinity does not affect averages on finite balls. 
-    This leads to notions of density and Lebesgue sets.
-  </p>
+      
 
-  <div class="note">
-    <strong>Lebesgue Density Theorem</strong><br>
-    For a measurable set \(E\subset\mathbb{R}^d\), almost every point of \(E\) is a point of density of \(E\), and almost every point not in \(E\) is not a point of density.
-  </div>
+      <h3>The Lebesgue Differentiation Theorem</h3>
+      <div class="archive-box">
+        <p><strong>Theorem:</strong> If \(f\in L^1(\mathbb{R}^d)\), then</p>
+        <div class="math-display">
+          \[\lim_{m(B)\to 0}\frac{1}{m(B)}\int_B f(y)\,dy = f(x)\]
+        </div>
+        <p>for almost every \(x\).</p>
+      </div>
 
-  <div class="note">
-    <strong>Lebesgue Set</strong><br>
-    For \(f\in L^1_{\text{loc}}\), the Lebesgue set of \(f\) is the set of points \(x\) such that
-    \[
-      \lim_{m(B)\to 0}\frac{1}{m(B)}\int_B |f(y)-f(x)|\,dy = 0.
-    \]
-    Almost every point in \(\mathbb{R}^d\) belongs to the Lebesgue set of \(f\).
-  </div>
+      <p>
+        Thus, the derivative of the integral recovers the original function almost everywhere, provided \(f\) is integrable. Behavior at infinity does not affect averages on finite balls, meaning local integrability (\(f\in L^1_{\text{loc}}\)) suffices.
+      </p>
 
-  <h2>The Integral of a Differentiated Function</h2>
-  <p>
-    We now consider when
-  </p>
-  <div class="math-block">\[
-    F(b)-F(a)=\int_a^b F'(x)\,dx
-  \]</div>
-  <p>
-    holds. Not all continuous functions are differentiable everywhere (e.g. the 
-    <a href="https://en.wikipedia.org/wiki/Weierstrass_function">Weierstrass function</a>). 
-    We need conditions ensuring differentiability and integrability of \(F'\).
-  </p>
+      <div class="archive-box">
+        <h3>The Lebesgue Set</h3>
+        <p>For \(f\in L^1_{\text{loc}}\), the Lebesgue set of \(f\) is the set of points \(x\) such that:</p>
+        <div class="math-display">
+          \[\lim_{m(B)\to 0}\frac{1}{m(B)}\int_B |f(y)-f(x)|\,dy = 0.\]
+        </div>
+        <p>Almost every point in \(\mathbb{R}^d\) belongs to the Lebesgue set of \(f\).</p>
+      </div>
 
-  <h3>Bounded Variation</h3>
-  <div class="note">
-    <strong>Definition (Bounded Variation)</strong>  
-    \(F\) has bounded variation on \([a,b]\) if
-    \[
-      \sum_{j=1}^N |F(t_j)-F(t_{j-1})| \le M
-    \]
-    for all partitions  \(a=t_0&lt;\cdots&lt;t_N=b\).
-  </div>
+      <h2>The Integral of a Differentiated Function</h2>
+      <p>
+        We now consider the second direction. Not all continuous functions are differentiable everywhere (e.g., the Weierstrass function). We need specific conditions to ensure \(F(b)-F(a)=\int_a^b F'(x)\,dx\).
+      </p>
 
-  <p>
-    Functions of bounded variation are differentiable a.e., but the equality above may fail (e.g. the Cantor function).
-  </p>
+      <h3>Bounded Variation vs. Absolute Continuity</h3>
+      <p>
+        A function has <strong>Bounded Variation</strong> if the sum of its oscillations is finite. While such functions are differentiable a.e., they may still fail the FTC (like the Cantor "Devil's Staircase" function).
+      </p>
+      
+      
 
-  <div class="note">
-    <strong>Differentiation Existence Theorem</strong><br>
-    If \(F\) has bounded variation on \([a,b]\), then \(F'(x)\) exists for almost every \(x\).
-  </div>
+      <div class="archive-box">
+        <p><strong>Absolute Continuity:</strong> \(F\) is absolutely continuous on \([a,b]\) if for every \(\varepsilon>0\) there exists \(\delta>0\) such that</p>
+        <div class="math-display">
+          \[\sum (b_k-a_k)<\delta \;\Rightarrow\; \sum |F(b_k)-F(a_k)|<\varepsilon\]
+        </div>
+        <p>for any finite disjoint collection of intervals.</p>
+      </div>
 
-  <p>
-    However, one only obtains
-  </p>
-  <div class="math-block">\[
-    \int_a^b F'(x)\,dx \le F(b)-F(a)
-  \]</div>
+      <div class="archive-box">
+        <p><strong>Theorem (Integral of the Derivative):</strong> If \(F\) is absolutely continuous, then \(F'\) exists a.e., \(F'\in L^1\), and:</p>
+        <div class="math-display">
+          \[F(x)-F(a)=\int_a^x F'(y)\,dy, \quad a\le x\le b\]
+        </div>
+      </div>
 
-  <h3>Absolute Continuity</h3>
-  <div class="note">
-    <strong>Absolute Continuity</strong><br>
-    \(F\) is absolutely continuous on \([a,b]\) if for every \(\varepsilon>0\) there exists \(\delta>0\) such that
-    \[
-      \sum (b_k-a_k)<\delta \;\Rightarrow\; \sum |F(b_k)-F(a_k)|<\varepsilon
-    \]
-    for any finite disjoint collection of intervals.
-  </div>
+      <h2>Conclusion</h2>
+      <ul>
+        <li><strong>Differentiating an integral:</strong> For \(f\in L^1_{\text{loc}}\), \(F'(x)=f(x)\) almost everywhere via the Lebesgue Differentiation Theorem.</li>
+        <li><strong>Integrating a derivative:</strong> If \(F\) is absolutely continuous, the fundamental relationship is preserved exactly.</li>
+        <li><strong>Bounded variation:</strong> Guarantees a.e. differentiability, but only provides an inequality (\(\le\)) rather than full equality.</li>
+      </ul>
+    </section>
 
-  <div class="note">
-    <strong>Theorem (Integral of the Derivative)</strong><br>
-    If \(F\) is absolutely continuous, then \(F'\) exists a.e., \(F'\in L^1\), and
-    \[
-      F(x)-F(a)=\int_a^x F'(y)\,dy, \quad a\le x\le b
-    \]
-  </div>
+    <section class="archive-section" style="display: flex; gap: 15px; margin-top: 40px;">
+      <a href="../analysisHome.html" class="btn-outline">← Real Analysis Home</a>
+      <a href="../../../../notes/notesHome.html" class="btn-outline">Knowledge Base</a>
+    </section>
+  </main>
 
-  <h2>Conclusion</h2>
-  <p>
-    The Fundamental Theorem of Calculus splits into two directions:
-  </p>
-  <ul>
-    <li>Differentiating an integral: for \(f\in L^1_{\text{loc}}\), \(F'(x)=f(x)\) almost everywhere (Lebesgue Differentiation Theorem).</li>
-    <li>Integrating a derivative: if \(F\) is absolutely continuous, then \(F(b)-F(a)=\int_a^b F'(x)\,dx\).</li>
-  </ul>
-  <p>
-    Bounded variation guarantees a.e. differentiability but not full equality, while absolute continuity provides the exact condition. 
-    This completes the rigorous version of the FTC in the Lebesgue setting.
-  </p>
-</main>
-
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>
