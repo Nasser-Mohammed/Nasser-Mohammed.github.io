@@ -1,208 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/png" href="../../../pictures/eeIcon.png" sizes="48x48">
-  <title>RLC Circuit Theory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RLC Circuits | Nasser Mohammed</title>
 
-  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
+        tags: 'ams'
       },
       options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Shared Styles -->
-  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="site">
-    <a href="circuits-home.html" class="back">← Back</a>
-    <h1 class="title">RLC Circuits</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
 
-  <p>
-    RC circuits introduced first-order dynamics and exponential relaxation due to energy dissipation.
-    By adding an inductor, we obtain RLC circuits, which are the simplest electrical systems capable
-    of oscillatory behavior. In these circuits, energy is exchanged between electric and magnetic
-    fields while resistive elements dissipate energy as heat.
-  </p>
+  <main class="container">
+    <header class="hero-section">
+      <h1>RLC Circuits</h1>
+      <p class="subtitle">Second-Order Dynamics and Oscillatory Behavior</p>
+      <hr class="subtle-hr">
+    </header>
 
-  <h2>Inductors</h2>
-  <p>
-    An inductor is a circuit element that stores energy in a magnetic field. Physically, inductors
-    resist changes in current, since a changing current produces a changing magnetic field, which
-    induces a voltage opposing that change.
-  </p>
+    <section class="bio-text">
+      <p>
+        RC circuits introduced first-order dynamics and exponential relaxation due to energy dissipation.
+        By adding an inductor, we obtain RLC circuits, which are the simplest electrical systems capable
+        of oscillatory behavior. In these circuits, energy is exchanged between electric and magnetic
+        fields while resistive elements dissipate energy as heat.
+      </p>
 
-  <p>
-    The voltage across an inductor is given by
-  </p>
+      <h2>Inductors</h2>
+      
+      <p>
+        An inductor is a circuit element that stores energy in a magnetic field. Physically, inductors
+        resist changes in current, since a changing current produces a changing magnetic field, which
+        induces a voltage opposing that change.
+      </p>
 
-  <div class="math-block">
-  \[
-    V_L = L \frac{dI}{dt},
-  \]
-  </div>
+      <p>
+        The voltage across an inductor is given by
+      </p>
 
-  <p>
-    where \(L\) is the inductance, measured in henries (H). The energy stored in an inductor is
-  </p>
+      <div class="math-display">
+      \[
+        V_L = L \frac{dI}{dt},
+      \]
+      </div>
 
-  <div class="math-block">
-  \[
-    E_L = \tfrac{1}{2} L I^2.
-  \]
-  </div>
+      <p>
+        where \(L\) is the inductance, measured in henries (H). The energy stored in an inductor is
+      </p>
 
-  <h2>LC Circuits</h2>
-  <p>
-    Before introducing resistance, it is useful to consider an ideal LC circuit. In this case,
-    energy oscillates between the electric field of the capacitor and the magnetic field of the
-    inductor without loss.
-  </p>
+      <div class="math-display">
+      \[
+        E_L = \tfrac{1}{2} L I^2.
+      \]
+      </div>
 
-  <p>
-    Let \(Q(t)\) denote the charge on the capacitor. Applying Kirchhoff’s Voltage Law gives
-  </p>
+      <h2>LC Circuits</h2>
+      <p>
+        Before introducing resistance, it is useful to consider an ideal LC circuit. In this case,
+        energy oscillates between the electric field of the capacitor and the magnetic field of the
+        inductor without loss.
+      </p>
 
-  <div class="math-block">
-  \[
-    L\frac{d^2 Q}{dt^2} + \frac{1}{C} Q = 0.
-  \]
-  </div>
+      <p>
+        Let \(Q(t)\) denote the charge on the capacitor. Applying Kirchhoff’s Voltage Law gives
+      </p>
 
-  <p>
-    This equation describes simple harmonic motion with natural frequency
-  </p>
+      <div class="math-display">
+      \[
+        L\frac{d^2 Q}{dt^2} + \frac{1}{C} Q = 0.
+      \]
+      </div>
 
-  <div class="math-block">
-  \[
-    \omega_0 = \frac{1}{\sqrt{LC}}.
-  \]
-  </div>
+      <p>
+        This equation describes simple harmonic motion with natural frequency
+      </p>
 
-  <p>
-    In an ideal LC circuit, the total energy remains constant and oscillates between electric and
-    magnetic forms.
-  </p>
+      <div class="math-display">
+      \[
+        \omega_0 = \frac{1}{\sqrt{LC}}.
+      \]
+      </div>
 
-  <h2>RLC Circuits</h2>
-  <p>
-    Real circuits contain resistance, which dissipates energy and damps oscillations. Including a
-    resistor in series with the inductor and capacitor leads to the RLC circuit.
-  </p>
+      <p>
+        In an ideal LC circuit, the total energy remains constant and oscillates between electric and
+        magnetic forms.
+      </p>
 
-  <p>
-    Applying Kirchhoff’s Voltage Law yields the governing equation
-  </p>
+      <h2>RLC Circuits</h2>
+      
 
-  <div class="math-block">
-  \[
-    L\frac{d^2 Q}{dt^2} + R\frac{dQ}{dt} + \frac{1}{C} Q = 0.
-  \]
-  </div>
+[Image of a series RLC circuit diagram]
 
-  <p>
-    This is a second-order linear differential equation analogous to the equation of motion for a
-    damped mass–spring system. The resistor plays the role of damping, while the inductor and
-    capacitor correspond to inertia and restoring force, respectively.
-  </p>
+      <p>
+        Real circuits contain resistance, which dissipates energy and damps oscillations. Including a
+        resistor in series with the inductor and capacitor leads to the RLC circuit.
+      </p>
 
-  <h2>Damping Regimes</h2>
-  <p>
-    The qualitative behavior of an RLC circuit depends on the relative strength of resistance. Define
-  </p>
+      <p>
+        Applying Kirchhoff’s Voltage Law yields the governing equation
+      </p>
 
-  <div class="math-block">
-  \[
-    \alpha = \frac{R}{2L},
-    \qquad
-    \omega_0 = \frac{1}{\sqrt{LC}}.
-  \]
-  </div>
+      <div class="math-display">
+      \[
+        L\frac{d^2 Q}{dt^2} + R\frac{dQ}{dt} + \frac{1}{C} Q = 0.
+      \]
+      </div>
 
-  <p>
-    The system exhibits three distinct regimes:
-  </p>
+      <p>
+        This is a second-order linear differential equation analogous to the equation of motion for a
+        damped mass–spring system. The resistor plays the role of damping, while the inductor and
+        capacitor correspond to inertia and restoring force, respectively.
+      </p>
 
-  <ul>
-    <li>
-      <strong>Underdamped</strong> (\(\alpha < \omega_0\)): oscillatory behavior with exponentially
-      decaying amplitude.
-    </li>
-    <li>
-      <strong>Critically damped</strong> (\(\alpha = \omega_0\)): fastest return to equilibrium
-      without oscillation.
-    </li>
-    <li>
-      <strong>Overdamped</strong> (\(\alpha > \omega_0\)): slow, non-oscillatory return to equilibrium.
-    </li>
-  </ul>
+      <h2>Damping Regimes</h2>
+      [Image comparing underdamped, critically damped, and overdamped response curves]
+      <p>
+        The qualitative behavior of an RLC circuit depends on the relative strength of resistance. Define
+      </p>
 
-  <p>
-    These damping regimes appear throughout physics and engineering and play a central role in
-    circuit design, control systems, and signal processing.
-  </p>
+      <div class="math-display">
+      \[
+        \alpha = \frac{R}{2L},
+        \qquad
+        \omega_0 = \frac{1}{\sqrt{LC}}.
+      \]
+      </div>
 
-  <p>
-    RLC circuits therefore provide a canonical example of second-order linear dynamical systems,
-    illustrating how energy storage, dissipation, and oscillation interact in physical systems.
-  </p>
+      <p>
+        The system exhibits three distinct regimes:
+      </p>
 
-  <h2>Inductors in Series and Parallel</h2>
+      <ul>
+        <li>
+          <strong>Underdamped</strong> (\(\alpha < \omega_0\)): oscillatory behavior with exponentially
+          decaying amplitude.
+        </li>
+        <li>
+          <strong>Critically damped</strong> (\(\alpha = \omega_0\)): fastest return to equilibrium
+          without oscillation.
+        </li>
+        <li>
+          <strong>Overdamped</strong> (\(\alpha > \omega_0\)): slow, non-oscillatory return to equilibrium.
+        </li>
+      </ul>
 
-  <p>
-  When multiple inductors are connected together, their arrangement determines the effective
-  inductance seen by the circuit. This affects how strongly the circuit resists changes in current
-  and therefore influences the overall dynamics.
-  </p>
+      <p>
+        These damping regimes appear throughout physics and engineering and play a central role in
+        circuit design, control systems, and signal processing.
+      </p>
 
-  <h3>Inductors in Series</h3>
-  <p>
-  Inductors connected end-to-end carry the same current. The total voltage across the series
-  combination is the sum of the individual voltages, leading to an equivalent inductance
-  </p>
+      <p>
+        RLC circuits therefore provide a canonical example of second-order linear dynamical systems,
+        illustrating how energy storage, dissipation, and oscillation interact in physical systems.
+      </p>
 
-  <div class="math-block">
-  \[
-  L_{\text{eq}} = L_1 + L_2 + \dots + L_n.
-  \]
-  </div>
+      <h2>Inductors in Series and Parallel</h2>
+      <p>
+      When multiple inductors are connected together, their arrangement determines the effective
+      inductance seen by the circuit. This affects how strongly the circuit resists changes in current
+      and therefore influences the overall dynamics.
+      </p>
 
-  <p>
-  Series inductors increase the total inductance, making changes in current more difficult.
-  </p>
+      <h3>Inductors in Series</h3>
+      <p>
+      Inductors connected end-to-end carry the same current. The total voltage across the series
+      combination is the sum of the individual voltages, leading to an equivalent inductance
+      </p>
 
-  <h3>Inductors in Parallel</h3>
-  <p>
-  Inductors connected in parallel experience the same voltage, while the current divides among the
-  branches. The equivalent inductance is given by
-  </p>
+      <div class="math-display">
+      \[
+      L_{\text{eq}} = L_1 + L_2 + \dots + L_n.
+      \]
+      </div>
 
-  <div class="math-block">
-  \[
-  \frac{1}{L_{\text{eq}}} = \frac{1}{L_1} + \frac{1}{L_2} + \dots + \frac{1}{L_n}.
-  \]
-  </div>
+      <h3>Inductors in Parallel</h3>
+      <p>
+      Inductors connected in parallel experience the same voltage, while the current divides among the
+      branches. The equivalent inductance is given by
+      </p>
 
-  <p>
-  Parallel inductors reduce the effective inductance, allowing current to change more easily.
-  </p>
+      <div class="math-display">
+      \[
+      \frac{1}{L_{\text{eq}}} = \frac{1}{L_1} + \frac{1}{L_2} + \dots + \frac{1}{L_n}.
+      \]
+      </div>
+    </section>
 
+    <section class="archive-section" style="display: flex; gap: 15px; justify-content: center;">
+      <a href="circuits-home.html" class="btn-outline">← Back to Circuits</a>
+      <a href="../eeHome.html" class="btn-outline">EE Home</a>
+    </section>
+  </main>
 
-</main>
-
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>

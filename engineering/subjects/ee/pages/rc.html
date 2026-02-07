@@ -1,402 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/png" href="../../../pictures/eeIcon.png" sizes="48x48">
-  <title>Circuit Theory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Circuit Theory | Nasser Mohammed</title>
 
-  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
+        tags: 'ams'
       },
       options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Shared Styles -->
-  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="site">
-    <a href="circuits-home.html" class="back">← Back</a>
-    <h1 class="title">Circuit Theory</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
-    <p>Now that we have covered a majority of the concepts found in circuits from a 
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>Circuit Theory</h1>
+      <p class="subtitle">Lumped Element Modeling and Fundamental Laws</p>
+      <hr class="subtle-hr">
+    </header>
+
+    <section class="bio-text">
+      <p>
+        Now that we have covered a majority of the concepts found in circuits from a 
         field perspective (using Maxwell's equations), we can now make various simplifications
         to the quantities and ideas found in smaller scale circuits. It would be cumbersome to 
         try to compute the various electric fields and other things all the time so instead we make some 
         realistic assumptions which allows us to get more straightforward deductions of the nature of the 
         circuit. 
-    </p>
+      </p>
 
-    <h2>Ohm's Law</h2>
-    <p>As mentioned, the most useful aspect of our assumptions will be simplification of 
+      <h2>Ohm's Law</h2>
+      <p>
+        As mentioned, the most useful aspect of our assumptions will be simplification of 
         electromagnetic phenomena found in small scale (and typically DC) circuits. 
         With these reductions we can readily compute things like voltage, current, resistance, etc. 
         The first of which is <strong>Ohm's Law</strong>. Ohm's Law gives us a nice relationship between 
         voltage, resistance, and current. It is given by
-    </p>
-    <div class="math-block">
-        \[ V = I R \]
-    </div>
-    <p>Where \(V\) is voltage (measured in volts V), \(I\) is current (measured in amps A), and 
-        \(R\) is resistance (measured in Ohm's \(\Omega\))
-    </p>
-    <h2>Kirchhoff's Laws</h2>
-    <p>Kirchhoff's laws are not really "laws" in the sense that nature follows them. Instead, 
-      they are useful and very accurate approximations for DC circuits and for low frequency AC currents,
-      since the wavelengths of electromagnetic waves are much larger than the physical size of the 
-      circuits. These can be mathematically deduced from Maxwell's equations and are not just 
-      guesses. 
-    </p>
-    <h3>Kirchhoff's Current Law (KCL)</h3>
-    <p>This law is also known as the conservation of charge. It states that the sum of currents at a 
-      node \(= 0\). This basically means that the amount of current entering a point must be the same 
-      as the amount of current leaving it. 
-      A node is basically a point where two or more circuit elements connect together. 
-      It can be thought of as a junction of the circuit. More specifically, a node is a set of points 
-      that have the same voltage. Typically, we draw the voltage source and then 
-      lines representing the conductive wire in a loop back to the voltage source's other end. 
-      In between that is where we put all of our circuit elements. This law at a node can be represented as,
-    </p>
-    <div class="math-block">\[
-      \sum_{j=1}^{n}I_j = 0\]
-    </div>
-    <p>This represents a node with \(n\) currents that can be exiting or entering the node.
-      We can think about it like this, if we have three different currents flowing into a point and 
-      only one flowing out, then \(I_1+I_2+I_3 = I_4\), this implies that 
-      \(I_1+I_2+I_3 - I_4 = 0\). The sign convention does not relate to the actual sign of the current flow. 
-      The current is always a negative flow, since it's the flow of electrons. Although, the actual convention 
-      is that current flows in the direction that positive charge would, but this is not relevant to the
-      Kirchhoff's Current Law. We can consider the currents entering a point as positive, and those leaving as 
-      negative in this law. This convention is unique for each node. By that I mean a current can leave one 
-      node (and therefore be considered "negative" in the nodal analysis of the first node) and enter another 
-      node (and therefore be considered "positive" in the nodal analysis of the second node). So this convention 
-      is local for each node. 
-    </p>
-    <h3>Kirchhoff's Voltage Law (KVL)</h3>
-    <p>Kirchhoff's Voltage Law is also known as the conservation of energy (in this context). It states that 
-      the sum of voltages around a loop must be \(0\). Mathematically this is expressed as,
-    </p>
-    <div class="math-block">\[
-        \sum_{k=1}^{n}V_k = 0
-      \]
-    </div>
-    <p>Where \(V_k\) is the voltage across the \(k\)-th element of the circuit. 
-      A loop is simply any closed path that starts at a node and returns to the same node. 
-      These can appear as sub-loops inside the circuit where this law still holds. 
-      When we say the "voltage across" an element, we mean the change in electric potential from one side 
-      of the element to the other side. Mathematically, this is
-    </p>
-    <div class="math-block">\[
-      V = V_{\text{end}} - V_{\text{start}}\]
-    </div>
-    <p>This is the same concept as voltage, the difference in electric potential between two points.</p>
-
-    <p>As mentioned, these laws are used in the specific context of DC and low frequency AC circuits. 
-      Furthmore, these usually assume a steady-state current. This typically isn't a problem; my 
-      interpretation is that the current reaches steady-state almost instantaneously and therefore 
-      this assumption is of no concern. 
-    </p>
-
-    <h2>Deriving Kirchhoff's Laws from Maxwell's Equations</h2>
-    <p>
-      As mentioned, Kirchhoff's Laws can be derived from Maxwell's equations under certain assumptions. 
-      This helps explain why they work so well for DC circuits and low-frequency AC circuits.
-      The derivations usually come from manipulating Maxwell's equationas and then making assumptions.
-    </p>
-
-    <h3>Kirchhoff's Current Law (KCL)</h3>
-    <p>
-      KCL is based on the <strong>continuity equation</strong>, which comes from the law of charge conservation: 
-      \[
-        \nabla \cdot \mathbf{J} = -\frac{\partial \rho}{\partial t}
-      \]
-      Here, <em>\(\mathbf{J}\)</em> is the current density and <em>\(\rho\)</em> is the charge density. 
-      In a steady-state DC circuit, the charge density doesn't change over time, so \(\partial \rho / \partial t = 0\). 
-      This gives \(\nabla \cdot \mathbf{J} = 0\), meaning the net current into any point (node) is zero, exactly KCL.
-    </p>
-
-    <h3>Kirchhoff's Voltage Law (KVL)</h3>
-    <p>
-      KVL comes from Faraday's law of induction: 
-      \[
-        \oint \mathbf{E} \cdot d\mathbf{l} = -\frac{d\Phi_B}{dt}
-      \]
-      For DC circuits or circuits with slowly changing currents, the magnetic flux \(\Phi_B\) is approximately constant, so \(\frac{d\Phi_B}{dt} \approx 0\). 
-      This simplifies to \(\oint \mathbf{E} \cdot d\mathbf{l} = 0\), meaning the sum of voltage drops around any closed loop is zero, exactly KVL.
-    </p>
-
-    <p>
-      In other words, Kirchhoff's Laws are <strong>approximations valid when electric and magnetic fields are relatively uniform and changing slowly</strong>. 
-      This is why they are extremely accurate for small-scale circuits and low-frequency signals.
-    </p>
-
-
-    <h2>Circuit Analysis</h2>
-    <p>
-      So far we've talked about circuits and nodes, but we haven't shown what they actually look like. 
-      Circuits are usually drawn as diagrams with <strong>nodes</strong> (junctions) and <strong>elements</strong> (resistors, batteries, capacitors, etc.) connected by wires. 
-      There isn't one “canonical” way to draw a circuit, but a common approach is to start with a node representing the voltage source (for example, a battery), 
-      then draw wires connecting its positive and negative terminals, and place circuit elements along those wires.
-    </p>
-    <p>
-      By convention, <strong>current flows in the direction that positive charge would move</strong> - from the positive terminal of a battery, through the circuit elements, 
-      and back to the negative terminal. Even though the actual charge carriers (electrons) move opposite to this direction, this convention simplifies calculations 
-      and aligns with the definitions used in Kirchhoff's Laws and Ohm's Law.
-    </p>
-
-    <h2>Resistors</h2>
-    <p>Resistors are very useful circuit components, and give us the starting point to building 
-      more complex circuits. Resistors are essentially current throttles, they can limit 
-      the amount of current flowing for a set voltage. If we consider a resistor with a set amount of 
-      resistance, and a voltage supply with a set amount of voltage. Then by rearranging Ohm's Law, we have 
-    </p>
-    <div class="math-block">\[
-      R = \frac{V}{I} \]
-    </div>
-    <p>In other words, if we increase the resistance, the current must decrease to maintain the relation. 
-      Resistors dissipate electrical energy into heat. As mentioned in the previous page, this is via the 
-      interaction between the current flow and atomic lattice. As the electrons drift, they bounce off of 
-      the atomic lattice and transfer electrical energy to the lattice, increasing the heat of the metal. 
-      They are designed to dissipate a certain amount of energy. 
       </p>
+      <div class="math-display">
+          \[ V = I R \]
+      </div>
       <p>
-      When multiple resistors are in a circuit, their arrangement affects the total resistance. 
-      The two main arrangements are <strong>series</strong> and <strong>parallel</strong>.
-    </p>
-
-    <h3>Series Resistors</h3>
-    <p>
-      Resistors in series are connected end-to-end, so the same current flows through all of them. 
-      The total voltage across all resistors is the sum of individual voltages:
-    </p>
-    <div class="math-block">
-      \[ V_{\text{total}} = V_1 + V_2 + ... + V_n \]
-    </div>
-    <p>
-      Their equivalent resistance is
-    </p>
-    <div class="math-block">
-      \[ R_{\text{eq}} = R_1 + R_2 + ... + R_n \]
-    </div>
-
-    <h3>Parallel Resistors</h3>
-    <p>
-      Resistors in parallel are connected across the same two nodes, so the voltage across each is the same. 
-      The total current is the sum of the currents through each resistor:
-    </p>
-    <div class="math-block">
-      \[ I_{\text{total}} = I_1 + I_2 + ... + I_n \]
-    </div>
-    <p>
-      The equivalent resistance is
-    </p>
-    <div class="math-block">
-      \[ \frac{1}{R_{\text{eq}}} = \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n} \]
-    </div>
-
-    <h2>Capacitors</h2>
-    <p>The next most fundamental circuit element is the capacitor. Capacitors can be thought of as a 
-    small component that can store charge. Similar to a small battery, however, it's more like a 
-    temporary storage for the circuit that can charge and discharge very quickly. This could be 
-    useful to making sure that certain parts of the circuit have a steady voltage supply,
-    to smooth out fluctuations in voltage, etc.</p>
-
-     <p>Physically, the capacitor is typically comprised of two separated metal sheets. 
-      As current flows in on one side, the charge builds up on that plate. This build up of 
-      charge creates a small electric field and makes the plate negatively charged. However, the charge will not flow across the gap, 
-      instead opposite charge will build up on the other plate (the electrons in the second plate will be 
-      repelled by the negatively charged plate and therefore the second plate will have a positive charge).
-      Recall that at equilibrium, the metal is actually neutrally charged. Therefore if we push the sea 
-      of electrons away from one area of the plate, they will have a net positive charge. Finally,
-      the capacitor stores energy in this electric field. To get current from a capacitor, we 
-      typically need to disconnect the voltage source and close the circuit so that the charge 
-      has a path to flow. The charge will then flow from the negative plate to the positive plate.
-      Note that this is in the opposite direction that it was charged. You can think of it like a 
-      spring, the energy is stored as potential energy, and then released in the opposite direction 
-      as the force that charged it. 
-     </p>
-
-     <p>The ability of a capacitor to store charge is called its <strong>capacitance</strong>, 
-      measured in <strong>farads</strong> (F). Capacitance tells us how much charge the 
-      capacitor can store per volt applied: \(C = Q/V\). In practical circuits, capacitors are 
-      usually much smaller than 1 F, commonly in the range of microfarads (\(\mu F\)), 
-      nanofarads (nF), or picofarads (pF).</p>
-
-    <p>Although we sometimes assume that certain processes are instantaneous, we cannot do the same 
-      with capacitors. Charging and discharging a capacitor takes a non-trivial amount of time. 
-      This is because as a capacitor charges, the voltage across it increases, lowering the 
-      current flow. So we see fast charging at first, and then it slows down. This also means 
-      we have a variable current flow (as opposed to resistors which have constant current through them).
-
-      The rate at which a capacitor charges or discharges is determined by the <strong>RC time constant</strong>
-      \(\tau = RC\), where \(R\) is the resistance in series with the capacitor and \(C\) is the capacitance.
-      The voltage and current change exponentially in time and therefore capacitors unlock 
-      a whole new range of circuit behaviors.
-    </p>
-
-    <h3>The Capacitor Equation</h3>
-    <p>The fundamental equation for a capacitor is given by</p>
-    <div class="math-block">\[
-      I(t) = C \frac{dV_C}{dt}
-      \]
-      </div>
-    <p>Where \(V_C\) is the voltage across the capacitor.</p>
-
-    <h3>RC Charging Circuit</h3>
-    <p>For a resistor \(R\) in series with our capacitor (which we need because otherwise the 
-      math would give us infinite current), we can find the voltage across the capacitor using 
-      KVL. This gives us that
-    </p>
-        <div class="math-block">\[
-      V_s = V_R + V_C
-      \]
-      </div>
-      <p>Where \(V_s\) is the source voltage, \(V_R\) is the voltage across the resistor, 
-        and \(V_C\) is the voltage across the capacitor. Now by Ohm's Law we can replace 
-        the voltage across the resistor with its resistance and current. This gives us
+        Where \(V\) is voltage (measured in volts V), \(I\) is current (measured in amps A), and 
+        \(R\) is resistance (measured in Ohms \(\Omega\)).
       </p>
-      <div class="math-block">\[
-      V_s = iR + V_C
-      \]
-      </div>
-      <p>But we know that current is a function of time (and affected by the charge of the 
-        capacitor) so we replace it with the Capacitor equation. This gives,
+
+      <h2>Kirchhoff's Laws</h2>
+      <p>
+        Kirchhoff's laws are not really "laws" in the sense that nature follows them. Instead, 
+        they are useful and very accurate approximations for DC circuits and for low frequency AC currents,
+        since the wavelengths of electromagnetic waves are much larger than the physical size of the 
+        circuits. These can be mathematically deduced from Maxwell's equations and are not just 
+        guesses. 
       </p>
-      <div class="math-block">\[
+
+      <h3>Kirchhoff's Current Law (KCL)</h3>
+      
+      <p>
+        This law is also known as the conservation of charge. It states that the sum of currents at a 
+        node \(= 0\). This basically means that the amount of current entering a point must be the same 
+        as the amount of current leaving it. 
+        A node is basically a point where two or more circuit elements connect together. 
+        It can be thought of as a junction of the circuit. More specifically, a node is a set of points 
+        that have the same voltage. In between nodes is where we put all of our circuit elements. 
+        This law at a node can be represented as,
+      </p>
+      <div class="math-display">\[
+        \sum_{j=1}^{n}I_j = 0\]
+      </div>
+      <p>
+        The sign convention does not relate to the actual sign of the current flow. 
+        The current is always a negative flow, since it's the flow of electrons. Although, the actual convention 
+        is that current flows in the direction that positive charge would, but this is not relevant to the
+        Kirchhoff's Current Law. We can consider the currents entering a point as positive, and those leaving as 
+        negative in this law. This convention is unique for each node.
+      </p>
+
+      <h3>Kirchhoff's Voltage Law (KVL)</h3>
+      
+      <p>
+        Kirchhoff's Voltage Law is also known as the conservation of energy (in this context). It states that 
+        the sum of voltages around a loop must be \(0\). Mathematically this is expressed as,
+      </p>
+      <div class="math-display">\[
+          \sum_{k=1}^{n}V_k = 0
+        \]
+      </div>
+      <p>
+        Where \(V_k\) is the voltage across the \(k\)-th element of the circuit. 
+        A loop is simply any closed path that starts at a node and returns to the same node. 
+        These can appear as sub-loops inside the circuit where this law still holds. 
+        When we say the "voltage across" an element, we mean the change in electric potential from one side 
+        of the element to the other side.
+      </p>
+
+      <h2>Deriving Kirchhoff's Laws from Maxwell's Equations</h2>
+      <p>
+        Kirchhoff's Laws can be derived from Maxwell's equations under certain assumptions. 
+        This helps explain why they work so well for DC circuits and low-frequency AC circuits.
+      </p>
+
+      <h3>Kirchhoff's Current Law (KCL)</h3>
+      <p>
+        KCL is based on the <strong>continuity equation</strong>, which comes from the law of charge conservation: 
+        \[
+          \nabla \cdot \mathbf{J} = -\frac{\partial \rho}{\partial t}
+        \]
+        Here, \(\mathbf{J}\) is the current density and \(\rho\) is the charge density. 
+        In a steady-state DC circuit, the charge density doesn't change over time, so \(\partial \rho / \partial t = 0\). 
+        This gives \(\nabla \cdot \mathbf{J} = 0\), meaning the net current into any point (node) is zero, exactly KCL.
+      </p>
+
+      <h3>Kirchhoff's Voltage Law (KVL)</h3>
+      <p>
+        KVL comes from Faraday's law of induction: 
+        \[
+          \oint \mathbf{E} \cdot d\mathbf{l} = -\frac{d\Phi_B}{dt}
+        \]
+        For DC circuits or circuits with slowly changing currents, the magnetic flux \(\Phi_B\) is approximately constant, so \(\frac{d\Phi_B}{dt} \approx 0\). 
+        This simplifies to \(\oint \mathbf{E} \cdot d\mathbf{l} = 0\), meaning the sum of voltage drops around any closed loop is zero, exactly KVL.
+      </p>
+
+      <h2>Circuit Analysis</h2>
+      <p>
+        Circuits are usually drawn as diagrams with <strong>nodes</strong> (junctions) and <strong>elements</strong> (resistors, batteries, capacitors, etc.) connected by wires. 
+        By convention, <strong>current flows in the direction that positive charge would move</strong>. 
+        Even though the actual charge carriers (electrons) move opposite to this direction, this convention simplifies calculations 
+        and aligns with the definitions used in Kirchhoff's Laws and Ohm's Law.
+      </p>
+
+      <h2>Resistors</h2>
+      
+      <p>
+        Resistors are essentially current throttles; they can limit the amount of current flowing for a set voltage. 
+        Resistors dissipate electrical energy into heat. As mentioned in the previous page, this is via the 
+        interaction between the current flow and atomic lattice.
+      </p>
+
+      <h3>Series Resistors</h3>
+      <p>
+        Resistors in series are connected end-to-end, so the same current flows through all of them. 
+        Their equivalent resistance is:
+      </p>
+      <div class="math-display">
+        \[ R_{\text{eq}} = R_1 + R_2 + ... + R_n \]
+      </div>
+
+      <h3>Parallel Resistors</h3>
+      <p>
+        Resistors in parallel are connected across the same two nodes, so the voltage across each is the same. 
+        The equivalent resistance is:
+      </p>
+      <div class="math-display">
+        \[ \frac{1}{R_{\text{eq}}} = \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n} \]
+      </div>
+
+      <h2>Capacitors</h2>
+      
+      <p>
+        Capacitors can be thought of as a component that stores charge. 
+        Physically, the capacitor is typically comprised of two separated metal sheets. 
+        As current flows in on one side, the charge builds up on that plate. This build up of 
+        charge creates a small electric field and makes the plate negatively charged. 
+        The charge will not flow across the gap, instead opposite charge will build up on the other plate.
+        The capacitor stores energy in this electric field.
+      </p>
+
+      <h3>The Capacitor Equation</h3>
+      <p>The fundamental equation for a capacitor relates its current to the rate of change of voltage:</p>
+      <div class="math-display">\[
+        I(t) = C \frac{dV_C}{dt}
+        \]
+      </div>
+
+      <h3>RC Charging Circuit</h3>
+      
+      <p>
+        For a resistor \(R\) in series with our capacitor, we use KVL to find:
+      </p>
+      <div class="math-display">\[
       V_s = RC\frac{dV_C}{dt} + V_C
       \]
       </div>    
-      <p>We can rearrange this as</p>
-      <div class="math-block">\[
-      \frac{dV_C}{dt} = \frac{V_s - V_C}{RC} \\
-      \implies \frac{dV_C}{dt} = \frac{V_s}{RC} - \frac{V_C}{RC}
-      \]
-      </div>    
-      <p>Now if you have read my dynamical systems notes, we can readily notice that since 
-        \(V_s\) and \(RC\) are constants, then this is a first order linear ODE in \(V_C\).
-        As mentioned, the \(\frac{V_s}{Rc}\) term is simply a constant, and the the coefficient 
-        of \(V_C\) is simply \(\frac{-1}{RC}\)The general solution to this type of ODE is given by
+      <p>
+        This is a first order linear ODE. The solution for the voltage across the capacitor as it charges from zero is:
       </p>
-      <p>To see the ODE solution more clearly, let \(\omega = \frac{V_s}{RC}\) and let 
-        \(\lambda = \frac{-1}{RC}\). Then our ODE would be
-      </p>
-      <div class="math-block">\[
-      \frac{dV_C}{dt}= \omega + \lambda V_C
-      \]
-      </div>  
-      <p>Now it is easy to see that this is the simplest ODE and has solution</p>
-      <div class="math-block">\[
-      V_C(t) = \gamma e^{\lambda t} - \frac{\omega}{\lambda}
-      \]
-      </div>  
-      <p>Where \(\gamma\) is determined by the initial condition, which in this case is that 
-        \(V_C(0) = 0\) since the capacitor is uncharged at \(t=0\). Plugging in the values for our 
-        constants, we finally have
-      </p>
-    <div class="math-block">\[
-      V_C(t) = \gamma e^{-t/(RC)} - \frac{V_s/RC}{-1/RC}
-      \]
-      </div>  
-      <p>The RCs cancel, and we are left with </p>
-    <div class="math-block">\[
-      V_C(t) = \gamma e^{-t/(RC)} + V_s
-      \]
-      </div>  
-      <p>Finally for the initial condition</p>
-    <div class="math-block">\[
-      V_C(0) = 0 \implies \gamma e^{0} + V_s = 0 \implies \gamma = -V_s
-      \]
-      </div>  
-    Therefore, voltage as a function of time is given by
-        <div class="math-block">\[
-      V_C(t) = -V_s e^{-t/(RC)} + V_s 
-      \]
-      </div>  
-      <p>It will most commonly be factored into the standard form of the equation below,</p>
-        <div class="math-block">\[
-      V_C(t) = V_s(1-e^{-t/(RC)})
-      \]
-      </div>  
-      <p>Typically, we use the aforementioned \(\tau\) for the time constant \(RC\), so you 
-        would likely see this equation as
-      </p>
-      <div class="math-block">\[
+      <div class="math-display">\[
       V_C(t) = V_s(1-e^{-t/\tau})
       \]
       </div>  
-      <p>\(\tau\) is important because it gives us a sort of time-scale for the circuit. 
-        Questions are usually asked about the peercentage that the capacitor is charged after a 
-        certain time constant. For example, after two time constants would refer to 
-        when \(t = 2\tau\), and so on. This time constant determines the speed of charge and discharge of
-        the capacitor. The capacitor will charge exponentially (never truly to 100% i.e. \(V_s\)), 
-        as \(t \to \infty\).
+      <p>
+        Where \(\tau = RC\) is the time constant. This determines the speed of charge and discharge. 
+        The discharge function (when the source is removed) is:
       </p>
-      
-    <p>The discharge process can be thought of as a time-reversed version of charging. If the capacitor 
-    is initially charged to \(V_s\) and then allowed to discharge through a resistor, its voltage is given by</p>
+      <div class="math-display">\[
+      V_C(t) = V_s e^{-t/\tau}
+      \]
+      </div>
 
-    <div class="math-block">\[
-    V_C(t) = V_s e^{-t/\tau}
-    \]
-    </div>
-    <p>We get this from a similar differential equation, 
-      however, we use the initial condition that \(V_C(0) = V_s\). Since in the discharging 
-      case we have no voltage source, the differential equation becomes 
-    </p>
-      <div class="math-block">\[
-      \frac{dV_C}{dt} = \frac{V_s - V_C}{RC} \\
-      \implies \frac{dV_C}{dt} = \frac{V_s}{RC} - \frac{V_C}{RC} 
-      \]
-      \[V_s = 0
-      \implies \frac{dV_C}{dt} = - \frac{V_C}{RC} 
-      \]
-      </div>    
-      <p>The solution to this is simply</p>
-      <div class="math-block">\[
-      V_C(t) = \gamma e^{-t/\tau}\]
-      </div>  
-      <p>Using the initial condition that \(V_C(0) = V_s\), we have</p>
-      <div class="math-block">\[
-      V_C(0) = V_s \implies \gamma e^{0} = V_s \implies \gamma = V_s
-      \]
-      </div>  
-      <p>Therefore our discharging function is </p>
-    <div class="math-block">\[
-    V_C(t) = V_s e^{-t/\tau}
-    \]
-    </div>
-    <p>As we can see, this function decays in time, as expected.</p>
-
-    <h2>Capacitors in Series</h2>
-      <p>When capacitors are connected end-to-end (in series), the total capacitance is less than any individual capacitor. The formula for total capacitance is:</p>
-      <div class="math-block">\[
+      <h2>Capacitor Combinations</h2>
+      <p>
+        When capacitors are connected in <strong>series</strong>, the total capacitance decreases:
+      </p>
+      <div class="math-display">\[
       \frac{1}{C_\text{total}} = \frac{1}{C_1} + \frac{1}{C_2} + \dots
       \]</div>
-      <p>In this configuration, each capacitor has the same charge, but the voltage across each may be different. Series connections are useful when you need a smaller overall capacitance or to handle higher voltages.</p>
-
-  <h2>Capacitors in Parallel</h2>
-    <p>When capacitors are connected side-by-side (in parallel), the total capacitance is the sum of all the individual capacitors:</p>
-    <div class="math-block">\[
-    C_\text{total} = C_1 + C_2 + \dots
-    \]</div>
-    <p>In parallel, each capacitor experiences the same voltage, but the charges on each can be different. Parallel connections are useful when you want to increase the total capacitance in a circuit.</p>
-
-      <p>With these tools, we can build much more complicated circuits. These components serve as 
-        the base for analog circuits. 
+      <p>
+        When connected in <strong>parallel</strong>, the total capacitance is simply the sum:
       </p>
+      <div class="math-display">\[
+      C_\text{total} = C_1 + C_2 + \dots
+      \]</div>
+    </section>
 
+    <section class="archive-section" style="display: flex; gap: 15px; justify-content: center;">
+      <a href="circuits-home.html" class="btn-outline">← Circuits Home</a>
+      <a href="../eeHome.html" class="btn-outline">EE Home</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>

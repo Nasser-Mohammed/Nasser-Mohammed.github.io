@@ -1,43 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Circuits Notes</title>
-  <link rel="icon" type="image/png" href="../../../pictures/eeIcon.png" sizes="48x48">
-  <link rel="stylesheet" href="../styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Circuits | Nasser Mohammed</title>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        tags: 'ams'
+      },
+      options: { renderActions: { addMenu: [] } }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body class="la">
-  <header class="la-hero">
-    <a href="../index.html" class="la-back" aria-label="Back to main">← Back</a>
-    <div class="la-hero-inner">
-      <h1>Circuits</h1>
+<body class="dark-theme">
+
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
     </div>
-  </header>
+  </nav>
 
-  <main class="la-main">
-    <nav class="la-grid">
-      <a class="la-card" href="circuits-intro.html">
-        <div class="la-pill">Start here</div>
-        <h2>What Are Circuits?</h2>
-        <p>Core concepts and intuition</p>
-        <span class="la-chevron">→</span>
-      </a>
-      <a class="la-card" href="rc.html">
-        <div class="la-pill">Theory and Analysis</div>
-        <h2>RC Circuits</h2>
-        <p>Fundamental circuits</p>
-        <span class="la-chevron">→</span>
-      </a>
-      <a class="la-card" href="rlc.html">
-        <div class="la-pill">Theory and Analysis</div>
-        <h2>RLC Circuits</h2>
-        <p>RC Circuits with inductors</p>
-        <span class="la-chevron">→</span>
+  <main class="container">
+    <header class="hero-section">
+      <h1>Circuits</h1>
+      <p class="subtitle">Fundamental Analysis and Network Theory</p>
+      <hr class="subtle-hr">
+    </header>
+
+    <section class="grid-container">
+      <a href="circuits-intro.html" class="card">
+        <div class="card-content">
+          <div class="la-pill" style="display: inline-block; margin-bottom: 10px; font-size: 0.8rem; border: 1px solid var(--accent-color); padding: 2px 8px; border-radius: 12px;">Start here</div>
+          <h3>What Are Circuits?</h3>
+          <p>Core concepts and physical intuition regarding charge flow and potential.</p>
+        </div>
       </a>
 
-    </nav>
+      <a href="rc.html" class="card">
+        <div class="card-content">
+          <div class="la-pill" style="display: inline-block; margin-bottom: 10px; font-size: 0.8rem; border: 1px solid var(--accent-color); padding: 2px 8px; border-radius: 12px;">Theory and Analysis</div>
+          <h3>RC Circuits</h3>
+          <p>Analyzing the time-domain behavior of resistors and capacitors.</p>
+        </div>
+      </a>
+
+      <a href="rlc.html" class="card">
+        <div class="card-content">
+          <div class="la-pill" style="display: inline-block; margin-bottom: 10px; font-size: 0.8rem; border: 1px solid var(--accent-color); padding: 2px 8px; border-radius: 12px;">Theory and Analysis</div>
+          <h3>RLC Circuits</h3>
+          <p>Second-order systems featuring resistors, inductors, and capacitors.</p>
+        </div>
+      </a>
+    </section>
+
+    <section class="archive-section">
+      <a href="../eeHome.html" class="btn-outline">← Back to Electrical Engineering</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>

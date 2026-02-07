@@ -1,156 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/png" href="../../../pictures/eeIcon.png" sizes="48x48">
-  <title>Laplace Transforms</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laplace Transforms | Nasser Mohammed</title>
 
-  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
+        tags: 'ams'
       },
       options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Shared Styles -->
-  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Laplace Transforms</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
 
-  <p>
-    Once an electrical circuit has been written as a system of ordinary differential equations,
-    various analytical tools may be used to study its behavior. One of the most common and useful
-    tools is the <strong>Laplace transform</strong>, which converts time-domain differential equations
-    into algebraic equations in a complex frequency variable.
-  </p>
+  <main class="container">
+    <header class="hero-section">
+      <h1>Laplace Transforms in Circuit Analysis</h1>
+      <p class="subtitle">From Differential Equations to Algebraic Frequency Models</p>
+      <hr class="subtle-hr">
+    </header>
 
-  <p>
-    The Laplace transform does not change the physics of a circuit. Instead, it provides an
-    alternative representation that simplifies analysis, especially for linear systems with
-    initial conditions.
-  </p>
+    <section class="bio-text">
+      <p>
+        Once an electrical circuit has been written as a system of ordinary differential equations,
+        various analytical tools may be used to study its behavior. One of the most common and useful
+        tools is the <strong>Laplace transform</strong>, which converts time-domain differential equations
+        into algebraic equations in a complex frequency variable.
+      </p>
 
-  <h2>The Laplace Transform</h2>
+      <p>
+        The Laplace transform does not change the physics of a circuit. Instead, it provides an
+        alternative representation that simplifies analysis, especially for linear systems with
+        initial conditions.
+      </p>
 
-  <p>
-    Given a time-domain function \(f(t)\) defined for \(t \ge 0\), its Laplace transform is defined as
-  </p>
+      <h2>The Laplace Transform</h2>
+      <p>
+        Given a time-domain function \(f(t)\) defined for \(t \ge 0\), its Laplace transform is defined as
+      </p>
 
-  <div class="math-block">
-  \[
-    \mathcal{L}\{f(t)\} = F(s) = \int_{0}^{\infty} f(t)\,e^{-st}\,dt,
-  \]
-  </div>
+      <div class="math-display">
+      \[
+        \mathcal{L}\{f(t)\} = F(s) = \int_{0}^{\infty} f(t)\,e^{-st}\,dt,
+      \]
+      </div>
 
-  <p>
-    where \(s\) is a complex variable. The transform maps functions of time into functions of
-    complex frequency.
-  </p>
+      <p>
+        where \(s\) is a complex variable. The transform maps functions of time into functions of
+        complex frequency.
+      </p>
 
-  <h2>Derivatives and Initial Conditions</h2>
+      <h2>Derivatives and Initial Conditions</h2>
+      <p>
+        The key reason the Laplace transform is useful for circuit analysis is that it converts time
+        derivatives into algebraic expressions. In particular,
+      </p>
 
-  <p>
-    The key reason the Laplace transform is useful for circuit analysis is that it converts time
-    derivatives into algebraic expressions. In particular,
-  </p>
+      <div class="math-display">
+      \[
+        \mathcal{L}\left\{\frac{df}{dt}\right\}
+        =
+        sF(s) - f(0).
+      \]
+      </div>
 
-  <div class="math-block">
-  \[
-    \mathcal{L}\left\{\frac{df}{dt}\right\}
-    =
-    sF(s) - f(0).
-  \]
-  </div>
+      <p>
+        Higher-order derivatives introduce higher powers of \(s\) along with additional initial
+        condition terms. In this way, the Laplace transform naturally incorporates initial conditions
+        into the algebraic structure of the problem.
+      </p>
 
-  <p>
-    Higher-order derivatives introduce higher powers of \(s\) along with additional initial
-    condition terms. In this way, the Laplace transform naturally incorporates initial conditions
-    into the algebraic structure of the problem.
-  </p>
+      <h2>Circuits in the Laplace Domain</h2>
+      
+      <p>
+        Applying the Laplace transform to a circuit’s governing differential equations converts them
+        into algebraic equations in \(s\). For linear circuits, this allows circuit elements to be
+        represented by algebraic relations known as <em>impedances</em>.
+      </p>
 
-  <h2>Circuits in the Laplace Domain</h2>
+      <p>
+        In the Laplace domain, the fundamental circuit elements take the form
+      </p>
 
-  <p>
-    Applying the Laplace transform to a circuit’s governing differential equations converts them
-    into algebraic equations in \(s\). For linear circuits, this allows circuit elements to be
-    represented by algebraic relations known as <em>impedances</em>.
-  </p>
+      <div class="math-display">
+      \[
+        Z_R = R, \qquad
+        Z_C = \frac{1}{sC}, \qquad
+        Z_L = sL.
+      \]
+      </div>
 
-  <p>
-    In the Laplace domain, the fundamental circuit elements take the form
-  </p>
+      <p>
+        Kirchhoff’s laws continue to hold in the Laplace domain, but differential equations are replaced
+        by algebraic equations involving these impedances.
+      </p>
 
-  <div class="math-block">
-  \[
-    Z_R = R, \qquad
-    Z_C = \frac{1}{sC}, \qquad
-    Z_L = sL.
-  \]
-  </div>
+      <h2>Poles and System Behavior</h2>
+      
+      <p>
+        Solving a circuit in the Laplace domain typically produces rational functions of the form
+      </p>
 
-  <p>
-    Kirchhoff’s laws continue to hold in the Laplace domain, but differential equations are replaced
-    by algebraic equations involving these impedances.
-  </p>
+      <div class="math-display">
+      \[
+        F(s) = \frac{N(s)}{D(s)}.
+      \]
+      </div>
 
-  <h2>Poles and System Behavior</h2>
+      <p>
+        The roots of the denominator \(D(s)\), called <strong>poles</strong>, encode the fundamental
+        dynamical behavior of the circuit. Their locations determine stability, decay rates, and
+        oscillatory behavior.
+      </p>
 
-  <p>
-    Solving a circuit in the Laplace domain typically produces rational functions of the form
-  </p>
+      <p>
+        For example:
+      </p>
 
-  <div class="math-block">
-  \[
-    F(s) = \frac{N(s)}{D(s)}.
-  \]
-  </div>
+      <ul>
+        <li>Real negative poles correspond to exponential decay.</li>
+        <li>Complex conjugate poles correspond to damped oscillations.</li>
+        <li>Poles with positive real part indicate instability.</li>
+      </ul>
 
-  <p>
-    The roots of the denominator \(D(s)\), called <strong>poles</strong>, encode the fundamental
-    dynamical behavior of the circuit. Their locations determine stability, decay rates, and
-    oscillatory behavior.
-  </p>
+      <h2>Relation to Time-Domain Dynamics</h2>
+      <p>
+        Although the Laplace transform simplifies analysis, it does not replace time-domain reasoning.
+        The poles of a Laplace-domain solution correspond directly to the eigenvalues of the underlying
+        dynamical system.
+      </p>
 
-  <p>
-    For example:
-  </p>
+      <p>
+        From this perspective, the Laplace transform provides a compact way to study the same dynamics
+        already present in the circuit’s state-space formulation. It is best viewed as a tool for
+        solving and interpreting linear dynamical systems rather than a separate physical theory.
+      </p>
+    </section>
 
-  <ul>
-    <li>Real negative poles correspond to exponential decay.</li>
-    <li>Complex conjugate poles correspond to damped oscillations.</li>
-    <li>Poles with positive real part indicate instability.</li>
-  </ul>
+    <section class="archive-section">
+      <a href="../eeHome.html" class="btn-outline">← Back to EE Home</a>
+    </section>
+  </main>
 
-  <h2>Relation to Time-Domain Dynamics</h2>
-
-  <p>
-    Although the Laplace transform simplifies analysis, it does not replace time-domain reasoning.
-    The poles of a Laplace-domain solution correspond directly to the eigenvalues of the underlying
-    dynamical system.
-  </p>
-
-  <p>
-    From this perspective, the Laplace transform provides a compact way to study the same dynamics
-    already present in the circuit’s state-space formulation. It is best viewed as a tool for
-    solving and interpreting linear dynamical systems rather than a separate physical theory.
-  </p>
-</main>
-
-
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>

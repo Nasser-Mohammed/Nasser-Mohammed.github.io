@@ -1,65 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/png" href="../../../pictures/eeIcon.png" sizes="48x48">
-  <title>Intro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EE Intro | Nasser Mohammed</title>
 
-  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
+        tags: 'ams'
       },
       options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Shared Styles -->
-  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Intro</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
-    <p>Electrical Engineering is a very broad field, and intersects with many other fields. At its core, it is the branch 
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>Introduction to Electrical Engineering</h1>
+      <p class="subtitle">The Generation, Transmission, and Exploitation of Electricity</p>
+      <hr class="subtle-hr">
+    </header>
+
+    <section class="bio-text">
+      <p>
+        Electrical Engineering is a very broad field, and intersects with many other fields. At its core, it is the branch 
         of engineering concerned with electricity. This primarily includes the generation, transmission, and exploitation of electricity
-        in various modes. There are various subfields of which you can find anywhere online. 
-    </p>
-    <h2>Electricity and Magnetism</h2>
-    <p>
-        Electricity and magnetism are two sides of the same coin, and Electrical Engineering pushes these concepts to their 
-    physical limits. Much of the field is intangible to the human eye due to the very nature of electromagnetic phenomena. 
-    For this reason, we often must rely on mathematics to guide our intuition and understanding. 
-    </p>
+        in various modes.
+      </p>
 
-    <h2>Maxwell's Equations</h2>
-    <p>Just as the Navier-Stokes equations form the foundation of Mechanical and Aerospace Engineering, 
+      
+
+      <h2>Electricity and Magnetism</h2>
+      <p>
+        Electricity and magnetism are two sides of the same coin, and Electrical Engineering pushes these concepts to their 
+        physical limits. Much of the field is intangible to the human eye due to the very nature of electromagnetic phenomena. 
+        For this reason, we often must rely on mathematics to guide our intuition and understanding. 
+      </p>
+
+      <h2>Maxwell's Equations</h2>
+      <p>
+        Just as the Navier-Stokes equations form the foundation of Mechanical and Aerospace Engineering, 
         Maxwell's equations form the foundation of Electrical Engineering. Nearly every subfield can be 
         viewed as a distinct exploitation or application of this system of PDEs. Therefore, a solid 
-        understanding of them is essential for deeper study in the field. This leads us into the next page, 
-        <a href="maxwells-eq.html">Maxwell's Equations</a>.</p>
+        understanding of them is essential for deeper study in the field.
+      </p>
+      
+      <p>
+        This leads us into the next core topic: <a href="maxwells-eq.html" class="text-link">Maxwell's Equations</a>.
+      </p>
 
-    <h2>Circuits</h2>
-    <p>
+      <h2>Circuits</h2>
+      <p>
         Circuits can be seen as simplified models of the electromagnetic field, reduced to systems of 
-    ordinary differential equations (ODEs). This allows us to apply the theory of nonlinear dynamics and chaos, 
-    turning circuits into a playground for dynamical systems. Moreover, electricity can be used to perform 
-    literal computations, forming the foundation of physical computation. I plan to include examples of my own physical 
-    circuits and potentially the phase space of them (if they have a unique geometry).
-    </p>
-    
-    
+        ordinary differential equations (ODEs). This allows us to apply the theory of nonlinear dynamics and chaos, 
+        turning circuits into a playground for dynamical systems. 
+      </p>
+      
+      
 
+      <p>
+        Moreover, electricity can be used to perform literal computations, forming the foundation of physical computation. 
+        I plan to include examples of my own physical circuits and potentially the phase space of them, especially if 
+        they exhibit a unique geometry.
+      </p>
+    </section>
+
+    <section class="archive-section" style="display: flex; gap: 15px; justify-content: center;">
+      <a href="../eeHome.html" class="btn-outline">← Back to EE Home</a>
+      <a href="maxwells-eq.html" class="btn-outline">Maxwell's Equations →</a>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>
