@@ -1,110 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hamiltonian Mechanics Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hamiltonian Mechanics | Nasser Mohammed</title>
 
-  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
+        tags: 'ams'
       },
       options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Shared Styles -->
-  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Hamiltonian Mechanics</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
-  <p>
-    While Lagrangian mechanics formulates dynamics in terms of generalized coordinates and their
-    velocities, Hamiltonian mechanics reformulates the same dynamics in terms of coordinates and
-    their conjugate momenta. This leads to a first-order system of equations that naturally
-    emphasizes phase space structure, conservation laws, and time evolution.
-  </p>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
 
-  <p>
-    The central object in this formulation is the <strong>Hamiltonian</strong>, defined as the
-    Legendre transform of the Lagrangian with respect to the generalized velocities.
-  </p>
+  <main class="container">
+    <header class="hero-section">
+      <h1>Hamiltonian Mechanics</h1>
+      <p class="subtitle">Phase Space Dynamics and Hamilton's Equations</p>
+      <hr class="subtle-hr">
+    </header>
 
-  <div class="math-block">
-  \[
-    H(q,p,t) = \sum_i p_i \dot{q}_i - L(q,\dot{q},t),
-  \]
-  </div>
+    <section class="bio-text">
+      <p>
+        While Lagrangian mechanics formulates dynamics in terms of generalized coordinates and their
+        velocities, Hamiltonian mechanics reformulates the same dynamics in terms of coordinates and
+        their conjugate momenta. This leads to a first-order system of equations that naturally
+        emphasizes phase space structure, conservation laws, and time evolution.
+      </p>
 
-  <p>
-    where the generalized momenta are given by
-  </p>
+      <p>
+        The central object in this formulation is the <strong>Hamiltonian</strong>, defined as the
+        Legendre transform of the Lagrangian with respect to the generalized velocities.
+      </p>
 
-  <div class="math-block">
-  \[
-    p_i = \frac{\partial L}{\partial \dot{q}_i}.
-  \]
-  </div>
+      <div class="math-display">
+      \[
+        H(q,p,t) = \sum_i p_i \dot{q}_i - L(q,\dot{q},t),
+      \]
+      </div>
 
-  <p>
-    For many mechanical systems, the Hamiltonian coincides with the total energy of the system,
-    though this identification is not fundamental to the formalism.
-  </p>
+      <p>
+        where the generalized momenta are given by
+      </p>
 
-  <h2>Hamilton’s Equations</h2>
+      <div class="math-display">
+      \[
+        p_i = \frac{\partial L}{\partial \dot{q}_i}.
+      \]
+      </div>
 
-  <p>
-    The equations of motion in Hamiltonian mechanics are given by Hamilton’s equations,
-  </p>
+      <p>
+        For many mechanical systems, the Hamiltonian coincides with the total energy of the system,
+        though this identification is not fundamental to the formalism.
+      </p>
 
-  <div class="math-block">
-  \[
-    \dot{q}_i = \frac{\partial H}{\partial p_i},
-    \qquad
-    \dot{p}_i = -\frac{\partial H}{\partial q_i}.
-  \]
-  </div>
+      <h2>Hamilton’s Equations</h2>
 
-  <p>
-    These equations define a first-order dynamical system on phase space. In contrast to
-    Newtonian or Lagrangian formulations, position and momentum are treated as independent
-    variables whose coupled evolution fully determines the motion.
-  </p>
+      <p>
+        The equations of motion in Hamiltonian mechanics are given by Hamilton’s equations,
+      </p>
 
-  <h2>Phase Space and Structure</h2>
+      <div class="math-display">
+      \[
+        \dot{q}_i = \frac{\partial H}{\partial p_i},
+        \qquad
+        \dot{p}_i = -\frac{\partial H}{\partial q_i}.
+      \]
+      </div>
 
-  <p>
-    Hamiltonian dynamics naturally lives on phase space, where trajectories represent the
-    evolution of the full state of the system. The flow generated by Hamilton’s equations
-    preserves phase space volume and exhibits a rich geometric structure that underlies
-    stability, reversibility, and long-term behavior.
-  </p>
+      <p>
+        These equations define a first-order dynamical system on phase space. In contrast to
+        Newtonian or Lagrangian formulations, position and momentum are treated as independent
+        variables whose coupled evolution fully determines the motion.
+      </p>
 
-  <p>
-    This structure makes Hamiltonian mechanics particularly well suited for studying conservative
-    systems, integrability, perturbations, and long-time numerical behavior. It also provides the
-    natural foundation for symplectic integration methods and modern formulations of control and
-    optimization.
-  </p>
+      <h2>Phase Space and Structure</h2>
+      
+      <p>
+        Hamiltonian dynamics naturally lives on phase space, where trajectories represent the
+        evolution of the full state of the system. The flow generated by Hamilton’s equations
+        preserves phase space volume and exhibits a rich geometric structure that underlies
+        stability, reversibility, and long-term behavior.
+      </p>
 
-  <p>
-    Beyond classical mechanics, the Hamiltonian framework extends directly to statistical
-    mechanics, quantum mechanics, and field theory, and plays a central role in modern dynamical
-    systems theory.
-  </p>
-</main>
+      <p>
+        This structure makes Hamiltonian mechanics particularly well suited for studying conservative
+        systems, integrability, perturbations, and long-time numerical behavior. It also provides the
+        natural foundation for symplectic integration methods and modern formulations of control and
+        optimization.
+      </p>
 
+      <p>
+        Beyond classical mechanics, the Hamiltonian framework extends directly to statistical
+        mechanics, quantum mechanics, and field theory, and plays a central role in modern dynamical
+        systems theory.
+      </p>
+    </section>
+
+    <section class="archive-section" style="display: flex; gap: 15px; justify-content: center;">
+      <a href="../physicsHome.html" class="btn-outline">← Physics Home</a>
+      <a href="../../../../notes/notesHome.html" class="btn-outline">Knowledge Base</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>

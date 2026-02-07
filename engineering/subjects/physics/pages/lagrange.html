@@ -1,107 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lagrangian Mechanics Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lagrangian Mechanics | Nasser Mohammed</title>
 
-  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
+        tags: 'ams'
       },
       options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Shared Styles -->
-  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Lagrangian Mechanics</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
-  <p>
-    Classical mechanics is often introduced through Newton’s laws, which describe motion in terms
-    of forces acting on particles. While this formulation is intuitive, it can become cumbersome
-    for systems with constraints, generalized coordinates, or many interacting degrees of freedom.
-    Lagrangian mechanics provides an alternative, coordinate-invariant framework that encodes the
-    dynamics of a system through energy rather than force.
-  </p>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
 
-  <p>
-    The central object in Lagrangian mechanics is the <strong>Lagrangian</strong>, defined as
-  </p>
+  <main class="container">
+    <header class="hero-section">
+      <h1>Lagrangian Mechanics</h1>
+      <p class="subtitle">The Principle of Least Action and Euler-Lagrange Equations</p>
+      <hr class="subtle-hr">
+    </header>
 
-  <div class="math-block">
-  \[
-    L(q, \dot{q}, t) = T(q, \dot{q}) - V(q),
-  \]
-  </div>
+    <section class="bio-text">
+      <p>
+        Classical mechanics is often introduced through Newton’s laws, which describe motion in terms
+        of forces acting on particles. While this formulation is intuitive, it can become cumbersome
+        for systems with constraints, generalized coordinates, or many interacting degrees of freedom.
+        Lagrangian mechanics provides an alternative, coordinate-invariant framework that encodes the
+        dynamics of a system through energy rather than force.
+      </p>
 
-  <p>
-    where \(q\) denotes a set of generalized coordinates, \(\dot{q}\) their time derivatives,
-    \(T\) the kinetic energy, and \(V\) the potential energy. The dynamics of the system are obtained
-    by requiring that the action functional
-  </p>
+      <p>
+        The central object in Lagrangian mechanics is the <strong>Lagrangian</strong>, defined as
+      </p>
 
-  <div class="math-block">
-  \[
-    S[q] = \int_{t_1}^{t_2} L(q, \dot{q}, t)\,dt
-  \]
-  </div>
+      <div class="math-display">
+      \[
+        L(q, \dot{q}, t) = T(q, \dot{q}) - V(q),
+      \]
+      </div>
 
-  <p>
-    be stationary with respect to variations of the path \(q(t)\).
-  </p>
+      <p>
+        where \(q\) denotes a set of generalized coordinates, \(\dot{q}\) their time derivatives,
+        \(T\) the kinetic energy, and \(V\) the potential energy. The dynamics of the system are obtained
+        by requiring that the action functional
+      </p>
 
-  <h2>Euler–Lagrange Equations</h2>
+      
 
-  <p>
-    Applying the principle of stationary action leads to the Euler–Lagrange equations,
-  </p>
+      <div class="math-display">
+      \[
+        S[q] = \int_{t_1}^{t_2} L(q, \dot{q}, t)\,dt
+      \]
+      </div>
 
-  <div class="math-block">
-  \[
-    \frac{d}{dt}\left( \frac{\partial L}{\partial \dot{q}_i} \right)
-    -
-    \frac{\partial L}{\partial q_i}
-    = 0,
-  \]
-  </div>
+      <p>
+        be stationary with respect to variations of the path \(q(t)\).
+      </p>
 
-  <p>
-    which govern the evolution of each generalized coordinate \(q_i\). These equations are
-    equivalent to Newton’s second law for conservative systems, but they naturally incorporate
-    constraints and allow for arbitrary coordinate choices.
-  </p>
+      <h2>Euler–Lagrange Equations</h2>
 
-  <h2>Advantages of the Lagrangian Formulation</h2>
+      <p>
+        Applying the principle of stationary action leads to the Euler–Lagrange equations,
+      </p>
 
-  <p>
-    Lagrangian mechanics shifts the focus from forces to energy and geometry. Constraints can be
-    handled implicitly through coordinate selection, symmetries become transparent, and conserved
-    quantities arise naturally through invariance principles. This formulation is particularly
-    powerful for systems with complex kinematics, coupled degrees of freedom, or underlying
-    symmetries.
-  </p>
+      <div class="math-display">
+      \[
+        \frac{d}{dt}\left( \frac{\partial L}{\partial \dot{q}_i} \right)
+        -
+        \frac{\partial L}{\partial q_i}
+        = 0,
+      \]
+      </div>
 
-  <p>
-    Beyond classical mechanics, the Lagrangian framework extends directly to fields, continuum
-    systems, electrodynamics, and modern theoretical physics. It also provides the natural bridge
-    to Hamiltonian mechanics, control formulations, and variational methods in applied mathematics.
-  </p>
-</main>
+      <p>
+        which govern the evolution of each generalized coordinate \(q_i\). These equations are
+        equivalent to Newton’s second law for conservative systems, but they naturally incorporate
+        constraints and allow for arbitrary coordinate choices.
+      </p>
 
+      <h2>Advantages of the Lagrangian Formulation</h2>
 
+      <p>
+        Lagrangian mechanics shifts the focus from forces to energy and geometry. Constraints can be
+        handled implicitly through coordinate selection, symmetries become transparent, and conserved
+        quantities arise naturally through invariance principles. This formulation is particularly
+        powerful for systems with complex kinematics, coupled degrees of freedom, or underlying
+        symmetries.
+      </p>
+
+      <p>
+        Beyond classical mechanics, the Lagrangian framework extends directly to fields, continuum
+        systems, electrodynamics, and modern theoretical physics. It also provides the natural bridge
+        to Hamiltonian mechanics, control formulations, and variational methods in applied mathematics.
+      </p>
+    </section>
+
+    <section class="archive-section" style="display: flex; gap: 15px; justify-content: center;">
+      <a href="../physicsHome.html" class="btn-outline">← Physics Home</a>
+      <a href="../../../../notes/notesHome.html" class="btn-outline">Knowledge Base</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>

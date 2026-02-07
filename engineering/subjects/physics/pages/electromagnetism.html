@@ -1,468 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Electricity and Magnetism Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electricity and Magnetism | Nasser Mohammed</title>
 
-  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
+        tags: 'ams'
       },
       options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Shared Styles -->
-  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Electricity and Magnetism</h1>
-  </header>
+<body class="dark-theme">
 
-    <main>
-    <p>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero-section">
+      <h1>Electricity and Magnetism</h1>
+      <p class="subtitle">Maxwell's Equations and the Foundations of Electrodynamics</p>
+      <hr class="subtle-hr">
+    </header>
+
+    <section class="bio-text">
+      <p>
         As mentioned, Maxwell's Equations form the foundation of Electrical Engineering. This page explores the fundamental nature 
         of the system of PDEs that govern electromagnetic phenomena. First, we will examine each equation that helped develop the 
-        final system of equation, roughly in historical order. 
-        At the end, we will combine them to reconstruct what is known today as Maxwell's Equations.
-        </p>
-
-        <h2>Permeability vs. Permittivity</h2>
-        <p>Throughout this section you will see two common constants. The first constant is</p>
-          <div class="math-block">
-            \[
-           \epsilon_0
-            \]
-            </div>
-        <p>This is the <strong>permittivity of free space</strong>, and is used in electric fields. The
-        other common constant is</p>
-          <div class="math-block">
-            \[
-           \mu_0
-            \]
-            </div>
-          <p>This is the <strong>permeability of free space</strong>, and is used in magnetic fields.</p>
-          <p>These two quantities are related to each other through the speed of light via the equation</p>
-          <div class="math-block">
-            \[
-           c = \frac{1}{\sqrt{\mu_0 \epsilon_0}}
-            \]
-            </div>
-            <p>Where \(c\) is the speed of light.</p>
-
-        <h2>Coulomb's Law (1785)</h2>
-        <p>
-            In 1785, Charles-Augustin de Coulomb measured the force between static electric charges and discovered an 
-            inverse-square relationship governing electrostatics. This is very similar to the formula governing the 
-            gravitational force between two celestial bodies.
-            </p>
-
-            <div class="math-block">
-            \[
-            F = k_e \frac{q_1 q_2}{r^2}
-            \]
-            </div>
-
-            <p>
-            Where \(k_e = \frac{1}{4\pi \varepsilon_0}\) is <strong>Coulomb's constant</strong>. The key takeaway is that 
-            this law is essentially analogous to <strong>Newton's Law of Gravitation</strong>, but for electric charges.
-            </p>
-
-            <p>
-                Here, \(q_1\) and \(q_2\) are considered <strong>point charges</strong>, meaning they are idealized charges 
-                with no spatial extent, so that the force acts along the line connecting them. Roughly speaking, an atom is 
-                positively charged if it has more protons than electrons, negatively charged if it has more electrons than 
-                protons, and neutral if it has the same number of protons and electrons. In our equation, this means that 
-                when the signs of \(q_1\) and \(q_2\) are opposite, the product is negative, resulting in an attractive force. 
-                Otherwise, the charges repel, consistent with physical reality. Later, Gauss generalized this law to 
-                continuous charge distributions, giving it its modern differential form. However, what I showed 
-                was only the <strong>magnitude</strong> of force. This does not necessarily give us a sense of
-                direction in space. This force may very well be at an angle relative to a normal Cartesian coordinate 
-                system. The positive vs. negative distinction gives us one piece of information , however, it's for the magnitude 
-                of the force, not the direction of force. Furthermore, our point charge doesn't necessarily 
-                need to be centered at the origin, we might want a more generalized form for different use cases.
-                Therefore we must consider the vector form using a displacement vector, \(\vec{r}\). Now we know that 
-            </p>
-
-            <h2>Electric Fields Defined by Coulomb's Law</h2>
-            <p>There's sort of two ways to look at an electric field, so we'll start with the first. 
-              If we consider an electric monopole \(q_1\) (a single point charge), then we might want to 
-              have a graphical representation of its effect on any point in space. This is where we get the 
-              concept of an electric field. Denoted \(\textbf{E}\), the electric field is simply a vector field where 
-              each point in space is assigned a vector representing the electric force per unit charge.
-              This is an important distinction, because we can then use the electric field to determine the 
-              actual effect on a charged particle \(q_2\) by simply scaling the vector at that point by \(q_2\).
-              In other words it gives us a general (and normalized) measurement for the effect of our source \(q_1\)
-              on any point in space. The magnitude of the vector field at any point in space is given by,
-            </p>
-            <div class="math-block">\[
-                k_e\frac{q_1}{r^2}
-              \]
-            </div>
-            <p>A higher value of \(q_1\) creates a stronger electric field, and the field 
-              is weaker further away from the source. However so far the field we described is only scalar and is not a vector field. To properly
-              define a vector field we must have vectors. So since we defined the magnitude of the field at each point, we just 
-              need to multiply it by its displacement vector. More specifically, the actual vector field 
-            \(\textbf{E}\) is given by</p>
-            <div class="math-block">\[
-                \textbf{E} = k_{e}\frac{q_1}{r^2}\hat{r} = k_{e}\frac{q_1}{r^3}\vec{r}
-              \]
-            </div> 
-            <p>These are equivalent since</p>
-            <div class="math-block">\[
-                \hat{r} = \frac{\vec{r}}{r}
-              \]
-            </div> 
-              
-              <p>
-              Here, \(\vec{r}\) is the <strong>displacement vector</strong>. More specifically, 
-              in three-dimensional coordinates, it is the vector difference between the position of the 
-              field point \((x,y,z)\) and the position of the source charge \((x_0,y_0,z_0)\).
-              </p>
-
-              
-              <p>If we ever want to determine the actual force that our source 
-              exerts on another point charge \(q_2\), we simply multiply the magnitude of the vector at its position by 
-              the charge of \(q_2\). In other words, 
-            </p>
-            <div class="math-block">\[
-                  |F| = q_2\cdot|\textbf{E}|
-              \]
-            </div>
-            <p>Where we can determine \(r\) by the Euclidean distance,
-            </p>
-            <div class="math-block">\[
-                  r = \sqrt{(x-x_0)^2+(y-y_0)^2+(z-z_0)^2} \implies r^2 = (x-x_0)^2 + (y-y_0)^2 + (z-z_0)^2
-              \]
-            </div>
-            <p>Where \((x_0, y_0, z_0)\) are the coordinates of the source charge. This basically defines the outline of a sphere of radius \(r\). So the source's effect on space 
-              is radially symmetric (at least in this formulation with an idealized point charge).
-            </p>
-      <section aria-labelledby="efields-title" class="sim-section"></section>
-      <h2 id="efields-title">Electric Field Simulator</h2>
-      <p>Here is a live simulator I programmed to get the feel for electric fields of mono and dipoles. For all of the simulations 
-        on this page, since the fields are static unless some charge moves, 
-        I can deploy a render on demand scheme for the simulation logic to
-        save CPU usage. Basically, I only update the canvas when you change it, 
-        and save the last frame to show, instead of having an animation loop
-        eating the CPU.
+        final system of equation, roughly in historical order. At the end, we will combine them to reconstruct what is known today as Maxwell's Equations.
       </p>
-          <div class="sim-grid">
-            <!-- Monopole -->
-            <article class="sim-card" aria-labelledby="mono-title">
-              <header class="sim-head">
-                <h3 id="mono-title">Monopole Field</h3>
-              </header>
 
-              <div class="sim-wrap">
-                <canvas id="mono-canvas" class="sim-canvas" width="800" height="600" aria-label="Monopole field canvas"></canvas>
-                <p class="sim-hint">click and drag the charge • right click charge to flip polarity</p>
-              </div>
-            </article>
+      <h2>Permeability vs. Permittivity</h2>
+      <p>Throughout this section you will see two common constants. The first constant is</p>
+      <div class="math-display">
+        \[ \epsilon_0 \]
+      </div>
+      <p>This is the <strong>permittivity of free space</strong>, and is used in electric fields. The other common constant is</p>
+      <div class="math-display">
+        \[ \mu_0 \]
+      </div>
+      <p>This is the <strong>permeability of free space</strong>, and is used in magnetic fields.</p>
+      <p>These two quantities are related to each other through the speed of light via the equation</p>
+      <div class="math-display">
+        \[ c = \frac{1}{\sqrt{\mu_0 \epsilon_0}} \]
+      </div>
+      <p>Where \(c\) is the speed of light.</p>
 
-            <!-- Dipole -->
-            <article class="sim-card" aria-labelledby="dipole-title">
-              <header class="sim-head">
-                <h3 id="dipole-title">Dipole Field</h3>
-              </header>
-
-              <div class="sim-wrap">
-                <canvas id="dipole-canvas" class="sim-canvas" width="800" height="600" aria-label="Dipole field canvas"></canvas>
-                <p class="sim-hint">click and drag the charges • right click charge to flip polarity</p>
-              </div>
-            </article>
-          </div>
-        </section>
-
-
-        <h2>Ampère's Law (1820-1825)</h2>
-        <p>
-        Between 1820 and 1825, André-Marie Ampère studied the magnetic field produced by electric currents and formulated 
-        the relationship between current and magnetic field. His results were built upon the seminal work of Ørsted.
-        In its standard integral form, <strong>Ampère's Law</strong> is written as
-      </p>
-        <div class="math-block">\[
-            \oint_C \textbf{B}\cdot d\textbf{l} = \mu_0 I_{\text{enc}}
-          \]
-        </div>
-        <p>Here \(\textbf{B}\) is called the <strong>Magnetic Field</strong>. In English this says that the line integral 
-          of the magnetic field \(\textbf{B}\) around a closed loop \(C\) is proportional to the net electric current 
-          \(I_{\text{enc}}\) that passes through the surface which is bounded by that loop. So if we took a 2D slice of 
-          a current carrying wire, there would be a magnetic field moving around the wire. Often times, you can 
-          use the <a href="https://en.wikipedia.org/wiki/Right-hand_rule" target="_blank">right-hand rule</a> to determine 
-          how the magnetic field flows around a current. Essentially, you can put the thumb on your right hand in 
-          the direction of the current, and the direction the rest of your fingers curl is the magnetic field 
-          orientation. 
-        </p>
-        <p>More simply, this says that an electric current induces a magnetic field around itself. To find the 
-          actual strength of the magnetic field, you use <strong>Ampère's Law</strong> above.
-        </p>
-
-        <p>Now Ampère's Law does not give us the actual magnetic field, rather a condition the magnetic field 
-          must obey. Let's really understand the left hand side.
-        </p>
-        <div class="math-block">\[
-            \oint_C \textbf{B}\cdot d\textbf{l}
-          \]
-        </div>
-        <p>This is a line integral along a curve \(C\) that ends and starts at the same position (a closed loop).
-          Now this integral tells us to go around the curve and sum up the vector component of
-          \(\textbf{B}\) tangent to the curve at each point. In cases with symmetry we can solve in a 
-          straightforward manner. For example if we had an infinite straight current carrying line, 
-          then 
-        </p>
-        <div class="math-block">\[
-            \oint_C \textbf{B}\cdot d\textbf{l} = B\oint_C{d\textbf{l}} = B(2\pi r)
-          \]
-        </div>
-        <p>Therefore the magnitude of the magnetic field for any circle around the wire is 
-        </p>
-
-        <div class="math-block">\[
-            B(2\pi r) = \mu_0 I_{enc} \implies B = \frac{\mu_0 I_{enc}}{2\pi r}
-          \]
-        </div>
-        <p>If we do not have the symmetry we mentioned, then we would need to use the 
-          <a href="https://en.wikipedia.org/wiki/Biot%E2%80%93Savart_law" target="_blank">Biot-Savart Law</a> 
-        </p>
-        <p>The Biot-Savart Law generalizes Ampère's Law, providing a formula for computing the magnetic 
-          field produced by any steady current, regardless of the current's geometry. Similar to how Gauss's Law is a 
-          generalization of Coulomb's Law for point charges. The final thing to note is that both the
-          Biot-Savart Law and Ampère's Law are for constant currents. We will see later how to deal with time 
-          varying currents.
-        </p>
-        <section aria-labelledby="ampere-title" class="sim-section"></section>
-        <h2>Magnetic Field Simulation</h2>
-
-        <article class="sim-card" aria-labelledby="ampere-title">
-          <header class="sim-head">
-            <h3>Infinite Straight Wire (Out/In of Page)</h3>
-          </header>
-
-          <div class="sim-wrap">
-            <canvas id="ampere-canvas" class="sim-canvas" width="800" height="600" aria-label="Ampere's law canvas"></canvas>
-            <p class="sim-hint">drag the wire ⨂/⨀ • right-click wire to flip current</p>
-          </div>
-        </article>
-      </section>
-
-
-        <h2>Gauss's Laws (1830s-1845)</h2>
-        <p>
-        From the 1830s to 1845, Carl Friedrich Gauss formulated Gauss's Law for electricity, relating electric fields 
-        to charge distribution. In its integral form, it is given by the following formula.
-        </p>
-        <div class="math-block">\[
-            \oint_{\partial V}\textbf{E}\cdot d\textbf{A} = \frac{Q_{enc}}{\epsilon_0}
-
-          \]
-        </div>
-        <p>\(\partial V\) is the closed surface bounding the volume \(V\), and \(Q_{enc}\) is 
-          the total charge enclosed within that volume.
-        </p>
-        <p>In its differential form (the more commonly seen form), it is expressed below. We can derive 
-          the differential form from the integral form through the 
-          <a href="https://en.wikipedia.org/wiki/Divergence_theorem" target="_blank">Divergence Theorem</a>.
-        </p>
-        <div class="math-block">\[
-            \nabla \cdot \textbf{E} = \frac{\rho}{\epsilon_0}
-          \]
-        </div>
-        <p>This says that the divergence of the electric field at any point is equal to 
-          \(\rho\) (the charge density at that point), divided by the permittivity of free space.
-        </p>
-        <p>The divergence measures how much the vector field spreads out from a small volume around a point.
-           It can be thought of as the <strong>flux</strong> of the electric field at a point.
-        </p>
-
-        <p>Now we can consider <strong>Gauss's Law for Magnetism</strong>. In its integral form, we have</p>
-        <div class="math-block">\[
-            \oint_{\partial V}\textbf{B}\cdot d\textbf{A} = 0
-          \]
-        </div>
-        <p>The modern form is its differential form below,</p>
-        <div class="math-block">\[
-          \nabla \cdot \textbf{B} = 0\]
-        </div>
-        <p>What this says is that there are no magnetic charges; magnetic field lines have no beginning or end,
-           so the net magnetic flux through any closed surface is zero.
-          Another way to think about this is that magnetic field lines always form closed loops. Unlike electric charges,
-          there are no such thing as "magnetic charges" (monopoles). If there is any 
-          magnetic flux coming in through an area, then the exact same amount must be leaving the area.
-        </p>
-        <p>If we imagine a typical bar magnet, we see magnetic field lines exist the north side, 
-          loop through the south end, and then return back to the north pole and completing 
-          the closed loop. This is why cutting a 
-          magnet in half gives us two dipoles, not two monopoles.
-        </p>
-        <p>It's important to note that charged particles do not follow the magnetic fields exactly. 
-          Instead the magnetic field exerts a force perpendicular to the particle's velocity and the field.
-          This is called the <a href="https://en.wikipedia.org/wiki/Lorentz_force" target="_blank">Lorentz Force</a>.
-          The actual trajectory would be a sort of circle/helix trajectory around the field lines.
-        </p>
-
-
-
-      <h2>Faraday's Law of Induction (1831)</h2>
+      <h2>Coulomb's Law (1785)</h2>
       <p>
-          In 1831, Michael Faraday discovered experimentally that a changing magnetic field induces an electric current. 
-          This is expressed by the differential form of Faraday's Law of Induction.
+        In 1785, Charles-Augustin de Coulomb measured the force between static electric charges and discovered an 
+        inverse-square relationship governing electrostatics. This is very similar to the formula governing the 
+        gravitational force between two celestial bodies.
       </p>
-      <div class="math-block">
-          \[ 
-              \nabla \times \textbf{E} = -\frac{\partial \textbf{B}}{\partial t}
-          \]
+      <div class="math-display">
+        \[ F = k_e \frac{q_1 q_2}{r^2} \]
+      </div>
+      <p>
+        Where \(k_e = \frac{1}{4\pi \varepsilon_0}\) is <strong>Coulomb's constant</strong>. The key takeaway is that 
+        this law is essentially analogous to <strong>Newton's Law of Gravitation</strong>, but for electric charges.
+      </p>
+
+      <h2>Electric Fields Defined by Coulomb's Law</h2>
+      
+
+
+      <p>
+        There are two ways to look at an electric field. If we consider an electric monopole \(q_1\) (a single point charge), then we might want to 
+        have a graphical representation of its effect on any point in space. Denoted \(\textbf{E}\), the electric field is simply a vector field where 
+        each point in space is assigned a vector representing the electric force per unit charge.
+      </p>
+      <div class="math-display">
+        \[ \textbf{E} = k_{e}\frac{q_1}{r^2}\hat{r} = k_{e}\frac{q_1}{r^3}\vec{r} \]
+      </div>
+      <p>
+        In three-dimensional coordinates, \(\vec{r}\) is the vector difference between the position of the 
+        field point \((x,y,z)\) and the position of the source charge \((x_0,y_0,z_0)\).
+      </p>
+
+      <h2>Electric Field Simulator</h2>
+      <p>
+        Here is a live simulator I programmed to get the feel for electric fields of mono and dipoles. 
+      </p>
+
+      <div class="grid-container">
+        <div class="art-card">
+          <h3>Monopole Field</h3>
+          <canvas id="mono-canvas" style="width:100%; background:#0d1117; border-radius:8px;"></canvas>
+          <p class="img-caption">click and drag the charge • right click to flip polarity</p>
+        </div>
+        <div class="art-card">
+          <h3>Dipole Field</h3>
+          <canvas id="dipole-canvas" style="width:100%; background:#0d1117; border-radius:8px;"></canvas>
+          <p class="img-caption">click and drag the charges • right click to flip polarity</p>
+        </div>
       </div>
 
+      <h2>Ampère's Law (1820-1825)</h2>
+      
       <p>
-          What this says is that a changing magnetic field will induce a circulating electric field. 
-          The term \(\nabla \times \textbf{E}\) is the <strong>curl</strong> of the electric field at a point in space, 
-          which measures how much the field “loops” around that point. The negative sign indicates that the induced circulation 
-          opposes the change in magnetic flux, as described by 
-          <a href="https://en.wikipedia.org/wiki/Lenz%27s_law" target="_blank">Lenz's Law</a>.
+        Between 1820 and 1825, André-Marie Ampère studied the magnetic field produced by electric currents. In its standard integral form:
       </p>
-
+      <div class="math-display">
+        \[ \oint_C \textbf{B}\cdot d\textbf{l} = \mu_0 I_{\text{enc}} \]
+      </div>
       <p>
-          Intuitively, you can think of a loop of wire in a changing magnetic field (like in a generator). 
-          As the magnetic field through the loop changes, it “pushes” charges around the loop, creating a current. 
-          The induced electric field is always circulating, looping around regions where the magnetic field is changing, 
-          and the negative sign tells us that this induced circulation works to oppose the change in magnetic flux.
+        This states that an electric current induces a magnetic field around itself. For an infinite straight current carrying line, the magnitude is:
       </p>
+      <div class="math-display">
+        \[ B = \frac{\mu_0 I_{enc}}{2\pi r} \]
+      </div>
 
-    <h2>Ampère-Maxwell Law (1861-1862)</h2>
-    <p>
-        Between 1861 and 1862, James Clerk Maxwell extended Ampère's Law to include time-varying electric fields. 
-        He introduced the concept of the <strong>displacement current</strong>, which makes the law consistent 
-        with charge conservation. In integral form, the law is written as:
-    </p>
-    <div class="math-block">
-        \[
-            \oint_C \textbf{B} \cdot d\textbf{l} = \mu_0 \left( I_{\text{enc}} + \epsilon_0 \frac{d\Phi_E}{dt} \right)
-        \]
-    </div>
-    <p>
-        Here, \(I_{\text{enc}}\) is the conduction current passing through the surface bounded by the loop \(C\), 
-        and \(\frac{d\Phi_E}{dt}\) is the rate of change of the electric flux through that surface. 
-        The magnetic field \(\textbf{B}\) is generated not only by currents, but also by changing electric fields.
-    </p>
+      <h2>Gauss's Laws (1830s-1845)</h2>
+      <p>Gauss's Law for electricity in differential form:</p>
+      <div class="math-display">
+        \[ \nabla \cdot \textbf{E} = \frac{\rho}{\epsilon_0} \]
+      </div>
+      <p>And Gauss's Law for Magnetism, stating there are no magnetic monopoles:</p>
+      <div class="math-display">
+        \[ \nabla \cdot \textbf{B} = 0 \]
+      </div>
 
-    <p>
-        In differential form, using the speed of light \(c\), the Ampère-Maxwell Law can be expressed as:
-    </p>
-    <div class="math-block">
-        \[
-            \nabla \times \textbf{B} = \mu_0 \textbf{J} + \frac{1}{c^2} \frac{\partial \textbf{E}}{\partial t}
-        \]
-    </div>
-    <p>
-        This shows that the curl of the magnetic field at a point depends both on the current density \(\textbf{J}\) 
-        and the rate of change of the electric field \(\textbf{E}\). Using \(1/c^2\) instead of \(\mu_0 \epsilon_0\) 
-        is often more convenient in relativity and highlights the connection to the speed of light. 
-        Intuitively, a changing electric field generates a magnetic field, which can generate a changing electric field, 
-        allowing electromagnetic waves to propagate through space.
-    </p>
+      <h2>Faraday's Law of Induction (1831)</h2>
+      <p>A changing magnetic field induces a circulating electric field:</p>
+      <div class="math-display">
+        \[ \nabla \times \textbf{E} = -\frac{\partial \textbf{B}}{\partial t} \]
+      </div>
 
-    <h2>Maxwell's Synthesis (1860s)</h2>
-    <p>
-        Maxwell then compiled the four laws into a unified system of PDEs. Later, Oliver Heaviside reformulated them in the vector 
-        notation we use today. This system can be seen below.
-    </p>
-    <div class="math-block">
-      \[
-      \begin{align}
-      \nabla \cdot \textbf{E} &= \frac{\rho}{\epsilon_0} \\\\
-      \nabla \cdot \textbf{B} &= 0 \\\\
-      \nabla \times \textbf{E} &= -\frac{\partial \textbf{B}}{\partial t} \\\\
-      \nabla \times \textbf{B} &= \mu_0 \textbf{J} + \frac{1}{c^2}\frac{\partial \textbf{E}}{\partial t}
-      \end{align}
-      \]
-    </div>
-    <p>Again, I will very briefly say what the qualitative consequence of 
-      each law is. 
-    </p>
-    <div class="math-block">\[
-      \nabla \cdot \textbf{E} = \frac{\rho}{\epsilon_0}\]
-    </div>
-    <p>This law tells us that only charged particles contribute to 
-      the electric field and that their contribution is proportional to
-      its charge density.
-    </p>
-        <div class="math-block">\[
-      \nabla \cdot \textbf{B} = 0\]
-    </div>
-    <p>This law tells us that magnetic field lines form closed loops 
-      and there can never be a source or sink in the magnetic field.
-    </p>
-      <div class="math-block">\[
-      \nabla \times \textbf{E} = -\frac{\partial \textbf{B}}{\partial t}\]
-    </div>
-    <p>This tells us how a changing magnetic field induces an electric field.</p>
+      <h2>Ampère-Maxwell Law (1861-1862)</h2>
+      <p>Maxwell extended Ampère's Law to include the displacement current:</p>
+      <div class="math-display">
+        \[ \nabla \times \textbf{B} = \mu_0 \textbf{J} + \frac{1}{c^2} \frac{\partial \textbf{E}}{\partial t} \]
+      </div>
 
-    <div class="math-block">\[
-      \nabla \times \textbf{B} = \mu_0 \textbf{J} + \frac{1}{c^2}\frac{\partial \textbf{E}}{\partial t}\]
-    </div>
-    <p>
-      Finally, this tells us that a changing electric field induces a magnetic field.
-    </p>
+      <h2>Maxwell's Synthesis (1860s)</h2>
+      <div class="archive-box">
+        <div class="math-display">
+          \[
+          \begin{aligned}
+          \nabla \cdot \textbf{E} &= \frac{\rho}{\epsilon_0} \\
+          \nabla \cdot \textbf{B} &= 0 \\
+          \nabla \times \textbf{E} &= -\frac{\partial \textbf{B}}{\partial t} \\
+          \nabla \times \textbf{B} &= \mu_0 \textbf{J} + \frac{1}{c^2}\frac{\partial \textbf{E}}{\partial t}
+          \end{aligned}
+          \]
+        </div>
+      </div>
 
-    <h2>Light</h2>
-    <p>Start with Maxwell's equations in free space (vacuum, no charges \(\rho=0\) and no currents \(\mathbf{J}=0\)), in SI units:</p>
+      <h2>Light</h2>
+      <p>In free space, these equations lead to the electromagnetic wave equation:</p>
+      <div class="math-display">
+        \[ \nabla^2\mathbf{E} - \frac{1}{c^2}\frac{\partial^2\mathbf{E}}{\partial t^2} = 0 \]
+      </div>
+      <p>This confirms that disturbances in the electromagnetic field propagate as waves at speed \(c\).</p>
+    </section>
 
-    <div class="math-block">\[
-    \nabla\cdot\mathbf{E}=0,\qquad
-    \nabla\cdot\mathbf{B}=0,
-    \]</div>
-    <div class="math-block">\[
-    \nabla\times\mathbf{E}=-\frac{\partial\mathbf{B}}{\partial t},\qquad
-    \nabla\times\mathbf{B}=\mu_0\varepsilon_0\frac{\partial\mathbf{E}}{\partial t}.
-    \]</div>
-
-    <p>Take the curl of Faraday's law \(\nabla\times\mathbf{E}=-\partial_t\mathbf{B}\):</p>
-
-    <div class="math-block">\[
-    \nabla\times(\nabla\times\mathbf{E}) = -\frac{\partial}{\partial t}(\nabla\times\mathbf{B}).
-    \]</div>
-
-    <p>Use the vector identity \(\nabla\times(\nabla\times\mathbf{E})=\nabla(\nabla\cdot\mathbf{E})-\nabla^2\mathbf{E}\).
-    Because \(\nabla\cdot\mathbf{E}=0\) in free space this simplifies to \(-\nabla^2\mathbf{E}\). Substitute the Maxwell–Ampère law for \(\nabla\times\mathbf{B}\):</p>
-
-    <div class="math-block">\[
-    -\nabla^2\mathbf{E} \;=\; -\frac{\partial}{\partial t}\!\Big(\mu_0\varepsilon_0\frac{\partial\mathbf{E}}{\partial t}\Big)
-    \;=\; -\mu_0\varepsilon_0\frac{\partial^2\mathbf{E}}{\partial t^2}.
-    \]</div>
-
-    <p>Cancel the minus signs to obtain the wave equation for the electric field:</p>
-
-    <div class="math-block">\[
-    \nabla^2\mathbf{E} - \mu_0\varepsilon_0\frac{\partial^2\mathbf{E}}{\partial t^2} = 0.
-    \]</div>
-
-    <p>Define the speed of light in vacuum \(c\) by \(c^2 = \tfrac{1}{\mu_0\varepsilon_0}\). Then the equation becomes the familiar form:</p>
-
-    <div class="math-block">\[
-    \nabla^2\mathbf{E} - \frac{1}{c^2}\frac{\partial^2\mathbf{E}}{\partial t^2} = 0.
-    \]</div>
-
-    <p>An identical reasoning (take the curl of Maxwell–Ampère and use Faraday's law) yields the wave equation for the magnetic field:</p>
-
-    <div class="math-block">\[
-    \nabla^2\mathbf{B} - \frac{1}{c^2}\frac{\partial^2\mathbf{B}}{\partial t^2} = 0.
-    \]</div>
-
-    <p>Thus disturbances in the electromagnetic field propagate as waves with speed \(c\). This is the mathematical statement that light is electromagnetic radiation.</p>
-        
-
-
-
+    <section class="archive-section" style="display: flex; gap: 15px; justify-content: center;">
+      <a href="../physicsHome.html" class="btn-outline">← Physics Home</a>
+      <a href="../../../../notes/notesHome.html" class="btn-outline">Knowledge Base</a>
+    </section>
   </main>
 
   <script defer src="monopole.js"></script>
@@ -470,9 +180,8 @@
   <script defer src="ampere.js"></script>
 
   <footer>
-    © <span id="year"></span> Notes · E&M
+    <p>&copy; 2026 Nasser Mohammed</p>
   </footer>
-
 
 </body>
 </html>

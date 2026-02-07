@@ -1,107 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../../../styles.css" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Statistical Mechanics Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Statistical Mechanics | Nasser Mohammed</title>
 
-  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         processEscapes: true,
-        tags: 'none'
+        tags: 'ams'
       },
       options: { renderActions: { addMenu: [] } }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Shared Styles -->
-  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="site">
-    <a href="../index.html" class="back">← Back</a>
-    <h1 class="title">Statistical Mechanics and Thermodynamics</h1>
-  </header>
+<body class="dark-theme">
 
-  <main>
-  <p>
-    Thermodynamics describes the macroscopic behavior of physical systems in terms of quantities
-    such as energy, temperature, entropy, and pressure. Its laws are empirical and surprisingly
-    universal, applying across a wide range of physical systems without reference to microscopic
-    details. Statistical mechanics provides the theoretical framework that connects these
-    macroscopic laws to the underlying dynamics of many-particle systems.
-  </p>
+  <nav class="glass-nav">
+    <div class="nav-links">
+      <a href="../../../../index.html">Home</a>
+      <a href="../../../../simulations/simulationsHome.html">Simulations</a>
+      <a href="../../../../notes/notesHome.html" class="active">Knowledge Base</a>
+      <a href="../../../../art/artHome.html">Math Art</a>
+      <a href="../../../../pets/petsHome.html">Pets</a>
+    </div>
+  </nav>
 
-  <p>
-    At the microscopic level, a system is described by a large number of degrees of freedom evolving
-    according to classical or quantum mechanics. Rather than tracking individual trajectories,
-    statistical mechanics characterizes the system through probability distributions on phase
-    space, allowing macroscopic observables to be defined as ensemble averages.
-  </p>
+  <main class="container">
+    <header class="hero-section">
+      <h1>Statistical Mechanics and Thermodynamics</h1>
+      <p class="subtitle">Microscopic Ensembles and Macroscopic Emergence</p>
+      <hr class="subtle-hr">
+    </header>
 
-  <h2>Microstates, Macrostates, and Ensembles</h2>
+    <section class="bio-text">
+      <p>
+        Thermodynamics describes the macroscopic behavior of physical systems in terms of quantities
+        such as energy, temperature, entropy, and pressure. Its laws are empirical and surprisingly
+        universal, applying across a wide range of physical systems without reference to microscopic
+        details. Statistical mechanics provides the theoretical framework that connects these
+        macroscopic laws to the underlying dynamics of many-particle systems.
+      </p>
 
-  <p>
-    A <em>microstate</em> specifies the complete microscopic configuration of a system, while a
-    <em>macrostate</em> is defined by a small number of macroscopic variables such as total energy,
-    volume, and particle number. Many distinct microstates may correspond to the same macrostate.
-  </p>
+      <p>
+        At the microscopic level, a system is described by a large number of degrees of freedom evolving
+        according to classical or quantum mechanics. Rather than tracking individual trajectories,
+        statistical mechanics characterizes the system through probability distributions on phase
+        space, allowing macroscopic observables to be defined as ensemble averages.
+      </p>
 
-  <p>
-    To relate microscopic dynamics to macroscopic behavior, statistical mechanics introduces
-    ensembles, which are probability distributions over microstates consistent with specified
-    macroscopic constraints. Common examples include the microcanonical, canonical, and grand
-    canonical ensembles.
-  </p>
+      <h2>Microstates, Macrostates, and Ensembles</h2>
+      
+      <p>
+        A <em>microstate</em> specifies the complete microscopic configuration of a system, while a
+        <em>macrostate</em> is defined by a small number of macroscopic variables such as total energy,
+        volume, and particle number. Many distinct microstates may correspond to the same macrostate.
+      </p>
 
-  <h2>Entropy and the Second Law</h2>
+      <p>
+        To relate microscopic dynamics to macroscopic behavior, statistical mechanics introduces
+        ensembles, which are probability distributions over microstates consistent with specified
+        macroscopic constraints. Common examples include the microcanonical, canonical, and grand
+        canonical ensembles.
+      </p>
 
-  <p>
-    In statistical mechanics, entropy is interpreted as a measure of the number of microscopic
-    configurations compatible with a given macrostate. For a discrete set of microstates with
-    probabilities \(p_i\), the entropy is given by
-  </p>
+      <h2>The Partition Function</h2>
+      <p>
+        The bridge between the microscopic energy levels and macroscopic thermodynamics is the 
+        <strong>partition function</strong>, \(Z\). For a system in a canonical ensemble (constant temperature \(T\)), 
+        it is defined as the sum over all possible microstates \(s\):
+      </p>
+      
+      <div class="math-display">
+      \[
+        Z = \sum_s e^{-\beta E_s}, \quad \beta = \frac{1}{k_B T}
+      \]
+      </div>
 
-  <div class="math-block">
-  \[
-    S = -k_B \sum_i p_i \ln p_i.
-  \]
-  </div>
+      <p>
+        The partition function is remarkably powerful because all thermodynamic variables can be derived 
+        from it through differentiation. For example, the average internal energy \(\langle E \rangle\) is:
+      </p>
 
-  <p>
-    This statistical definition provides a microscopic explanation for the second law of
-    thermodynamics: macroscopic systems evolve toward states with higher entropy because such states
-    correspond to overwhelmingly many microscopic configurations.
-  </p>
+      <div class="math-display">
+      \[
+        \langle E \rangle = -\frac{\partial}{\partial \beta} \ln Z
+      \]
+      </div>
 
-  <h2>Thermodynamics as a Macroscopic Theory</h2>
+      <h2>Entropy and the Second Law</h2>
 
-  <p>
-    Thermodynamics emerges as a closed, macroscopic description in which detailed microscopic
-    information is no longer required. Its laws impose constraints on energy exchange, work, heat,
-    and entropy production, and they place fundamental limits on efficiency and achievable
-    performance.
-  </p>
+      <p>
+        In statistical mechanics, entropy is interpreted as a measure of the number of microscopic
+        configurations compatible with a given macrostate. For a discrete set of microstates with
+        probabilities \(p_i\), the entropy is given by
+      </p>
 
-  <p>
-    From an engineering perspective, thermodynamics functions as a constraint theory rather than a
-    dynamical one. It determines what processes are possible, what losses are unavoidable, and what
-    performance limits cannot be exceeded, regardless of the specific mechanisms involved.
-  </p>
+      <div class="math-display">
+      \[
+        S = -k_B \sum_i p_i \ln p_i.
+      \]
+      </div>
 
-  <p>
-    Together, statistical mechanics and thermodynamics provide a bridge between microscopic dynamics
-    and macroscopic behavior, linking Hamiltonian evolution at the particle level to emergent laws
-    governing energy, irreversibility, and equilibrium.
-  </p>
-</main>
+      <p>
+        This statistical definition provides a microscopic explanation for the second law of
+        thermodynamics: macroscopic systems evolve toward states with higher entropy because such states
+        correspond to overwhelmingly many microscopic configurations.
+      </p>
 
+      <h2>Thermodynamics as a Macroscopic Theory</h2>
 
+      <p>
+        Thermodynamics emerges as a closed, macroscopic description in which detailed microscopic
+        information is no longer required. Its laws impose constraints on energy exchange, work, heat,
+        and entropy production, and they place fundamental limits on efficiency and achievable
+        performance.
+      </p>
+
+      <p>
+        From an engineering perspective, thermodynamics functions as a constraint theory rather than a
+        dynamical one. It determines what processes are possible, what losses are unavoidable, and what
+        performance limits cannot be exceeded, regardless of the specific mechanisms involved.
+      </p>
+
+      <p>
+        Together, statistical mechanics and thermodynamics provide a bridge between microscopic dynamics
+        and macroscopic behavior, linking Hamiltonian evolution at the particle level to emergent laws
+        governing energy, irreversibility, and equilibrium.
+      </p>
+    </section>
+
+    <section class="archive-section" style="display: flex; gap: 15px; justify-content: center;">
+      <a href="../physicsHome.html" class="btn-outline">← Physics Home</a>
+      <a href="../../../../notes/notesHome.html" class="btn-outline">Knowledge Base</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Nasser Mohammed</p>
+  </footer>
 
 </body>
 </html>
