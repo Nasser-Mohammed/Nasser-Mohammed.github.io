@@ -387,7 +387,6 @@ function createPlanet(radius, color, frame) {
     })
   );
 
-  mesh.position.set(0, 0, 0);
   frame.add(mesh);
   return mesh;
 }
@@ -422,66 +421,25 @@ function createMoon(radius, color, orbitRadius, orbitSpeed, inclination = 0) {
 
 
 function createEarthMesh(radius) {
-  const geometry = new THREE.SphereGeometry(radius, 128, 128);
+  const loader = new THREE.TextureLoader();
+  
+  // High-res texture paths
+  const earthTexture = loader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
+  const earthBump = loader.load('https://threejs.org/examples/textures/planets/earth_normal_2048.jpg');
+  const earthSpecular = loader.load('https://threejs.org/examples/textures/planets/earth_specular_2048.jpg');
 
-  const colors = [];
-  const pos = geometry.attributes.position;
-
-  const ocean = new THREE.Color(0x1e5cb3);
-  const land  = new THREE.Color(0x2e7d32);
-  const sand  = new THREE.Color(0x8d6e3f);
-  const ice   = new THREE.Color(0xffffff);
-
-  for (let i = 0; i < pos.count; i++) {
-    const x = pos.getX(i);
-    const y = pos.getY(i);
-    const z = pos.getZ(i);
-
-    const lat = y / radius; // -1 (south) to +1 (north)
-
-    let color;
-
-    // Antarctica (south polar cap)
-    if (lat < -0.85) {
-      color = ice;
-    }
-    // Arctic ice (lighter)
-    // else if (lat > 0.8) {
-    //   color = ocean.clone().lerp(ice, 0.4);
-    // }
-    // Mid-latitudes: land vs ocean
-    else {
-      // pseudo-noise from position (cheap and stable)
-      const noise =
-        Math.sin(x * 3.1) +
-        Math.sin(z * 2.7) +
-        Math.sin(y * 1.9);
-
-      if (noise > 0.6) {
-        color = land;
-      } else if (noise > 0.2) {
-        color = land.clone().lerp(sand, 0.4);
-      } else {
-        color = ocean;
-      }
-    }
-
-    colors.push(color.r, color.g, color.b);
-  }
-
-  geometry.setAttribute(
-    "color",
-    new THREE.Float32BufferAttribute(colors, 3)
-  );
-
+  const geometry = new THREE.SphereGeometry(radius, 64, 64);
+  
   const material = new THREE.MeshStandardMaterial({
-    vertexColors: true,
-    roughness: 0.7,
-    metalness: 0.0
+    map: earthTexture,
+    normalMap: earthBump,
+    normalScale: new THREE.Vector2(0.5, 0.5),
+    specularMap: earthSpecular,
+    roughness: 0.8, // Land stays matte
+    metalness: 0.1  // Water gets a slight metallic sheen
   });
 
   const earth = new THREE.Mesh(geometry, material);
-
   return earth;
 }
 
