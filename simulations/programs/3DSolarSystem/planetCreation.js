@@ -426,7 +426,6 @@ function createEarthMesh(radius) {
   // High-res texture paths
   const earthTexture = loader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
   const earthBump = loader.load('https://threejs.org/examples/textures/planets/earth_normal_2048.jpg');
-  const earthSpecular = loader.load('https://threejs.org/examples/textures/planets/earth_specular_2048.jpg');
 
   const geometry = new THREE.SphereGeometry(radius, 64, 64);
   
@@ -434,7 +433,6 @@ function createEarthMesh(radius) {
     map: earthTexture,
     normalMap: earthBump,
     normalScale: new THREE.Vector2(0.5, 0.5),
-    specularMap: earthSpecular,
     roughness: 0.8, // Land stays matte
     metalness: 0.1  // Water gets a slight metallic sheen
   });
