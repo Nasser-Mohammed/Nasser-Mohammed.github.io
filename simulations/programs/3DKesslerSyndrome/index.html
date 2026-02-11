@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kessler Syndrome Repair Simulator</title>
+
+  <!-- Responsive viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+    "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+    }
+    </script>
+
+</head>
+<body>
+
+  <!-- Control Bar -->
+  <div id="control-bar">
+    <div class="controls-left">
+      <span class="title">Kessler Syndrome Repair Simulator</span>
+    </div>
+
+    <div class="controls-center">
+      <button id="startBtn">Pause</button>
+      <button id="resetBtn">Reset</button>
+      <label>
+        Camera View Mode
+        <select id="cameraView">
+          <option value="onboard">Surface/Onboard View</option>
+          <option value="body">Free View</option>
+        </select>
+      </label>
+
+    </div>
+
+    <div class="controls-right">
+      <button id="collapse-btn">⮝</button>
+    </div>
+  </div>
+
+    <div id="control-tab">Controls</div>
+
+
+  <!-- Canvas Container -->
+  <div id="canvas-container">
+    <canvas id="sim-canvas"></canvas>
+  </div>
+
+    <!-- Cockpit HUD -->
+    <div id="cockpit">
+
+      <!-- LEFT DISPLAY: Attitude -->
+      <div class="cockpit-screen left">
+    <div class="screen-title">ATTITUDE</div>
+
+    <div class="readout-row">
+      <span>ROLL RATE</span>
+      <span id="hud-roll-rate">0.00</span>
+    </div>
+
+    <button class="cockpit-btn" id="btn-stab">
+      CLICK [T] TO INITIALIZE ROLL STABILIZATION
+    </button>
+
+  </div>
+
+
+    <!-- RIGHT DISPLAY: Target -->
+  <div class="cockpit-screen right">
+    <div class="screen-title">TARGET</div>
+
+    <div class="readout-row">
+      <span>LOCK</span>
+      <span id="hud-target">NONE</span>
+    </div>
+
+    <div class="readout-row">
+      <span>DIST</span>
+      <span id="hud-target-dist">--</span>
+    </div>
+
+    <div class="readout-row">
+      <span>REL V</span>
+      <span id="hud-target-vel">--</span>
+    </div>
+
+    <div class="readout-row">
+      <span>ANTI-GRAV</span>
+      <span id="hud-antigrav">OFF</span>
+    </div>
+
+    <div class="readout-row">
+      <span>POS HOLD</span>
+      <span id="hud-poshold">OFF</span>
+    </div>
+
+    <div class="readout-row">
+  <span>CAPTURE</span>
+  <span id="hud-capture">NOT CAPTURED</span>
+  </div>
+
+  <div class="cockpit-btn" id="btn-sync">
+  <div id="sync-label">HOLD TO SYNC</div>
+  <div id="sync-bar-bg">
+    <div id="sync-bar"></div>
+  </div>
+</div>
+
+  <div class="cockpit-screen right" id="state-panel">
+
+  <div class="screen-title">STATE ESTIMATION</div>
+
+  <div class="readout-row">
+    <span>ROLL (TRUE)</span>
+    <span id="hud-roll-true">0.00</span>
+  </div>
+
+  <div class="readout-row">
+    <span>ROLL (EST)</span>
+    <span id="hud-roll-est">0.00</span>
+  </div>
+
+  <div class="readout-row">
+    <span>VEL | TRUE</span>
+    <span id="hud-vel-true">0.00</span>
+  </div>
+
+  <div class="readout-row">
+    <span>VEL | EST</span>
+    <span id="hud-vel-est">0.00</span>
+  </div>
+  <br>
+    <span>Error Graph</span><br>
+    <span>Blue: Roll Error</span><br>
+    <span>Orange: Velocity Error</span><br>
+    <span>Green: Position Error</span><br>
+    <span>Magenta: Relative Position Error</span>
+  <canvas id="estimator-graph" width="200" height="70"></canvas>
+
+</div>
+
+
+
+
+    <button class="cockpit-btn" id="btn-lock">
+      CLICK [L] TO LOCK TARGET
+    </button>
+  </div>
+
+    <div class="cockpit-screen left" id="controls-panel">
+
+    <div class="screen-title">CONTROLS</div>
+
+    <div class="readout-row">
+      <span>MODE</span>
+      <span id="hud-control-mode">FLIGHT</span>
+    </div>
+
+    <div id="controls-content" style="margin-top:8px; font-size:10px; line-height:1.4;">
+      <!-- Filled dynamically -->
+    </div>
+
+  </div>
+
+  </div> <!-- End of cockpit -->
+
+
+  <!--  main logic -->
+ <script type="module" src="main.js"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Full page */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+/* Control Bar */
+#control-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 56px;
+  background: rgba(128, 123, 88, 0.95);
+  color: #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  z-index: 10;
+  transition: transform 0.25s ease;
+  border-bottom: 1px solid #333;
+}
+
+
+
+/* Control sections */
+.controls-left,
+.controls-center,
+.controls-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.controls-center {
+  gap: 16px;
+}
+
+.title {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Buttons */
+button {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: #eaeaea;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #3a3a3a;
+}
+
+/* Select */
+select {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: #eaeaea;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+/* Canvas container */
+#canvas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Canvas */
+#sim-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#control-tab {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20, 20, 20, 0.95);
+  color: #eaeaea;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 0 0 6px 6px;
+  border: 1px solid #333;
+  border-top: none;
+  cursor: pointer;
+  z-index: 11;
+  display: none;
+}
+
+
+#control-tab.visible {
+  display: block;
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+
+
+/* ================================
+   GLOBAL RESET (safe)
+================================ */
+* {
+  box-sizing: border-box;
+}
+
+
+/* ================================
+   COCKPIT HUD
+================================ */
+
+#cockpit {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  font-family: "Courier New", monospace;
+}
+
+/* Generic screen */
+.cockpit-screen {
+  position: absolute;
+  width: 220px;
+  padding: 12px;
+
+  background: rgba(8, 12, 16, 0.85);
+  border: 1px solid rgba(120, 160, 200, 0.25);
+  backdrop-filter: blur(6px);
+
+  color: #9fd3ff;
+  font-size: 11px;
+
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
+}
+
+/* Left & right placement */
+.cockpit-screen.left {
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cockpit-screen.right {
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Titles */
+.screen-title {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #6aa8ff;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Readout rows */
+.readout-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.readout-row span:last-child {
+  color: #eaeaea;
+}
+
+/* ================================
+   COCKPIT BUTTONS
+================================ */
+
+.cockpit-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 6px 0;
+
+  background: rgba(20, 30, 40, 0.9);
+  border: 1px solid rgba(120, 160, 200, 0.4);
+
+  color: #9fd3ff;
+  font-size: 10px;
+  letter-spacing: 1px;
+
+  pointer-events: none; /* IMPORTANT */
+}
+
+
+.cockpit-btn:hover {
+  background: rgba(40, 60, 80, 0.9);
+}
+
+.cockpit-btn.active {
+  background: rgba(60, 120, 180, 0.9);
+  border-color: #9fd3ff;
+  color: #ffffff;
+}
+
+#btn-sync {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+#sync-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.15);
+  margin-top: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+#sync-bar {
+  width: 0%;
+  height: 100%;
+  background: #ffaa33;
+  transition: width 0.05s linear;
+}
+
+#controls-panel {
+  left: 24px;
+  top: calc(50% + 180px);
+  transform: translateY(-50%);
+  width: 220px;
+}
+
+#state-panel {
+  right: 0px;
+  top: 100%;
+  transform: translateY(5%);
+  width: 220px;
+}
