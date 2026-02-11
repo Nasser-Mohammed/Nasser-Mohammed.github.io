@@ -2,7 +2,13 @@
 This is a personal website, where I hold simulations, programs, notes, and more. You can access it [here](https//nasser-mohammed.github.io/index.html). On my home page is basic info and contact info. My simulations page has over 20 different simulations, all of which model things with differential equations. My current favorite simulation is my [3D Phase Space Simulation](https://nasser-mohammed.github.io/simulations/programs/3D%20Phase%20Space/index.html), which you can also learn more about on its [github page](https://github.com/Nasser-Mohammed/3D-Phase-Space). On the math art page you will find several videos and images that are all derived from my simulations, and are visually appealing (to me). My CV page is straightforward. My notes page is where I post notes on various math (and potentially other) topics. These are supposed to be informative and helpful to the reader. However, the process of rewriting the notes and hosting them here has also helped my understanding of the topics. Finally, the pets page is just a page dedicated to the inspirations (family and friend's pets) of the animated images I use on my website and in my simulations. 
 
 ### Example Simulations
+3D Satellite ADCS Simulation
 ![Satellite Simulation](https://nasser-mohammed.github.io/images/3dSatSim.png)  
+Contains our solar system with all planets, and notable moons. Attitude control for nadir pointing satellites with limited energy. Includes 3 different satellite orbits: equatorial LEO, inclined LEO, and equatorial GEO.
+
+Saturn Ring Navigation
+![Saturn Simulation](https://nasser-mohammed.github.io/images/saturnSim.png) 
+Control barrier functions and reference governors for debris avoidance.
 
 ### Math Art Examples
  I have all of the following images and videos hosted on my math art page on my [website](https://nasser-mohammed.github.io/art/index.html). All of the following were generated with my [3D Phase Space Simulation](https://nasser-mohammed.github.io/simulations/programs/3D%20Phase%20Space/index.html).    
